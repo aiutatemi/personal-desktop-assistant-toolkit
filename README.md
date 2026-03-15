@@ -202,3 +202,9 @@ _dati/
 
 MIT
 ```
+
+---
+
+### 👤 Author
+**[Emanuele Cassani](https://www.steppa.net/cassani/business_cardENG.htm)**  
+Creator and maintainer of the Personal Desktop Assistant Toolkit.
