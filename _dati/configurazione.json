@@ -1,0 +1,48 @@
+{
+  "nome_avatar": "Assistente",
+  "nome_utente": "utente",
+  "avatar_iniziale": "benvenuto",
+  "avatar_random": [    "sorridente",    "soddisfatto"  ],
+  "avatar_finale": "ciao.mp4",
+  "frase_finale": "Ci vediamo presto!",
+  "lingua": "it",
+  "alias_comandi": {    "dammi": [      "dimmi"    ],
+    "apri": [      "lancia"    ],
+    "aiuto": [      "help"    ],
+    "esci": [      "chiudi",      "arrivederci"    ],
+    "ricorda": [      "registra"    ],
+    "modifica": [      "cambia"    ],
+    "elimina": [      "cancella"    ],
+    "cerca": [],
+    "impara": [],
+    "elenca": [],
+    "copia": []
+  },
+  "risposte_fisse": {
+    "grazie": "Prego {nome_utente}!",
+    "ciao": "Ciao {nome_utente}!",
+    "come stai": "Io sto benissimo, grazie!"
+  },
+  "shortcut": [
+    {
+      "etichetta": "Ho capito",
+      "comando": "ok"
+    },
+    {
+      "etichetta": "Estratto conto",
+      "comando": "apri estratto conto"
+    },
+    {
+      "etichetta": "Mail",
+      "comando": "apri posta"
+    },
+    {
+      "etichetta": "Browser",
+      "comando": "apri web"
+    },
+    {
+      "etichetta": "Autore",
+      "comando": "Emanuele Cassani"
+    }
+  ]
+}

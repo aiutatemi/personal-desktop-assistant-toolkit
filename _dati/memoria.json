@@ -1,0 +1,106 @@
+[
+  {
+    "nome": "configurazione.json",
+    "alias": "configuration file",
+    "soggetto": "",
+    "dati": "file di esempio modificabile",
+    "tag": "informazioni",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "Codice fiscale",
+    "alias": "cf",
+    "soggetto": "nome utente",
+    "dati": "esempio salvataggio dati in memoria",
+    "tag": "esempio, informazioni",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "estratto conto",
+    "alias": "ec",
+    "soggetto": "esempio foglio calcolo apribile",
+    "dati": "C:\\Documenti\\excel\\EstrattoConto.ods",
+    "tag": "esempio, foglio di calcolo",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "Python",
+    "alias": "progetti",
+    "soggetto": "Link a cartella",
+    "dati": "C:\\Python\\Progetti\\",
+    "tag": "esempio, cartella",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "racconti",
+    "alias": "tutti",
+    "soggetto": "Link ai racconti",
+    "dati": "D:\\Scrittura\\1narrativa\\1racconti\\85racconti-ePUB3.epub",
+    "tag": "esempio, epub",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "Calibre",
+    "alias": "biblioteca",
+    "soggetto": "Link apribile",
+    "dati": "C:\\Program Files\\Calibre2\\calibre.exe",
+    "tag": "esempio, Programma",
+    "avatar": "bibliotecaria"
+  },
+  {
+    "nome": "Mail",
+    "alias": "posta",
+    "soggetto": "Link apribile",
+    "dati": "C:\\ProgramFile\\mail\\ThunderbirdPortable.exe",
+    "tag": "esempio, Programma",
+    "avatar": "bibliotecaria"
+  },
+  {
+    "nome": "browser",
+    "alias": "web",
+    "soggetto": "Link apribile",
+    "dati": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    "tag": "esempio, Programma",
+    "avatar": "bibliotecaria"
+  },
+  {
+    "nome": "Cose da fare",
+    "alias": "todo",
+    "soggetto": "miniApp apribile",
+    "dati": "https://www.steppa.net/cassani/articoli/tool/todo/todo.html",
+    "tag": "miniApp",
+    "avatar": "agenda"
+  },
+  {
+    "nome": "Agendina",
+    "alias": "agenda",
+    "soggetto": "miniApp apribile",
+    "dati": "https://www.steppa.net/cassani/articoli/tool/agendina/agendina.html",
+    "tag": "miniApp",
+    "avatar": "agenda"
+  },
+  {
+    "nome": "Taccuino",
+    "alias": "moleskine",
+    "soggetto": "miniApp apribile",
+    "dati": "https://www.steppa.net/cassani/articoli/tool/taccuino/taccuinoVOCALE.html",
+    "tag": "miniApp",
+    "avatar": "scrittrice"
+  },
+  {
+    "nome": "Note",
+    "alias": "postit",
+    "soggetto": "Link apribile",
+    "dati": "https://www.steppa.net/cassani/articoli/tool/note/noteVOCALE.html",
+    "tag": "miniApp",
+    "avatar": "scrittrice"
+  },
+  {
+    "nome": "Autore",
+    "alias": "author",
+    "soggetto": "Autore del programma: Emanuele Cassani",
+    "dati": "https://www.steppa.net/cassani/business_card.htm",
+    "tag": "Business card",
+    "avatar": "agenda"
+  }
+]
