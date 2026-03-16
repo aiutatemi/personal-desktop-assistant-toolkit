@@ -10,7 +10,7 @@ Built with Python and Tkinter, it runs on **Windows** (full features) and
 
 ## 📘 Documentation
 Access the full documentation (ENG/ITA) here:  
-👉 **[Open Documentation](docs/index.html?plain=0)**
+👉 **[Open Documentation](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
 
 ---
 
