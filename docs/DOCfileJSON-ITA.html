@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Manuale configurazione file .json Assistente (Italiano)</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="index.html">🏠 Home</a>
+    <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+<br/>
+    <a href="DOCfileJSON-ENG.html">🇬🇧 English</a>
+    <a href="DOCfileJSON-ITA.html">🇮🇹 Italiano</a>
+<br/>
+    <a href="#config-utente">1. Configurare utente e avatar</a>
+    <a href="#alias">2. Alias dei comandi</a>
+    <a href="#utilizzo">Utilizzo dei comandi</a>
+    <a href="#risposte">3. Risposte fisse</a>
+    <a href="#shortcut">4. Abbreviazioni</a>
+    <a href="#memoria">5. Memorizzare dati</a>
+    <a href="#file">6. Aprire file</a>
+    <a href="#programmi">7. Lanciare programmi</a>
+    <a href="#web">8. Aprire pagine web</a>
+    <a href="#note">Note generali</a>
+    <a href="#struttura">Struttura cartelle</a>
+    <a href="#lingua">Aggiungere una nuova lingua</a>
+</div>
+
+<!-- Main content -->
+<div class="content">
+
+<h1 id="config-utente">Manuale configurazione file .json Assistente</h1>
+<p>Aggiornato alla release 2.2</p>
+
+<p>Pagina web <a href="https://www.steppa.net/cassani/articoli/assistente/assistente.htm">Assistente desktop personale</a><br/>
+Scarica il programma dal <a href="https://gitlab.com/EmanueleCAS/assistente">Progetto GitLab</a>
+</p>
+
+<h2>1️⃣ Configurare utente e avatar</h2>
+
+<p>Aprire il file:</p>
+<p><b>📁 _dati/configurazione.json</b></p>
+
+<pre>
+"nome_avatar": "Alice",
+"nome_utente": "Emanuele",
+"avatar_iniziale": "benvenuto",
+"avatar_random": [ "sorridente", "soddisfatto" ],
+"avatar_finale": "ciao.mp4",
+"frase_finale": "Ci vediamo presto!",
+"lingua": "it"
+</pre>
+
+<p>È consigliato personalizzare il nome dell’assistente e il vostro nome.</p>
+
+<p><b>Esempio:</b><br>
+Se non lo fate, l’assistente dirà: <code>"Ciao utente"</code>.</p>
+
+<p>Tutte le immagini dell’avatar e il video sono modificabili nella cartella:</p>
+<p><b>📁 _dati/asset/avatar/</b></p>
+
+<p>Il campo <code>lingua</code> indica la lingua iniziale.<br>
+L’assistente rileva automaticamente tutte le lingue presenti nella cartella <b>_dati</b>.</p>
+
+<ul>
+<li>lang_it.json</li>
+<li>lang_en.json</li>
+</ul>
+
+<h2 id="alias">2️⃣ Alias dei comandi</h2>
+
+<p>Configurabili nel file:</p>
+<p><b>📁 _dati/configurazione.json</b></p>
+
+<pre>"dammi": [ "ricordami" ]</pre>
+
+<p>Se non serve un alias, lasciate vuoto:</p>
+<pre>"copia": []</pre>
+
+<h3>Lista comandi con alias</h3>
+
+<pre>
+"alias_comandi": {
+  "dammi": [ "ricorda" ],
+  "apri": [ "lancia" ],
+  "aiuto": [ "help" ],
+  "esci": [ "chiudi", "arrivederci" ],
+  "ricorda": [ "registra" ],
+  "modifica": [ "cambia" ],
+  "elimina": [ "cancella" ],
+  "cerca": [],
+  "impara": [],
+  "elenca": [],
+  "copia": []
+}
+</pre>
+
+<h2 id="utilizzo">📜 Comandi disponibili</h2>
+
+<table>
+<tr><td><code>dammi &lt;nome&gt;</code></td><td>Recupera un dato</td></tr>
+<tr><td><code>apri &lt;nome&gt;</code></td><td>Apre file, link o programma</td></tr>
+<tr><td><code>cerca &lt;query&gt;</code></td><td>Cerca nella memoria</td></tr>
+<tr><td><code>elenca</code></td><td>Mostra tutte le voci</td></tr>
+<tr><td><code>aiuto</code></td><td>Mostra i comandi</td></tr>
+<tr><td><code>esci</code></td><td>Chiude l'assistente</td></tr>
+
+<tr><td><code>GESTISCI MEMORIA</code></td><td></td></tr>
+<tr><td><code>impara</code></td><td>Inserimento guidato</td></tr>
+<tr><td><code>ricorda &lt;nome&gt; &lt;dati&gt;</code></td><td>Salva un'informazione</td></tr>
+<tr><td><code>ricorda immagine &lt;name&gt; &lt;data&gt;</code></td><td>Salva un'immagine</td></tr>
+<tr><td><code>modifica &lt;nome&gt;</code></td><td>Modifica una voce</td></tr>
+<tr><td><code>elimina &lt;nome&gt;</code></td><td>Cancella una voce</td></tr>
+<tr><td><code>copia &lt;nome&gt;</code></td><td>Copia negli appunti</td></tr>
+
+<tr><td><code>SHORTCUT</code></td><td></td></tr>
+<tr><td><em>Lista dei vostri shortcut personalizzati</em></td><td></td></tr>
+
+<tr><td><code>LINGUA</code></td><td></td></tr>
+<tr><td><code>lingua &lt;codice&gt;</code></td><td>Cambia lingua</td></tr>
+</table>
+
+<h2 id="risposte">3️⃣ Risposte fisse</h2>
+
+<pre>
+"risposte_fisse": {
+  "grazie": "Prego {nome_utente}!",
+  "ciao": "Ciao {nome_utente}!",
+  "come stai": "Io sto benissimo, grazie!"
+}
+</pre>
+
+<h2 id="shortcut">4️⃣ Abbreviazioni (pulsanti rapidi)</h2>
+
+<pre>
+"shortcut": [
+  {
+    "etichetta": "Mail",
+    "comando": "apri posta"
+  },
+  {
+    "etichetta": "Browser",
+    "comando": "apri web"
+  }
+]
+</pre>
+
+<h2 id="memoria">5️⃣ Memorizzare dati</h2>
+
+<pre>
+{
+ "nome": "codice fiscale",
+ "alias": "cf",
+ "soggetto": "Andrea",
+ "dati": "ANDRRS99A30L424X",
+ "tag": "informazioni",
+ "avatar": "magazziniere"
+}
+</pre>
+
+<h2 id="file">6️⃣ Aprire file o cartelle</h2>
+
+<pre>"dati": "D:\\Documenti\\excel\\estrattoUPDATED.ods"</pre>
+
+<h2 id="programmi">7️⃣ Lanciare programmi</h2>
+
+<pre>"dati": "D:\\mail\\ThunderbirdPortable.exe"</pre>
+
+<h2 id="web">8️⃣ Aprire pagine WEB</h2>
+
+<pre>"dati": "https://www.steppa.net/cassani/business_card.htm"</pre>
+
+<h2 id="note">⚠ Note generali</h2>
+
+<ul>
+<li>L'ultimo campo dentro { } e [] <b>non deve avere la virgola</b></li>
+<li>Tutti gli altri devono averla</li>
+</ul>
+
+<h2 id="struttura">📁 Struttura cartelle</h2>
+
+<pre>
+assistenteVOICE.py
+assistente.ico
+assistente.png
+
+_dati/
+  configurazione.json
+  memoria.json
+  memoria.json.bak
+  lang_it.json
+  lang_en.json
+
+  asset/
+    avatar/
+</pre>
+
+<h2 id="lingua">🌍 Aggiungere una nuova lingua</h2>
+
+<ol>
+<li>Copia <code>_dati/lang_en.json</code></li>
+<li>Rinomina ad esempio <code>lang_fr.json</code></li>
+<li>Traduci i valori ma <b>non le chiavi</b></li>
+<li>Imposta <code>lingua_stt</code></li>
+<li>Riavvia l'assistente</li>
+</ol>
+
+<footer>
+    <p align="right">Personal Desktop Assistant Toolkit</p>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="https://www.steppa.net/cassani">Sito web autore</a>
+        <div>&copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a></div>
+    </div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assistant .json Configuration Manual (English)</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="index.html">🏠 Home</a>
+    <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+<br/>
+    <a href="DOCfileJSON-ENG.html">🇬🇧 English</a>
+    <a href="DOCfileJSON-ITA.html">🇮🇹 Italiano</a>
+<br/>
+    <a href="#config-user">1. Configure user and avatar</a>
+    <a href="#aliases">2. Command aliases</a>
+    <a href="#usage">Command usage</a>
+    <a href="#fixed">3. Fixed responses</a>
+    <a href="#shortcut">4. Abbreviations</a>
+    <a href="#storage">5. Storing data</a>
+    <a href="#open-files">6. Opening files</a>
+    <a href="#launch">7. Launching programs</a>
+    <a href="#web">8. Opening web pages</a>
+    <a href="#notes">General notes</a>
+    <a href="#structure">Folder structure</a>
+    <a href="#language">Add a new language</a>
+</div>
+
+<!-- Main content -->
+<div class="content">
+
+<h1 id="config-user">Assistant .json Configuration Manual</h1>
+<p>Updated to release 2.2</p>
+
+<p>Web page <a href="https://www.steppa.net/cassani/articoli/assistente/assistente.htm">Personal desktop assistant</a><br/>
+Download the program from the <a href="https://gitlab.com/EmanueleCAS/assistente">GitLab project</a>
+</p>
+
+<h2>1️⃣ Configure user and avatar</h2>
+
+<p>Open the file:</p>
+<p><b>📁 _dati/configurazione.json</b></p>
+
+<pre>
+"nome_avatar": "Alice",
+"nome_utente": "Emanuele",
+"avatar_iniziale": "benvenuto",
+"avatar_random": [ "sorridente", "soddisfatto" ],
+"avatar_finale": "ciao.mp4",
+"frase_finale": "See you soon!",
+"lingua": "en"
+</pre>
+
+<p>It is recommended to customize the assistant name and your name.</p>
+
+<p><b>Example:</b><br>
+If you don’t, the assistant will say: <code>"Ciao utente"</code>.</p>
+
+<p>All avatar images and the video can be modified inside:</p>
+<p><b>📁 _dati/asset/avatar/</b></p>
+
+<p>The <code>lingua</code> field indicates the initial language.<br>
+The assistant automatically detects all languages present in the <b>_dati</b> folder.</p>
+
+<ul>
+<li>lang_it.json</li>
+<li>lang_en.json</li>
+</ul>
+
+<h2 id="aliases">2️⃣ Command aliases</h2>
+
+<p>Configurable in:</p>
+<p><b>📁 _dati/configurazione.json</b></p>
+
+<pre>"dammi": [ "recall" ]</pre>
+
+<p>If you don’t need an alias, leave it empty:</p>
+<pre>"copia": []</pre>
+
+<h3>List of commands with aliases</h3>
+
+<pre>
+"alias_comandi": {
+  "dammi": [ "ricorda" ],
+  "apri": [ "launch" ],
+  "aiuto": [ "help" ],
+  "esci": [ "close", "bye" ],
+  "ricorda": [ "record" ],
+  "modifica": [ "change" ],
+  "elimina": [ "erease" ],
+  "cerca": [],
+  "impara": [],
+  "elenca": [],
+  "copia": []
+}
+</pre>
+
+<h2 id="usage">📜 Availabe commands</h2>
+
+<table>
+<tr><th>Command</th><th>Description (lang_en.json)</th></tr>
+
+<tr><td><code>get &lt;name&gt;</code></td><td>Retrieves data</td></tr>
+<tr><td><code>open &lt;name&gt;</code></td><td>Opens file, link or program</td></tr>
+<tr><td><code>search &lt;query&gt;</code></td><td>Searches memory</td></tr>
+<tr><td><code>list memory</code></td><td>Shows all entries</td></tr>
+<tr><td><code>help</code></td><td>Shows commands</td></tr>
+<tr><td><code>exit</code></td><td>Closes the assistant</td></tr>
+<tr><td><code>MANAGE MEMORY</code></td><td></td></tr>
+<tr><td><code>learn</code></td><td>Guided input</td></tr>
+<tr><td><code>remember &lt;name&gt; &lt;data&gt;</code></td><td>Saves information</td></tr>
+<tr><td><code>remember imagine &lt;name&gt; &lt;data&gt;</code></td><td>Saves images</td></tr>
+
+<tr><td><code>edit &lt;name&gt;</code></td><td>Modifies an entry</td></tr>
+<tr><td><code>delete &lt;name&gt;</code></td><td>Deletes an entry</td></tr>
+<tr><td><code>copy &lt;name&gt;</code></td><td>Copies to clipboard</td></tr>
+
+<tr><td><code>SHORTCUT</code></td><td></td></tr>
+<tr><td><em>List of your personalized shortcut</em></td><td></td></tr>
+
+<tr><td><code>LANGUAGE</code></td><td></td></tr>
+<tr><td><code>language name &lt;code&gt;</code></td><td>Changes language</td></tr>
+</table>
+
+<h2 id="fixed">3️⃣ Fixed responses</h2>
+
+<pre>
+"risposte_fisse": {
+  "thanks": "You are welcome {nome_utente}!",
+  "ciao": "Ciao {nome_utente}!",
+  "How are you": "Fine, thanks!"
+}
+</pre>
+
+<h2 id="shortcut">4️⃣ Abbreviations (quick buttons)</h2>
+
+<pre>
+"shortcut": [
+  {
+    "etichetta": "Mail",
+    "comando": "apri posta"
+  },
+  {
+    "etichetta": "Browser",
+    "comando": "apri web"
+  }
+]
+</pre>
+
+<h2 id="storage">5️⃣ Storing data</h2>
+
+<pre>
+{
+ "nome": "Tax code",
+ "alias": "code",
+ "soggetto": "Andrea",
+ "dati": "ANDRRS99A30L424X",
+ "tag": "information",
+ "avatar": "magazziniere"
+}
+</pre>
+
+<h2 id="open-files">6️⃣ Opening files or folders</h2>
+
+<pre>"dati": "D:\\Documents\\excel\\fileUPDATED.ods"</pre>
+
+<h2 id="launch">7️⃣ Launching programs</h2>
+
+<pre>"dati": "D:\\mail\\ThunderbirdPortable.exe"</pre>
+
+<h2 id="web">8️⃣ Opening web pages</h2>
+
+<pre>"dati": "https://www.steppa.net/cassani/business_card.htm"</pre>
+
+<h2 id="notes">⚠ General notes</h2>
+
+<ul>
+<li>The last field inside { } and [] must not have a comma</li>
+<li>All others must have one</li>
+</ul>
+
+<h2 id="structure">📁 Folder structure</h2>
+
+<pre>
+assistenteVOICE.py
+assistente.ico
+assistente.png
+
+_dati/
+  configurazione.json
+  memoria.json
+  memoria.json.bak
+  lang_it.json
+  lang_en.json
+
+  asset/
+    avatar/
+</pre>
+
+<h2 id="language">🌍 Add a new language</h2>
+
+<ol>
+<li>Copy <code>_dati/lang_en.json</code></li>
+<li>Rename it (e.g. <code>lang_fr.json</code>)</li>
+<li>Translate values, not keys</li>
+<li>Set <code>lingua_stt</code></li>
+<li>Restart the assistant</li>
+</ol>
+
+<footer>
+    <p align="right">Personal Desktop Assistant Toolkit</p>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="https://www.steppa.net/cassani">Author’s website</a>
+        <div>&copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a></div>
+    </div>
+</footer>
+
+</div>
+</body>
+</html>

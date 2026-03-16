@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Desktop Assistant User Manual</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="index.html">🏠 Home</a>
+    <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+<br/>
+    <a href="UserManual-ENG.html">🇬🇧 English Manual</a>
+    <a href="UserManual-ITA.html">🇮🇹 Manuale italiano</a>
+<br/>
+    <!-- Internal sections -->
+    <a href="#install">Installation</a>
+    <a href="#screen">Screenshots</a>
+    <a href="#commands">Available Commands</a>
+</div>
+
+<div class="content">
+
+    <h1 id="title">Personal Desktop Assistant – User Manual</h1>
+    <p>Updated to release 2.2</p>
+
+    <h2 id="install">Installation</h2>
+<p>The Assistant application is portable and can be launched from the desktop or a USB drive:<br>
+Download all necessary files from the <a href="https://gitlab.com/EmanueleCAS/assistente">Assistant GitLab project repository</a><br>
+<strong>Windows</strong>: download and unzip <code>AssistenteVOICE_[last release].zip</code><br/>
+Run <code>assistente.exe</code><br/>
+<strong>Linux</strong>: download and unzip <code>AssistenteVOICE_[last release]_linux.zip</code><br>
+Run <code>assistente</code><br/>
+<strong>Python</strong>: download <code>assistenteVOICE_[last release].py</code><br/>
+Download the complete <code>_dati/</code> folder<br/>
+Make sure your Python installation has all required dependencies (see README)<br/>
+Place <code>assistenteVOICE_[last release].py</code> and the <code>_dati/</code> folder in the same directory<br/>
+Run <code>assistenteVOICE_[last release].py</code><br/>
+For customization of the default language and other parameters, please refer to the <a href="DOCfileJSON-ENG.html">Assistant .json Configuration Manual</a></p>
+
+    <h2 id="screen">Screenshots</h2>
+
+<p><strong>Welcome screen</strong></p>
+<img src="images/main.png" alt="main screen" width="50%"><br/>
+1) Area to enter commands. By pressing the microphone you can use voice commands<br/>
+2) Command buttons area. If you remember the commands, you can close this sidebar using the arrow at the bottom right, next to the speaker<br/>
+3) By clicking the arrow on the left of SHORTCUT, you can open/close your personalized shortcut commands (for configuration, please refer to the <a href="DOCfileJSON-ENG.html">Assistant .json Configuration Manual</a>)<br/>
+4) Assistant answer area. On Windows, the answer will be spoken if the speaker is enabled. To stop the reading of the answer, enter the command <code>ok</code><br/>
+
+<p><strong>Language selection</strong></p>
+<img src="images/language.png" alt="language buttons" width="50%"><br/>
+If the language is not correct at startup, change it using the bottom-right buttons.<br>
+NOTE: the available languages are automatically detected by the application. To change the default language or add new ones, please refer to the <a href="DOCfileJSON-ENG.html">Assistant .json Configuration Manual</a></p>
+
+<p><strong>TTS and STT</strong></p>
+<img src="images/voice.png" alt="voice buttons" width="50%"><br/>
+Note: in the Linux version, only Text-to-Speech is available and the loudspeaker button will be disabled.</p>
+
+<h2 id="commands">📜 Available Commands</h2>
+
+<table>
+<tr><th>Command</th><th>Description (lang_en.json)</th></tr>
+
+<tr><td><code>get &lt;name&gt;</code></td><td>Retrieves data</td></tr>
+<tr><td><code>open &lt;name&gt;</code></td><td>Opens file, link or program</td></tr>
+<tr><td><code>search &lt;query&gt;</code></td><td>Searches memory</td></tr>
+<tr><td><code>list memory</code></td><td>Shows all entries</td></tr>
+<tr><td><code>help</code></td><td>Shows commands</td></tr>
+<tr><td><code>exit</code></td><td>Closes the assistant</td></tr>
+
+<tr><td><code>MANAGE MEMORY</code></td><td></td></tr>
+<tr><td><code>learn</code></td><td>Guided input</td></tr>
+<tr><td><code>remember &lt;name&gt; &lt;data&gt;</code></td><td>Saves information</td></tr>
+<tr><td><code>remember image &lt;name&gt; &lt;data&gt;</code></td><td>Saves images</td></tr>
+
+<tr><td><code>edit &lt;name&gt;</code></td><td>Modifies an entry</td></tr>
+<tr><td><code>delete &lt;name&gt;</code></td><td>Deletes an entry</td></tr>
+<tr><td><code>copy &lt;name&gt;</code></td><td>Copies to clipboard</td></tr>
+
+<tr><td><code>SHORTCUT</code></td><td></td></tr>
+<tr><td><em>List of your personalized shortcuts</em></td><td></td></tr>
+
+<tr><td><code>LANGUAGE</code></td><td></td></tr>
+<tr><td><code>language &lt;code&gt;</code></td><td>Changes language</td></tr>
+</table>
+
+<footer>
+    <p align="right">Personal Desktop Assistant Toolkit</p>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="https://www.steppa.net/cassani">Author’s website</a>
+        <div>&copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a></div>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>
