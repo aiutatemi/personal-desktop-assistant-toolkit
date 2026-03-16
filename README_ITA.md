@@ -11,7 +11,7 @@ complete) e **Linux / macOS** (senza sintesi vocale).
 
 ## 📘 Documentazione
 Documentazione disponibile (ITA/ENG):  
-👉 **[Open Documentation](docs/index.html?plain=0)**
+👉 **[Open Documentation](https://gitlab.com/EmanueleCAS/assistente/-/raw/master/docs/index.html)**
 
 ---
 
