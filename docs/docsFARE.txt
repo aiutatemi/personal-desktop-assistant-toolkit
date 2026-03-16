@@ -1,0 +1,37 @@
+generare mini‑sito GitLab Pages
+creare un indice automatico
+aggiungere esempi interattivi
+
+
+🖼️ I 3 strumenti migliori per creare manuali con screenshot (Windows)
+<style>
+img {
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin: 20px 0;
+}
+</style>
+
+⭐ 1. ShareX (gratuito, potentissimo, leggero)
+strumento veloce, gratuito e professionale
+cattura screenshot con un tasto
+evidenzia, cerchia, aggiunge frecce, testo
+sfoca parti sensibili
+salva automaticamente in una cartella
+puoi fare anche GIF animate (utile per mostrare passaggi brevi)
+È lo strumento preferito dagli sviluppatori e dai creatori di documentazione.
+
+⭐ 2. Snip & Sketch / Strumento di cattura (già incluso in Windows)
+semplicissimo, senza installare nulla:
+premi Win + Shift + S
+selezioni l’area
+modifichi con penna, evidenziatore, ritaglio
+È basico, ma per screenshot veloci funziona benissimo.
+
+⭐ 3. Greenshot (gratuito, facilissimo, super intuitivo)
+più semplice. Cattura rapidamente finestre o aree
+aggiungere frecce, numeri, testo
+esportare in PNG o JPG
+zero complicazioni
+Molto usato negli uffici e nei team che fanno manuali.

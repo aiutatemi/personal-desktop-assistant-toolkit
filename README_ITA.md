@@ -9,6 +9,10 @@ premi il pulsante del microfono.
 Scritto in Python con Tkinter, funziona su **Windows** (funzionalità
 complete) e **Linux / macOS** (senza sintesi vocale).
 
+## 📘 Documentazione
+Documentazione disponibile (ITA/ENG):  
+👉 **[Open Documentation](docs/index.html)**
+
 ---
 
 ## ✨ Funzionalità
@@ -77,22 +81,24 @@ _dati/
 
 ---
 
-## 🗣️ Comandi
+## 🗣️ Comandi (nomi default)
 
 | Comando | Descrizione |
 |---------|-------------|
-| `ricorda <nome> <dati>` | Salva un'informazione in memoria |
-| `impara` | Inserimento guidato campo per campo |
 | `dammi <nome>` | Recupera un'informazione salvata |
 | `apri <nome>` | Apre un link, file o applicazione salvata |
 | `cerca <query>` | Cerca nella memoria |
-| `elenca` | Mostra tutte le voci salvate |
+| `elenca memoria` | Mostra tutte le voci salvate |
+| `aiuto` | Mostra i comandi disponibili |
+| `esci` | Chiude l'assistente |
+| `impara` | Inserimento guidato campo per campo |
+| `ricorda <nome> <dati>` | Salva un'informazione in memoria |
+| `ricorda mmagine <nome> <dati>` | Salva un'immagine in memoria |
 | `modifica <nome>` | Modifica una voce salvata |
 | `elimina <nome>` | Rimuove una voce dalla memoria |
 | `copia <nome>` | Copia un dato negli appunti |
-| `lingua <codice>` | Cambia lingua (es. `lingua en`) |
-| `aiuto` | Mostra i comandi disponibili |
-| `esci` | Chiude l'assistente |
+| `SHORTCUTS` | comandi personalizzati |
+| `LINGUA <code>` | Cambia lingua (es `language_en`) |
 
 > Tutti i comandi funzionano anche in italiano indipendentemente dalla
 > lingua attiva.
@@ -213,5 +219,6 @@ MIT
 ---
 
 ## 👤 Author
-**[Emanuele Cassani](https://www.steppa.net/cassani/business_card.htm)**  
-Creatore e manutentore del progetto Personal Desktop Assistant Toolkit.
+
+**[Emanuele Cassani](https://www.steppa.net/cassani/business_cardENG.htm)**  
+Creatore e manutentore *Personal Desktop Assistant Toolkit*.

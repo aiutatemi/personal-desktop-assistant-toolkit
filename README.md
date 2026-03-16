@@ -8,6 +8,10 @@ microphone button.
 Built with Python and Tkinter, it runs on **Windows** (full features) and
 **Linux / macOS** (without text-to-speech).
 
+## 📘 Documentation
+Access the full documentation (ENG/ITA) here:  
+👉 **[Open Documentation](docs/index.html)**
+
 ---
 
 ## ✨ Features
@@ -75,22 +79,27 @@ _dati/
 
 ---
 
-## 🗣️ Commands
+## 🗣️ Commands (language_en)
 
 | Command | Description |
 |---------|-------------|
-| `remember <name> <data>` | Save information to memory |
-| `learn` | Guided step-by-step entry |
+
 | `get <name>` | Retrieve saved information |
 | `open <name>` | Open a saved link, file or application |
 | `search <query>` | Search memory |
-| `list` | Show all saved entries |
+| `list memory` | Show all saved entries |
+| `help` | Show available commands |
+| `exit` | Close the assistant |
+
+| `learn` | Guided step-by-step entry |
+| `remember <name> <data>` | Save information to memory |
+| `remember image <name> <data>` | Save image to memory |
 | `edit <name>` | Edit a saved entry |
 | `delete <name>` | Remove an entry from memory |
 | `copy <name>` | Copy data to clipboard |
-| `language <code>` | Switch language (e.g. `language it`) |
-| `help` | Show available commands |
-| `exit` | Close the assistant |
+
+| `SHORTCUTS` | personalized shortcut commands |
+| `LANGUAGE <code>` | Switch language (e.g. `language_it`) |
 
 > All commands also work in Italian regardless of the active language.
 
@@ -205,5 +214,7 @@ MIT
 ---
 
 ## 👤 Author
+
 **[Emanuele Cassani](https://www.steppa.net/cassani/business_cardENG.htm)**  
-Creator and maintainer of the Personal Desktop Assistant Toolkit.
+Creator and maintainer of the *Personal Desktop Assistant Toolkit*.
+
