@@ -10,7 +10,7 @@ Built with Python and Tkinter, it runs on **Windows** (full features) and
 
 ## 📘 Documentation
 Access the full documentation (ENG/ITA) here:  
-👉 **[Open Documentation](docs/index.html)**
+👉 **[Open Documentation](docs/index.html?plain=0)**
 
 ---
 
@@ -83,21 +83,18 @@ _dati/
 
 | Command | Description |
 |---------|-------------|
-
 | `get <name>` | Retrieve saved information |
 | `open <name>` | Open a saved link, file or application |
 | `search <query>` | Search memory |
 | `list memory` | Show all saved entries |
 | `help` | Show available commands |
 | `exit` | Close the assistant |
-
 | `learn` | Guided step-by-step entry |
 | `remember <name> <data>` | Save information to memory |
 | `remember image <name> <data>` | Save image to memory |
 | `edit <name>` | Edit a saved entry |
 | `delete <name>` | Remove an entry from memory |
 | `copy <name>` | Copy data to clipboard |
-
 | `SHORTCUTS` | personalized shortcut commands |
 | `LANGUAGE <code>` | Switch language (e.g. `language_it`) |
 
