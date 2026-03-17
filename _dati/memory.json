@@ -1,7 +1,7 @@
 [
   {
     "nome": "memory.json",
-    "alias": "esempio",
+    "alias": "example-esempio",
     "soggetto": "",
     "dati": "file di esempio modificabile",
     "tag": "informazioni",
@@ -26,7 +26,7 @@
   {
     "nome": "Python",
     "alias": "progetti",
-    "soggetto": "Link a cartella",
+    "soggetto": "esempio link a cartella",
     "dati": "C:\\Python\\Progetti\\",
     "tag": "esempio, cartella",
     "avatar": "magazziniere"
@@ -34,7 +34,7 @@
   {
     "nome": "racconti",
     "alias": "tutti",
-    "soggetto": "Link ai racconti",
+    "soggetto": "esempio link ai racconti",
     "dati": "D:\\Scrittura\\1narrativa\\1racconti\\85racconti-ePUB3.epub",
     "tag": "esempio, epub",
     "avatar": "magazziniere"
@@ -42,7 +42,7 @@
   {
     "nome": "Calibre",
     "alias": "biblioteca",
-    "soggetto": "Link apribile",
+    "soggetto": "esempio link apribile",
     "dati": "C:\\Program Files\\Calibre2\\calibre.exe",
     "tag": "esempio, Programma",
     "avatar": "bibliotecaria"
@@ -50,7 +50,7 @@
   {
     "nome": "Mail",
     "alias": "posta",
-    "soggetto": "Link apribile",
+    "soggetto": "esempio link apribile",
     "dati": "C:\\ProgramFile\\mail\\ThunderbirdPortable.exe",
     "tag": "esempio, Programma",
     "avatar": "bibliotecaria"
@@ -58,7 +58,7 @@
   {
     "nome": "browser",
     "alias": "web",
-    "soggetto": "Link apribile",
+    "soggetto": "esempio link apribile",
     "dati": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
     "tag": "esempio, Programma",
     "avatar": "bibliotecaria"

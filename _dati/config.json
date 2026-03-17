@@ -1,9 +1,10 @@
 {
-  "nome_avatar": "assistnte",
+  "nome_avatar": "assistente",
   "nome_utente": "utente",
   "avatar_iniziale": "benvenuto",
   "avatar_random": [
     "sorridente",
+    "agenda",
     "soddisfatto"
   ],
   "avatar_finale": "ciao.mp4",
@@ -62,16 +63,16 @@
   "risposte_fisse": {
     "grazie": "Prego, {nome_utente}!",
     "ciao": "Ciao, {nome_utente}!",
-    "come stai": "Sto benissimo, grazie!"
+    "come stai": "Sto benissimo, grazie!",
+    "buongiorno": "Buongiorno, {nome_utente}!",
+    "buonasera": "Buonasera, {nome_utente}!",
+    "che ore sono": "Sono le {ora}",
+    "che giorno è": "Oggi è {data}"
   },
   "shortcut": [
     {
       "etichetta": "Aiuto",
       "comando": "aiuto"
-    },
-    {
-      "etichetta": "Elenca memoria",
-      "comando": "elenca"
     },
     {
       "etichetta": "Configura",

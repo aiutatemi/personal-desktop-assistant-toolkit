@@ -48,30 +48,30 @@
   "elimina_si":           ["sì", "si", "s", "yes"],
 
   "modifica_cosa":        "Quale voce devo modificare?",
-  "modifica_non_trovato": "Non ho trovato '{q}' in memoria.",
+  "modifica_non_trovato": "Purtroppo non ho trovato '{q}' in memoria.",
   "modifica_trovata":     "Voce trovata:\n{entry}\nQuale campo vuoi modificare?\nPuoi scrivere solo il campo (es: 'dati') oppure campo e valore (es: 'dati CSSMNL...')",
   "modifica_campo_no":    "Campo non riconosciuto: '{campo}'.\nScegli tra: {campi}",
   "modifica_valore_chiedi": "Inserisci il nuovo valore per '{campo}':",
   "modifica_ok":          "Modificato! '{campo}' aggiornato a: {valore}",
-  "modifica_errore":      "Errore: voce non trovata in memoria.",
+  "modifica_errore":      "Errore: non trovo la voce in memoria.",
 
-  "elenca_vuota":         "La memoria è vuota.",
+  "elenca_vuota":         "Purtroppo la mia memoria è vuota.",
   "elenca_intestazione":  "Ho {n} voce/i in memoria:",
 
-  "copia_cosa":           "Cosa devo copiare negli appunti?",
-  "copia_non_trovato":    "Non ho trovato '{q}' in memoria.",
+  "copia_cosa":           "Non ho capito che cosa devo copiare negli appunti?",
+  "copia_non_trovato":    "Purtroppo non ho trovato '{q}' in memoria.",
   "copia_ok":             "Copiato negli appunti:\n  {dati}",
 
-  "ricorda_chiedi_nome":  "Che cosa devo ricordare? Dimmi il nome:",
+  "ricorda_chiedi_nome":  "Dimmi il nome che devo registrare:",
   "ricorda_chiedi_dati":  "Ok, dimmi i dati da ricordare per '{nome}':",
   "ricorda_ok":           "Fatto! '{nome}' salvato in memoria.",
-  "ricorda_img_titolo":   "Seleziona immagine",
+  "ricorda_img_titolo":   "Seleziona una immagine",
   "ricorda_img_nessuna":  "Nessuna immagine selezionata.",
-  "ricorda_img_nome":     "Quale nome associare all'immagine?",
+  "ricorda_img_nome":     "Dimmi quale nome associare all'immagine",
   "ricorda_img_tag":      "Quale descrizione (tag) vuoi aggiungere?",
   "ricorda_img_ok":       "Fatto! Immagine '{nome}' salvata in memoria.",
 
-  "impara_intro":         "Inserimento guidato — un campo alla volta.\nScrivi 'salta' per i campi opzionali, 'fine' per annullare.",
+  "impara_intro":         "Inserimento guidato — di chiedo un campo alla volta.\nScrivi 'salta' per i campi opzionali, 'fine' per annullare.",
   "impara_annullato":     "Inserimento annullato.",
   "impara_obbligatorio":  "Il campo '{campo}' è obbligatorio.",
   "impara_salvato":       "Salvato! '{nome}' in memoria.\n\nDesideri inserire un altro elemento? (sì / no)",
@@ -86,21 +86,21 @@
   "impara_prompt_tag":      "Tag / etichette (opzionale — es: famiglia, salute, lavoro — scrivi 'salta' per saltare):",
   "impara_prompt_avatar":   "Avatar (opzionale — scrivi 'salta' per 'sorridente'):\n  sorridente · soddisfatto · triste · bibliotecaria · magazziniere · benvenuto",
 
-  "aiuto_testo":          "Ecco cosa posso fare:\n\n  ricorda  — salva informazioni in memoria\n  impara   — inserimento guidato campo per campo\n  dammi    — restituisce informazioni salvate\n  apri     — apre un link o file salvato\n  cerca    — cerca nella memoria\n  elenca   — mostra tutto ciò che ricordo\n  modifica — modifica una voce salvata\n  elimina  — rimuove una voce dalla memoria\n  copia    — copia un dato negli appunti\n  lingua   — cambia lingua (es: lingua en)\n  esci     — saluta e chiude il programma\n  aiuto    — mostra questo messaggio\n\nUsa il pannello ▶ a destra per i pulsanti rapidi.",
+  "aiuto_testo":          "Ecco che cosa posso fare par te:\n\n  ricorda  — salvo informazioni in memoria\n  impara   — ti guido a inserire campo per campo\n  dammi    — restituisco le informazioni salvate\n  apri     — apro un link o file salvato\n  cerca    — cerco nella mia memoria\n  elenca   — mostro tutto quello che ricordo\n  modifica — modifico una voce salvata\n  elimina  — rimuovo una voce dalla mia memoria\n  copia    — copio un dato negli appunti\n  lingua   — cambio la lingua (es: lingua en)\n  esci     — saluto e chiudo il programma\n  aiuto    — ti mostro questo messaggio\n\nPuoi usare il pannello ▶ a destra per i tuoi pulsanti rapidi personalizzabili.",
 
-  "non_capito":           "Purtroppo non ho capito cosa devo fare. Mi aiuti?\nParole chiave: ricorda · impara · apri · dammi · cerca\n               elenca · modifica · elimina · copia · esci · aiuto",
+  "non_capito":           "Purtroppo non ho capito che cosa devo fare. Mi aiuti?\nParole chiave: ricorda · impara · apri · dammi · cerca\n               elenca · modifica · elimina · copia · esci · aiuto",
 
-  "lingua_ok":            "Lingua impostata su: {lingua}",
-  "lingua_non_trovata":   "File lingua '{file}' non trovato in {cartella}.",
+  "lingua_ok":            "La lingua è impostata su: {lingua}",
+  "lingua_non_trovata":   "Purtroppo non ho trovato il file lingua '{file}' nella {cartella}.",
   "lingua_uso":           "Uso: lingua <codice>  (es: lingua en)",
 
   "stt_nessun_audio":     "Nessun audio rilevato.",
-  "stt_non_capito":       "Non ho capito, riprova.",
+  "stt_non_capito":       "Purtroppo non ho capito, puoi riprovare?",
   "stt_errore":           "Errore STT: {err}",
-  "stt_mic_errore":       "Microfono non disponibile: {err}",
+  "stt_mic_errore":       "Il microfono non è disponibile: {err}",
 
   "shortcut_nessuno":     "Nessuno shortcut configurato.\nAggiungi la chiave\n\"shortcut\" in\nconfigurazioni.json",
 
   "label_lingua":         "LINGUA",
-  "lingua_nessuna":       "Nessun file lingua\ntrovato in _dati/"
+  "lingua_nessuna":       "Non ho trovato nessun file lingua\ntrovato nella cartella _dati/"
 }

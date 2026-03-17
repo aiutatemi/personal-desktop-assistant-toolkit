@@ -49,6 +49,9 @@ Full German (lang_de.json), Spanish (lang_es.json), and French (lang_fr.json) la
 
 Each language file includes region-specific STT codes (fr-FR, es-ES, de-DE)
 
+
+
+
 5. New "configura" command with interactive wizard
 Three modes for easy configuration:
 
@@ -125,13 +128,14 @@ bash
 pip install tkinter speechrecognition sounddevice numpy pillow opencv-python
 
 # New dependencies
-pip install pyttsx3           # Required for TTS
-pip install openai             # Optional: for OpenAI support
+pip install pyttsx3             # Required for TTS
+pip install openai              # Optional: for OpenAI support
 pip install google-generativeai # Optional: for Google Gemini
 
 # Linux users need eSpeak for TTS
 sudo apt-get install espeak    # Debian/Ubuntu
 sudo dnf install espeak        # Fedora
+
 PyInstaller build for Linux
 bash
 pyinstaller --onedir --noconsole --clean \
@@ -143,6 +147,7 @@ pyinstaller --onedir --noconsole --clean \
   --collect-all pyttsx3 \
   --hidden-import numpy \
   --name AssistenteVOICE3.0 assistenteVOICE3.0.py
+
 Windows build
 bash
 pyinstaller --onedir --noconsole --clean ^
@@ -151,6 +156,7 @@ pyinstaller --onedir --noconsole --clean ^
   --collect-all cv2 ^
   --collect-all pyttsx3 ^
   --name AssistenteVOICE3.0 assistenteVOICE3.0.py
+
 Migration from v2.2
 Existing configurazione.json and memoria.json will be automatically migrated
 

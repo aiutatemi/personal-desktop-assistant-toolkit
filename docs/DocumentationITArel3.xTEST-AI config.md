@@ -1,4 +1,4 @@
-Come configurare l'integrazione con l'IA
+* Come configurare l'integrazione con l'IA
 
 Due opzioni principali: **OpenAI (GPT)** e **Google Gemini**.
 
