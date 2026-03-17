@@ -1,7 +1,7 @@
 [
   {
-    "nome": "configurazione.json",
-    "alias": "configuration file",
+    "nome": "memory.json",
+    "alias": "esempio",
     "soggetto": "",
     "dati": "file di esempio modificabile",
     "tag": "informazioni",

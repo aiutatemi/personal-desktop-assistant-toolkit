@@ -1,0 +1,85 @@
+{
+  "nome_avatar": "assistnte",
+  "nome_utente": "utente",
+  "avatar_iniziale": "benvenuto",
+  "avatar_random": [
+    "sorridente",
+    "soddisfatto"
+  ],
+  "avatar_finale": "ciao.mp4",
+  "frase_finale": "Ci vediamo presto!",
+  "lingua": "it",
+  "tts_config": {
+    "engine": "auto",
+    "rate": 150,
+    "volume": 0.9,
+    "pitch": 50,
+    "voice_gender": "auto"
+  },
+  "stt_config": {
+    "soglia_rumore": 200,
+    "sample_rate": 16000,
+    "max_secondi": 10,
+    "silenzio_secondi": 0.5,
+    "lingua": "it-IT"
+  },
+  "ai_config": {
+    "enabled": false,
+    "provider": "openai",
+    "api_key": "",
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.7,
+    "max_tokens": 500,
+    "fallback_to_ai": true
+  },
+  "alias_comandi": {
+    "dammi": [
+      "dimmi"
+    ],
+    "apri": [
+      "lancia"
+    ],
+    "cerca": [],
+    "ricorda": [],
+    "impara": [],
+    "elenca": [],
+    "modifica": [],
+    "elimina": [],
+    "copia": [],
+    "configura": [
+      "config",
+      "impostazioni",
+      "settings"
+    ],
+    "aiuto": [
+      "help"
+    ],
+    "esci": [
+      "chiudi",
+      "arrivederci"
+    ]
+  },
+  "risposte_fisse": {
+    "grazie": "Prego, {nome_utente}!",
+    "ciao": "Ciao, {nome_utente}!",
+    "come stai": "Sto benissimo, grazie!"
+  },
+  "shortcut": [
+    {
+      "etichetta": "Aiuto",
+      "comando": "aiuto"
+    },
+    {
+      "etichetta": "Elenca memoria",
+      "comando": "elenca"
+    },
+    {
+      "etichetta": "Configura",
+      "comando": "configura"
+    },
+    {
+      "etichetta": "Chiudi assistente",
+      "comando": "esci"
+    }
+  ]
+}

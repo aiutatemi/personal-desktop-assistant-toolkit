@@ -1,0 +1,133 @@
+{
+    "btn_invia": "Enviar",
+    "titolo_finestra": "Asistente – {nome_avatar}",
+    "label_comandi": "COMANDOS",
+    "label_shortcut": "ACCESOS DIRECTOS",
+    
+    "panel_dammi": "dame ...",
+    "panel_apri": "abre ...",
+    "panel_cerca": "busca ...",
+    "panel_elenca": "listar memoria",
+    "panel_configura": "configurar",
+    "panel_aiuto": "ayuda",
+    "panel_esci": "salir",
+    "panel_sep_memoria": "── GESTIONAR MEMORIA ──",
+    "panel_impara": "aprender",
+    "panel_ricorda": "recordar ...",
+    "panel_ricorda_img": "recordar imagen",
+    "panel_modifica": "modificar ...",
+    "panel_elimina": "eliminar ...",
+    "panel_copia": "copiar ...",
+    
+    "articoli": [
+        "el", "la", "los", "las",
+        "un", "una", "unos", "unas",
+        "mi", "mis", "tu", "tus", "su", "sus", "nuestro", "nuestra", "nuestros", "nuestras",
+        "este", "esta", "estos", "estas", "ese", "esa", "esos", "esas", "aquel", "aquella",
+        "al", "del", "para", "por", "con", "sin", "sobre", "bajo", "entre",
+        "en", "de", "a", "desde", "hasta", "durante", "mediante"
+    ],
+    
+    "avvio_saluto": "¡Hola {nome_utente}! Soy {nome_avatar}.\nEscribe 'ayuda' para ver lo que puedo hacer.",
+    "avvio_memoria_vuota": "Mi memoria está vacía.",
+    
+    "apri_subito": "Abriendo",
+    "apri_cosa": "¿Qué debo abrir?",
+    "apri_non_trovato": "No encontré '{q}' en la memoria.",
+    "apri_errore": "No puedo abrir: {err}",
+    
+    "dammi_cosa": "¿Qué necesitas que te dé? Dime el nombre.",
+    "dammi_non_trovato": "No encontré nada para '{q}'.",
+    "dammi_risultato_1": "Datos de {nome} ({soggetto}):",
+    "dammi_risultati_n": "Encontré {n} elemento(s):",
+    
+    "cerca_cosa": "¿Qué debo buscar?",
+    "cerca_non_trovato": "No hay resultados para '{q}'.",
+    "cerca_trovato": "Encontré {n} resultado(s) para '{q}':",
+    
+    "elimina_cosa": "¿Qué debo eliminar?",
+    "elimina_non_trovato": "No encontré '{q}'.",
+    "elimina_conferma": "¿Quieres eliminar:\n{entry}\nEscribe 'sí' para confirmar.",
+    "elimina_ok": "'{nome}' eliminado.",
+    "elimina_annullato": "Eliminación cancelada.",
+    "elimina_si": ["sí", "si", "s", "yes", "confirmar", "ok"],
+    
+    "modifica_cosa": "¿Qué elemento debo modificar?",
+    "modifica_non_trovato": "No encontré '{q}'.",
+    "modifica_trovata": "Elemento encontrado:\n{entry}\n¿Qué campo?",
+    "modifica_campo_no": "Campo no reconocido: '{campo}'.\nElige entre: {campi}",
+    "modifica_valore_chiedi": "Introduce el nuevo valor para '{campo}':",
+    "modifica_ok": "¡Modificado! '{campo}' = {valore}",
+    "modifica_errore": "Error: elemento no encontrado.",
+    
+    "elenca_vuota": "La memoria está vacía.",
+    "elenca_intestazione": "Tengo {n} elemento(s) en memoria:",
+    
+    "copia_cosa": "¿Qué debo copiar?",
+    "copia_non_trovato": "No encontré '{q}'.",
+    "copia_ok": "Copiado:\n  {dati}",
+    
+    "ricorda_chiedi_nome": "¿Qué debo recordar? Dime el nombre:",
+    "ricorda_chiedi_dati": "Dime los datos para '{nome}':",
+    "ricorda_ok": "¡Hecho! '{nome}' guardado.",
+    
+    "ricorda_img_titolo": "Seleccionar imagen",
+    "ricorda_img_nessuna": "No se seleccionó ninguna imagen.",
+    "ricorda_img_nome": "¿Nombre para la imagen?",
+    "ricorda_img_tag": "¿Descripción (etiqueta)?",
+    "ricorda_img_ok": "Imagen '{nome}' guardada.",
+    
+    "impara_intro": "Entrada guiada.\nEscribe 'saltar' para campos opcionales, 'fin' para cancelar.",
+    "impara_annullato": "Entrada cancelada.",
+    "impara_obbligatorio": "El campo '{campo}' es obligatorio.",
+    "impara_salvato": "¡Guardado! '{nome}'.\n\n¿Otro elemento? (sí / no)",
+    "impara_completato": "Entrada completada.",
+    "impara_si": ["sí", "si", "s", "yes", "otro", "más"],
+    "impara_fine": "fin",
+    "impara_salta": "saltar",
+    "impara_prompt_nome": "Nombre (obligatorio):",
+    "impara_prompt_alias": "Alias (opcional — 'saltar' para omitir):",
+    "impara_prompt_soggetto": "Asunto (opcional — 'saltar' para usar tu nombre):",
+    "impara_prompt_dati": "Datos a memorizar (obligatorio):",
+    "impara_prompt_tag": "Etiquetas (opcional — 'saltar' para omitir):",
+    "impara_prompt_avatar": "Avatar (opcional — 'saltar' para 'sonriente'):",
+    
+    "configura_intro": "Configuración guiada. Parámetros disponibles:",
+    "configura_chiedi_valore": "Introduce el nuevo valor para '{param}':",
+    "configura_mostra_valore": "{param} actual = '{valore}'",
+    "configura_aggiornato": "Parámetro '{param}' actualizado a '{valore}'",
+    "configura_lista": "Parámetros configurables:",
+    "configura_parametro_non_trovato": "Parámetro '{param}' no encontrado.",
+    "configura_proseguire": "¿Quieres configurar otros parámetros? (sí/no)",
+    "configura_fine": "Configuración completada.",
+    "configura_annullato": "Configuración cancelada.",
+    "configura_cosa": "¿Qué quieres configurar? Usa 'configurar lista' para ver los parámetros.",
+    "configura_nome_avatar": "nombre del asistente",
+    "configura_nome_utente": "nombre de usuario",
+    "configura_lingua": "idioma",
+    "configura_tts_rate": "velocidad de voz TTS",
+    "configura_tts_volume": "volumen TTS",
+    
+    "ai_pensando": "Estoy pensando...",
+    "ai_errore": "Error al comunicarse con la IA: {errore}",
+    "ai_non_disponibile": "Función de IA no disponible o no configurada.",
+    "ai_chiedi_chiave": "Introduce la clave API para {provider}:",
+    
+    "aiuto_testo": "Comandos: recordar · aprender · abre · dame · busca · listar · modificar · eliminar · copiar · configurar · idioma · salir · ayuda",
+    "non_capito": "No entendí. Palabras clave: recordar · aprender · abre · dame · busca · listar · modificar · eliminar · copiar · configurar · salir · ayuda",
+    
+    "lingua_ok": "Idioma establecido a: {lingua}",
+    "lingua_non_trovata": "Archivo de idioma '{file}' no encontrado.",
+    "lingua_uso": "Uso: idioma <código>  (ej: idioma it)",
+    
+    "stt_nessun_audio": "No se detectó audio.",
+    "stt_non_capito": "No entendí, intenta de nuevo.",
+    "stt_errore": "Error de STT: {err}",
+    "stt_mic_errore": "Micrófono no disponible: {err}",
+    
+    "shortcut_nessuno": "No hay accesos directos configurados.",
+    
+    "label_lingua": "IDIOMA",
+    "lingua_nessuna": "No se encontró ningún\narchivo de idioma en _dati/",
+    "lingua_stt": "es-ES"
+}

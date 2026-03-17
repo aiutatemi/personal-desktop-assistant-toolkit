@@ -1,0 +1,176 @@
+Come configurare l'integrazione con l'IA
+
+Due opzioni principali: **OpenAI (GPT)** e **Google Gemini**.
+
+## 1. Configurazione base in `config.json`
+
+Nel `config.json` usare questa sezione:
+
+```json
+"ai_config": {
+    "enabled": false,
+    "provider": "openai",
+    "api_key": "",
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.5,
+    "max_tokens": 500,
+    "fallback_to_ai": true
+}
+```
+
+### Parametri:
+- **`enabled`**: `true` per attivare, `false` per disattivare
+- **`provider`**: `"openai"` o `"gemini"`
+- **`api_key`**: la tua chiave API (la inserisci qui)
+- **`model`**: 
+  - OpenAI: `"gpt-3.5-turbo"`, `"gpt-4"`, ecc.
+  - Gemini: `"gemini-pro"`
+- **`temperature`**: quanto è creativa l'IA (0.0 = precisa, 1.0 = creativa)
+- **`max_tokens`**: lunghezza massima risposta
+- **`fallback_to_ai`**: se `true`, usa l'IA quando non capisce il comando
+
+## 2. Installazione dipendenze
+
+### Per OpenAI:
+```bash
+pip install openai
+```
+
+### Per Google Gemini:
+```bash
+pip install google-generativeai
+```
+
+## 3. Ottenere le chiavi API
+
+### **OpenAI API Key:**
+1. Vai su [platform.openai.com](https://platform.openai.com)
+2. Registrati/Accedi
+3. Vai su "API Keys" → "Create new secret key"
+4. Copia la chiave (inizia con `sk-...`)
+
+### **Google Gemini API Key:**
+1. Vai su [makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+2. Accedi con account Google
+3. Clicca "Create API Key"
+4. Copia la chiave
+
+## 4. Esempi di configurazione completi
+
+### **Esempio 1: OpenAI GPT-3.5**
+```json
+"ai_config": {
+    "enabled": true,
+    "provider": "openai",
+    "api_key": "sk-1234567890abcdefghijklmnopqrstuvwxyz",
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.7,
+    "max_tokens": 500,
+    "fallback_to_ai": true
+}
+```
+
+### **Esempio 2: OpenAI GPT-4** (più potente ma più costoso)
+```json
+"ai_config": {
+    "enabled": true,
+    "provider": "openai",
+    "api_key": "sk-1234567890abcdefghijklmnopqrstuvwxyz",
+    "model": "gpt-4",
+    "temperature": 0.5,
+    "max_tokens": 800,
+    "fallback_to_ai": true
+}
+```
+
+### **Esempio 3: Google Gemini**
+```json
+"ai_config": {
+    "enabled": true,
+    "provider": "gemini",
+    "api_key": "AIzaSyB1234567890abcdefghijklmnopqrstuvwxyz",
+    "model": "gemini-pro",
+    "temperature": 0.7,
+    "max_tokens": 500,
+    "fallback_to_ai": true
+}
+```
+
+## 5. Come funziona nel programma
+
+Una volta configurato:
+
+1. **Comandi locali** (ricorda, apri, cerca, ecc.) hanno sempre la priorità
+2. Se il comando non è riconosciuto **E** `fallback_to_ai = true`, l'assistente chiede all'IA
+3. L'IA risponde a domande generali
+
+### Esempi di interazione:
+
+```
+Utente:> chi era Leonardo da Vinci?
+Assistente:> [contatta OpenAI/Gemini] 
+           Leonardo da Vinci è stato un genio universale del Rinascimento italiano...
+```
+
+```
+Utente:> apri chrome
+Assistente:> [comando locale] Apro subito: chrome.exe
+```
+
+```
+Utente:> dammi password email
+Assistente:> [cerca in memoria] password123
+```
+
+## 6. Test rapido
+
+Per testare se funziona, dopo aver configurato:
+
+1. Avvia l'assistente
+2. Digita una domanda generica come: "qual è la capitale della Francia?"
+3. Dovrebbe rispondere "Sto pensando..." e poi darti la risposta
+
+## 7. Troubleshooting
+
+### Problema: "Errore nella comunicazione con l'IA"
+- Verifica che la chiave API sia corretta
+- Controlla la connessione internet
+- Assicurati di aver installato la libreria giusta
+
+### Problema: "Funzione IA non disponibile"
+- Controlla che `"enabled": true` in `config.json`
+- Verifica di aver installato le dipendenze
+
+### Problema: L'IA non risponde in italiano
+- Il sistema usa la lingua configurata (`lingua` in `config.json`)
+- Puoi forzare l'italiano nel prompt di sistema (modificando il codice)
+
+## 8. Personalizzazione avanzata
+
+Se vuoi modificare il comportamento dell'IA, cerca nel codice la funzione `_chiedi_ai_thread()` e modifica il prompt di sistema:
+
+```python
+# Cerca questa parte nel codice:
+messages=[
+    {"role": "system", "content": f"Sei {self.cfg['nome_avatar']}, un assistente personale. Rispondi in modo conciso e utile."},
+    {"role": "user", "content": domanda}
+]
+```
+
+Puoi personalizzarlo, esempio:
+```python
+messages=[
+    {"role": "system", "content": f"Sei {self.cfg['nome_avatar']}, un assistente personale amichevole. Rispondi sempre in {self.cfg['lingua']} con massimo 3 frasi."},
+    {"role": "user", "content": domanda}
+]
+```
+
+## 9. Costi
+
+- **OpenAI GPT-3.5**: ~$0.002 per 1000 token (economico)
+- **OpenAI GPT-4**: ~$0.03 per 1000 token (più costoso)
+- **Google Gemini**: Gratuito (attualmente, con limiti)
+
+**Consiglio**: Inizia con Gemini (gratuito) o GPT-3.5 (economico) per testare!
+
+Vuoi che ti aiuti con qualche altra configurazione specifica?
