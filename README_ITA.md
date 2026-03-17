@@ -52,23 +52,29 @@ Documentazione disponibile release 2.x (ITA/ENG):
 
 ## 🖥️ Requisiti
 
-### Windows
-```
-pip install pillow opencv-python SpeechRecognition sounddevice numpy pywin32
-```
+### Installazione rapida per piattaforma
 
-### Linux / macOS
+Windows (minima funzionante):
 ```bash
-# Dipendenza di sistema (solo Linux)
-sudo apt install portaudio19-dev ffmpeg
-
-# Pacchetti Python
-pip install pillow opencv-python SpeechRecognition sounddevice numpy
+pip install pillow pyttsx3 pywin32
 ```
 
-> `pillow` e `opencv-python` sono opzionali ma consigliati.
-> Senza di essi l'assistente mostra riquadri colorati al posto di
-> immagini e video avatar, ma tutto il resto funziona normalmente.
+Windows (completa con STT e AI):
+```bash
+pip install pillow opencv-python pyttsx3 pywin32 SpeechRecognition sounddevice numpy openai
+```
+
+Linux:
+```bash
+sudo apt install espeak portaudio19-dev
+pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
+```
+
+macOS:
+```bash
+brew install portaudio
+pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
+```
 
 ---
 
@@ -210,30 +216,6 @@ Dopo il bundle, copia `lang_it.json`, `lang_en.json` e la cartella
 | `google-generativeai` | AI integration (Gemini) | ⚠️ opzionale | Solo se `ai_config.provider = "gemini"` |
 
 
-### Installazione rapida per piattaforma
-
-Windows (minima funzionante):
-```bash
-pip install pillow pyttsx3 pywin32
-```
-
-Windows (completa con STT e AI):
-```bash
-pip install pillow opencv-python pyttsx3 pywin32 SpeechRecognition sounddevice numpy openai
-```
-
-Linux:
-```bash
-sudo apt install espeak portaudio19-dev
-pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
-```
-
-macOS:
-```bash
-brew install portaudio
-pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
-```
-
 ---
 
 ## 📁 Struttura del progetto
@@ -264,3 +246,5 @@ MIT
 
 **[Emanuele Cassani](https://www.steppa.net/cassani/business_cardENG.htm)**  
 Creatore e manutentore *Personal Desktop Assistant Toolkit*.
+
+---

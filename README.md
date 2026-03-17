@@ -50,24 +50,28 @@ Access the full documentation release 2.x (ENG/ITA) here:
 
 ## 🖥️ Requirements
 
-### Windows
-```
-pip install pillow opencv-python SpeechRecognition sounddevice numpy pywin32
-```
+### Quick installation per platform
 
-### Linux / macOS
+Windows (minimum working dependencies):
 ```bash
-# System dependency (Linux only)
-sudo apt install portaudio19-dev ffmpeg
-
-# Python packages
-pip install pillow opencv-python SpeechRecognition sounddevice numpy
+pip install pillow pyttsx3 pywin32
 ```
 
-> `pillow` and `opencv-python` are optional but recommended.
-> Without them the assistant shows colored placeholders instead of
-> avatar images and videos, and everything else works normally.
+Windows (complete with STT and AI):
+```bash
+pip install pillow opencv-python pyttsx3 pywin32 SpeechRecognition sounddevice numpy openai
+```
 
+Linux:
+```bash
+sudo apt install espeak portaudio19-dev
+pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
+```
+
+macOS:
+```bash
+brew install portaudio
+pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
 ---
 
 ## 🚀 Quick start
@@ -205,31 +209,6 @@ folder next to the executable before running.
 
 ```
 
-### Quick installation per platform
-
-Windows (minimum working dependencies):
-```bash
-pip install pillow pyttsx3 pywin32
-```
-
-Windows (complete with STT and AI):
-```bash
-pip install pillow opencv-python pyttsx3 pywin32 SpeechRecognition sounddevice numpy openai
-```
-
-Linux:
-```bash
-sudo apt install espeak portaudio19-dev
-pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
-```
-
-macOS:
-```bash
-brew install portaudio
-pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
-```
-
-```
 ## 📁 Project structure
 
 ```
@@ -258,4 +237,6 @@ MIT
 
 **[Emanuele Cassani](https://www.steppa.net/cassani/business_cardENG.htm)**  
 Creator and maintainer of the *Personal Desktop Assistant Toolkit*.
+
+---
 
