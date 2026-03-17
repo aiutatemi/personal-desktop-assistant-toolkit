@@ -6,15 +6,25 @@ voice recognition, which uses Google Speech API only when you press the
 microphone button.
 
 Built with Python and Tkinter, it runs on **Windows** (full features) and
-**Linux / macOS** (without text-to-speech).
+**Linux / macOS** (for release 2.x without text-to-speech).
 
 ## 📘 Documentation
-Access the full documentation (ENG/ITA) here:  
+Access the full documentation release 2.x (ENG/ITA) here:  
 👉 **[Open Documentation](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
 
 ---
 
-## ✨ Features
+## ✨ Features Test Release 3.x
+1. Multi-platform TTS (pyttsx3)
+2. Configurable STT parameters
+3. Natural language parsing with stop-words
+4. Internationalization improvements (config.json memory.json and localization files)
+5. New command with interactive wizard, to configure config.json
+6. AI Optional Integration
+
+---
+
+## ✨ Features rel2.x
 
 - **Voice input (STT)** — speak your commands via microphone, powered by
   Google Speech Recognition
@@ -63,18 +73,18 @@ pip install pillow opencv-python SpeechRecognition sounddevice numpy
 ## 🚀 Quick start
 
 ```bash
-python assistenteVOICE.py
+python assistente.py
 ```
 
 On first run, a `_dati/` folder is created next to the script containing:
 
 ```
 _dati/
-  configurazione.json   ← all settings
-  memoria.json          ← your saved data
-  lang_it.json          ← Italian language file
-  lang_en.json          ← English language file
-  asset/avatar/         ← put your avatar images/videos here
+  config.json	← all settings
+  memory.json	← your saved data
+  lang_it.json	← Italian language file
+  lang_en.json	← English language file
+  asset/avatar/	← put your avatar images/videos here
 ```
 
 ---
@@ -104,7 +114,7 @@ _dati/
 
 ## ⚙️ Configuration
 
-Edit `_dati/configurazione.json` to personalise the assistant:
+Edit `_dati/config.json` to personalise the assistant:
 
 ```json
 {
@@ -139,24 +149,26 @@ Edit `_dati/configurazione.json` to personalise the assistant:
 5. Restart the assistant — the new language appears automatically
    in the language selector panel
 
+Please check if your language is already present in the repository /localization-file folder.
+
 ---
 
 ## 📦 Building a distributable package
 
-PyInstaller does not compile Python to machine code — it **bundles** the
-interpreter, all dependencies and your script into a single distributable
-folder that runs on machines without Python installed.
+PyInstaller **bundles** the interpreter, all dependencies 
+and script into a single distributable folder that runs 
+on machines without Python installed.
 
-### Windows
+### Windows (replace assistenteX.X.py with release number)
 ```bash
 pyinstaller --onedir --noconsole --clean ^
   --icon=assistente.ico ^
   --collect-all PIL ^
   --collect-all cv2 ^
-  --name AssistenteVOICE assistenteVOICE.py
+  --name Assistente assistenteX.X.py
 ```
 
-### Linux / macOS
+### Linux / macOS (replace assistenteX.X.py with release number)
 ```bash
 pyinstaller --onedir --noconsole --clean \
   --icon=assistente.png \
@@ -165,37 +177,69 @@ pyinstaller --onedir --noconsole --clean \
   --collect-all sounddevice \
   --collect-all speech_recognition \
   --hidden-import numpy \
-  --name AssistenteVOICE assistenteVOICE.py
+  --name Assistente assistenteX.X.py
 ```
 
 After bundling, copy `lang_it.json`, `lang_en.json` and your `_dati/`
 folder next to the executable before running.
 
-## 📋 Dependencies
+## 📋 Dependencies releases >3.0
 
-| Library | Purpose | Required |
-|---------|---------|----------|
-| `tkinter` | GUI | ✅ included in Python |
-| `pillow` | Avatar images | ❌ recommended |
-| `opencv-python` | Avatar MP4 video | ❌ recommended |
-| `SpeechRecognition` | Voice input (STT) | ❌ recommended |
-| `sounddevice` | Microphone capture | ❌ recommended |
-| `numpy` | Audio processing | ❌ recommended |
-| `pywin32` | Voice output (TTS) | ❌ Windows only |
-| `portaudio` | Audio driver | ❌ Linux system package |
+| Library | Purpose | Required | Note |
+|---------|---------|----------|------|
+| `tkinter` | GUI | ✅ included in Python | — |
+| `json`, `os`, `re`, `shutil`, `subprocess`, `sys`, `random`, `threading`, `platform`, `pathlib`, `datetime` | Core functions | ✅ included in Python | — |
+| `pillow` | Avatar images (jpg/png/gif) | ⚠️ recommended | Without: Just color placeholder |
+| `opencv-python` | Video avatar MP4 | ⚠️ optional | Needs also `pillow` |
+| `pyttsx3` | multiplatform TTS voice | ⚠️ recommended | Wrapper for following engines |
+| `pywin32` | TTS SAPI5 engine | ⚠️ Windows only | Used by `pyttsx3` on Windows — often already included |
+| `espeak` / `espeak-ng` | TTS engine | ⚠️ Linux only | System bundle: `sudo apt install espeak` |
+| — | TTS NSSpeechSynthesizer engine | ✅ macOS only | already present in macOS, no installation required |
+| `SpeechRecognition` | Input STT voice | ⚠️ optional | Uses Google Speech API (online) |
+| `sounddevice` | Microphone | ⚠️ opzional | Needs PortAudio |
+| `numpy` | audio STT | ⚠️ optional | Reqiured by `sounddevice` |
+| `portaudio` | Driver audio for sounddevice | ⚠️ Linux/macOS only | `sudo apt install portaudio19-dev` / `brew install portaudio` |
+| `openai` | AI integration (ChatGPT) | ⚠️ optional | Only if `ai_config.provider = "openai"` |
+| `google-generativeai` | AI integration (Gemini) | ⚠️ optional | Only if `ai_config.provider = "gemini"` |
 
----
 
+```
+
+### Quick installation per platform
+
+Windows (minimum working dependencies):
+```bash
+pip install pillow pyttsx3 pywin32
+```
+
+Windows (complete with STT and AI):
+```bash
+pip install pillow opencv-python pyttsx3 pywin32 SpeechRecognition sounddevice numpy openai
+```
+
+Linux:
+```bash
+sudo apt install espeak portaudio19-dev
+pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
+```
+
+macOS:
+```bash
+brew install portaudio
+pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
+```
+
+```
 ## 📁 Project structure
 
 ```
-assistenteVOICE.py      ← main script
-assistente.ico          ← Windows icon
-assistente.png          ← Linux icon
+assistenteX.X.py      ← main script (Release X.X)
+assistente.ico        ← Windows icon
+assistente.png        ← Linux icon
 _dati/
-  configurazione.json
-  memoria.json
-  memoria.json.bak      ← automatic backup
+  config.json
+  memory.json
+  memory.json.bak      ← automatic backup
   lang_it.json
   lang_en.json
   asset/
