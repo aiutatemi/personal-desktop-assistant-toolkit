@@ -1,15 +1,17 @@
 """
-Personal Desktop Assistant v3.1 STT/TTS + multiLANGUAGE + AI Integration
-Assistente personale desktop v3.1 STT/TTS + multiLINGUA + Integrazione IA
+Personal Desktop Assistant v3.2 STT/TTS + multiLANGUAGE + AI Integration
+Assistente personale desktop v3.2 STT/TTS + multiLINGUA + Integrazione IA
 
-    STT (microphone) multiplatform
-    TTS (voice) multiplatform using pyttsx3
+    Fix TTS pyttsx3 for Windows: one thread, one queue, one direct stop handle
+    
+    © 2026, Emanuele Cassani https://www.steppa.net/cassani/
 """
 
 import tkinter as tk
 from tkinter import scrolledtext, filedialog
 import json
 import os
+import queue
 import re
 import shutil
 import subprocess
@@ -243,7 +245,7 @@ _LANG_IT_FALLBACK = {
                  "alla", "ai", "agli", "alle", "dal", "dallo", "dalla", 
                  "dai", "dagli", "dalle", "col", "coi", "su", "per", "con"],
     
-    "avvio_saluto": "Ciao {nome_utente}! Sono {nome_avatar}.\nDigita 'aiuto' per vedere cosa posso fare.",
+    "avvio_saluto": "Ciao {nome_utente}! Sono {nome_avatar}.\nDigita 'aiuto' per vedere che cosa posso fare.",
     "avvio_memoria_vuota": "Purtroppo la mia memoria è vuota.",
     "apri_subito": "Apro subito", 
     "apri_cosa": "Che cosa devo aprire?",
@@ -321,12 +323,12 @@ _LANG_IT_FALLBACK = {
     "ai_chiedi_chiave": "Inserisci la chiave API per {provider}:",
     
     "aiuto_testo": "Comandi: ricorda · impara · apri · dammi · cerca · elenca · modifica · elimina · copia · configura · lingua · esci · aiuto",
-    "non_capito": "Non ho capito. Parole chiave: ricorda · impara · apri · dammi · cerca · elenca · modifica · elimina · copia · configura · esci · aiuto",
+    "non_capito": "Non ho capito. Le parole chiave sono: ricorda · impara · apri · dammi · cerca · elenca · modifica · elimina · copia · configura · esci · aiuto",
     "lingua_ok": "Lingua impostata su: {lingua}", 
     "lingua_non_trovata": "File lingua '{file}' non trovato.",
     "lingua_uso": "Uso: lingua <codice>  (es: lingua en)",
     "stt_nessun_audio": "Nessun audio rilevato.", 
-    "stt_non_capito": "Non ho capito, riprova.",
+    "stt_non_capito": "Purtroppo non ho capito, puoi ripetere?",
     "stt_errore": "Errore STT: {err}", 
     "stt_mic_errore": "Microfono non disponibile: {err}",
     "shortcut_nessuno": "Nessuno shortcut configurato.",
@@ -397,7 +399,8 @@ def cerca_per_tag(mem: list, tag: str) -> list:
 # PARSING COMANDI (con rimozione articoli)
 # ---------------------------------------------------------------------------
 COMANDI = ["ricorda", "apri", "dammi", "cerca", "elimina", "modifica",
-           "elenca", "aiuto", "copia", "impara", "esci", "lingua", "configura"]
+           "elenca", "aiuto", "copia", "impara", "esci", "lingua", "configura",
+           "autore", "author"]
 
 def rimuovi_articoli(testo: str, articoli: list) -> str:
     """Rimuove gli articoli/stop-words dal testo."""
@@ -550,8 +553,11 @@ class Assistente:
         self._history_idx: int   = -1
 
         # TTS con pyttsx3
-        self._tts_attivo  = True
-        self._tts_engine  = None
+        self._tts_attivo        = True
+        self._tts_engine        = None
+        self._tts_queue         = queue.Queue()
+        self._tts_interrompi    = False
+        self._tts_engine_live   = None  # riferimento all'engine attualmente in uso
         self._inizializza_tts()
 
         # STT
@@ -571,74 +577,70 @@ class Assistente:
     # INIZIALIZZAZIONE COMPONENTI
     # ------------------------------------------------------------------
     def _inizializza_tts(self):
-        """Inizializza pyttsx3 con i parametri dal config."""
+        """Avvia il thread worker TTS con coda serializzata."""
         if not TTS_DISPONIBILE:
             print("[TTS] pyttsx3 non disponibile")
             return
-        
-        try:
-            tts_cfg = self.cfg.get("tts_config", {})
-            engine_type = tts_cfg.get("engine", "auto")
-            
-            # Su macOS, pyttsx3 usa automaticamente NSSpeechSynthesizer
-            # Su Linux, richiede espeak installato
-            self._tts_engine = pyttsx3.init(driverName=engine_type if engine_type != "auto" else None)
-            
-            # Imposta velocità (rate)
-            rate = tts_cfg.get("rate", 150)
-            self._tts_engine.setProperty('rate', rate)
-            
-            # Imposta volume
-            volume = tts_cfg.get("volume", 0.9)
-            self._tts_engine.setProperty('volume', volume)
-            
-            # Seleziona voce in base alla lingua e genere
-            self._seleziona_voce_tts()
-            
-            print(f"[TTS] Inizializzato: rate={rate}, volume={volume}")
-        except Exception as e:
-            print(f"[TTS] Errore inizializzazione: {e}")
-            self._tts_engine = None
+        self._tts_engine = True  # flag: TTS disponibile
+        t = threading.Thread(target=self._tts_worker, daemon=True)
+        t.start()
+        print("[TTS] Worker TTS avviato")
+
+    def _tts_worker(self):
+        """
+        Worker TTS: elabora i messaggi dalla coda uno alla volta.
+        Ogni messaggio usa un engine fresco per evitare il bug
+        'run loop already started' di pyttsx3/SAPI5 su Windows.
+        Il flag _tts_interrompi permette di fermare il parlato corrente.
+        """
+        while True:
+            testo = self._tts_queue.get()
+            if testo is None:   # segnale di stop worker
+                break
+            if not self._tts_attivo or self._tts_interrompi:
+                continue
+            try:
+                tts_cfg = self.cfg.get("tts_config", {})
+                lingua  = self.cfg.get("lingua", "it")
+                engine_type = tts_cfg.get("engine", "auto")
+                engine = pyttsx3.init(
+                    driverName=engine_type if engine_type != "auto" else None)
+                engine.setProperty("rate",   tts_cfg.get("rate", 150))
+                engine.setProperty("volume", tts_cfg.get("volume", 0.9))
+                # Seleziona voce per lingua
+                try:
+                    for voce in engine.getProperty("voices"):
+                        n, v = voce.name.lower(), voce.id.lower()
+                        if ((lingua=="it" and ("italian" in n or "it-" in v)) or
+                            (lingua=="en" and ("english" in n or "en-" in v)) or
+                            (lingua=="fr" and ("french"  in n or "fr-" in v)) or
+                            (lingua=="de" and ("german"  in n or "de-" in v)) or
+                            (lingua=="es" and ("spanish" in n or "es-" in v))):
+                            engine.setProperty("voice", voce.id)
+                            break
+                except Exception:
+                    pass
+                # Callback: controlla il flag ad ogni parola pronunciata
+                def on_word(name, location, length):
+                    if self._tts_interrompi:
+                        engine.stop()
+                engine.connect("started-word", on_word)
+                self._tts_interrompi = False   # reset prima di parlare
+                self._tts_engine_live = engine  # esponi per stop esterno
+                engine.say(testo)
+                engine.runAndWait()
+                self._tts_engine_live = None
+            except Exception as e:
+                if "run loop" not in str(e):
+                    print(f"[TTS] Errore: {e}")
+            finally:
+                try:
+                    pyttsx3._activeEngines.clear()
+                except Exception:
+                    pass
 
     def _seleziona_voce_tts(self):
-        """Seleziona la voce TTS più adatta alla lingua configurata."""
-        if not self._tts_engine:
-            return
-        
-        try:
-            voci = self._tts_engine.getProperty('voices')
-            lingua = self.cfg.get("lingua", "it")
-            tts_cfg = self.cfg.get("tts_config", {})
-            gender = tts_cfg.get("voice_gender", "auto")
-            
-            voce_selezionata = None
-            
-            for voce in voci:
-                nome = voce.name.lower()
-                id_voce = voce.id.lower()
-                
-                # Criteri di selezione per lingua
-                if lingua == "it" and ("italian" in nome or "italiano" in nome or "it-" in id_voce):
-                    voce_selezionata = voce
-                    break
-                elif lingua == "en" and ("english" in nome or "en-" in id_voce or "us-" in id_voce):
-                    voce_selezionata = voce
-                    break
-                elif lingua == "fr" and ("french" in nome or "fr-" in id_voce):
-                    voce_selezionata = voce
-                    break
-                elif lingua == "de" and ("german" in nome or "de-" in id_voce):
-                    voce_selezionata = voce
-                    break
-                elif lingua == "es" and ("spanish" in nome or "es-" in id_voce):
-                    voce_selezionata = voce
-                    break
-            
-            if voce_selezionata:
-                self._tts_engine.setProperty('voice', voce_selezionata.id)
-                print(f"[TTS] Voce selezionata: {voce_selezionata.name}")
-        except Exception as e:
-            print(f"[TTS] Errore selezione voce: {e}")
+        """Selezione voce gestita direttamente in _tts_worker."""
 
     def _inizializza_stt(self):
         """Inizializza STT con parametri dal config."""
@@ -695,7 +697,9 @@ class Assistente:
     # ------------------------------------------------------------------
     def _t(self, chiave: str, **kw) -> str:
         """Restituisce la stringa localizzata, con eventuali sostituzioni."""
-        testo = self.L.get(chiave, chiave)
+        testo = self.L.get(chiave)
+        if testo is None:
+            testo = _LANG_IT_FALLBACK.get(chiave, chiave)
         if kw:
             try:
                 testo = testo.format(**kw)
@@ -1183,20 +1187,32 @@ class Assistente:
     # TTS (pyttsx3)
     # ------------------------------------------------------------------
     def _parla(self, testo: str):
-        """Esegue la sintesi vocale in modo asincrono."""
+        """Accoda il testo per la sintesi vocale.
+        Interrompe automaticamente il parlato precedente.
+        """
         if not self._tts_attivo or not self._tts_engine or not testo:
             return
-        
-        # Esegui in thread separato per non bloccare l'UI
-        threading.Thread(target=self._parla_thread, args=(testo,), daemon=True).start()
+        # Ferma e svuota prima di accodare il nuovo messaggio
+        self._ferma_tts()
+        self._tts_interrompi = False
+        self._tts_queue.put(testo)
 
-    def _parla_thread(self, testo: str):
-        """Thread per la sintesi vocale."""
-        try:
-            self._tts_engine.say(testo)
-            self._tts_engine.runAndWait()
-        except Exception as e:
-            print(f"[TTS] Errore: {e}")
+    def _ferma_tts(self):
+        """Interrompe immediatamente il parlato e svuota la coda."""
+        self._tts_interrompi = True
+        # Stop diretto sull'engine in esecuzione
+        engine = self._tts_engine_live
+        if engine:
+            try:
+                engine.stop()
+            except Exception:
+                pass
+        # Svuota la coda
+        while not self._tts_queue.empty():
+            try:
+                self._tts_queue.get_nowait()
+            except Exception:
+                break
 
     def _toggle_tts(self):
         self._tts_attivo = not self._tts_attivo
@@ -1204,12 +1220,7 @@ class Assistente:
             self._btn_tts.configure(text="🔊", fg="#cdd6f4")
         else:
             self._btn_tts.configure(text="🔇", fg="#6c7086")
-            # Ferma qualsiasi sintesi in corso
-            if self._tts_engine:
-                try:
-                    self._tts_engine.stop()
-                except:
-                    pass
+            self._ferma_tts()
 
     # ------------------------------------------------------------------
     # STT (aggiornato con configurazione)
@@ -1322,11 +1333,8 @@ class Assistente:
     def _gestisci_input(self, testo: str):
         # Parola chiave per interrompere la sintesi vocale
         if testo.strip().lower() in ("ok", "stop", "basta", "silenzio",
-                                     "quiet", "enough") and self._tts_engine:
-            try:
-                self._tts_engine.stop()
-            except:
-                pass
+                                     "quiet", "enough"):
+            self._ferma_tts()
             return
 
         # Stati di dialogo esistenti
@@ -1374,6 +1382,8 @@ class Assistente:
             "esci":     self._cmd_esci,
             "lingua":   self._cmd_lingua,
             "configura": self._cmd_configura,
+            "autore":   self._cmd_autore,
+            "author":   self._cmd_autore,
         }
 
         if cmd in dispatch:
@@ -1665,14 +1675,8 @@ class Assistente:
         self.stato = "idle"
         self._configura_queue = []
         self._scrivi_risposta(self._t("configura_fine"))
-        
-        # Riavvia TTS con nuove impostazioni se necessario
-        if self._tts_engine:
-            try:
-                self._tts_engine.stop()
-            except:
-                pass
-        self._inizializza_tts()
+        # Il worker legge rate/volume dal config ad ogni messaggio:
+        # nessuna azione necessaria sul motore.
 
     # ------------------------------------------------------------------
     # COMANDI ESISTENTI (invariati)
@@ -2073,6 +2077,43 @@ class Assistente:
         self._scrivi_risposta(self._t("aiuto_testo"))
         self._mostra_avatar(self.cfg.get("avatar_iniziale", "benvenuto"))
 
+    def _cmd_autore(self, parsed=None):
+        """Mostra le informazioni sull'autore con link cliccabile."""
+        url   = "https://www.steppa.net/cassani"
+        testo = "Emanuele Cassani"
+        timestamp = datetime.now().strftime("%H:%M")
+        prefisso  = f"\n[{timestamp}] {self.cfg['nome_avatar']}:> "
+
+        self.output.configure(state=tk.NORMAL)
+        self.output.insert(tk.END, prefisso + testo + "  ")
+
+        # Tag univoco per evitare collisioni se il comando viene richiamato più volte
+        tag_link = f"link_autore_{id(self)}"
+        self.output.insert(tk.END, url, tag_link)
+        self.output.insert(tk.END, "\n")
+
+        # Stile del link
+        self.output.tag_configure(tag_link, foreground="#89b4fa",
+                                  underline=True, font=("Segoe UI", 10))
+        self.output.tag_bind(tag_link, "<Button-1>",
+                             lambda e, u=url: self._apri_url(u))
+        self.output.tag_bind(tag_link, "<Enter>",
+                             lambda e: self.output.configure(cursor="hand2"))
+        self.output.tag_bind(tag_link, "<Leave>",
+                             lambda e: self.output.configure(cursor=""))
+
+        self.output.see(tk.END)
+        self.output.configure(state=tk.DISABLED)
+        self._mostra_avatar(avatar_random(self.cfg))
+
+    def _apri_url(self, url: str):
+        """Apre un URL nel browser predefinito."""
+        try:
+            import webbrowser
+            webbrowser.open(url)
+        except Exception as e:
+            print(f"[URL] Errore apertura browser: {e}")
+
     def _cmd_lingua(self, parsed: dict):
         codice = parsed.get("nome", "").strip().lower()
         if not codice:
@@ -2097,12 +2138,8 @@ class Assistente:
         self._scrivi_risposta(self._t("lingua_ok", lingua=codice.upper()))
         self._mostra_avatar(avatar_random(self.cfg))
         
-        # Riavvio TTS con nuova lingua
-        if self._tts_engine:
-            try:
-                self._tts_engine.stop()
-            except:
-                pass
+        # Riavvia il worker TTS con la nuova lingua
+        self._tts_queue.put(None)   # ferma il worker corrente
         self._inizializza_tts()
 
     def _non_capito(self):

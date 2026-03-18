@@ -1,6 +1,7 @@
-* Come configurare l'integrazione con l'IA
+# Configurare l'integrazione con l'IA
 
-Due opzioni principali: **OpenAI (GPT)** e **Google Gemini**.
+Questo documento spiega come configurare làintegrazione con IA del Toolkit Assistente desktop personale.  
+Due opzioni principali: usare **OpenAI (GPT)** oppure **Google Gemini**.
 
 ## 1. Configurazione base in `config.json`
 
@@ -18,18 +19,34 @@ Nel `config.json` usare questa sezione:
 }
 ```
 
-### Parametri:
-- **`enabled`**: `true` per attivare, `false` per disattivare
-- **`provider`**: `"openai"` o `"gemini"`
-- **`api_key`**: la tua chiave API (la inserisci qui)
-- **`model`**: 
-  - OpenAI: `"gpt-3.5-turbo"`, `"gpt-4"`, ecc.
-  - Gemini: `"gemini-pro"`
-- **`temperature`**: quanto è creativa l'IA (0.0 = precisa, 1.0 = creativa)
-- **`max_tokens`**: lunghezza massima risposta
-- **`fallback_to_ai`**: se `true`, usa l'IA quando non capisce il comando
+### Descrizione parametri:
+- **`enabled`**: 
+  `true` per attivare, `false` per disattivare
 
-## 2. Installazione dipendenze
+- **`provider`**:
+  `"openai"` o `"gemini"`
+
+- **`api_key`**:
+  la tua chiave API (inserirla qui)
+
+- **`model`**: 
+  - OpenAI: 
+  `"gpt-3.5-turbo"`, `"gpt-4"`, ecc.
+  - Gemini:
+  `"gemini-pro"`
+
+- **`temperature`**:
+  indica quanto è creativa l'IA (0.0 = precisa, 1.0 = creativa)
+
+- **`max_tokens`**: 
+  lunghezza massima risposta
+
+- **`fallback_to_ai`**:
+  se `true`, usa l'IA solo quando non capisce il comando
+
+---
+
+## 2. Installazione dipendenze AI
 
 ### Per OpenAI:
 ```bash
@@ -40,6 +57,7 @@ pip install openai
 ```bash
 pip install google-generativeai
 ```
+---
 
 ## 3. Ottenere le chiavi API
 
@@ -54,6 +72,8 @@ pip install google-generativeai
 2. Accedi con account Google
 3. Clicca "Create API Key"
 4. Copia la chiave
+
+---
 
 ## 4. Esempi di configurazione completi
 
@@ -96,7 +116,9 @@ pip install google-generativeai
 }
 ```
 
-## 5. Come funziona nel programma
+---
+
+## 5. Come funziona IA nel programma
 
 Una volta configurato:
 
@@ -114,12 +136,12 @@ Assistente:> [contatta OpenAI/Gemini]
 
 ```
 Utente:> apri chrome
-Assistente:> [comando locale] Apro subito: chrome.exe
+Assistente:> [trova comando locale] Apro subito: chrome.exe
 ```
 
 ```
 Utente:> dammi password email
-Assistente:> [cerca in memoria] password123
+Assistente:> [trova in memoria] password123
 ```
 
 ## 6. Test rapido
@@ -127,7 +149,7 @@ Assistente:> [cerca in memoria] password123
 Per testare se funziona, dopo aver configurato:
 
 1. Avvia l'assistente
-2. Digita una domanda generica come: "qual è la capitale della Francia?"
+2. Digita una domanda generica come: "qual è il capoluogo de Friuli Venezia Giulia?"
 3. Dovrebbe rispondere "Sto pensando..." e poi darti la risposta
 
 ## 7. Troubleshooting
@@ -171,6 +193,6 @@ messages=[
 - **OpenAI GPT-4**: ~$0.03 per 1000 token (più costoso)
 - **Google Gemini**: Gratuito (attualmente, con limiti)
 
-**Consiglio**: Inizia con Gemini (gratuito) o GPT-3.5 (economico) per testare!
+**Consiglio**: Inizia con un IA gratuita per test
 
-Vuoi che ti aiuti con qualche altra configurazione specifica?
+---

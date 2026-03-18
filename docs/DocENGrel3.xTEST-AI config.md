@@ -47,7 +47,7 @@ Add or edit the following section inside your `config.json`:
 
 ---
 
-## 2. Installing Dependencies
+## 2. Installing IA Dependencies
 
 ### OpenAI
 ```bash
@@ -154,7 +154,7 @@ To verify that AI integration works:
 
 1. Start the assistant  
 2. Ask a general question such as:  
-   **"What is the capital of France?"**  
+   **"What is the capital of Italy?"**  
 3. The assistant should display “Thinking…” and then provide the answer.
 
 ---
@@ -204,9 +204,6 @@ messages=[
 - **OpenAI GPT‑4**: ~$0.03 per 1000 tokens (more expensive)  
 - **Google Gemini**: Free (currently, with usage limits)
 
-**Recommendation:** Start with Gemini (free) or GPT‑3.5 (cheap) for testing.
-
----
-```
+**Recommendation:** Start with a free AI for testing.
 
 ---

@@ -72,6 +72,8 @@ macOS:
 ```bash
 brew install portaudio
 pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
+```
+
 ---
 
 ## 🚀 Quick start

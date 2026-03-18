@@ -1,8 +1,8 @@
-* 📦 Building Distributable Packages
+# 📦 Building Distributable Packages
 
-** 🪟 Windows Distributable
+## 🪟 Windows Distributable
 
-*** Create the executable from the command line  
+### Create the executable from the command line  
 (Recommended: use Thonny → Tools → Open system shell, then navigate to the correct directory)
 
 Example path:
@@ -18,12 +18,12 @@ pyinstaller --onedir --noconsole --clean ^
   --collect-all cv2 ^
   --name assistente assistente3.0TEST.py
 ```
-Notes
-This will overwrite the /dist folder if it was previously created on Linux.
-
+👉 This will overwrite the /dist folder if it was previously created on Linux.
 Windows icons must be in .ico format.
 
-** 🐧 Linux / 🍎 macOS Distributable
+---
+
+## 🐧 Linux / 🍎 macOS Distributable
 Create the executable from the command line
 (Recommended: use Thonny → Tools → Open system shell.
 To reach the correct directory: type cd and drag the project folder into the terminal.)
@@ -39,12 +39,12 @@ pyinstaller --onedir --noconsole --clean \
   --hidden-import numpy \
   --name assistente assistente3.0TEST.py
 ```
-Notes
-This will overwrite the /dist folder if it was previously created on Windows.
-
+👉 This will overwrite the /dist folder if it was previously created on Windows.
 Linux/macOS icons must be in .png format.
 
-** 📁 Program Folder Structure (for ZIP distribution)
+---
+
+## 📁 Program Folder Structure (for ZIP distribution)
 When packaging the program for distribution, the structure inside the ZIP file should be:
 
 ```
@@ -60,17 +60,16 @@ dist/Assistente/
        _internal/              ← PyInstaller internal folder (do not modify)
             [other PyInstaller DLLs]
 ```
-Important
+👉 Important
 Always distribute the entire folder as a single ZIP archive.
+Distribute and do not modify the _internal directory created by PyInstaller.
 
-Do not modify the _internal directory created by PyInstaller.
+---
 
-** ✅ Summary
+## ✅ Summary
 Use .ico icons for Windows, .png for Linux/macOS.
-
 PyInstaller will always overwrite the /dist folder when rebuilding.
-
 Distribute the entire dist/Assistente/ folder as a ZIP file.
-
 The _dati folder must always be included (config, memory, languages, avatars).
 The _internal folder must always be included (PyInstaller mandatory files).
+---
