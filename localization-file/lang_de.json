@@ -1,4 +1,23 @@
 {
+"_nota": "Deutsche Sprachdatei — interne Schlüssel und lokalisierte Werte",
+"lingua_stt": "de-DE",
+
+"alias_comandi": {
+    "ricorda": ["merken", "speichern", "behalten"],
+    "impara": ["lernen", "beibringen"],
+    "apri": ["öffnen", "öffne", "starten", "ausführen"],
+    "dammi": ["zeig", "zeige", "gib mir", "anzeigen"],
+    "cerca": ["suchen", "suche", "finden", "nachschlagen"],
+    "elenca": ["auflisten", "alle", "alles anzeigen"],
+    "modifica": ["ändern", "bearbeiten", "aktualisieren", "modifizieren"],
+    "elimina": ["löschen", "entfernen", "streichen"],
+    "copia": ["kopieren"],
+    "configura": ["konfigurieren", "einstellungen", "config"],
+    "aiuto": ["hilfe", "hilf mir"],
+    "esci": ["beenden", "schließen", "tschüss", "verlassen"],
+    "lingua": ["sprache"]
+},
+
     "btn_invia": "Senden",
     "titolo_finestra": "Assistent – {nome_avatar}",
     "label_comandi": "BEFEHLE",
@@ -130,6 +149,5 @@
     "shortcut_nessuno": "Keine Tastenkürzel konfiguriert.",
     
     "label_lingua": "SPRACHE",
-    "lingua_nessuna": "Keine Sprachdatei\nin _dati/ gefunden",
-    "lingua_stt": "de-DE"
+    "lingua_nessuna": "Keine Sprachdatei\nin _dati/ gefunden"
 }

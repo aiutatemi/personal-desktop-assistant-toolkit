@@ -1,15 +1,22 @@
 {
-  "_nota": "Ficheiro de idioma italiano — chaves internas e valores localizados",
-  "lingua_stt": "pt-PT",
+"_nota": "Ficheiro de idioma Português (Portugal)",
+"lingua_stt": "pt-PT",
 
-  "alias_comandi": {
-    "dammi": ["mostra", "diz-me", "exibe"],
-    "apri": ["abre"],
-    "cerca": ["procura"],
-    "elenca": ["listar"],
-    "aiuto": ["ajuda"],
-    "esci": ["sair"]
-  },
+"alias_comandi": {
+    "ricorda": ["lembrar", "guardar", "salvar"],
+    "impara": ["aprender", "ensinar"],
+    "apri": ["abre", "abrir", "iniciar"],
+    "dammi": ["mostra", "diz-me", "exibe", "mostrar"],
+    "cerca": ["procura", "procurar", "pesquisar", "encontrar"],
+    "elenca": ["listar", "todos", "listar tudo"],
+    "modifica": ["modificar", "editar", "atualizar", "alterar"],
+    "elimina": ["eliminar", "remover", "apagar"],
+    "copia": ["copiar"],
+    "configura": ["configurar", "definições", "config"],
+    "aiuto": ["ajuda", "socorro"],
+    "esci": ["sair", "fechar", "encerrar", "sai"],
+    "lingua": ["idioma", "língua"]
+},
 
   "btn_invia":        "Enviar",
   "titolo_finestra":  "Assistente – {nome_avatar}",

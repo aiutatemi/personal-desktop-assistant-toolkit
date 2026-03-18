@@ -1,4 +1,23 @@
 {
+"_nota": "Archivo de idioma Español — claves internas y valores localizados",
+"lingua_stt": "es-ES",
+
+"alias_comandi": {
+    "ricorda": ["recordar", "guardar", "almacenar"],
+    "impara": ["aprender", "enseñar"],
+    "apri": ["abrir", "abre", "lanzar", "iniciar"],
+    "dammi": ["dame", "muestra", "mostrar", "dime"],
+    "cerca": ["buscar", "busca", "encontrar", "hallar"],
+    "elenca": ["listar", "todos", "mostrar todo"],
+    "modifica": ["modificar", "editar", "actualizar", "cambiar"],
+    "elimina": ["eliminar", "borrar", "quitar", "suprimir"],
+    "copia": ["copiar"],
+    "configura": ["configurar", "ajustes", "config"],
+    "aiuto": ["ayuda", "ayúdame"],
+    "esci": ["salir", "cerrar", "adiós", "salida"],
+    "lingua": ["idioma", "lengua"]
+},
+
     "btn_invia": "Enviar",
     "titolo_finestra": "Asistente – {nome_avatar}",
     "label_comandi": "COMANDOS",
@@ -128,6 +147,5 @@
     "shortcut_nessuno": "No hay accesos directos configurados.",
     
     "label_lingua": "IDIOMA",
-    "lingua_nessuna": "No se encontró ningún\narchivo de idioma en _dati/",
-    "lingua_stt": "es-ES"
+    "lingua_nessuna": "No se encontró ningún\narchivo de idioma en _dati/"
 }

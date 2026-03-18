@@ -1,4 +1,23 @@
 {
+"_nota": "Fichier de langue Français — clés internes et valeurs localisées",
+"lingua_stt": "fr-FR",
+
+"alias_comandi": {
+    "ricorda": ["retenir", "sauvegarder", "enregistrer"],
+    "impara": ["apprendre", "enseigner"],
+    "apri": ["ouvre", "ouvrir", "lancer", "démarrer"],
+    "dammi": ["donne", "donne-moi", "montre", "affiche"],
+    "cerca": ["cherche", "chercher", "trouver", "rechercher"],
+    "elenca": ["lister", "tous", "tout afficher"],
+    "modifica": ["modifier", "éditer", "mettre à jour", "changer"],
+    "elimina": ["supprimer", "effacer", "enlever"],
+    "copia": ["copier"],
+    "configura": ["configurer", "paramètres", "config"],
+    "aiuto": ["aide", "aidez-moi"],
+    "esci": ["quitter", "fermer", "au revoir", "sortir"],
+    "lingua": ["langue"]
+},
+
     "btn_invia": "Envoyer",
     "titolo_finestra": "Assistant – {nome_avatar}",
     "label_comandi": "COMMANDES",
@@ -131,6 +150,5 @@
     "shortcut_nessuno": "Aucun raccourci configuré.",
     
     "label_lingua": "LANGUE",
-    "lingua_nessuna": "Aucun fichier de langue\ntrouvé dans _dati/",
-    "lingua_stt": "fr-FR"
+    "lingua_nessuna": "Aucun fichier de langue\ntrouvé dans _dati/"
 }

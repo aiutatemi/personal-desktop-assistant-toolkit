@@ -1,8 +1,21 @@
 {
-  "_nota": "意大利语语言文件 — 内部键，已本地化的值",
-  "lingua_stt": "zh-CN",
-
-  "alias_comandi": {},
+"_nota": "中文语言文件 — 内部键和本地化值",
+"lingua_stt": "zh-CN",
+"alias_comandi": {
+    "ricorda": ["记住", "保存", "存储"],
+    "impara": ["学习", "教我"],
+    "apri": ["打开", "启动", "运行"],
+    "dammi": ["给我", "显示", "告诉我", "展示"],
+    "cerca": ["搜索", "查找", "寻找"],
+    "elenca": ["列表", "全部", "显示全部"],
+    "modifica": ["修改", "编辑", "更新", "更改"],
+    "elimina": ["删除", "移除", "清除"],
+    "copia": ["复制"],
+    "configura": ["配置", "设置"],
+    "aiuto": ["帮助", "帮我"],
+    "esci": ["退出", "关闭", "再见"],
+    "lingua": ["语言"]
+},
 
   "btn_invia":        "发送",
   "titolo_finestra":  "助手 – {nome_avatar}",

@@ -1,4 +1,22 @@
 {
+"lingua_stt": "en-US",
+
+"alias_comandi": {
+    "ricorda": ["remember", "save", "store"],
+    "impara": ["learn", "teach"],
+    "apri": ["open", "launch", "start"],
+    "dammi": ["give", "show", "get"],
+    "cerca": ["search", "find", "look"],
+    "elenca": ["list", "all", "show all"],
+    "modifica": ["modify", "edit", "update", "change"],
+    "elimina": ["delete", "remove", "erase"],
+    "copia": ["copy"],
+    "configura": ["configure", "settings", "config"],
+    "aiuto": ["help"],
+    "esci": ["exit", "quit", "close", "bye"],
+    "lingua": ["language"]
+},
+
     "btn_invia": "Send",
     "titolo_finestra": "Assistant – {nome_avatar}",
     "label_comandi": "COMMANDS",
@@ -125,6 +143,5 @@
     "shortcut_nessuno": "No shortcuts configured.",
     
     "label_lingua": "LANGUAGE",
-    "lingua_nessuna": "No language file\nfound in _dati/",
-    "lingua_stt": "en-US"
+    "lingua_nessuna": "No language file\nfound in _dati/"
 }
