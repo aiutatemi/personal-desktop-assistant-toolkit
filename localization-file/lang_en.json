@@ -110,7 +110,7 @@
     "ai_non_disponibile": "AI function not available or not configured.",
     "ai_chiedi_chiave": "Enter API key for {provider}:",
     
-    "aiuto_testo": "Commands: remember · learn · open · give · search · list · modify · delete · copy · configure · language · exit · help",
+    "aiuto_testo": "Commands: give · open · search · list · configure · help · exit ·learn · remember · remember image · modify · delete · copy · language",
     "non_capito": "I didn't understand. Keywords: remember · learn · open · give · search · list · modify · delete · copy · configure · exit · help",
     
     "lingua_ok": "Language set to: {lingua}",

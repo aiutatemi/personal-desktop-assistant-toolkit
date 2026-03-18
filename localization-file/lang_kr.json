@@ -1,0 +1,113 @@
+{
+  "_nota": "이탈리아어 언어 파일 — 내부 키와 현지화된 값",
+  "lingua_stt": "ko-KR",
+
+  "alias_comandi": {
+    "dammi": ["보여줘", "알려줘", "표시해줘"],
+    "apri": ["열어"],
+    "cerca": ["검색해"],
+    "elenca": ["목록"],
+    "aiuto": ["도움말"],
+    "esci": ["종료"]
+  },
+
+  "btn_invia":        "보내기",
+  "titolo_finestra":  "어시스턴트 – {nome_avatar}",
+  "label_comandi":    "명령어",
+  "label_shortcut":   "단축키",
+
+  "panel_dammi":          "… 보여줘",
+  "panel_apri":           "… 열어",
+  "panel_cerca":          "… 검색",
+  "panel_elenca":         "메모리 목록",
+  "panel_aiuto":          "도움말",
+  "panel_esci":           "종료",
+  "panel_sep_memoria":    "── 메모리 관리 ──",
+  "panel_impara":         "학습",
+  "panel_ricorda":        "기억 …",
+  "panel_ricorda_img":    "이미지 기억",
+  "panel_modifica":       "수정 …",
+  "panel_elimina":        "삭제 …",
+  "panel_copia":          "복사 …",
+
+  "avvio_saluto":         "{nome_utente}님, 안녕하세요! 저는 당신의 어시스턴트 {nome_avatar}입니다.\n‘도움말’을 입력하면 가능한 작업을 볼 수 있어요.",
+  "avvio_memoria_vuota":  "죄송하지만 메모리가 비어 있습니다.\n비어 있지 않아야 한다면 다음 파일을 복구해 주세요:\n  .\\_dati\\memoria.json.bak",
+
+  "apri_subito":          "바로 열게요",
+  "apri_cosa":            "무엇을 열까요? 이름을 알려주세요.",
+  "apri_non_trovato":     "죄송하지만 메모리에서 ‘{q}’를 찾을 수 없습니다.",
+  "apri_errore":          "열 수 없습니다: {err}",
+
+  "dammi_cosa":           "무엇을 보여드릴까요? 이름을 알려주세요.",
+  "dammi_non_trovato":    "‘{q}’에 해당하는 항목이 없습니다.",
+  "dammi_risultato_1":    "‘{nome}’의 데이터 ({soggetto}):",
+  "dammi_risultati_n":    "{n}개의 항목을 찾았습니다:",
+
+  "cerca_cosa":           "메모리에서 무엇을 검색할까요?",
+  "cerca_non_trovato":    "‘{q}’에 대한 결과가 없습니다.",
+  "cerca_trovato":        "‘{q}’에 대한 결과 {n}개를 찾았습니다:",
+
+  "elimina_cosa":         "메모리에서 무엇을 삭제할까요?",
+  "elimina_non_trovato":  "메모리에서 ‘{q}’를 찾을 수 없습니다.",
+  "elimina_conferma":     "정말 삭제하시겠습니까?\n{entry}\n‘예’로 확인, ‘아니오’로 취소합니다.",
+  "elimina_ok":           "‘{nome}’가 삭제되었습니다.",
+  "elimina_annullato":    "삭제가 취소되었습니다.",
+  "elimina_si":           ["예", "yes", "y"],
+
+  "modifica_cosa":        "어떤 항목을 수정할까요?",
+  "modifica_non_trovato": "죄송하지만 ‘{q}’를 찾을 수 없습니다.",
+  "modifica_trovata":     "항목을 찾았습니다:\n{entry}\n어떤 필드를 수정할까요?\n필드명만 입력하거나(예: 'dati'), 필드명 + 값도 가능합니다(예: 'dati CSSMNL...').",
+  "modifica_campo_no":    "알 수 없는 필드입니다: ‘{campo}’.\n가능한 필드: {campi}",
+  "modifica_valore_chiedi": "‘{campo}’의 새 값을 입력하세요:",
+  "modifica_ok":          "수정 완료! ‘{campo}’가 {valore}(으)로 변경되었습니다.",
+  "modifica_errore":      "오류: 메모리에서 항목을 찾을 수 없습니다.",
+
+  "elenca_vuota":         "죄송하지만 메모리가 비어 있습니다.",
+  "elenca_intestazione":  "메모리에 {n}개의 항목이 있습니다:",
+
+  "copia_cosa":           "무엇을 클립보드에 복사할까요?",
+  "copia_non_trovato":    "메모리에서 ‘{q}’를 찾을 수 없습니다.",
+  "copia_ok":             "복사했습니다:\n  {dati}",
+
+  "ricorda_chiedi_nome":  "기록할 이름을 알려주세요:",
+  "ricorda_chiedi_dati":  "좋아요. ‘{nome}’의 데이터를 입력해 주세요:",
+  "ricorda_ok":           "완료! ‘{nome}’가 메모리에 저장되었습니다.",
+  "ricorda_img_titolo":   "이미지를 선택하세요",
+  "ricorda_img_nessuna":  "선택된 이미지가 없습니다.",
+  "ricorda_img_nome":     "이미지에 연결할 이름을 알려주세요",
+  "ricorda_img_tag":      "추가할 설명(태그)은 무엇인가요?",
+  "ricorda_img_ok":       "완료! 이미지 ‘{nome}’가 저장되었습니다.",
+
+  "impara_intro":         "단계별 입력 — 하나씩 질문합니다.\n선택 항목은 ‘건너뛰기’, 취소는 ‘종료’라고 입력하세요.",
+  "impara_annullato":     "입력이 취소되었습니다.",
+  "impara_obbligatorio":  "‘{campo}’는 필수 항목입니다.",
+  "impara_salvato":       "저장 완료! ‘{nome}’가 메모리에 추가되었습니다.\n\n다른 항목을 계속 추가할까요? (예 / 아니오)",
+  "impara_completato":    "입력이 완료되었습니다.",
+  "impara_si":            ["예", "yes", "y"],
+  "impara_fine":          "종료",
+  "impara_salta":         "건너뛰기",
+  "impara_prompt_nome":     "이름 (필수):",
+  "impara_prompt_alias":    "별칭 / 약어 (선택 — ‘건너뛰기’ 입력 가능):",
+  "impara_prompt_soggetto": "소유자 (선택 — ‘건너뛰기’로 사용자 이름 사용):",
+  "impara_prompt_dati":     "저장할 데이터 (필수):",
+  "impara_prompt_tag":      "태그 (선택 — 예: 가족, 업무 — ‘건너뛰기’ 가능):",
+  "impara_prompt_avatar":   "아바타 (선택 — ‘건너뛰기’로 ‘미소’ 사용):\n  미소 · 만족 · 슬픔 · 사서 · 창고직원 · 환영",
+
+  "aiuto_testo":          "제가 할 수 있는 작업은 다음과 같습니다:\n\n보여줘    — 저장된 정보를 표시\n열어       — 저장된 링크 열기\n검색해     — 메모리 검색\n목록       — 기억된 모든 항목 표시 (‘종료’로 중단)\n설정       — config.json 설정 안내 (‘종료’로 중단)\n도움말     — 이 메시지 표시\n종료       — 프로그램 종료\n\n학습       — 단계별 입력\n기억       — 정보를 저장\n이미지 기억 — 이미지를 저장\n수정       — 저장된 항목 수정\n삭제       — 항목 삭제\n복사       — 데이터를 클립보드에 복사\n\n언어       — 언어 변경\n\n오른쪽 ▶ 패널에서 사용자 지정 버튼을 추가할 수 있습니다.",
+
+  "non_capito":           "죄송하지만 무엇을 해야 할지 이해하지 못했습니다.\n키워드: 기억 · 학습 · 열어 · 보여줘 · 검색\n         목록 · 수정 · 삭제 · 복사 · 종료 · 도움말",
+
+  "lingua_ok":            "언어가 설정되었습니다: {lingua}",
+  "lingua_non_trovata":   "언어 파일 ‘{file}’을(를) {cartella}에서 찾을 수 없습니다.",
+  "lingua_uso":           "사용법: 언어 <코드>  (예: 언어 en)",
+
+  "stt_nessun_audio":     "오디오가 감지되지 않았습니다.",
+  "stt_non_capito":       "죄송하지만 이해하지 못했습니다. 다시 시도해 주세요.",
+  "stt_errore":           "음성 인식 오류: {err}",
+  "stt_mic_errore":       "마이크를 사용할 수 없습니다: {err}",
+
+  "shortcut_nessuno":     "설정된 단축키가 없습니다.\nconfigurazioni.json에\n\"shortcut\"을 추가하세요",
+
+  "label_lingua":         "언어",
+  "lingua_nessuna":       "_dati/ 폴더에서 언어 파일을 찾을 수 없습니다"
+}

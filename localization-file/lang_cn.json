@@ -1,0 +1,106 @@
+{
+  "_nota": "意大利语语言文件 — 内部键，已本地化的值",
+  "lingua_stt": "zh-CN",
+
+  "alias_comandi": {},
+
+  "btn_invia":        "发送",
+  "titolo_finestra":  "助手 – {nome_avatar}",
+  "label_comandi":    "命令",
+  "label_shortcut":   "快捷键",
+
+  "panel_dammi":          "给我 ...",
+  "panel_apri":           "打开 ...",
+  "panel_cerca":          "搜索 ...",
+  "panel_elenca":         "列出记忆",
+  "panel_aiuto":          "帮助",
+  "panel_esci":           "退出",
+  "panel_sep_memoria":    "── 管理记忆 ──",
+  "panel_impara":         "学习",
+  "panel_ricorda":        "记住 ...",
+  "panel_ricorda_img":    "记住图片",
+  "panel_modifica":       "修改 ...",
+  "panel_elimina":        "删除 ...",
+  "panel_copia":          "复制 ...",
+
+  "avvio_saluto":         "你好 {nome_utente}！我是你的助手 {nome_avatar}。\n输入“帮助”查看我能做什么。",
+  "avvio_memoria_vuota":  "很抱歉，我的记忆是空的。\n如果不应该为空，请修复并恢复文件：\n  .\\_dati\\memoria.json.bak",
+
+  "apri_subito":          "马上打开",
+  "apri_cosa":            "我应该打开什么？请告诉我一个名称。",
+  "apri_non_trovato":     "很抱歉，我没有在记忆中找到 '{q}'。",
+  "apri_errore":          "很抱歉，我无法打开：{err}",
+
+  "dammi_cosa":           "我应该给你什么？告诉我名称。",
+  "dammi_non_trovato":    "我没有找到与 '{q}' 相关的任何内容。",
+  "dammi_risultato_1":    "'{nome}' 的数据（{soggetto}）：",
+  "dammi_risultati_n":    "我找到了 {n} 条记录：",
+
+  "cerca_cosa":           "我应该在记忆中搜索什么？",
+  "cerca_non_trovato":    "没有找到与 '{q}' 相关的结果。",
+  "cerca_trovato":        "我找到了 {n} 个与 '{q}' 匹配的结果：",
+
+  "elimina_cosa":         "我应该从记忆中删除什么？",
+  "elimina_non_trovato":  "我没有在记忆中找到 '{q}'。",
+  "elimina_conferma":     "你确定要删除：\n{entry}\n输入 '是' 确认，或 '否' 取消。",
+  "elimina_ok":           "'{nome}' 已从记忆中删除。",
+  "elimina_annullato":    "删除已取消。",
+  "elimina_si":           ["是", "yes", "y"],
+
+  "modifica_cosa":        "我应该修改哪一条记录？",
+  "modifica_non_trovato": "很抱歉，我没有在记忆中找到 '{q}'。",
+  "modifica_trovata":     "找到记录：\n{entry}\n你想修改哪个字段？\n你可以只写字段名（例如：'dati'），或字段名加新值（例如：'dati CSSMNL...'）",
+  "modifica_campo_no":    "无法识别字段：'{campo}'。\n可选字段：{campi}",
+  "modifica_valore_chiedi": "请输入 '{campo}' 的新值：",
+  "modifica_ok":          "已修改！'{campo}' 更新为：{valore}",
+  "modifica_errore":      "错误：无法在记忆中找到该记录。",
+
+  "elenca_vuota":         "很抱歉，我的记忆是空的。",
+  "elenca_intestazione":  "我在记忆中有 {n} 条记录：",
+
+  "copia_cosa":           "我不明白你想复制什么到剪贴板？",
+  "copia_non_trovato":    "很抱歉，我没有在记忆中找到 '{q}'。",
+  "copia_ok":             "已复制到剪贴板：\n  {dati}",
+
+  "ricorda_chiedi_nome":  "告诉我要记录的名称：",
+  "ricorda_chiedi_dati":  "好的，请告诉我 '{nome}' 的数据：",
+  "ricorda_ok":           "完成！'{nome}' 已保存到记忆中。",
+  "ricorda_img_titolo":   "选择一张图片",
+  "ricorda_img_nessuna":  "未选择任何图片。",
+  "ricorda_img_nome":     "告诉我要为图片设置的名称",
+  "ricorda_img_tag":      "你想添加什么描述（标签）？",
+  "ricorda_img_ok":       "完成！图片 '{nome}' 已保存到记忆中。",
+
+  "impara_intro":         "引导式输入 — 我会逐项询问。\n输入 '跳过' 跳过可选字段，输入 '结束' 取消。",
+  "impara_annullato":     "输入已取消。",
+  "impara_obbligatorio":  "'{campo}' 是必填字段。",
+  "impara_salvato":       "已保存！'{nome}' 已加入记忆。\n\n你想再添加一个项目吗？（是 / 否）",
+  "impara_completato":    "输入完成。",
+  "impara_si":            ["是", "yes", "y"],
+  "impara_fine":          "结束",
+  "impara_salta":         "跳过",
+  "impara_prompt_nome":     "名称（必填）：",
+  "impara_prompt_alias":    "别名 / 缩写（可选 — 输入 '跳过' 跳过）：",
+  "impara_prompt_soggetto": "所有者（可选 — 输入 '跳过' 使用你的名字）：",
+  "impara_prompt_dati":     "要保存的数据（必填）：",
+  "impara_prompt_tag":      "标签（可选 — 例如：家庭、工作 — 输入 '跳过' 跳过）：",
+  "impara_prompt_avatar":   "头像（可选 — 输入 '跳过' 使用 '微笑'）：\n  微笑 · 满意 · 悲伤 · 图书管理员 · 仓库管理员 · 欢迎",
+
+  "aiuto_testo":          "以下是我能为你做的事情：\n\n给我    — 返回已保存的信息\n打开     — 打开已保存的链接\n搜索     — 在记忆中搜索\n列出     — 显示我记得的所有内容（使用“结束”停止）\n配置     — 引导配置 config.json（使用“结束”停止）\n帮助     — 显示此消息\n退出     — 关闭程序\n\n学习     — 引导你逐项输入\n记住     — 保存信息到记忆\n记住图片 — 保存图片到记忆\n修改     — 修改已保存的记录\n删除     — 从记忆中删除记录\n复制     — 将数据复制到剪贴板\n\n语言     — 更改语言\n\n你可以使用右侧 ▶ 面板添加自定义按钮。",
+
+  "non_capito":           "很抱歉，我不明白你希望我做什么。\n关键词：记住 · 学习 · 打开 · 给我 · 搜索\n         列出 · 修改 · 删除 · 复制 · 退出 · 帮助",
+
+  "lingua_ok":            "语言已设置为：{lingua}",
+  "lingua_non_trovata":   "很抱歉，我没有在 {cartella} 中找到语言文件 '{file}'。",
+  "lingua_uso":           "用法：语言 <代码>  （例如：语言 en）",
+
+  "stt_nessun_audio":     "未检测到音频。",
+  "stt_non_capito":       "很抱歉，我没有听懂，请再试一次。",
+  "stt_errore":           "语音识别错误：{err}",
+  "stt_mic_errore":       "麦克风不可用：{err}",
+
+  "shortcut_nessuno":     "未配置任何快捷键。\n请在 configurazioni.json 中添加键\n\"shortcut\"",
+
+  "label_lingua":         "语言",
+  "lingua_nessuna":       "我没有在 _dati/ 文件夹中找到任何语言文件"
+}

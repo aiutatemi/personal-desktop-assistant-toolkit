@@ -1,0 +1,113 @@
+{
+  "_nota": "Ficheiro de idioma italiano — chaves internas e valores localizados",
+  "lingua_stt": "pt-PT",
+
+  "alias_comandi": {
+    "dammi": ["mostra", "diz-me", "exibe"],
+    "apri": ["abre"],
+    "cerca": ["procura"],
+    "elenca": ["listar"],
+    "aiuto": ["ajuda"],
+    "esci": ["sair"]
+  },
+
+  "btn_invia":        "Enviar",
+  "titolo_finestra":  "Assistente – {nome_avatar}",
+  "label_comandi":    "COMANDOS",
+  "label_shortcut":   "ATALHOS",
+
+  "panel_dammi":          "mostra ...",
+  "panel_apri":           "abre ...",
+  "panel_cerca":          "procura ...",
+  "panel_elenca":         "listar memória",
+  "panel_aiuto":          "ajuda",
+  "panel_esci":           "sair",
+  "panel_sep_memoria":    "── GERIR MEMÓRIA ──",
+  "panel_impara":         "aprender",
+  "panel_ricorda":        "lembrar ...",
+  "panel_ricorda_img":    "lembrar imagem",
+  "panel_modifica":       "modificar ...",
+  "panel_elimina":        "eliminar ...",
+  "panel_copia":          "copiar ...",
+
+  "avvio_saluto":         "Olá {nome_utente}! Sou a tua assistente {nome_avatar}.\nEscreve 'ajuda' para ver o que posso fazer.",
+  "avvio_memoria_vuota":  "Infelizmente, a minha memória está vazia.\nSe não deveria estar, corrige e restaura o ficheiro:\n  .\\_dati\\memoria.json.bak",
+
+  "apri_subito":          "A abrir",
+  "apri_cosa":            "O que devo abrir? Diz-me um nome, por favor.",
+  "apri_non_trovato":     "Não encontrei '{q}' na memória.",
+  "apri_errore":          "Não consigo abrir: {err}",
+
+  "dammi_cosa":           "O que devo mostrar? Diz-me o nome.",
+  "dammi_non_trovato":    "Não encontrei nada para '{q}'.",
+  "dammi_risultato_1":    "Dados de '{nome}' ({soggetto}):",
+  "dammi_risultati_n":    "Encontrei {n} entradas:",
+
+  "cerca_cosa":           "O que devo procurar na memória?",
+  "cerca_non_trovato":    "Nenhum resultado para '{q}'.",
+  "cerca_trovato":        "Encontrei {n} resultado(s) para '{q}':",
+
+  "elimina_cosa":         "O que devo eliminar da memória?",
+  "elimina_non_trovato":  "Não encontrei '{q}' na memória.",
+  "elimina_conferma":     "Queres mesmo eliminar:\n{entry}\nEscreve 'sim' para confirmar ou 'não' para cancelar.",
+  "elimina_ok":           "'{nome}' eliminado da memória.",
+  "elimina_annullato":    "Eliminação cancelada.",
+  "elimina_si":           ["sim", "s", "yes"],
+
+  "modifica_cosa":        "Qual entrada devo modificar?",
+  "modifica_non_trovato": "Não encontrei '{q}' na memória.",
+  "modifica_trovata":     "Entrada encontrada:\n{entry}\nQue campo queres modificar?\nPodes escrever só o campo (ex: 'dati') ou campo e valor (ex: 'dati CSSMNL...').",
+  "modifica_campo_no":    "Campo não reconhecido: '{campo}'.\nEscolhe entre: {campi}",
+  "modifica_valore_chiedi": "Insere o novo valor para '{campo}':",
+  "modifica_ok":          "Modificado! '{campo}' atualizado para: {valore}",
+  "modifica_errore":      "Erro: não encontro a entrada na memória.",
+
+  "elenca_vuota":         "A minha memória está vazia.",
+  "elenca_intestazione":  "Tenho {n} entrada(s) na memória:",
+
+  "copia_cosa":           "Não percebi o que devo copiar para a área de transferência.",
+  "copia_non_trovato":    "Não encontrei '{q}' na memória.",
+  "copia_ok":             "Copiado para a área de transferência:\n  {dati}",
+
+  "ricorda_chiedi_nome":  "Diz-me o nome que devo registar:",
+  "ricorda_chiedi_dati":  "Ok, diz-me os dados para lembrar '{nome}':",
+  "ricorda_ok":           "Feito! '{nome}' guardado na memória.",
+  "ricorda_img_titolo":   "Seleciona uma imagem",
+  "ricorda_img_nessuna":  "Nenhuma imagem selecionada.",
+  "ricorda_img_nome":     "Diz-me o nome a associar à imagem",
+  "ricorda_img_tag":      "Que descrição (tag) queres adicionar?",
+  "ricorda_img_ok":       "Feito! Imagem '{nome}' guardada na memória.",
+
+  "impara_intro":         "Inserção guiada — vou pedir um campo de cada vez.\nEscreve 'saltar' para campos opcionais, 'fim' para cancelar.",
+  "impara_annullato":     "Inserção cancelada.",
+  "impara_obbligatorio":  "O campo '{campo}' é obrigatório.",
+  "impara_salvato":       "Guardado! '{nome}' na memória.\n\nQueres inserir outro elemento? (sim / não)",
+  "impara_completato":    "Inserção concluída.",
+  "impara_si":            ["sim", "s", "yes"],
+  "impara_fine":          "fim",
+  "impara_salta":         "saltar",
+  "impara_prompt_nome":     "Nome (obrigatório):",
+  "impara_prompt_alias":    "Apelido / abreviação (opcional — escreve 'saltar' para ignorar):",
+  "impara_prompt_soggetto": "Titular (opcional — escreve 'saltar' para usar o teu nome):",
+  "impara_prompt_dati":     "Dados a guardar (obrigatório):",
+  "impara_prompt_tag":      "Tags (opcional — ex: família, trabalho — escreve 'saltar' para ignorar):",
+  "impara_prompt_avatar":   "Avatar (opcional — escreve 'saltar' para 'sorridente'):\n  sorridente · satisfeito · triste · bibliotecária · armazenista · boas-vindas",
+
+  "aiuto_testo":          "Aqui está o que posso fazer por ti:\n\nmostra   — devolvo informações guardadas\nabre     — abro um link guardado\nprocura  — procuro na memória\nlistar   — mostro tudo o que lembro (usa 'fim' para parar)\nconfigurar — guia para configurar o config.json (usa 'fim' para parar)\najuda    — mostro esta mensagem\nsair     — fecho o programa\n\naprender — guio-te campo a campo\nlembrar  — guardo informação na memória\nlembrar imagem — guardo uma imagem na memória\nmodificar — modifico uma entrada guardada\neliminar  — removo uma entrada da memória\ncopiar    — copio dados para a área de transferência\n\nlingua   — mudo o idioma\n\nPodes usar o painel ▶ à direita para botões personalizados.",
+
+  "non_capito":           "Não percebi o que devo fazer. Ajudas-me?\nPalavras-chave: lembrar · aprender · abrir · mostrar · procurar\n               listar · modificar · eliminar · copiar · sair · ajuda",
+
+  "lingua_ok":            "Idioma definido para: {lingua}",
+  "lingua_non_trovata":   "Não encontrei o ficheiro de idioma '{file}' em {cartella}.",
+  "lingua_uso":           "Uso: lingua <código>  (ex: lingua en)",
+
+  "stt_nessun_audio":     "Nenhum áudio detetado.",
+  "stt_non_capito":       "Não percebi, podes repetir?",
+  "stt_errore":           "Erro STT: {err}",
+  "stt_mic_errore":       "Microfone indisponível: {err}",
+
+  "shortcut_nessuno":     "Nenhum atalho configurado.\nAdiciona a chave\n\"shortcut\" em\nconfigurazioni.json",
+
+  "label_lingua":         "IDIOMA",
+  "lingua_nessuna":       "Não encontrei nenhum ficheiro de idioma\nna pasta _dati/"
+}

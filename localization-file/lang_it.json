@@ -81,12 +81,12 @@
   "impara_salta":         "salta",
   "impara_prompt_nome":     "Nome (obbligatorio):",
   "impara_prompt_alias":    "Alias / abbreviazione (opzionale — scrivi 'salta' per saltare):",
-  "impara_prompt_soggetto": "Soggetto / intestatario (opzionale — scrivi 'salta' per usare il tuo nome):",
+  "impara_prompt_soggetto": "Intestatario (opzionale — scrivi 'salta' per usare il tuo nome):",
   "impara_prompt_dati":     "Dati da memorizzare (obbligatorio):",
-  "impara_prompt_tag":      "Tag / etichette (opzionale — es: famiglia, salute, lavoro — scrivi 'salta' per saltare):",
+  "impara_prompt_tag":      "Tag (opzionale — es: famiglia, lavoro — scrivi 'salta' per saltare):",
   "impara_prompt_avatar":   "Avatar (opzionale — scrivi 'salta' per 'sorridente'):\n  sorridente · soddisfatto · triste · bibliotecaria · magazziniere · benvenuto",
 
-  "aiuto_testo":          "Ecco che cosa posso fare par te:\n\n  ricorda  — salvo informazioni in memoria\n  impara   — ti guido a inserire campo per campo\n  dammi    — restituisco le informazioni salvate\n  apri     — apro un link o file salvato\n  cerca    — cerco nella mia memoria\n  elenca   — mostro tutto quello che ricordo\n  modifica — modifico una voce salvata\n  elimina  — rimuovo una voce dalla mia memoria\n  copia    — copio un dato negli appunti\n  lingua   — cambio la lingua (es: lingua en)\n  esci     — saluto e chiudo il programma\n  aiuto    — ti mostro questo messaggio\n\nPuoi usare il pannello ▶ a destra per i tuoi pulsanti rapidi personalizzabili.",
+  "aiuto_testo":          "Ecco quello che posso fare per te:\n\ndammi    — restituisco le informazioni salvate\napri     — apro un link salvato\ncerca    — cerco nella mia memoria\nelenca   — mostro tutto quello che ricordo (usa fine per interrompere)\nconfigura — guida configurarazione config.json (usa fine per interrompere)\naiuto    — ti mostro questo messaggio\nesci     — chiudo il programma\n\nimpara   — ti guido a inserire campo per campo\nricorda  — salvo informazione in memoria\nricorda immagine  — salvo immagine in memoria\nmodifica — modifico una voce salvata\nelimina  — rimuovo una voce dalla mia memoria\ncopia    — copio un dato negli appunti\n\nlingua   — cambio la lingua\n\nPuoi usare il pannello ▶ a destra per i tuoi pulsanti personalizzati.",
 
   "non_capito":           "Purtroppo non ho capito che cosa devo fare. Mi aiuti?\nParole chiave: ricorda · impara · apri · dammi · cerca\n               elenca · modifica · elimina · copia · esci · aiuto",
 

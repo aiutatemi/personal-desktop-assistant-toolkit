@@ -109,7 +109,7 @@ _dati/
 | `esci` | Chiude l'assistente |
 | `impara` | Inserimento guidato campo per campo |
 | `ricorda <nome> <dati>` | Salva un'informazione in memoria |
-| `ricorda mmagine <nome> <dati>` | Salva un'immagine in memoria |
+| `ricorda immagine <nome> <dati>` | Salva un'immagine in memoria |
 | `modifica <nome>` | Modifica una voce salvata |
 | `elimina <nome>` | Rimuove una voce dalla memoria |
 | `copia <nome>` | Copia un dato negli appunti |
@@ -151,11 +151,11 @@ Modifica `_dati/config.json` per personalizzare l'assistente:
 
 ## 🌍 Aggiungere una nuova lingua
 
-1. Copia `_dati/lang_en.json` in `_dati/lang_fr.json`
+1. Copia `_dati/lang_it.json` in `_dati/lang_en.json`
    (o qualsiasi codice lingua)
 2. Traduci tutti i valori — **non tradurre mai le chiavi**
 3. Imposta `"lingua_stt"` con il codice Google Speech corretto
-   (es. `"fr-FR"`)
+   (es. `"en-US"`)
 4. Aggiungi gli alias dei comandi nella sezione `"alias_comandi"`
    per un input naturale nella nuova lingua
 5. Riavvia l'assistente — la nuova lingua compare automaticamente

@@ -147,9 +147,9 @@ Edit `_dati/config.json` to personalise the assistant:
 
 ## 🌍 Adding a new language
 
-1. Copy `_dati/lang_en.json` to `_dati/lang_fr.json` (or any language code)
+1. Copy `_dati/lang_it.json` to `_dati/lang_en.json` (or any language code)
 2. Translate all values — **never translate the keys**
-3. Set `"lingua_stt"` to the correct Google Speech code (e.g. `"fr-FR"`)
+3. Set `"lingua_stt"` to the correct Google Speech code (e.g. `"en-US"`)
 4. Add command aliases in the `"alias_comandi"` section for natural
    input in that language
 5. Restart the assistant — the new language appears automatically

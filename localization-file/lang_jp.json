@@ -1,0 +1,113 @@
+{
+  "_nota": "イタリア語言語ファイル — 内部キーとローカライズされた値",
+  "lingua_stt": "ja-JP",
+
+  "alias_comandi": {
+    "dammi": ["見せて", "教えて", "表示して"],
+    "apri": ["開いて"],
+    "cerca": ["検索して"],
+    "elenca": ["一覧"],
+    "aiuto": ["ヘルプ"],
+    "esci": ["終了"]
+  },
+
+  "btn_invia":        "送信",
+  "titolo_finestra":  "アシスタント – {nome_avatar}",
+  "label_comandi":    "コマンド",
+  "label_shortcut":   "ショートカット",
+
+  "panel_dammi":          "…を見せて",
+  "panel_apri":           "…を開いて",
+  "panel_cerca":          "…を検索",
+  "panel_elenca":         "メモリ一覧",
+  "panel_aiuto":          "ヘルプ",
+  "panel_esci":           "終了",
+  "panel_sep_memoria":    "── メモリ管理 ──",
+  "panel_impara":         "学習",
+  "panel_ricorda":        "記録 …",
+  "panel_ricorda_img":    "画像を記録",
+  "panel_modifica":       "編集 …",
+  "panel_elimina":        "削除 …",
+  "panel_copia":          "コピー …",
+
+  "avvio_saluto":         "こんにちは {nome_utente} さん！私はあなたのアシスタント {nome_avatar} です。\n「ヘルプ」と入力すると、できることを表示します。",
+  "avvio_memoria_vuota":  "残念ですが、メモリは空です。\n空でないはずの場合は、次のファイルを修復して復元してください：\n  .\\_dati\\memoria.json.bak",
+
+  "apri_subito":          "すぐに開きます",
+  "apri_cosa":            "何を開きますか？名前を教えてください。",
+  "apri_non_trovato":     "残念ですが、メモリに「{q}」は見つかりませんでした。",
+  "apri_errore":          "開けませんでした：{err}",
+
+  "dammi_cosa":           "何を見せればいいですか？名前を教えてください。",
+  "dammi_non_trovato":    "「{q}」に該当するものは見つかりませんでした。",
+  "dammi_risultato_1":    "「{nome}」のデータ（{soggetto}）：",
+  "dammi_risultati_n":    "{n} 件見つかりました：",
+
+  "cerca_cosa":           "メモリ内で何を検索しますか？",
+  "cerca_non_trovato":    "「{q}」に一致する結果はありません。",
+  "cerca_trovato":        "「{q}」に一致する結果が {n} 件見つかりました：",
+
+  "elimina_cosa":         "メモリから何を削除しますか？",
+  "elimina_non_trovato":  "メモリに「{q}」は見つかりませんでした。",
+  "elimina_conferma":     "本当に削除しますか：\n{entry}\n「はい」で確認、「いいえ」でキャンセルします。",
+  "elimina_ok":           "「{nome}」を削除しました。",
+  "elimina_annullato":    "削除をキャンセルしました。",
+  "elimina_si":           ["はい", "yes", "y"],
+
+  "modifica_cosa":        "どの項目を編集しますか？",
+  "modifica_non_trovato": "残念ですが、「{q}」は見つかりませんでした。",
+  "modifica_trovata":     "項目が見つかりました：\n{entry}\nどのフィールドを編集しますか？\nフィールド名のみ（例：'dati'）またはフィールド名＋値（例：'dati CSSMNL...'）を入力できます。",
+  "modifica_campo_no":    "フィールドが認識できません：「{campo}」。\n選択可能：{campi}",
+  "modifica_valore_chiedi": "「{campo}」の新しい値を入力してください：",
+  "modifica_ok":          "更新しました！「{campo}」は {valore} に変更されました。",
+  "modifica_errore":      "エラー：メモリ内で項目が見つかりません。",
+
+  "elenca_vuota":         "残念ですが、メモリは空です。",
+  "elenca_intestazione":  "メモリには {n} 件の項目があります：",
+
+  "copia_cosa":           "何をクリップボードにコピーしますか？",
+  "copia_non_trovato":    "「{q}」はメモリに見つかりませんでした。",
+  "copia_ok":             "コピーしました：\n  {dati}",
+
+  "ricorda_chiedi_nome":  "登録する名前を教えてください：",
+  "ricorda_chiedi_dati":  "わかりました。「{nome}」のデータを入力してください：",
+  "ricorda_ok":           "完了！「{nome}」を記録しました。",
+  "ricorda_img_titolo":   "画像を選択してください",
+  "ricorda_img_nessuna":  "画像が選択されていません。",
+  "ricorda_img_nome":     "画像に付ける名前を教えてください",
+  "ricorda_img_tag":      "追加する説明（タグ）は何ですか？",
+  "ricorda_img_ok":       "完了！画像「{nome}」を記録しました。",
+
+  "impara_intro":         "ガイド付き入力 — 一つずつ質問します。\n任意項目は「スキップ」、キャンセルは「終了」と入力してください。",
+  "impara_annullato":     "入力をキャンセルしました。",
+  "impara_obbligatorio":  "「{campo}」は必須項目です。",
+  "impara_salvato":       "保存しました！「{nome}」を記録しました。\n\n続けて別の項目を追加しますか？（はい / いいえ）",
+  "impara_completato":    "入力が完了しました。",
+  "impara_si":            ["はい", "yes", "y"],
+  "impara_fine":          "終了",
+  "impara_salta":         "スキップ",
+  "impara_prompt_nome":     "名前（必須）：",
+  "impara_prompt_alias":    "別名 / 略称（任意 — 「スキップ」で省略）：",
+  "impara_prompt_soggetto": "所有者（任意 — 「スキップ」であなたの名前を使用）：",
+  "impara_prompt_dati":     "保存するデータ（必須）：",
+  "impara_prompt_tag":      "タグ（任意 — 例：家族、仕事 — 「スキップ」で省略）：",
+  "impara_prompt_avatar":   "アバター（任意 — 「スキップ」で「笑顔」になります）：\n  笑顔 · 満足 · 悲しい · 司書 · 倉庫係 · ようこそ",
+
+  "aiuto_testo":          "私ができることは次のとおりです：\n\n見せて    — 保存された情報を表示\n開いて     — 保存されたリンクを開く\n検索して   — メモリ内を検索\n一覧       — 記憶しているすべてを表示（「終了」で停止）\n設定       — config.json の設定ガイド（「終了」で停止）\nヘルプ     — このメッセージを表示\n終了       — プログラムを閉じる\n\n学習       — 項目を一つずつ入力\n記録       — 情報を保存\n画像を記録 — 画像を保存\n編集       — 保存された項目を編集\n削除       — 項目を削除\nコピー     — データをクリップボードにコピー\n\n言語       — 言語を変更\n\n右側の ▶ パネルでカスタムボタンを追加できます。",
+
+  "non_capito":           "すみません、何をすればよいかわかりませんでした。\nキーワード：記録 · 学習 · 開いて · 見せて · 検索\n             一覧 · 編集 · 削除 · コピー · 終了 · ヘルプ",
+
+  "lingua_ok":            "言語を設定しました：{lingua}",
+  "lingua_non_trovata":   "言語ファイル「{file}」が {cartella} に見つかりませんでした。",
+  "lingua_uso":           "使い方：言語 <コード>  （例：言語 en）",
+
+  "stt_nessun_audio":     "音声が検出されませんでした。",
+  "stt_non_capito":       "すみません、聞き取れませんでした。もう一度お願いします。",
+  "stt_errore":           "音声認識エラー：{err}",
+  "stt_mic_errore":       "マイクが使用できません：{err}",
+
+  "shortcut_nessuno":     "ショートカットが設定されていません。\nconfigurazioni.json に\n\"shortcut\" を追加してください",
+
+  "label_lingua":         "言語",
+  "lingua_nessuna":       "_dati/ フォルダに言語ファイルが見つかりません"
+}
