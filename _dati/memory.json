@@ -1,88 +1,88 @@
 [
   {
     "nome": "memory.json",
-    "alias": "example-esempio",
+    "alias": "example-file",
     "soggetto": "",
-    "dati": "file di esempio modificabile",
-    "tag": "informazioni",
+    "dati": "modify this file wih your own information",
+    "tag": "information",
     "avatar": "magazziniere"
   },
   {
-    "nome": "Codice fiscale",
+    "nome": "Tax code",
     "alias": "cf",
-    "soggetto": "nome utente",
-    "dati": "esempio salvataggio dati in memoria",
-    "tag": "esempio, informazioni",
+    "soggetto": "User name",
+    "dati": "example of information stored in memory",
+    "tag": "example, information",
     "avatar": "magazziniere"
   },
   {
-    "nome": "estratto conto",
-    "alias": "ec",
+    "nome": "bank account",
+    "alias": "",
     "soggetto": "esempio foglio calcolo apribile",
-    "dati": "C:\\Documenti\\excel\\EstrattoConto.ods",
-    "tag": "esempio, foglio di calcolo",
+    "dati": "C:\\Documents\\excel\\Bank.xls",
+    "tag": "example, excel",
     "avatar": "magazziniere"
   },
   {
     "nome": "Python",
     "alias": "progetti",
-    "soggetto": "esempio link a cartella",
+    "soggetto": "example link to folder",
     "dati": "C:\\Python\\Progetti\\",
-    "tag": "esempio, cartella",
-    "avatar": "magazziniere"
+    "tag": "example, folder",
+    "avatar": "informatica"
   },
   {
     "nome": "racconti",
     "alias": "tutti",
-    "soggetto": "esempio link ai racconti",
-    "dati": "D:\\Scrittura\\1narrativa\\1racconti\\85racconti-ePUB3.epub",
-    "tag": "esempio, epub",
+    "soggetto": "example link to eBook",
+    "dati": "D:\\Writing\\Publish\\Tales.epub",
+    "tag": "example, epub",
     "avatar": "magazziniere"
   },
   {
     "nome": "Calibre",
     "alias": "biblioteca",
-    "soggetto": "esempio link apribile",
+    "soggetto": "example link to program",
     "dati": "C:\\Program Files\\Calibre2\\calibre.exe",
-    "tag": "esempio, Programma",
+    "tag": "example, program",
     "avatar": "bibliotecaria"
   },
   {
     "nome": "Mail",
     "alias": "posta",
-    "soggetto": "esempio link apribile",
+    "soggetto": "example link to mail",
     "dati": "C:\\ProgramFile\\mail\\ThunderbirdPortable.exe",
-    "tag": "esempio, Programma",
+    "tag": "exmple, mail",
     "avatar": "bibliotecaria"
   },
   {
     "nome": "browser",
     "alias": "web",
-    "soggetto": "esempio link apribile",
+    "soggetto": "example link to browser",
     "dati": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
-    "tag": "esempio, Programma",
+    "tag": "example, program",
     "avatar": "bibliotecaria"
   },
   {
-    "nome": "Cose da fare",
+    "nome": "Things to do",
     "alias": "todo",
-    "soggetto": "miniApp apribile",
+    "soggetto": "miniApp on web",
     "dati": "https://www.steppa.net/cassani/articoli/tool/todo/todo.html",
     "tag": "miniApp",
     "avatar": "agenda"
   },
   {
-    "nome": "Agendina",
+    "nome": "Calendar",
     "alias": "agenda",
-    "soggetto": "miniApp apribile",
+    "soggetto": "miniApp on web",
     "dati": "https://www.steppa.net/cassani/articoli/tool/agendina/agendina.html",
     "tag": "miniApp",
     "avatar": "agenda"
   },
   {
-    "nome": "Taccuino",
+    "nome": "NoteBook",
     "alias": "moleskine",
-    "soggetto": "miniApp apribile",
+    "soggetto": "miniApp on web",
     "dati": "https://www.steppa.net/cassani/articoli/tool/taccuino/taccuinoVOCALE.html",
     "tag": "miniApp",
     "avatar": "scrittrice"
@@ -90,17 +90,41 @@
   {
     "nome": "Note",
     "alias": "postit",
-    "soggetto": "Link apribile",
+    "soggetto": "miniApp on web",
     "dati": "https://www.steppa.net/cassani/articoli/tool/note/noteVOCALE.html",
     "tag": "miniApp",
     "avatar": "scrittrice"
   },
   {
-    "nome": "Autore",
-    "alias": "author",
-    "soggetto": "Autore del programma: Emanuele Cassani",
-    "dati": "https://www.steppa.net/cassani/business_card.htm",
-    "tag": "Business card",
-    "avatar": "agenda"
+    "nome": "cmd",
+    "alias": "prompt",
+    "soggetto": "Comand",
+    "dati": "cmd.exe",
+    "tag": "windows comand",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "panel",
+    "alias": "control",
+    "soggetto": "Comand",
+    "dati": "control",
+    "tag": "windows comand",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "display",
+    "alias": "video",
+    "soggetto": "Comand",
+    "dati": "ms-settings:display",
+    "tag": "windows comand",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "task manager",
+    "alias": "task",
+    "soggetto": "Comand",
+    "dati": "taskmgr.exe",
+    "tag": "windows comand",
+    "avatar": "informatica"
   }
 ]

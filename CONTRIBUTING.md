@@ -48,6 +48,8 @@ Whether big or small, any contribution is valuable.
 
 Thank you for your time and support!
 
+[![Support via PayPal](https://img.shields.io/badge/Support-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/pool/9nyLoeBeq8?sr=wccr)
+
 ---
 
 ## ℹ️ **Project Location**

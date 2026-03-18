@@ -1,15 +1,14 @@
 {
-  "nome_avatar": "assistente",
-  "nome_utente": "utente",
+  "nome_avatar": "Assistant",
+  "nome_utente": "user",
   "avatar_iniziale": "benvenuto",
   "avatar_random": [
     "sorridente",
-    "agenda",
     "soddisfatto"
   ],
   "avatar_finale": "ciao.mp4",
-  "frase_finale": "Ci vediamo presto!",
-  "lingua": "it",
+  "frase_finale": "See you soon!",
+  "lingua": "en",
   "tts_config": {
     "engine": "auto",
     "rate": 150,
@@ -22,7 +21,7 @@
     "sample_rate": 16000,
     "max_secondi": 10,
     "silenzio_secondi": 0.5,
-    "lingua": "it-IT"
+    "lingua": "en-US"
   },
   "ai_config": {
     "enabled": false,
@@ -34,53 +33,42 @@
     "fallback_to_ai": true
   },
   "alias_comandi": {
-    "dammi": [
-      "dimmi"
-    ],
-    "apri": [
-      "lancia"
-    ],
-    "cerca": [],
-    "ricorda": [],
-    "impara": [],
+    "dammi": ["find"],
+    "apri": ["start"],
+    "cerca": ["find"],
     "elenca": [],
-    "modifica": [],
-    "elimina": [],
-    "copia": [],
-    "configura": [
-      "config",
-      "impostazioni",
-      "settings"
-    ],
-    "aiuto": [
-      "help"
-    ],
-    "esci": [
-      "chiudi",
-      "arrivederci"
-    ]
+    "configura": ["config",
+      "set",
+      "settings"],
+    "aiuto": ["help me"],
+    "esci": ["close"],
+    "impara": [],
+    "ricorda": ["store"],
+    "modifica": ["change"],
+    "elimina": ["erease"],
+    "copia": ["duplicate"]
   },
   "risposte_fisse": {
-    "grazie": "Prego, {nome_utente}!",
+    "thanks": "You are welcome, {nome_utente}!",
     "ciao": "Ciao, {nome_utente}!",
-    "come stai": "Sto benissimo, grazie!",
-    "buongiorno": "Buongiorno, {nome_utente}!",
-    "buonasera": "Buonasera, {nome_utente}!",
-    "che ore sono": "Sono le {ora}",
-    "che giorno è": "Oggi è {data}"
+    "how are you": "Fine, thanks!"
   },
   "shortcut": [
     {
-      "etichetta": "Aiuto",
-      "comando": "aiuto"
+      "etichetta": "Quiet please",
+      "comando": "ok"
     },
     {
-      "etichetta": "Configura",
+      "etichetta": "Task manager",
+      "comando": "open task"
+    },
+    {
+      "etichetta": "Control panel",
+      "comando": "open panel"
+    },
+    {
+      "etichetta": "Configure",
       "comando": "configura"
-    },
-    {
-      "etichetta": "Chiudi assistente",
-      "comando": "esci"
     }
   ]
 }
