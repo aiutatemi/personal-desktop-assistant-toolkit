@@ -1,4 +1,5 @@
 # 🤖 Personal Desktop Voice Assistant
+[![Support via PayPal](https://img.shields.io/badge/Support-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/pool/9nyLoeBeq8?sr=wccr)
 
 A lightweight, privacy-first desktop assistant that lives on your machine.
 No cloud subscriptions, no data sent anywhere — except for the optional

@@ -1,4 +1,5 @@
 # 🤖 Assistente personale vocale desktop
+[![Supporto via PayPal](https://img.shields.io/badge/Support-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/pool/9nyLoeBeq8?sr=wccr)
 
 Un assistente desktop leggero e rispettoso della privacy, che vive
 interamente sul tuo computer.
