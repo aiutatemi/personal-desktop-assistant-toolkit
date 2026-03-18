@@ -7,21 +7,25 @@ voice recognition, which uses Google Speech API only when you press the
 microphone button.
 
 Built with Python and Tkinter, it runs on **Windows** (full features) and
-**Linux / macOS** (for release 2.x without text-to-speech).
+**Linux / macOS** (from release 3.x full features)
 
 ## 📘 Documentation
-Access the full documentation release 2.x (ENG/ITA) here:  
-👉 **[Open Documentation](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
+Access the documentation release 2.x (ENG/ITA) here:  
+**[Open rel.2.2 Documentation](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
+Access the full documentation folder (ENG/ITA) here:  
+👉 **[Open folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
 
 ## ✨ Features Test Release 3.x
-1. Multi-platform TTS (pyttsx3)
+1. Multi-platform Voice output TTS (pyttsx3)
 2. Configurable STT parameters
 3. Natural language parsing with stop-words
 4. Internationalization improvements (config.json memory.json and localization files)
 5. New command with interactive wizard, to configure config.json
 6. AI Optional Integration
+7. Localized in 12 languages **[Open localization folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
+All features of previous releases
 
 ---
 

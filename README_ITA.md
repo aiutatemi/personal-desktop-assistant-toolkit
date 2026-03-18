@@ -8,21 +8,25 @@ riconoscimento vocale opzionale, che usa Google Speech API solo quando
 premi il pulsante del microfono.
 
 Scritto in Python con Tkinter, funziona su **Windows** (funzionalità
-complete) e **Linux / macOS** (per release 2.x senza sintesi vocale).
+complete) e **Linux / macOS** (dalla release 3.x funzionalità complete).
 
 ## 📘 Documentazione
-Documentazione disponibile release 2.x (ITA/ENG):  
-👉 **[Apri documentazione](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
+Documentazione release 2.x (ITA/ENG):  
+**[Apri documentazione rel.2.2](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
+Documentazione completa (ITA/ENG):  
+👉 **[Apri la cartella](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
 
 ## ✨ Funzionalità TEST release  3.x
-1. Multi-platform TTS (pyttsx3)
+1. Multi-platform Output vocale TTS (pyttsx3)
 2. Parametri STT configurabili dall'utente
 3. Natural language parsing with stop-words
 4. Migliorie internazionalizzazione (config.json memory.json e file lang)
 5. Comando con wizard interattivo per configurare config.json
 6. Integrazione opzionale con IA
+7. Disponibile in 12 lingue **[Apri cartella localization](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
+Tutte le Funzionalità release precedenti
 
 ---
 

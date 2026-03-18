@@ -194,6 +194,17 @@ def carica_config() -> dict:
 # ---------------------------------------------------------------------------
 # LOCALIZZAZIONE (aggiornata con articoli/stop-words)
 # ---------------------------------------------------------------------------
+def salva_config(cfg: dict):
+    """
+    Salva config.json facendo prima un backup in config.json.bak.
+    Preserva tutti i valori personalizzati senza sovrascriverli con i default.
+    """
+    # Backup del file esistente prima di sovrascrivere
+    if CFG_FILE.exists():
+        shutil.copy2(CFG_FILE, CFG_FILE.with_suffix(".json.bak"))
+    with open(CFG_FILE, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, indent=2, ensure_ascii=False)
+
 def carica_lingua(codice: str) -> dict:
     """
     Carica il file lang_XX.json corrispondente al codice lingua.
@@ -1268,8 +1279,8 @@ class Assistente:
                 raw_bytes = campioni.tobytes()
                 audio     = sr.AudioData(raw_bytes, self._STT_SAMPLERATE, 2)
                 
-                # Usa lingua STT dal config
-                lingua_stt = self.cfg.get("stt_config", {}).get("lingua", "it-IT")
+                # Lingua STT: prima da lang_XX.json, poi da config.json, fallback "it-IT"
+                lingua_stt = self.L.get("lingua_stt") or self.cfg.get("stt_config", {}).get("lingua", "it-IT")
                 testo = self._stt_recognizer.recognize_google(audio, language=lingua_stt)
 
         except sr.UnknownValueError:
@@ -1600,9 +1611,7 @@ class Assistente:
         
         # Salva il valore
         self._set_nested_config(param_key, valore)
-        salva_config = self.cfg
-        with open(CFG_FILE, "w", encoding="utf-8") as f:
-            json.dump(salva_config, f, indent=2, ensure_ascii=False)
+        salva_config(self.cfg)
         
         self._scrivi_risposta(
             self._t("configura_aggiornato", param=param_label, valore=valore)
@@ -2129,8 +2138,7 @@ class Assistente:
             return
         self.L = carica_lingua(codice)
         self.cfg["lingua"] = codice
-        with open(CFG_FILE, "w", encoding="utf-8") as f:
-            json.dump(self.cfg, f, indent=2, ensure_ascii=False)
+        salva_config(self.cfg)
         self.root.title(self._t("titolo_finestra", nome_avatar=self.cfg["nome_avatar"]))
         for widget in self.frame_pannello.winfo_children():
             widget.destroy()

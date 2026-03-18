@@ -16,19 +16,17 @@ Copy the Italian template:
 ```
 _dati/lang_it.json → _dati/lang_XX.json
 ```
-Replace XX with the correct language code (e.g., en, fr, de, pt).
+Replace XX with the correct language code (e.g., en, de, es, pt).
 
 2. Translate only the values
 Translate every value in the JSON file, but never translate the keys.
 This ensures compatibility with the assistant’s internal logic.
 
-3. Update config.json
-Inside ./_dati/config.json:
-
+3. Check correct "lingua_stt"
 Set the correct Google Speech‑to‑Text code in "lingua_stt"  
 (mandatory for correct voice recognition)
 
-Optionally add natural‑language command aliases in "alias_comandi"  
+Important natural‑language command aliases in "alias_comandi"  
 to make the assistant a better understand of commands in the new language
 
 4. Restart the assistant
