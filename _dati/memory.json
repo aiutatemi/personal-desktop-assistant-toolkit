@@ -3,7 +3,7 @@
     "nome": "memory.json",
     "alias": "example-file",
     "soggetto": "",
-    "dati": "modify this file wih your own information",
+    "dati": "modify this file with your own information",
     "tag": "information",
     "avatar": "magazziniere"
   },
@@ -18,7 +18,7 @@
   {
     "nome": "bank account",
     "alias": "",
-    "soggetto": "esempio foglio calcolo apribile",
+    "soggetto": "example how to open an excel file",
     "dati": "C:\\Documents\\excel\\Bank.xls",
     "tag": "example, excel",
     "avatar": "magazziniere"
@@ -26,7 +26,7 @@
   {
     "nome": "Python",
     "alias": "progetti",
-    "soggetto": "example link to folder",
+    "soggetto": "example how to open a folder",
     "dati": "C:\\Python\\Progetti\\",
     "tag": "example, folder",
     "avatar": "informatica"
@@ -34,7 +34,7 @@
   {
     "nome": "racconti",
     "alias": "tutti",
-    "soggetto": "example link to eBook",
+    "soggetto": "example to open an eBook",
     "dati": "D:\\Writing\\Publish\\Tales.epub",
     "tag": "example, epub",
     "avatar": "magazziniere"
@@ -42,7 +42,7 @@
   {
     "nome": "Calibre",
     "alias": "biblioteca",
-    "soggetto": "example link to program",
+    "soggetto": "example to open a program",
     "dati": "C:\\Program Files\\Calibre2\\calibre.exe",
     "tag": "example, program",
     "avatar": "bibliotecaria"
@@ -50,7 +50,7 @@
   {
     "nome": "Mail",
     "alias": "posta",
-    "soggetto": "example link to mail",
+    "soggetto": "example to open mail",
     "dati": "C:\\ProgramFile\\mail\\ThunderbirdPortable.exe",
     "tag": "exmple, mail",
     "avatar": "bibliotecaria"
@@ -58,7 +58,7 @@
   {
     "nome": "browser",
     "alias": "web",
-    "soggetto": "example link to browser",
+    "soggetto": "example to open browser",
     "dati": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
     "tag": "example, program",
     "avatar": "bibliotecaria"

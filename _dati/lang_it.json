@@ -29,9 +29,14 @@
 "cerca_media_lista_si":   ["s", "si", "sì", "ok", "yes", "lista", "mostra"],
 "panel_media":            "cerca media",
 "configura_vuoi_interrompere": "Vuoi interrompere la configurazione? (sì/no)",
+"configura_invio_annulla": "Lascia vuoto per cancellare",
+"configura_proseguire_si": ["s", "si", "sì", "ok", "yes"],
+"configura_short_cmd": ["breve", "veloce", "base"],
+"configura_short_avatar": "Cambio nome assistente: {param} valore attuale = '{valore}'\nInserisci nuovo valore o lascia vuoto per annullare",
+"configura_short_utente": "Cambio nome utente: {param} valore attuale = '{valore}'\nInserisci nuovo valore o lascia vuoto per annullare",
 
   "btn_invia":        "Invia",
-  "titolo_finestra":  "Assistente – {nome_avatar}",
+  "titolo_finestra":  "myAssistente – {nome_avatar}",
   "label_comandi":    "COMANDI",
   "label_shortcut":   "SHORTCUT",
 

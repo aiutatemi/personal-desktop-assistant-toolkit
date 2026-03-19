@@ -4,10 +4,11 @@
   "avatar_iniziale": "benvenuto",
   "avatar_random": [
     "sorridente",
+    "coniglio",
     "soddisfatto"
   ],
   "avatar_finale": "ciao.mp4",
-  "frase_finale": "See you soon!",
+  "frase_finale": "Ciao!",
   "lingua": "en",
   "tts_config": {
     "engine": "auto",
@@ -31,27 +32,6 @@
     "temperature": 0.7,
     "max_tokens": 500,
     "fallback_to_ai": true
-  },
-  "alias_comandi": {
-    "dammi": ["find"],
-    "apri": ["start"],
-    "cerca": ["find"],
-    "elenca": [],
-    "configura": ["config",
-      "set",
-      "settings"],
-    "aiuto": ["help me"],
-    "esci": ["close"],
-    "impara": [],
-    "ricorda": ["store"],
-    "modifica": ["change"],
-    "elimina": ["erease"],
-    "copia": ["duplicate"]
-  },
-  "risposte_fisse": {
-    "thanks": "You are welcome, {nome_utente}!",
-    "ciao": "Ciao, {nome_utente}!",
-    "how are you": "Fine, thanks!"
   },
   "shortcut": [
     {

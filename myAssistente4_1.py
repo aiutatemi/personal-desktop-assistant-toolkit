@@ -1,7 +1,7 @@
 """
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
-v4.x  optional aiml-XX.json + bug fixing
+v4.1  optional aiml-XX.json + new comand + bug fixing
 
 v3.x  STT/TTS + multiLANGUAGE + optional AI Integration
       Fix TTS pyttsx3 for Windows: one thread, one queue, one direct stop handle
@@ -374,14 +374,19 @@ _LANG_IT_FALLBACK = {
     "configura_lista": "Parametri configurabili:",
     "configura_parametro_non_trovato": "Parametro '{param}' non trovato.",
     "configura_proseguire": "Vuoi configurare altri parametri? (sì/no)",
+    "configura_proseguire_si": ["s", "si", "sì", "sí", "ok", "yes", "y", "1"],
     "configura_fine": "Configurazione completata.",
     "configura_annullato": "Configurazione annullata.",
     "configura_cosa": "Cosa vuoi configurare? Usa 'configura lista' per vedere i parametri.",
+    "configura_invio_annulla": "Lascia vuoto per interrompere",
     "configura_nome_avatar": "nome assistente",
     "configura_nome_utente": "nome utente",
     "configura_lingua": "lingua",
     "configura_tts_rate": "velocità voce TTS",
     "configura_tts_volume": "volume TTS",
+    "configura_short_cmd": ["short", "rapido", "rapida", "base"],
+    "configura_short_avatar": "Configurazione nome Assistente: {param} attuale = '{valore}'\nInserisci il nuovo valore o lascia vuoto per interrompere",
+    "configura_short_utente": "Configurazione nome utente: {param} attuale = '{valore}'\nInserisci il nuovo valore o lascia vuoto per interrompere",
     
     # Stringhe AI
     "ai_pensando": "Sto pensando...",
@@ -894,11 +899,15 @@ class Assistente:
     # LOCALIZZAZIONE
     # ------------------------------------------------------------------
     def _t(self, chiave: str, **kw) -> str:
-        """Restituisce la stringa localizzata, con eventuali sostituzioni."""
+        """Restituisce la stringa localizzata, con eventuali sostituzioni.
+        Accetta un parametro opzionale 'fallback' usato se la chiave non esiste."""
+        fallback = kw.pop("fallback", None)
         testo = self.L.get(chiave)
         if testo is None:
-            testo = _LANG_IT_FALLBACK.get(chiave, chiave)
-        if kw:
+            testo = _LANG_IT_FALLBACK.get(chiave)
+        if testo is None:
+            testo = fallback if fallback is not None else chiave
+        if kw and isinstance(testo, str):
             try:
                 testo = testo.format(**kw)
             except KeyError:
@@ -1807,6 +1816,13 @@ class Assistente:
         if parametro in ("lista", "list"):
             self._configura_lista()
             return
+        # Sottocomando "short" (localizzato): configura rapida nome_avatar + nome_utente
+        short_aliases = self._t("configura_short_cmd")
+        if not isinstance(short_aliases, list):
+            short_aliases = [str(short_aliases)]
+        if parametro in short_aliases:
+            self._configura_short_inizio()
+            return
         self._configura_parametro_singolo(parametro)
 
     def _configura_wizard_inizio(self):
@@ -1829,10 +1845,11 @@ class Assistente:
         self.stato = "configura_attesa_valore"
         self.dati_temp["param_key"]   = chiave
         self.dati_temp["param_label"] = chiave
+        invio_annulla = self._t("configura_invio_annulla", fallback="Lascia vuoto per interrompere")
         self._scrivi_risposta(
             self._t("configura_mostra_valore", param=chiave, valore=valore_attuale) + "\n" +
             self._t("configura_chiedi_valore", param=chiave) +
-            f"\n  [{self._t('impara_salta')} = salta, INVIO vuoto = interrompi]"
+            f"\n  [{self._t('impara_salta')} = salta, {invio_annulla}]"
         )
 
     def _get_nested_config(self, key: str):
@@ -1879,8 +1896,10 @@ class Assistente:
         if not self.stato.startswith("configura_"):
             return
 
-        # INVIO VUOTO → chiede conferma interruzione
-        if testo.strip() == "":
+        # INVIO VUOTO → chiede conferma interruzione (solo negli stati wizard/attesa_valore)
+        if testo.strip() == "" and self.stato in (
+                "configura_wizard_attesa", "configura_attesa_valore",
+                "configura_short_avatar", "configura_short_utente"):
             self.stato = "configura_conferma_stop"
             self._scrivi_risposta(self._t("configura_vuoi_interrompere",
                                            fallback="Vuoi interrompere la configurazione? (sì/no)"))
@@ -1904,6 +1923,47 @@ class Assistente:
                     self._configura_fine()
             return
 
+        # ── Stato: attesa risposta sì/no "Vuoi configurare altri parametri?" ──
+        if self.stato == "configura_proseguire_attesa":
+            si_values = self._t("configura_proseguire_si",
+                                fallback=["s", "si", "sì", "ok", "yes", "y"])
+            if not isinstance(si_values, list):
+                si_values = [si_values]
+            # Qualunque cosa diversa da sì → termina
+            if testo.strip().lower() in si_values:
+                self.stato = "configura_wizard_attesa"
+                self._scrivi_risposta(self._t("configura_cosa"))
+            else:
+                self._configura_fine()
+            return
+
+        # ── Stato: short — attesa nuovo nome_avatar ──
+        if self.stato == "configura_short_avatar":
+            valore = testo.strip()
+            if valore == "":
+                # vuoto = salta questo campo, passa a nome_utente
+                self._configura_short_utente()
+            else:
+                self._set_nested_config("nome_avatar", valore)
+                salva_config(self.cfg)
+                self._scrivi_risposta(
+                    self._t("configura_aggiornato", param="nome_avatar", valore=valore))
+                self._configura_short_utente()
+            return
+
+        # ── Stato: short — attesa nuovo nome_utente ──
+        if self.stato == "configura_short_utente":
+            valore = testo.strip()
+            if valore == "":
+                self._configura_fine()
+            else:
+                self._set_nested_config("nome_utente", valore)
+                salva_config(self.cfg)
+                self._scrivi_risposta(
+                    self._t("configura_aggiornato", param="nome_utente", valore=valore))
+                self._configura_fine()
+            return
+
         # Wizard: attesa scelta parametro
         if self.stato == "configura_wizard_attesa":
             chiave_scelta = testo.strip().lower()
@@ -1921,7 +1981,7 @@ class Assistente:
                 self._scrivi_risposta(
                     self._t("configura_mostra_valore", param=trovata, valore=valore_attuale) + "\n" +
                     self._t("configura_chiedi_valore", param=trovata) +
-                    "\n  [INVIO vuoto = annulla]"
+                    "\n  [" + self._t("configura_invio_annulla", fallback="Lascia vuoto per interrompere") + "]"
                 )
             else:
                 self._scrivi_risposta(
@@ -1971,10 +2031,9 @@ class Assistente:
                 self._scrivi_risposta(
                     self._t("configura_aggiornato", param=param_label, valore=valore))
 
-            # Torna alla scelta del parametro successivo
-            self.stato = "configura_wizard_attesa"
-            self._scrivi_risposta(self._t("configura_proseguire") +
-                                   f"\n{self._t('configura_cosa')}")
+            # Passa allo stato che attende la risposta sì/no
+            self.stato = "configura_proseguire_attesa"
+            self._scrivi_risposta(self._t("configura_proseguire"))
             return
 
     def _configura_annulla(self):
@@ -2009,10 +2068,29 @@ class Assistente:
         self._configura_queue = [(trovata, valore_attuale)]
         self.dati_temp["param_key"]   = trovata
         self.dati_temp["param_label"] = trovata
+        invio_annulla = self._t("configura_invio_annulla", fallback="Lascia vuoto per interrompere")
         self._scrivi_risposta(
             self._t("configura_mostra_valore", param=trovata, valore=valore_attuale) + "\n" +
             self._t("configura_chiedi_valore", param=trovata) +
-            "\n  [INVIO vuoto = annulla]"
+            "\n  [" + invio_annulla + "]"
+        )
+
+    def _configura_short_inizio(self):
+        """Avvia la configurazione rapida: chiede solo nome_avatar e nome_utente."""
+        self._configura_queue = []
+        self.dati_temp = {}
+        self.stato = "configura_short_avatar"
+        valore_attuale = self.cfg.get("nome_avatar", "")
+        self._scrivi_risposta(
+            self._t("configura_short_avatar", param="nome_avatar", valore=valore_attuale)
+        )
+
+    def _configura_short_utente(self):
+        """Secondo step della configurazione rapida: chiede nome_utente."""
+        self.stato = "configura_short_utente"
+        valore_attuale = self.cfg.get("nome_utente", "")
+        self._scrivi_risposta(
+            self._t("configura_short_utente", param="nome_utente", valore=valore_attuale)
         )
 
     def _configura_fine(self):

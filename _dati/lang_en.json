@@ -29,10 +29,14 @@
 "cerca_media_lista_si":   ["y", "yes", "ok", "list", "go", "open", "show"],
 "panel_media":            "search media",
 "configura_vuoi_interrompere": "Do you want to stop the configuration? (yes/no)",
-
+"configura_invio_annulla": "Leave empty to cancel",
+"configura_proseguire_si": ["yes", "ok", "y", "s", "si", "1"],
+"configura_short_cmd": ["short", "quick", "basic"],
+"configura_short_avatar": "Assistant name setup: {param} current value = '{valore}'\nEnter new name or leave empty to cancel",
+"configura_short_utente": "User name setup: {param} current value = '{valore}'\nEnter new name or leave empty to cancel",
 
     "btn_invia": "Send",
-    "titolo_finestra": "Assistant – {nome_avatar}",
+    "titolo_finestra": "myAssistente – {nome_avatar}",
     "label_comandi": "COMMANDS",
     "label_shortcut": "SHORTCUTS",
     

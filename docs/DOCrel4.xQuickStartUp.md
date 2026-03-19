@@ -1,7 +1,7 @@
-# **🚀 Quick Start Up Guide **
+# **🚀 Quick Start Up Guide release 4.x**
 
 ### 👉 1. **Download the ZIP file.**  
-### 👉 2. **Unzip the `./assistente` folder** anywhere you prefer (USB drives are supported too).
+### 👉 2. **Unzip the `./myAssistente` folder** anywhere you prefer (USB drives are supported too).
 
 ---
 
@@ -14,6 +14,8 @@ _dati/
   memory.json   ← your saved data
   lang_it.json  ← Italian language file
   lang_en.json  ← English language file
+  aiml_IT.json  ← AIML Italian language file
+  aiml_EN.json  ← AIML English language file
   asset/        ← your saved images (initially empty)
     avatar/     ← avatar images/video
 ```
@@ -22,7 +24,7 @@ _dati/
 
 ### 👉 3. **Check if your language file is available.**  
 Default languages included: **English (ENG)** and **Italian (ITA)**.  
-More than 10 additional languages are available. If needed, download yours here:  
+15 additional languages are available. If needed, download yours from here:  
 🔗 **Open localization folder**  
 ([https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file))
 
@@ -37,16 +39,19 @@ _internal
 _dati/
   config.json
   memory.json   ← your information; includes example data to get you started
-  lang_sp.json  ← your new language file
+  lang_sp.json  ← your new language file (example for Spanish)
   lang_it.json  ← optional, delete if not needed
   lang_en.json  ← optional, delete if not needed
+  aiml_IT.json  ← optional, delete if you do not use it
+  aiml_EN.json  ← optional, use as reference to translate in your language
+
   asset/
     avatar/
 ```
 
 ---
 
-### 👉 5. **Run `assistente.exe`.**  
+### 👉 5. **Run `myAssistente.exe`.**  
 At startup, select your language from the **bottom‑right corner** of the panel.
 
 ---
@@ -77,7 +82,7 @@ Exceptions:
 (`https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs` [(gitlab.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fgitlab.com%2FEmanueleCAS%2Fassistente%2F-%2Ftree%2Fmaster%2Fdocs"))
 
 Suggested manuals:
-- **DocENGrel2.x – User Manual.pdf** (updated version coming soon for release 3.x)  
+- **DocENGrel4.x – User Manual.pdf** 
 - **DocENGrel3.xTEST – AI config.md** (for AI integration)
 
 ---
@@ -94,6 +99,7 @@ Suggested manuals:
   - alias commands (optional)  
   - assistant FX responses (optional)  
   - **Shortcuts** → buttons at the bottom‑right of the assistant (above Language)
+- **aiml_XX.json:** AIML conversation  
 
 ---
 
