@@ -18,6 +18,19 @@
     "lingua": ["언어"]
 },
 
+"dammi_trovato_link":     "‘{nome}’에 대한 링크를 찾았습니다. 열어볼까요?",
+"apri_trovato_dato":      "‘{nome}’에 대한 데이터(링크가 아님)가 1개 있습니다: {dati}\n보시겠습니까?",
+"conferma_si":            ["y", "yes", "네", "ok", "열기", "진행", "보기"],
+"cerca_media_immagini":   "이미지",
+"cerca_media_musica":     "음악",
+"cerca_media_video":      "비디오",
+"cerca_media_trovati":    "asset/ 폴더에서 {n}개의 {tipo}를 찾았습니다. 목록을 보시겠습니까?",
+"cerca_media_vuoto":      "메모리에 {tipo}가 없습니다 (asset/ 폴더가 비어 있거나 존재하지 않습니다).",
+"cerca_media_lista":      "asset/ 내 {tipo} 목록 ({n}):",
+"cerca_media_lista_si":   ["y", "yes", "네", "ok", "목록", "열기", "보기"],
+"panel_media":            "미디어 검색",
+"configura_vuoi_interrompere": "설정을 종료하시겠습니까? (예/아니오)",
+
   "btn_invia":        "보내기",
   "titolo_finestra":  "어시스턴트 – {nome_avatar}",
   "label_comandi":    "명령어",

@@ -1,4 +1,4 @@
-# 🤖 Personal Desktop Voice Assistant
+# 🤖 **myAssistente** Personal Desktop Assistant
 [![Support via PayPal](https://img.shields.io/badge/Support-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/pool/9nyLoeBeq8?sr=wccr)
 
 A lightweight, privacy-first desktop assistant that lives on your machine.
@@ -42,7 +42,7 @@ All features of previous releases
 
 ---
 
-## ✨ Features rel2.x
+## ✨ Features Release 2.x
 
 - **Voice input (STT)** — speak your commands via microphone, powered by
   Google Speech Recognition

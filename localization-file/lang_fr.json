@@ -18,6 +18,19 @@
     "lingua": ["langue"]
 },
 
+"dammi_trovato_link":     "J’ai trouvé un lien pour '{nome}'. Veux‑tu que je l’ouvre ?",
+"apri_trovato_dato":      "Je n’ai trouvé qu’une seule donnée (pas un lien) pour '{nome}' : {dati}\nVeux‑tu la voir ?",
+"conferma_si":            ["o", "oui", "ok", "ouvrir", "vas‑y", "montrer"],
+"cerca_media_immagini":   "images",
+"cerca_media_musica":     "musique",
+"cerca_media_video":      "vidéos",
+"cerca_media_trovati":    "J’ai trouvé {n} {tipo} dans le dossier asset/. Veux‑tu la liste ?",
+"cerca_media_vuoto":      "Je n’ai aucun {tipo} dans ma mémoire (asset/ est vide ou manquant).",
+"cerca_media_lista":      "Liste des {tipo} dans asset/ ({n}) :",
+"cerca_media_lista_si":   ["o", "oui", "ok", "liste", "vas‑y", "ouvrir", "montrer"],
+"panel_media":            "rechercher des médias",
+"configura_vuoi_interrompere": "Veux‑tu arrêter la configuration ? (oui/non)",
+
     "btn_invia": "Envoyer",
     "titolo_finestra": "Assistant – {nome_avatar}",
     "label_comandi": "COMMANDES",

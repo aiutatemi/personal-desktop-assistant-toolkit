@@ -17,6 +17,19 @@
     "lingua": ["语言"]
 },
 
+"dammi_trovato_link":     "我找到了与『{nome}』相关的链接。要我打开吗？",
+"apri_trovato_dato":      "我只找到一条与『{nome}』相关的数据（不是链接）：{dati}\n你想查看吗？",
+"conferma_si":            ["y", "yes", "好", "打开", "继续", "显示"],
+"cerca_media_immagini":   "图片",
+"cerca_media_musica":     "音乐",
+"cerca_media_video":      "视频",
+"cerca_media_trovati":    "我在 asset/ 文件夹中找到了 {n} 个 {tipo}。需要查看列表吗？",
+"cerca_media_vuoto":      "我的记忆中没有 {tipo}（asset/ 文件夹为空或不存在）。",
+"cerca_media_lista":      "asset/ 中的 {tipo} 列表（{n}）：",
+"cerca_media_lista_si":   ["y", "yes", "好", "列表", "继续", "打开", "显示"],
+"panel_media":            "搜索媒体",
+"configura_vuoi_interrompere": "你想停止配置吗？（是/否）",
+
   "btn_invia":        "发送",
   "titolo_finestra":  "助手 – {nome_avatar}",
   "label_comandi":    "命令",

@@ -17,6 +17,19 @@
     "lingua": ["язык"]
 },
 
+"dammi_trovato_link":     "Я нашёл ссылку для «{nome}». Хочешь, я открою её?",
+"apri_trovato_dato":      "Я нашёл только один элемент данных (не ссылку) для «{nome}»: {dati}\nХочешь посмотреть?",
+"conferma_si":            ["д", "да", "ок", "открыть", "вперёд", "показать"],
+"cerca_media_immagini":   "изображения",
+"cerca_media_musica":     "музыка",
+"cerca_media_video":      "видео",
+"cerca_media_trovati":    "Я нашёл {n} {tipo} в папке asset/. Хочешь увидеть список?",
+"cerca_media_vuoto":      "У меня нет {tipo} в памяти (asset/ пустая или отсутствует).",
+"cerca_media_lista":      "Список {tipo} в asset/ ({n}):",
+"cerca_media_lista_si":   ["д", "да", "ок", "список", "вперёд", "открыть", "показать"],
+"panel_media":            "поиск медиа",
+"configura_vuoi_interrompere": "Хочешь остановить настройку? (да/нет)",
+
   "btn_invia":        "Отправить",
   "titolo_finestra":  "Ассистент – {nome_avatar}",
   "label_comandi":    "КОМАНДЫ",

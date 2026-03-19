@@ -17,6 +17,20 @@
     "lingua": ["language"]
 },
 
+"dammi_trovato_link":     "I found a link for '{nome}'. Do you want me to open it?",
+"apri_trovato_dato":      "I only found one piece of data (not a link) for '{nome}': {dati}\nDo you want to see it?",
+"conferma_si":            ["y", "yes", "ok", "open", "go", "show"],
+"cerca_media_immagini":   "images",
+"cerca_media_musica":     "music",
+"cerca_media_video":      "videos",
+"cerca_media_trovati":    "I found {n} {tipo} in the asset/ folder. Do you want the list?",
+"cerca_media_vuoto":      "I don’t have any {tipo} in my memory (asset/ is empty or missing).",
+"cerca_media_lista":      "List of {tipo} in asset/ ({n}):",
+"cerca_media_lista_si":   ["y", "yes", "ok", "list", "go", "open", "show"],
+"panel_media":            "search media",
+"configura_vuoi_interrompere": "Do you want to stop the configuration? (yes/no)",
+
+
     "btn_invia": "Send",
     "titolo_finestra": "Assistant – {nome_avatar}",
     "label_comandi": "COMMANDS",

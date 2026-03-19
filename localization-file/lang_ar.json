@@ -17,6 +17,19 @@
     "lingua": ["لغة"]
 },
 
+"dammi_trovato_link":     "لقد وجدت رابطًا لـ '{nome}'. هل تريد أن أفتحه؟",
+"apri_trovato_dato":      "لقد وجدت بيانات واحدة فقط (وليست رابطًا) لـ '{nome}': {dati}\nهل تريد رؤيتها؟",
+"conferma_si":            ["نعم", "ا", "ok", "افتح", "تابع", "اعرض"],
+"cerca_media_immagini":   "صور",
+"cerca_media_musica":     "موسيقى",
+"cerca_media_video":      "فيديوهات",
+"cerca_media_trovati":    "لقد وجدت {n} من {tipo} في مجلد asset/. هل تريد عرض القائمة؟",
+"cerca_media_vuoto":      "لا توجد أي {tipo} في ذاكرتي (مجلد asset/ فارغ أو غير موجود).",
+"cerca_media_lista":      "قائمة {tipo} في asset/ ({n}):",
+"cerca_media_lista_si":   ["نعم", "ا", "ok", "قائمة", "تابع", "افتح", "اعرض"],
+"panel_media":            "بحث عن الوسائط",
+"configura_vuoi_interrompere": "هل تريد إيقاف الإعداد؟ (نعم/لا)",
+
   "btn_invia":        "إرسال",
   "titolo_finestra":  "المساعد – {nome_avatar}",
   "label_comandi":    "الأوامر",

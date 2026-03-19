@@ -18,6 +18,19 @@
     "lingua": ["sprache"]
 },
 
+"dammi_trovato_link":     "Ich habe einen Link für '{nome}' gefunden. Soll ich ihn öffnen?",
+"apri_trovato_dato":      "Ich habe nur einen einzelnen Dateneintrag (keinen Link) für '{nome}' gefunden: {dati}\nMöchtest du ihn sehen?",
+"conferma_si":            ["j", "ja", "ok", "öffnen", "los", "zeigen"],
+"cerca_media_immagini":   "Bilder",
+"cerca_media_musica":     "Musik",
+"cerca_media_video":      "Videos",
+"cerca_media_trovati":    "Ich habe {n} {tipo} im Ordner asset/ gefunden. Möchtest du die Liste sehen?",
+"cerca_media_vuoto":      "Ich habe keine {tipo} in meinem Speicher (asset/ ist leer oder fehlt).",
+"cerca_media_lista":      "Liste der {tipo} in asset/ ({n}):",
+"cerca_media_lista_si":   ["j", "ja", "ok", "liste", "los", "öffnen", "zeigen"],
+"panel_media":            "Medien suchen",
+"configura_vuoi_interrompere": "Möchtest du die Konfiguration beenden? (ja/nein)",
+
     "btn_invia": "Senden",
     "titolo_finestra": "Assistent – {nome_avatar}",
     "label_comandi": "BEFEHLE",

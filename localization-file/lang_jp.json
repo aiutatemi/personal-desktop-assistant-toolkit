@@ -17,6 +17,19 @@
     "lingua": ["言語"]
 },
 
+"dammi_trovato_link":     "「{nome}」のリンクを見つけました。開きますか？",
+"apri_trovato_dato":      "「{nome}」に関するデータ（リンクではありません）が1件見つかりました：{dati}\n表示しますか？",
+"conferma_si":            ["y", "yes", "はい", "ok", "開く", "進む", "表示"],
+"cerca_media_immagini":   "画像",
+"cerca_media_musica":     "音楽",
+"cerca_media_video":      "動画",
+"cerca_media_trovati":    "asset/ フォルダーに {n} 件の {tipo} が見つかりました。リストを表示しますか？",
+"cerca_media_vuoto":      "メモリ内に {tipo} はありません（asset/ が空、または存在しません）。",
+"cerca_media_lista":      "asset/ 内の {tipo} の一覧（{n}）：",
+"cerca_media_lista_si":   ["y", "yes", "はい", "ok", "リスト", "開く", "表示"],
+"panel_media":            "メディア検索",
+"configura_vuoi_interrompere": "設定を終了しますか？（はい／いいえ）",
+
   "btn_invia":        "送信",
   "titolo_finestra":  "アシスタント – {nome_avatar}",
   "label_comandi":    "コマンド",
