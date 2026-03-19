@@ -36,7 +36,7 @@
 "configura_short_utente": "Cambio nome utente: {param} valore attuale = '{valore}'\nInserisci nuovo valore o lascia vuoto per annullare",
 
   "btn_invia":        "Invia",
-  "titolo_finestra":  "myAssistente – {nome_avatar}",
+  "titolo_finestra":  "Assistente – {nome_avatar}",
   "label_comandi":    "COMANDI",
   "label_shortcut":   "SHORTCUT",
 

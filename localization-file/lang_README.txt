@@ -1,4 +1,4 @@
-# 🌍 Available Languages (up to release 4.1)
+# 🌍 Available Languages
 
 
 

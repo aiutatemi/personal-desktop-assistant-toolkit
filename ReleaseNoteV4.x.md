@@ -1,8 +1,3 @@
-Eccoti la **traduzione completa in inglese**, mantenendo **identico formato Markdown** e struttura.  
-Ho tradotto tutto con precisione tecnica, rispettando terminologia, stile e coerenza interna.
-
----
-
 # myAssistente v4.1 — Release Notes  
 # Desktop Personal Assistant  
 # `https://www.steppa.net/cassani/articoli/myAssistente/myAssistente.htm` [(steppa.net in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.steppa.net%2Fcassani%2Farticoli%2FmyAssistente%2FmyAssistente.htm")
@@ -29,6 +24,10 @@ A header bar has been added at the top of the window (top-left) with:
 - Program name (`APP_NAME`) highlighted
 - Clickable URL (`APP_URL`) that opens the browser when clicked
 - Hover effect with color change and underline
+
+To customize name and link, simply edit the two constants  
+`APP_NAME` and `APP_URL` at the top of the `.py` file.  
+No changes to JSON files are required.
 
 ---
 

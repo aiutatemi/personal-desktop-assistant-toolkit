@@ -25,13 +25,20 @@
 "cerca_media_video":      "wideo",
 "cerca_media_trovati":    "Znalazłem {n} {tipo} w folderze asset/. Chcesz zobaczyć listę?",
 "cerca_media_vuoto":      "Nie mam żadnych {tipo} w pamięci (asset/ jest puste lub nie istnieje).",
-"cerca_media_lista":      "Lista {tipo} w asset/ ({n}):",
+"cerca_media_lista":      "Lista {tipo} w folderze asset/ ({n}):",
 "cerca_media_lista_si":   ["t", "tak", "ok", "lista", "dalej", "otwórz", "pokaż"],
 "panel_media":            "szukaj mediów",
 "configura_vuoi_interrompere": "Chcesz przerwać konfigurację? (tak/nie)",
+"configura_invio_annulla": "Pozostaw puste, aby anulować",
+"configura_proseguire_si": ["t", "tak", "ok", "lista", "dalej", "otwórz", "pokaż"],
+"configura_short_cmd": ["short", "quick", "basic"],
+"configura_short_avatar": "Ustawienia nazwy asystenta: {param} bieżąca wartość = '{valore}'\nWpisz nową wartość lub pozostaw puste, aby anulować",
+"configura_short_utente": "Ustawienia nazwy użytkownika: {param} bieżąca wartość = '{valore}'\nWpisz nową wartość lub pozostaw puste, aby anulować"
 
+    "btn_invia": "Send",
+    "titolo_finestra": "Asystent – {nome_avatar}",
 "btn_invia": "Wyślij",
-"titolo_finestra": "Asystent – {nome_avatar}",
+"titolo_finestra": "myAssistente – {nome_avatar}",
 "label_comandi": "POLECENIA",
 "label_shortcut": "SKRÓTY",
 
