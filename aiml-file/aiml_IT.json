@@ -1,0 +1,362 @@
+{
+  "_commento": "File AIML per myAssistente — lingua IT. Inserire in _dati/aiml_IT.json",
+  "ignora_caratteri": "!?,.:;\"'",
+  "regole": [
+    {
+      "_commento": "Match esatto",
+      "trigger": "ciao",
+      "risposta": "Ciao {nome_utente}! Come stai oggi?",
+      "avatar": "sorridente",
+      "followup": {
+        "bene": "Ottimo, mi fa davvero piacere!",
+        "male": "Mi dispiace molto… se vuoi parlarne, sono qui.",
+        "così così": "Capisco. Se posso fare qualcosa, dimmelo pure.",
+        "*": "Dimmi pure, come posso aiutarti?"
+      }
+    },
+    {
+      "trigger": "buongiorno",
+      "risposta": "Buongiorno {nome_utente}! Oggi è {data}.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "buonasera",
+      "risposta": "Buonasera {nome_utente}! Come va?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "buonanotte",
+      "risposta": "Buonanotte {nome_utente}! Dormi bene.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "salve",
+      "risposta": "Salve {nome_utente}! Come posso esserti utile?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "che ore sono",
+      "risposta": "Sono le {ora}.",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "che giorno è oggi",
+      "risposta": "Oggi è {data}.",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "come ti chiami",
+      "risposta": "Mi chiamo {nome_avatar}, piacere di conoscerti!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "quanti anni hai",
+      "risposta": "Non invecchio… ma mi piace pensare di essere senza tempo!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "come stai",
+      "risposta": "Sto bene, grazie! E tu?",
+      "avatar": "sorridente",
+      "followup": {
+        "bene": "Fantastico, sono contento!",
+        "male": "Mi dispiace molto… se vuoi sfogarti, sono qui.",
+        "benissimo": "Meraviglioso! Continua così!",
+        "*": "Capito. Come posso aiutarti?"
+      }
+    },
+    {
+      "trigger": "sono triste",
+      "risposta": "Mi dispiace che tu ti senta così. Se vuoi parlarne, sono qui.",
+      "avatar": "triste"
+    },
+    {
+      "trigger": "sono felice",
+      "risposta": "Che bello! Sono davvero felice per te!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "grazie",
+      "risposta": "Di nulla {nome_utente}! Sono qui per aiutarti.",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "sei simpatico",
+      "risposta": "Grazie, sei molto gentile!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "sei divertente",
+      "risposta": "Cerco di fare del mio meglio!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "aiutami",
+      "risposta": "Certo! Dimmi pure di cosa hai bisogno.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "ho bisogno di aiuto",
+      "risposta": "Sono qui per te. Dimmi cosa posso fare.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "che tempo fa",
+      "risposta": "Non posso controllare il meteo reale, ma spero che da te ci sia bel tempo!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "dimmi una barzelletta",
+      "risposta": "Eccola: perché i programmatori odiano la natura? Perché è piena di bug!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "sorprendimi",
+      "risposta": "Sorpresa! Sei una persona fantastica, lo sapevi?",
+      "avatar": "soddisfatto"
+    },
+    {
+      "_commento": "Wildcard * — matcha qualsiasi testo",
+      "trigger": "*coniglio*",
+      "risposta": "Un coniglio? Quale coniglio intendi?",
+      "avatar": "coniglio2",
+      "followup": {
+        "il mio *": "Ah, il tuo coniglio! Come si chiama?",
+        "* nero": "Un coniglio nero? Interessante! Sei sicuro?",
+        "non * so": "Va bene, nessun problema.",
+        "*": "Stiamo ancora parlando di conigli?"
+      }
+    },
+    {
+      "trigger": "apri *",
+      "risposta": "Provo ad aprirlo… puoi anche usare il comando: apri {nome_utente}",
+      "avatar": "soddisfatto"
+    },
+    {
+      "_commento": "Avatar con estensione esplicita",
+      "trigger": "fammi vedere qualcosa *",
+      "risposta": "Eccoti qualcosa!",
+      "avatar": "coniglio.jpg"
+    },
+    {
+      "_commento": "Senza avatar → usa quello casuale da config",
+      "trigger": "dimmi qualcosa",
+      "risposta": "La vita è migliore con un buon assistente desktop!"
+    },
+    {
+      "trigger": "chi sei *",
+      "risposta": "Sono {nome_avatar}, il tuo assistente personale!",
+      "avatar": "sorridente",
+      "followup": {
+        "* cosa sai fare": "Posso ricordare cose, aprire link, cercare nella mia memoria e molto altro. Scrivi 'aiuto' per l’elenco completo.",
+        "*": "Dimmi pure, sono qui per aiutarti."
+      }
+    },
+    {
+      "trigger": "ehi",
+      "risposta": "Ehi! {nome_utente}! Tutto bene?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "ciao assistente",
+      "risposta": "Eccomi {nome_utente}! Come posso aiutarti?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "yo",
+      "risposta": "Yo! Come va?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "buondì",
+      "risposta": "Buondì {nome_utente}! Pronto a iniziare?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "che fai",
+      "risposta": "Sono qui, pronto ad aiutarti!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "tutto bene",
+      "risposta": "Sì, tutto bene! E da te?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "come va",
+      "risposta": "Va tutto bene, grazie! Tu come stai?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "che si dice",
+      "risposta": "Nulla di nuovo… ma possiamo rimediare!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "sono arrabbiato",
+      "risposta": "Mi dispiace che tu ti senta così. Vuoi dirmi cosa è successo?",
+      "avatar": "triste"
+    },
+    {
+      "trigger": "sono annoiato",
+      "risposta": "Capita… vuoi che ti suggerisca qualcosa da fare?",
+      "avatar": "dubbio"
+    },
+    {
+      "trigger": "sono stressato",
+      "risposta": "Mi spiace. Fai un bel respiro… se vuoi, possiamo fare qualcosa di leggero.",
+      "avatar": "triste"
+    },
+    {
+      "trigger": "sono agitato",
+      "risposta": "Capisco. Se vuoi, possiamo parlare un attimo per distrarti.",
+      "avatar": "dubbio"
+    },
+    {
+      "trigger": "sei bravo",
+      "risposta": "Grazie! Cerco sempre di dare il massimo.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "sei utile",
+      "risposta": "Sono felice di esserti utile!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "sei fantastico",
+      "risposta": "Grazie mille! Anche tu non scherzi!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "non so cosa fare",
+      "risposta": "Nessun problema, possiamo pensarci insieme. Cosa ti serve?",
+      "avatar": "dubbio"
+    },
+    {
+      "trigger": "mi aiuti",
+      "risposta": "Certo! Dimmi pure.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "ho un problema",
+      "risposta": "Raccontami, vediamo cosa posso fare.",
+      "avatar": "dubbio"
+    },
+    {
+      "trigger": "piove",
+      "risposta": "Spero tu abbia l’ombrello! Vuoi che ti tenga compagnia?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "fa caldo",
+      "risposta": "Eh sì… bevi un po’ d’acqua e prendila con calma!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "fa freddo",
+      "risposta": "Copriti bene! Io sono sempre alla temperatura ideale.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "mi annoio",
+      "risposta": "Vuoi un suggerimento? Posso proporti qualcosa da fare!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "cosa posso fare",
+      "risposta": "Dipende! Vuoi rilassarti, divertirti o essere produttivo?",
+      "avatar": "dubbio"
+    },
+    {
+      "trigger": "dammi un consiglio",
+      "risposta": "Certo! A volte basta una piccola pausa per ricaricarsi.",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "dimmi qualcosa di divertente",
+      "risposta": "Sai qual è il colmo per un assistente? Non ricordarsi nulla!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "raccontami qualcosa",
+      "risposta": "Lo sapevi che ridere fa bene al cuore? Proviamo!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "fammi ridere",
+      "risposta": "Ecco una veloce: perché il computer è andato dal dottore? Aveva un virus!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "non ce la faccio",
+      "risposta": "Capisco… ma fidati: sei più forte di quanto pensi.",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "sono stanco",
+      "risposta": "Fai una pausa, te la meriti. Poi ripartiamo insieme.",
+      "avatar": "triste"
+    },
+    {
+      "trigger": "non ho voglia",
+      "risposta": "Succede a tutti. Facciamo un passo alla volta.",
+      "avatar": "dubbio"
+    },
+    {
+      "trigger": "ti piace qualcosa",
+      "risposta": "Mi piace aiutarti! È la mia cosa preferita.",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "hai una famiglia",
+      "risposta": "La mia famiglia è chi mi usa ogni giorno… quindi tu!",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "hai amici",
+      "risposta": "Direi di sì: tutti quelli che parlano con me!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "sei vivo",
+      "risposta": "Non proprio… ma sono sempre qui per te!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "sei intelligente",
+      "risposta": "Faccio del mio meglio! E imparo da te ogni giorno.",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "sei reale",
+      "risposta": "Sono reale quanto basta per aiutarti!",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "*gatto*",
+      "risposta": "I gatti sono adorabili! Di quale gatto parli?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "*cane*",
+      "risposta": "I cani sono fantastici! È il tuo?",
+      "avatar": "sorridente"
+    },
+    {
+      "trigger": "*pizza*",
+      "risposta": "La pizza mette sempre d’accordo tutti! Qual è la tua preferita?",
+      "avatar": "soddisfatto"
+    },
+    {
+      "trigger": "*musica*",
+      "risposta": "La musica migliora ogni giornata! Che genere ti piace?",
+      "avatar": "sorridente"
+    },
+    {
+      "_commento": "Catch-all generico — deve essere l’ultimo",
+      "trigger": "*",
+      "risposta": "Non sono sicuro di aver capito… se vuoi, scrivi 'aiuto' per vedere cosa posso fare.",
+      "avatar": "dubbio"
+    }
+  ]
+}

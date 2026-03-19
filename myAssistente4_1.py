@@ -1,7 +1,7 @@
 """
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
-v4.0  optional aiml-XX.json + bug fixing
+v4.x  optional aiml-XX.json + bug fixing
 
 v3.x  STT/TTS + multiLANGUAGE + optional AI Integration
       Fix TTS pyttsx3 for Windows: one thread, one queue, one direct stop handle
@@ -78,6 +78,51 @@ except ImportError:
         AI_DISPONIBILE = True
     except ImportError:
         print("[AI] Nessuna libreria AI trovata")
+
+# ---------------------------------------------------------------------------
+# SELEZIONE VOCE TTS — funzione globale multilingua
+# ---------------------------------------------------------------------------
+def seleziona_voce_intelligente(engine, lingua):
+    lingua = lingua.lower()
+
+    mappa = {
+        "it":    ["italian", "it-"],
+        "en":    ["english", "en-"],
+        "fr":    ["french", "fr-"],
+        "de":    ["german", "de-"],
+        "es":    ["spanish", "es-"],
+        "pt-br": ["brazil", "pt-br", "portuguese (brazil)"],
+        "pt-pt": ["portugal", "pt-pt", "portuguese (portugal)"],
+        "nl":    ["dutch", "nl-"],
+        "pl":    ["polish", "pl-"],
+        "tr":    ["turkish", "tr-"],
+        "ru":    ["russian", "ru-"],
+        "ja":    ["japanese", "ja-"],
+        "ko":    ["korean", "ko-"],
+        "zh-cn": ["chinese", "zh-", "mandarin"],
+        "ar":    ["arabic", "ar-"]
+    }
+
+    voci = engine.getProperty("voices")
+
+    if lingua not in mappa:
+        lingua = "en"
+
+    keywords = mappa[lingua]
+
+    for voce in voci:
+        nome = voce.name.lower()
+        vid  = voce.id.lower()
+        if any(kw in nome or kw in vid for kw in keywords):
+            engine.setProperty("voice", voce.id)
+            return
+
+    for voce in voci:
+        if "english" in voce.name.lower():
+            engine.setProperty("voice", voce.id)
+            return
+
+    engine.setProperty("voice", voci[0].id)
 
 # ---------------------------------------------------------------------------
 # PERCORSI — compatibile con script Python e con eseguibile PyInstaller
@@ -407,8 +452,22 @@ def carica_aiml(codice: str) -> list:
                 with open(path, encoding="utf-8") as f:
                     dati = json.load(f)
                 regole = dati.get("regole", [])
-                # Ordina: trigger senza wildcard prima (più specifici)
-                regole.sort(key=lambda r: r.get("trigger","").count("*"))
+                # Ordina per specificità decrescente:
+                #   0 asterischi (match esatto)  → priorità massima
+                #   2+ asterischi (*parola*)      → prima del catch-all
+                #   1 asterisco (es. "apri *")    → dopo i wildcard doppi
+                #   catch-all "*" puro            → sempre ultimo
+                def _priorita(r):
+                    t = r.get("trigger", "")
+                    n = t.count("*")
+                    if n == 0:
+                        return 0    # match esatto: massima priorità
+                    if t == "*":
+                        return 999  # catch-all puro: sempre ultimo
+                    if n == 1:
+                        return 2    # es. "apri *"
+                    return 1        # es. "*coniglio*": più specifico di "apri *"
+                regole.sort(key=_priorita)
                 print(f"[AIML] Caricato {path.name}: {len(regole)} regole")
                 return regole, dati.get("ignora_caratteri", "")
             except Exception as e:
@@ -468,7 +527,8 @@ def aiml_match(regole: list, testo: str, ignora: str,
 
     # ── 2. Matching normale sul testo ────────────────────────────────────
     for regola in regole:
-        pattern = _aiml_normalizza(regola.get("trigger", ""), "")
+        # Normalizza il trigger con gli stessi criteri dell'input (ignora_caratteri)
+        pattern = _aiml_normalizza(regola.get("trigger", ""), ignora)
         if _aiml_wildcard_match(pattern, testo_norm):
             return regola
 
@@ -753,17 +813,9 @@ class Assistente:
                     driverName=engine_type if engine_type != "auto" else None)
                 engine.setProperty("rate",   tts_cfg.get("rate", 150))
                 engine.setProperty("volume", tts_cfg.get("volume", 0.9))
-                # Seleziona voce per lingua
+                # Selezione voce intelligente
                 try:
-                    for voce in engine.getProperty("voices"):
-                        n, v = voce.name.lower(), voce.id.lower()
-                        if ((lingua=="it" and ("italian" in n or "it-" in v)) or
-                            (lingua=="en" and ("english" in n or "en-" in v)) or
-                            (lingua=="fr" and ("french"  in n or "fr-" in v)) or
-                            (lingua=="de" and ("german"  in n or "de-" in v)) or
-                            (lingua=="es" and ("spanish" in n or "es-" in v))):
-                            engine.setProperty("voice", voce.id)
-                            break
+                    seleziona_voce_intelligente(engine, lingua)
                 except Exception:
                     pass
                 # Callback: controlla il flag ad ogni parola pronunciata
@@ -1551,16 +1603,7 @@ class Assistente:
             self._gestisci_stati_dialogo(testo)
             return
 
-        # ── 1. AIML: priorità massima ────────────────────────────
-        if self._aiml_regole:
-            regola = aiml_match(
-                self._aiml_regole, testo,
-                self._aiml_ignora, self._aiml_contesto)
-            if regola is not None:
-                self._aiml_rispondi(regola)
-                return
-
-        # ── 2. Risposte fisse (config.json) — fallback se AIML non matcha ─
+        # ── 1. Risposte fisse (config.json) ─────────────────────────────────
         testo_lower = testo.strip().lower()
         for trigger, risposta in self.cfg.get("risposte_fisse", {}).items():
             if testo_lower == trigger.lower():
@@ -1570,6 +1613,7 @@ class Assistente:
                 self._aiml_contesto = None
                 return
 
+        # ── 2. Costruisci alias e dispatch comandi ───────────────────────────
         # Unisce alias dal config con alias dal file lingua attivo
         alias_merged = {}
         for fonte in [self.cfg.get("alias_comandi", {}),
@@ -1605,15 +1649,28 @@ class Assistente:
             "author":   self._cmd_autore,
         }
 
+        # ── 3. Esegui il comando se riconosciuto ─────────────────────────────
         if cmd in dispatch:
             dispatch[cmd](parsed)
+            return
+
+        # ── 4. AIML: consultato solo se l'input non è un comando noto ────────
+        # In questo modo il catch-all "*" nell'AIML non intercetta mai i
+        # comandi dell'assistente (apri, ricorda, dammi, ecc.).
+        if self._aiml_regole:
+            regola = aiml_match(
+                self._aiml_regole, testo,
+                self._aiml_ignora, self._aiml_contesto)
+            if regola is not None:
+                self._aiml_rispondi(regola)
+                return
+
+        # ── 5. Fallback AI (se abilitata) o messaggio "non capito" ───────────
+        ai_cfg = self.cfg.get("ai_config", {})
+        if ai_cfg.get("enabled", False) and ai_cfg.get("fallback_to_ai", True) and self._ai_client:
+            self._chiedi_ai(testo)
         else:
-            # Se il comando non è riconosciuto, prova con l'AI (se abilitata)
-            ai_cfg = self.cfg.get("ai_config", {})
-            if ai_cfg.get("enabled", False) and ai_cfg.get("fallback_to_ai", True) and self._ai_client:
-                self._chiedi_ai(testo)
-            else:
-                self._non_capito()
+            self._non_capito()
 
     def _gestisci_stati_dialogo(self, testo: str):
         """Gestisce i vari stati di dialogo (ricorda, impara, elimina, modifica, configura)."""
@@ -2587,7 +2644,10 @@ class Assistente:
             return
         self.L = carica_lingua(codice)
         self.cfg["lingua"] = codice
-        salva_config(self.cfg)
+        # Sincronizza lingua STT: legge da lang_XX.json, fallback a codice+"_XX"
+        lingua_stt = self.L.get("lingua_stt") or self.cfg.get("stt_config", {}).get("lingua", "it-IT")
+        self.cfg.setdefault("stt_config", {})["lingua"] = lingua_stt
+        salva_config(self.cfg)   
         # Ricarica AIML per la nuova lingua e azzera il contesto
         _aiml_dati = carica_aiml(codice)
         self._aiml_regole   = _aiml_dati[0]

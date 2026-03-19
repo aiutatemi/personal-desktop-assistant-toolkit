@@ -1,4 +1,6 @@
-# 🌍 Available Languages
+# 🌍 Available Languages (up to release 4.1)
+
+
 
 | ISO Code | Language (EN)            | File name          | Native name | Flag |
 |---------|---------------------------|--------------------|-------------|------|

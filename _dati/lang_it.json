@@ -1,8 +1,34 @@
 {
-  "_nota": "File lingua italiano - alias comandi vuoto, usa comandi originali",
+  "_nota": "File lingua italiano — alias comandi in alternativa alle chiavi interne",
   "lingua_stt": "it-IT",
 
-  "alias_comandi": {},
+  "alias_comandi": {
+    "dammi": ["dimmi","mostrami","visualizza"],
+    "apri": ["lancia","avvia","esegui", "metti"],
+    "cerca": ["trova","ricerca"],
+    "ricorda": ["memorizza","salva"],
+    "impara": ["apprendi","inserisci"],
+    "elenca": ["lista","mostra tutto"],
+    "modifica": ["cambia","aggiorna"],
+    "elimina": ["cancella","rimuovi"],
+    "copia": ["duplica","copy"],
+    "configura": ["config","impostazioni","settings","preferenze"],
+    "aiuto": ["help","comandi","help"],
+    "esci": ["chiudi","arrivederci","quit","exit"]
+},
+
+"dammi_trovato_link":     "Ho trovato un link per '{nome}'. Vuoi che lo apra?",
+"apri_trovato_dato":      "Ho trovato solo un dato (non un link) per '{nome}': {dati}\nVuoi vederlo?",
+"conferma_si":            ["s", "si", "sì", "ok", "yes", "apri", "vai", "vedi"],
+"cerca_media_immagini":   "immagini",
+"cerca_media_musica":     "musica",
+"cerca_media_video":      "video",
+"cerca_media_trovati":    "Ho trovato {n} {tipo} nella cartella asset/. Vuoi la lista?",
+"cerca_media_vuoto":      "Purtroppo non ho {tipo} nella mia memoria (asset/ vuota o assente).",
+"cerca_media_lista":      "Elenco {tipo} in asset/ ({n}):",
+"cerca_media_lista_si":   ["s", "si", "sì", "ok", "yes", "lista", "mostra"],
+"panel_media":            "cerca media",
+"configura_vuoi_interrompere": "Vuoi interrompere la configurazione? (sì/no)",
 
   "btn_invia":        "Invia",
   "titolo_finestra":  "Assistente – {nome_avatar}",

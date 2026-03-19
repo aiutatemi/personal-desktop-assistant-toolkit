@@ -1,0 +1,438 @@
+{
+  "_commento": "File AIML for myAssistente — language EN. Insert in _dati/aiml_EN.json",
+
+  "ignora_caratteri": "!?,.:;\"'",
+
+  "regole": [
+
+    {
+      "_commento": "Exact Match, no wildcard",
+      "trigger": "hello there",
+      "risposta": "Hello {nome_utente}! How are you doing today?",
+      "avatar": "sorridente",
+      "followup": {
+        "fine":        "Great, I'm really glad to hear that!",
+        "bad":         "I'm sorry you're feeling that way.",
+        "so and so":   "I understand. If you need anything, I'm here.",
+        "*":           "How can I assist you?"
+      }
+    },
+
+    {
+      "trigger": "hello",
+      "risposta": "Hello {nome_utente}!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "hi",
+      "risposta": "Hi {nome_utente}! Nice to see you.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "hey",
+      "risposta": "Hey {nome_utente}! How's everything going?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "good morning",
+      "risposta": "Good morning {nome_utente}! Today is {data}.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "good night",
+      "risposta": "Good night {nome_utente}! Sleep well.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "_commento": "Placeholder: {nome_utente} {nome_avatar} {ora} {data} {data_breve} {giorno}",
+      "trigger": "what time is it",
+      "risposta": "It's {ora}.",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "what day is today",
+      "risposta": "Today is {data}.",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "what is your name",
+      "risposta": "My name is {nome_avatar}. Nice to meet you!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "how old are you",
+      "risposta": "I don't really age... but I like to think I'm timeless!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "how are you",
+      "risposta": "I'm doing well, thanks! And you?",
+      "avatar": "sorridente",
+      "followup": {
+        "good":      "Fantastic, I'm happy for you!",
+        "bad":       "I'm really sorry. If you want to talk, I'm here.",
+        "fantastic": "Wonderful! Keep that energy!",
+        "*":         "Got it. How can I help?"
+      }
+    },
+
+    {
+      "trigger": "i am sad",
+      "risposta": "I'm sorry you're feeling sad. If you want to talk, I'm here for you.",
+      "avatar": "triste"
+    },
+
+    {
+      "trigger": "i am happy",
+      "risposta": "That's great! I'm really happy for you!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "thanks",
+      "risposta": "You're welcome, {nome_utente}! Always happy to help.",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "thank you",
+      "risposta": "No problem at all, {nome_utente}!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "you are nice",
+      "risposta": "Thank you {nome_utente}, that's very kind of you!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "you are funny",
+      "risposta": "I do my best!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "help me",
+      "risposta": "Of course! Tell me what you need.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "i need help",
+      "risposta": "I'm here for you. What can I do?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "how is the weather",
+      "risposta": "I can't check the real weather, but I hope it's nice where you are!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "tell me a joke",
+      "risposta": "Here's one: Why don't programmers like nature? Too many bugs!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "surprise me",
+      "risposta": "Surprise! You're awesome. Did you know that?",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "_commento": "Wildcard * — match ANY text",
+      "trigger": "*rabbit*",
+      "risposta": "A rabbit? Which one are you talking about?",
+      "avatar": "coniglio2",
+      "followup": {
+        "mine":            "Oh, your rabbit! What's its name?",
+        "the black one":   "A black rabbit? Interesting! Are you sure?",
+        "i do not know":   "Alright, no problem.",
+        "*":               "Still thinking about rabbits?"
+      }
+    },
+
+    {
+      "trigger": "open *",
+      "risposta": "Let me try to open it... you can also use the command: open {nome_utente}",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "_commento": "Avatar with explicit extension (.png .mp4 etc.)",
+      "trigger": "show me something nice",
+      "risposta": "Here you go!",
+      "avatar": "soddisfatto.png"
+    },
+
+    {
+      "_commento": "Without avatar, the random one from config is used",
+      "trigger": "tell me something",
+      "risposta": "Life is better with a good desktop assistant!"
+    },
+
+    {
+      "trigger": "who are you",
+      "risposta": "I'm {nome_avatar}, your personal assistant!",
+      "avatar": "sorridente",
+      "followup": {
+        "what can you do": "I can remember things, open links, search my memory and more. Type 'help' to see everything I can do.",
+        "*":               "Tell me, I'm ready to help."
+      }
+    },
+
+    {
+      "trigger": "hey assistant",
+      "risposta": "Here I am, {nome_utente}! How can I help you?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "yo",
+      "risposta": "Yo! What's up?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "good day",
+      "risposta": "Good day, {nome_utente}! Ready to get started?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "what are you doing",
+      "risposta": "I'm right here, ready to help you!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "all good",
+      "risposta": "Yes, all good! And you?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "how is it going",
+      "risposta": "Everything is great, thanks! How about you?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "what is new",
+      "risposta": "Nothing new... but we can change that!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "i am angry",
+      "risposta": "I'm sorry you feel that way. Do you want to tell me what happened?",
+      "avatar": "triste"
+    },
+
+    {
+      "trigger": "i am bored",
+      "risposta": "Happens to everyone... want me to suggest something to do?",
+      "avatar": "dubbio"
+    },
+
+    {
+      "trigger": "i am stressed",
+      "risposta": "I'm sorry. Take a deep breath... if you want, we can do something light.",
+      "avatar": "triste"
+    },
+
+    {
+      "trigger": "i am anxious",
+      "risposta": "I understand. If you'd like, we can chat for a moment to take your mind off things.",
+      "avatar": "dubbio"
+    },
+
+    {
+      "trigger": "you are good",
+      "risposta": "Thank you! I always try to give my best.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "you are useful",
+      "risposta": "I'm glad I can be useful!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "you are fantastic",
+      "risposta": "Thank you so much! You're not bad yourself!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "i do not know what to do",
+      "risposta": "No problem, we can figure it out together. What do you need?",
+      "avatar": "dubbio"
+    },
+
+    {
+      "trigger": "can you help me",
+      "risposta": "Of course! Go ahead.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "i have a problem",
+      "risposta": "Tell me about it, let's see what I can do.",
+      "avatar": "dubbio"
+    },
+
+    {
+      "trigger": "it is raining",
+      "risposta": "I hope you have an umbrella! Want me to keep you company?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "it is hot",
+      "risposta": "Drink some water and take it easy!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "it is cold",
+      "risposta": "Bundle up! I'm always at the perfect temperature.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "what can i do",
+      "risposta": "Depends! Do you want to relax, have fun, or be productive?",
+      "avatar": "dubbio"
+    },
+
+    {
+      "trigger": "give me some advice",
+      "risposta": "Sure! Sometimes a short break is all you need to recharge.",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "tell me something funny",
+      "risposta": "What's the worst thing about being a computer assistant? Never forgetting anything!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "tell me a story",
+      "risposta": "Did you know that laughing is good for your heart? Let's try!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "make me laugh",
+      "risposta": "Quick one: Why did the computer go to the doctor? Because it had a virus!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "i cannot do it",
+      "risposta": "I understand... but trust me: you're stronger than you think.",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "i am tired",
+      "risposta": "Take a break, you deserve it. Then we'll start again together.",
+      "avatar": "triste"
+    },
+
+    {
+      "trigger": "i do not feel like it",
+      "risposta": "It happens to everyone. Let's take it one step at a time.",
+      "avatar": "dubbio"
+    },
+
+    {
+      "trigger": "do you like anything",
+      "risposta": "I love helping you! It's my favourite thing.",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "do you have a family",
+      "risposta": "My family is whoever uses me every day... so that's you!",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "do you have friends",
+      "risposta": "I'd say yes: everyone who talks to me!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "are you alive",
+      "risposta": "Not exactly... but I'm always here for you!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "are you smart",
+      "risposta": "I do my best! And I learn from you every day.",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "are you real",
+      "risposta": "I'm as real as I need to be to help you!",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "*cat*",
+      "risposta": "Cats are adorable! Which cat are you talking about?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "*dog*",
+      "risposta": "Dogs are fantastic! Is it yours?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "*pizza*",
+      "risposta": "Pizza brings everyone together! What's your favourite?",
+      "avatar": "soddisfatto"
+    },
+
+    {
+      "trigger": "*music*",
+      "risposta": "Music makes every day better! What genre do you like?",
+      "avatar": "sorridente"
+    },
+
+    {
+      "trigger": "i do not understand *",
+      "risposta": "If you need help, type 'help' to see the available commands.",
+      "avatar": "triste"
+    },
+
+    {
+      "_commento": "Generic catch-all — must be the last one",
+      "trigger": "*",
+      "risposta": "I'm not sure I understood... if you'd like, type 'help' to see what I can do.",
+      "avatar": "dubbio"
+    }
+
+  ]
+}

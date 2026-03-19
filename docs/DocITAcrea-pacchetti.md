@@ -14,7 +14,7 @@ pyinstaller --onedir --noconsole --clean ^
 --icon=iconWIN.ico ^
 --collect-all PIL ^
 --collect-all cv2 ^
---name myAssistente myAssistente.py
+--name myAssistente myAssistente4_1.py
 ```
 👉 sovrascrive cartella /dist se precedentemente compilato con linux
 per Windows, l'icona deve essere in formato .ico
@@ -34,7 +34,7 @@ pyinstaller --onedir --noconsole --clean
 --collect-all sounddevice  
 --collect-all speech\_recognition  
 --hidden-import numpy  
---name myAssistente myAssistente.py
+--name myAssistente myAssistente4_1.py
 ```
 
 👉 sovrascrive cartella /dist  se precedentemente compilato con Windows
@@ -47,15 +47,17 @@ per linux, l'icona deve essere in formato .png
 ```
 dist/Assistente/
 assistente.exe
-\_dati/		← la cartella dati
+_dati/		← la cartella dati
 config.json
 memory.json
-lang\_it.json
-lang\_en.json
-lang\_xx.json
+lang_it.json
+lang_en.json
+lang_xx.json 	← altre lingue opzionali
+aiml_IT.json 	← linguaggio opzionale italiano avanzato
+aiml_EN.json 	← linguaggio opzionale inglese avanzato
 asset/avatar/ 	← avatar jpg and mp4
-\_internal/	← cartella di PyInstaller, non modificare
-\[altre DLL PyInstaller]
+_internal/	← cartella di PyInstaller, non modificare
+[altre DLL PyInstaller]
 ```
 👉 Importante
 Distribuire tutto il contenuto della cartella in un singolo archivio ZIP.
