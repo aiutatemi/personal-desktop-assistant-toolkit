@@ -14,7 +14,7 @@ pyinstaller --onedir --noconsole --clean ^
 --icon=iconWIN.ico ^
 --collect-all PIL ^
 --collect-all cv2 ^
---name assistente assistente3_2TEST.py
+--name myAssistente myAssistente.py
 ```
 👉 sovrascrive cartella /dist se precedentemente compilato con linux
 per Windows, l'icona deve essere in formato .ico
@@ -34,7 +34,7 @@ pyinstaller --onedir --noconsole --clean
 --collect-all sounddevice  
 --collect-all speech\_recognition  
 --hidden-import numpy  
---name assistente assistente3_2TEST.py
+--name myAssistente myAssistente.py
 ```
 
 👉 sovrascrive cartella /dist  se precedentemente compilato con Windows

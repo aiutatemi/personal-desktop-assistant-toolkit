@@ -16,15 +16,28 @@ Access the full documentation folder (ENG/ITA) here:
 👉 **[Open folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
+## ✨ Features Release 4.x
 
-## ✨ Features Test Release 3.x
-1. Multi-platform Voice output TTS (pyttsx3)
-2. Configurable STT parameters
-3. Natural language parsing with stop-words
-4. Internationalization improvements (config.json memory.json and localization files)
-5. New command with interactive wizard, to configure config.json
-6. AI Optional Integration
-7. Localized in 12 languages **[Open localization folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
+- Rebranding: **myAssistente**
+- external **AIML engine** (optional)
+- new Header UI
+- updated **configure** command
+- new **search media** command (search music, video, picture inside -dati/asset/)
+- flexibility in understandin commands
+- Distribuibile 🪟 **Windows** ready ZIP archive (🐧 Linux coming soon)
+All features of previous releases
+
+---
+## ✨ Features Release 3.x
+
+- **Multi-platform Voice output** TTS (pyttsx3)
+- Configurable **STT parameters**
+- **Natural language parsing** with **stop-words**
+- **Internationalization** improvements (config.json memory.json and localization files)
+- New command with **interactive wizard**, to configure config.json
+- Optional **AI Integration**
+- Localized in **12 languages** [Open localization folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
+- Distribuibile 🪟 **Windows** ready ZIP archive
 All features of previous releases
 
 ---
@@ -47,9 +60,9 @@ All features of previous releases
   small talk
 - **Shortcut panel** — one-click buttons for your most used commands,
   fully configurable
-- **Avatar support** — display images or MP4 animations as the
-  assistant's face
+- **Avatar support** — display images or MP4 animations as the assistant's face
 - **Automatic backup** — memory file is backed up before every save
+- Distribuibile 🪟 **Windows** and 🐧**Linux** ready ZIP archives
 
 ---
 

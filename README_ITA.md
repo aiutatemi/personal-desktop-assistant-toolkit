@@ -1,4 +1,4 @@
-# 🤖 Assistente personale vocale desktop
+# 🤖 **myAssistente** Assistente personale desktop
 [![Supporto via PayPal](https://img.shields.io/badge/Support-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/pool/9nyLoeBeq8?sr=wccr)
 
 Un assistente desktop leggero e rispettoso della privacy, che vive
@@ -17,16 +17,30 @@ Documentazione completa (ITA/ENG):
 👉 **[Apri la cartella](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
+## ✨ Funzionalità release  4.x
 
-## ✨ Funzionalità TEST release  3.x
-1. Multi-platform Output vocale TTS (pyttsx3)
-2. Parametri STT configurabili dall'utente
-3. Natural language parsing with stop-words
-4. Migliorie internazionalizzazione (config.json memory.json e file lang)
-5. Comando con wizard interattivo per configurare config.json
-6. Integrazione opzionale con IA
-7. Disponibile in 12 lingue **[Apri cartella localization](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
-Tutte le Funzionalità release precedenti
+- Nuovo nome: **myAssistente**
+- **motore AIML** esterno (opzionale)
+- nuova intestazione UI
+- aggiornato comando **configura**
+- nuovo comando **cerca media** (cerca music, video, picture inside -dati/asset/)
+- maggiore flessibilità nella comprensione dei comandi
+- Pacchetti distribuibili: Archivio ZIP pronto per 🪟 **Windows** (e presto per 🐧 Linux)
+Tutte le funzionalità delle release precedenti
+
+---
+
+## ✨ Funzionalità release  3.x
+
+- Voce Multi-piattaforma TTS (pyttsx3)
+- Parametri **STT configurabili** dall'utente
+- **Natural language parsing** con funzione **stop-words**
+- Migliorie **internazionalizzazione** (config.json memory.json e file lang)
+- Comando con **wizard interattivo** per configurare config.json
+- **Integrazione con IA** opzionale
+- Disponibile in **12 lingue** [Apri cartella localization](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
+- Pacchetti distribuibili: Archivio ZIP pronto per 🪟 **Windows**
+Tutte le funzionalità delle release precedenti
 
 ---
 
@@ -52,6 +66,7 @@ Tutte le Funzionalità release precedenti
   dell'assistente
 - **Backup automatico** — il file memoria viene salvato prima di ogni
   modifica
+- Pacchetti distribuibili: Archivi ZIP pronti per 🪟 **Windows** e 🐧 **Linux**
 
 ---
 
