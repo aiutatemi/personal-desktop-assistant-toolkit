@@ -1,6 +1,8 @@
 # 🌍 Adding a New Language
+
 This guide explains how to add support for a new language to the assistant.
 The workflow is simple, modular, and designed to keep all localization files consistent.
+Valid for all releases of myAssistant
 
 ---
 
@@ -37,12 +39,31 @@ at the bottom of the right‑side panel.
 
 ## Example: ./_dati/config.json
 ```json
+{
+  "nome_avatar": "Assistant", 		<- assistant name
+  "nome_utente": "user", 		<- username
+  "avatar_iniziale": "benvenuto",	<- .jpg picture used at startup
+  "avatar_random": [
+    "sorridente",
+    "coniglio",
+    "soddisfatto"
+  ],
+  "avatar_finale": "ciao.mp4",		<- .mp4 video used at the end
+  "frase_finale": "Ciao!",		<- final phrase
+  "lingua": "en",  			<- Language at startup
+  "tts_config": {
+    "engine": "auto",
+    "rate": 150,
+    "volume": 0.9,
+    "pitch": 50,
+    "voice_gender": "auto"
+  },
   "stt_config": {
     "soglia_rumore": 200,
     "sample_rate": 16000,
     "max_secondi": 10,
     "silenzio_secondi": 0.5,
-    "lingua": "it-IT"   <- Google Speech code for your language
+    "lingua": "en-US"   		<- Google Speech code for your language
   },
   "ai_config": {
     "enabled": false,
@@ -53,16 +74,25 @@ at the bottom of the right‑side panel.
     "max_tokens": 500,
     "fallback_to_ai": true
   },
-  "alias_comandi": {
-    "dammi": [      <- keep the key in Italian; customize the aliases
-      "dimmi",
-      "mostrami",
-      "visualizza"  <- example with three alias names for the same key word
-    ],
-    "aiuto": [
-      "help"        <- example with one alias name
-    ],
-    "esci": []      <- leave empty when no alias needed
+  "shortcut": [   			<- Modify the commands that appear under SHORCUT
+    {
+      "etichetta": "Quiet please",	<- Usefull command, translat in your language
+      "comando": "ok"
+    },
+    {
+      "etichetta": "Task manager",	<- Works on Windows OS only
+      "comando": "open task"
+    },
+    {
+      "etichetta": "Control panel",	<- Works on Windows OS only
+      "comando": "open panel"
+    },
+    {
+      "etichetta": "Configure",		<- Works on Windows OS only
+      "comando": "configura"
+    }
+  ]
+
 ```
 
 ---

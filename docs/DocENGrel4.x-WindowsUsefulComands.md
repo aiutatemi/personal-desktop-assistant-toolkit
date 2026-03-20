@@ -1,4 +1,8 @@
-# 🖥️ Windows Quick Commands for `dati` field
+# 🖥️ Windows Useful Commands to insert in `dati` field
+
+Commands to interact with Windows OS
+Works for all myAssistant releases
+Tested with Windows 11
 
 ---
 
@@ -81,3 +85,5 @@ No special syntax or configuration needed — just type the command as shown and
 | Control Panel | `control.exe` |
 | File Explorer | `explorer.exe` |
 | System Information | `msinfo32.exe` |
+
+---

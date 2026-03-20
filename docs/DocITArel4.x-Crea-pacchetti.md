@@ -1,5 +1,24 @@
 # 📦 Creare pacchetti distribuibili
 
+Come creare pacchetti distribuibili 
+per Windows, Linux e macOS
+del *file sorgente Python*
+
+## Prerequisiti
+
+Scarica i file necessari dal repository del progetto
+[Apri il progeto](https://gitlab.com/EmanueleCAS/assistente/)
+
+- myAssistenteX_X.py
+- la cartella completa _dati
+
+Opzionale
+
+- lang_IT.json e lang_EN.json sono incluse nella cartella _dati,
+se servissero altre lingue, scaricare dalla cartella localization-file del repository
+ed inserirle nella cartella _dati
+- documentaizione dalla cartella doc/ (Manuale utente e/o QuickStartUp)
+
 ## 🪟 Distribuibile Windows
 
 ### Creare il pacchetto con exe dalla linea comando (consigliato usare Thonny)
@@ -14,7 +33,7 @@ pyinstaller --onedir --noconsole --clean ^
 --icon=iconWIN.ico ^
 --collect-all PIL ^
 --collect-all cv2 ^
---name myAssistente myAssistente4_1.py
+--name myAssistente myAssistente4_2.py
 ```
 👉 sovrascrive cartella /dist se precedentemente compilato con linux
 per Windows, l'icona deve essere in formato .ico
@@ -34,7 +53,7 @@ pyinstaller --onedir --noconsole --clean
 --collect-all sounddevice  
 --collect-all speech\_recognition  
 --hidden-import numpy  
---name myAssistente myAssistente4_1.py
+--name myAssistente myAssistente4_2.py
 ```
 
 👉 sovrascrive cartella /dist  se precedentemente compilato con Windows

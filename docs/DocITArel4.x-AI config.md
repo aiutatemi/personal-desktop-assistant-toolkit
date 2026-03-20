@@ -1,7 +1,8 @@
 # Configurare l'integrazione con l'IA
 
-Questo documento spiega come configurare làintegrazione con IA del Toolkit Assistente desktop personale.  
+Questo documento spiega come configurare l'integrazione con IA del Toolkit Assistente desktop personale.  
 Due opzioni principali: usare **OpenAI (GPT)** oppure **Google Gemini**.
+Valido per tutte le release dopo la 3.x
 
 ## 1. Configurazione base in `config.json`
 

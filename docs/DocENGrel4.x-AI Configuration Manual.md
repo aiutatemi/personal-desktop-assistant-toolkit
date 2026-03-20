@@ -2,6 +2,7 @@
 
 This document explains how to configure AI integration in the Personal Desktop Assistant Toolkit.  
 Two main providers are supported: **OpenAI (GPT)** and **Google Gemini**.
+Valid for all releases after 3.x
 
 ---
 
