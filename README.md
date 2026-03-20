@@ -10,25 +10,33 @@ Built with Python and Tkinter, it runs on **Windows** (full features) and
 **Linux / macOS** (from release 3.x full features)
 
 ## 📘 Documentation
-Access the documentation release 2.x (ENG/ITA) here:  
-**[Open rel.2.2 Documentation](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
+Access the documentation release 4.x (ENG/ITA) here:  
+**[Open rel.4.x Documentation](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
 Access the full documentation folder (ENG/ITA) here:  
 👉 **[Open folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
+---
+
+## ✨  Release 5.x Features — — 🛠️In Progress🛠️
+
+- Full compatibility with the AIML standard
+- New: aiml_parser.py
+- Removed: optional external engine similar to AIML
 
 ---
-## ✨ Features Release 4.x
+## ✨ Release 4.x Features
 
+- External **engine** similar to AIML (optional)
 - Rebranding: **myAssistente** Personal Desktop Assistant
-- external **AIML engine** (optional)
-- new Header UI
+- New Header UI
 - updated **configure** command
-- new **search media** command (search music, video, picture inside -dati/asset/)
-- flexibility in understandin commands
-- Distribuibile 🪟 **Windows** ready ZIP archive (🐧 Linux coming soon)
+- New **search media** command (search music, video, picture inside -dati/asset/)
+- Flexibility in understandin commands
+- Bug fixig
+- Distribuibile 🪟 **Windows** and 🐧 **Linux** ready ZIP archives
 All features of previous releases
 
 ---
-## ✨ Features Release 3.x
+## ✨ Release 3.x Features
 
 - **Multi-platform Voice output** TTS (pyttsx3)
 - Configurable **STT parameters**

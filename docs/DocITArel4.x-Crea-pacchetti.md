@@ -46,14 +46,7 @@ Creare il pacchetto con eseguibile dalla linea comando (consigliato usare Thonny
 per directory corretta: scrivere :>CD e trascinare la cartella del progetto
 
 ```bash
-pyinstaller --onedir --noconsole --clean  
---icon=iconLINUX.png  
---collect-all PIL  
---collect-all cv2  
---collect-all sounddevice  
---collect-all speech\_recognition  
---hidden-import numpy  
---name myAssistente myAssistente4_2.py
+pyinstaller --onedir --noconsole --clean --icon=iconLINUX.png --collect-all PIL --collect-all cv2 --collect-all sounddevice --collect-all speech_recognition --hidden-import numpy --name myAssistente myAssistente4_2.py
 ```
 
 👉 sovrascrive cartella /dist  se precedentemente compilato con Windows

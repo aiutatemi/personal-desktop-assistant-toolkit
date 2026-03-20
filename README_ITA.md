@@ -11,21 +11,29 @@ Scritto in Python con Tkinter, funziona su **Windows** (funzionalità
 complete) e **Linux / macOS** (dalla release 3.x funzionalità complete).
 
 ## 📘 Documentazione
-Documentazione release 2.x (ITA/ENG):  
-**[Apri documentazione rel.2.2](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
+Documentazione release 4.x (ITA/ENG):  
+**[Apri documentazione rel.4.x](https://www.steppa.net/cassani/articoli/assistente/docs/indice.html)**
 Documentazione completa (ITA/ENG):  
 👉 **[Apri la cartella](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
+
+---
+## ✨ Funzionalità release   🛠️5.x In corso🛠️
+
+- completa compatibilità AIML standard
+- Un aiml_parser.py completamente nuovo
+- Rimosso: Motore **simile ad AIML** esterno
 
 ---
 ## ✨ Funzionalità release  4.x
 
 - Nuovo nome: **myAssistente** Assistente personale desktop
-- **motore AIML** esterno (opzionale)
-- nuova intestazione UI
-- aggiornato comando **configura**
-- nuovo comando **cerca media** (cerca music, video, picture inside -dati/asset/)
-- maggiore flessibilità nella comprensione dei comandi
-- Pacchetti distribuibili: Archivio ZIP pronto per 🪟 **Windows** (e presto per 🐧 Linux)
+- Motore **simile ad AIML** esterno (opzionale)
+- Nuova intestazione UI
+- Aggiornato comando **configura**
+- Nuovo comando **cerca media** (cerca music, video, picture inside -dati/asset/)
+- Maggiore flessibilità nella comprensione dei comandi
+- Bug fixig
+- Pacchetti distribuibili: Archivio ZIP pronto per 🪟 **Windows** e 🐧 **Linux**
 Tutte le funzionalità delle release precedenti
 
 ---

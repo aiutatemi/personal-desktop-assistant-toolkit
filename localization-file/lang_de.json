@@ -30,6 +30,11 @@
 "cerca_media_lista_si":   ["j", "ja", "ok", "liste", "los", "öffnen", "zeigen"],
 "panel_media":            "Medien suchen",
 "configura_vuoi_interrompere": "Möchtest du die Konfiguration beenden? (ja/nein)",
+"configura_invio_annulla": "Zum Abbrechen leer lassen",
+"configura_proseguire_si": ["j", "ja", "ok", "weiter"],
+"configura_short_cmd": ["kurz", "schnell", "basic"],
+"configura_short_avatar": "Assistentenname einstellen: {param} aktueller Wert = '{valore}'\nGeben Sie einen neuen Wert ein oder lassen Sie das Feld leer, um abzubrechen",
+"configura_short_utente": "Benutzernamen einstellen: {param} aktueller Wert = '{valore}'\nGeben Sie einen neuen Wert ein oder lassen Sie das Feld leer, um abzubrechen",
 
     "btn_invia": "Senden",
     "titolo_finestra": "Assistent – {nome_avatar}",

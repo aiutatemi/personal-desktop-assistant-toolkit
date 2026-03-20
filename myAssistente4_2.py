@@ -1,7 +1,7 @@
 """
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
-v4.1  optional aiml-XX.json + new comand + bug fixing
+v4.2  optional aiml-XX.json + new comand + bug fixing
 
 v3.x  STT/TTS + multiLANGUAGE + optional AI Integration
       Fix TTS pyttsx3 for Windows: one thread, one queue, one direct stop handle
@@ -1350,7 +1350,6 @@ class Assistente:
             font=("Segoe UI", 1),
         )
         self.avatar_label.image = None
-        self.root.update_idletasks()   # forza ricalcolo layout
 
     def _mostra_immagine(self, path: Path):
         try:
@@ -1441,16 +1440,25 @@ class Assistente:
         self.output.configure(state=tk.NORMAL)
         timestamp = datetime.now().strftime("%H:%M")
         self.output.insert(tk.END, f"\n[{timestamp}] {self.cfg['nome_avatar']}:> {testo}\n")
-        self.output.see(tk.END)
         self.output.configure(state=tk.DISABLED)
+        # after(10): aspetta che avatar e layout siano stabili prima di scrollare
+        self.root.after(10, lambda: (
+            self.output.configure(state=tk.NORMAL),
+            self.output.see(tk.END),
+            self.output.configure(state=tk.DISABLED)
+        ))
         self._parla(testo)
 
     def _scrivi_utente(self, testo: str):
         self.output.configure(state=tk.NORMAL)
         timestamp = datetime.now().strftime("%H:%M")
         self.output.insert(tk.END, f"\n[{timestamp}] {self.cfg['nome_utente']}:> {testo}\n")
-        self.output.see(tk.END)
         self.output.configure(state=tk.DISABLED)
+        self.root.after(10, lambda: (
+            self.output.configure(state=tk.NORMAL),
+            self.output.see(tk.END),
+            self.output.configure(state=tk.DISABLED)
+        ))
 
     # ------------------------------------------------------------------
     # TTS (pyttsx3)

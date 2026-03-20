@@ -29,6 +29,11 @@
 "cerca_media_lista_si":   ["y", "yes", "はい", "ok", "リスト", "開く", "表示"],
 "panel_media":            "メディア検索",
 "configura_vuoi_interrompere": "設定を終了しますか？（はい／いいえ）",
+"configura_invio_annulla": "キャンセルするには空のままにしてください",
+"configura_proseguire_si": ["y", "はい", "ok", "続行"],
+"configura_short_cmd": ["ショート", "クイック", "基本"],
+"configura_short_avatar": "アシスタント名の設定: {param} 現在の値 = '{valore}'\n新しい値を入力するか、キャンセルするには空のままにしてください",
+"configura_short_utente": "ユーザー名の設定: {param} 現在の値 = '{valore}'\n新しい値を入力するか、キャンセルするには空のままにしてください",
 
   "btn_invia":        "送信",
   "titolo_finestra":  "アシスタント – {nome_avatar}",

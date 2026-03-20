@@ -30,6 +30,11 @@
 "cerca_media_lista_si":   ["y", "yes", "네", "ok", "목록", "열기", "보기"],
 "panel_media":            "미디어 검색",
 "configura_vuoi_interrompere": "설정을 종료하시겠습니까? (예/아니오)",
+"configura_invio_annulla": "취소하려면 비워 두세요",
+"configura_proseguire_si": ["y", "예", "ok", "계속"],
+"configura_short_cmd": ["짧게", "빠르게", "기본"],
+"configura_short_avatar": "어시스턴트 이름 설정: {param} 현재 값 = '{valore}'\n새 값을 입력하거나 취소하려면 비워 두세요",
+"configura_short_utente": "사용자 이름 설정: {param} 현재 값 = '{valore}'\n새 값을 입력하거나 취소하려면 비워 두세요",
 
   "btn_invia":        "보내기",
   "titolo_finestra":  "어시스턴트 – {nome_avatar}",

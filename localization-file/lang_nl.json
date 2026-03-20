@@ -29,9 +29,14 @@
 "cerca_media_lista_si":   ["j", "ja", "ok", "lijst", "ga", "open", "toon"],
 "panel_media":            "media zoeken",
 "configura_vuoi_interrompere": "Wil je de configuratie stoppen? (ja/nee)",
+"configura_invio_annulla": "Laat leeg om te annuleren",
+"configura_proseguire_si": ["j", "ja", "ok", "ga"],
+"configura_short_cmd": ["kort", "snel", "basis"],
+"configura_short_avatar": "Instelling assistentnaam: {param} huidige waarde = '{valore}'\nVoer een nieuwe waarde in of laat leeg om te annuleren",
+"configura_short_utente": "Instelling gebruikersnaam: {param} huidige waarde = '{valore}'\nVoer een nieuwe waarde in of laat leeg om te annuleren",
 
-"btn_invia": "Verstuur",
-"titolo_finestra": "Assistent – {nome_avatar}",
+"btn_invia": "Verzenden",
+"titolo_finestra": "myAssistente – {nome_avatar}",
 "label_comandi": "COMMANDO'S",
 "label_shortcut": "SNELKOPPELINGEN",
 

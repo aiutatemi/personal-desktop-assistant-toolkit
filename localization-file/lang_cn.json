@@ -29,6 +29,11 @@
 "cerca_media_lista_si":   ["y", "yes", "好", "列表", "继续", "打开", "显示"],
 "panel_media":            "搜索媒体",
 "configura_vuoi_interrompere": "你想停止配置吗？（是/否）",
+"configura_invio_annulla": "留空以取消",
+"configura_proseguire_si": ["y", "是", "ok", "继续"],
+"configura_short_cmd": ["简短", "快速", "基础"],
+"configura_short_avatar": "助手名称设置：{param} 当前值 = '{valore}'\n输入新值或留空以取消",
+"configura_short_utente": "用户名设置：{param} 当前值 = '{valore}'\n输入新值或留空以取消",
 
   "btn_invia":        "发送",
   "titolo_finestra":  "助手 – {nome_avatar}",

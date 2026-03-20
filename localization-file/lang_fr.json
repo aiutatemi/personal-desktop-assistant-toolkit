@@ -30,6 +30,11 @@
 "cerca_media_lista_si":   ["o", "oui", "ok", "liste", "vas‑y", "ouvrir", "montrer"],
 "panel_media":            "rechercher des médias",
 "configura_vuoi_interrompere": "Veux‑tu arrêter la configuration ? (oui/non)",
+"configura_invio_annulla": "Laissez vide pour annuler",
+"configura_proseguire_si": ["o", "oui", "ok", "continuer"],
+"configura_short_cmd": ["court", "rapide", "basique"],
+"configura_short_avatar": "Configuration du nom de l’assistant : {param} valeur actuelle = '{valore}'\nEntrez une nouvelle valeur ou laissez vide pour annuler",
+"configura_short_utente": "Configuration du nom de l’utilisateur : {param} valeur actuelle = '{valore}'\nEntrez une nouvelle valeur ou laissez vide pour annuler",
 
     "btn_invia": "Envoyer",
     "titolo_finestra": "Assistant – {nome_avatar}",

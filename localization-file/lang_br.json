@@ -30,7 +30,11 @@
 "cerca_media_lista_si":   ["s", "sim", "ok", "lista", "vamos", "abrir", "mostrar"],
 "panel_media":            "buscar mídia",
 "configura_vuoi_interrompere": "Deseja interromper a configuração? (sim/não)",
-
+"configura_invio_annulla": "Deixe em branco para cancelar",
+"configura_proseguire_si": ["s", "sim", "ok", "continuar"],
+"configura_short_cmd": ["curto", "rápido", "básico"],
+"configura_short_avatar": "Configuração do nome do assistente: {param} valor atual = '{valore}'\nDigite um novo valor ou deixe em branco para cancelar",
+"configura_short_utente": "Configuração do nome do usuário: {param} valor atual = '{valore}'\nDigite um novo valor ou deixe em branco para cancelar",
   "btn_invia":        "Enviar",
   "titolo_finestra":  "Assistente – {nome_avatar}",
   "label_comandi":    "COMANDOS",

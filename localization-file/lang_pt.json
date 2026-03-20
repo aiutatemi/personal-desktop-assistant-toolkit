@@ -30,9 +30,14 @@
 "cerca_media_lista_si":   ["s", "sim", "ok", "lista", "seguir", "abrir", "mostrar"],
 "panel_media":            "procurar média",
 "configura_vuoi_interrompere": "Queres parar a configuração? (sim/não)",
+"configura_invio_annulla": "Deixe em branco para cancelar",
+"configura_proseguire_si": ["s", "sim", "ok", "seguir"],
+"configura_short_cmd": ["curto", "rápido", "básico"],
+"configura_short_avatar": "Configuração do nome do assistente: {param} valor atual = '{valore}'\nIntroduza um novo valor ou deixe em branco para cancelar",
+"configura_short_utente": "Configuração do nome do utilizador: {param} valor atual = '{valore}'\nIntroduza um novo valor ou deixe em branco para cancelar",
 
-  "btn_invia":        "Enviar",
-  "titolo_finestra":  "Assistente – {nome_avatar}",
+"btn_invia": "Enviar",
+"titolo_finestra": "myAssistente – {nome_avatar}",
   "label_comandi":    "COMANDOS",
   "label_shortcut":   "ATALHOS",
 

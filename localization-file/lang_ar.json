@@ -29,6 +29,11 @@
 "cerca_media_lista_si":   ["نعم", "ا", "ok", "قائمة", "تابع", "افتح", "اعرض"],
 "panel_media":            "بحث عن الوسائط",
 "configura_vuoi_interrompere": "هل تريد إيقاف الإعداد؟ (نعم/لا)",
+"configura_invio_annulla": "اتركه فارغًا للإلغاء",
+"configura_proseguire_si": ["ن", "نعم", "حسنًا", "تابع"],
+"configura_short_cmd": ["قصير", "سريع", "أساسي"],
+"configura_short_avatar": "إعداد اسم المساعد: {param} القيمة الحالية = '{valore}'\nأدخل قيمة جديدة أو اتركه فارغًا للإلغاء",
+"configura_short_utente": "إعداد اسم المستخدم: {param} القيمة الحالية = '{valore}'\nأدخل قيمة جديدة أو اتركه فارغًا للإلغاء",
 
   "btn_invia":        "إرسال",
   "titolo_finestra":  "المساعد – {nome_avatar}",

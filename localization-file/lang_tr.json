@@ -29,9 +29,14 @@
 "cerca_media_lista_si":   ["e", "evet", "ok", "liste", "devam", "aç", "göster"],
 "panel_media":            "medya ara",
 "configura_vuoi_interrompere": "Yapılandırmayı durdurmak ister misin? (evet/hayır)",
+"configura_invio_annulla": "İptal etmek için boş bırakın",
+"configura_proseguire_si": ["e", "evet", "ok", "devam"],
+"configura_short_cmd": ["kısa", "hızlı", "temel"],
+"configura_short_avatar": "Asistan adı ayarı: {param} mevcut değer = '{valore}'\nYeni değeri girin veya iptal etmek için boş bırakın",
+"configura_short_utente": "Kullanıcı adı ayarı: {param} mevcut değer = '{valore}'\nYeni değeri girin veya iptal etmek için boş bırakın",
 
 "btn_invia": "Gönder",
-"titolo_finestra": "Asistan – {nome_avatar}",
+"titolo_finestra": "myAssistente – {nome_avatar}",
 "label_comandi": "KOMUTLAR",
 "label_shortcut": "KISAYOLLAR",
 
