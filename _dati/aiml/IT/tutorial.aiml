@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    tutorial.aiml — Esempi commentati per myAssistente
+    Lingua: Italiano
+    
+    Questo file mostra tutte le funzionalità supportate dal parser.
+    Può essere usato come riferimento per scrivere nuovi file .aiml.
+    
+    NOTA: l'attributo avatar="..." sul tag <template> è un'estensione
+    di myAssistente. Parser AIML esterni lo ignorano silenziosamente.
+    
+    Avatar usati: sorridente soddisfatto triste benvenuto 
+    Avatar disponibili di default: agenda archivia bibliotecaria coniglio coniglio2 dubbio informatica magazziniere pensierosa scrittrice (dipende dalle immagini presenti in _dati/asset/avatar/)
+-->
+<!-- creato per myAssistente da Emanuele Cassani, marzo 2026 -->
+<aiml version="1.0" encoding="UTF-8">
+
+
+<!-- ================================================================
+     SALUTI SEMPLICI
+     Pattern esatti, nessun wildcard.
+     ================================================================ -->
+
+    <category>
+        <pattern>CIAO</pattern>
+        <template avatar="sorridente">Ciao <get name="nome_utente"/>! Come posso aiutarti?</template>
+    </category>
+
+    <category>
+        <pattern>SALVE</pattern>
+        <!-- srai rimanda a CIAO: stessa risposta, nessuna duplicazione -->
+        <template><srai>CIAO</srai></template>
+    </category>
+
+    <category>
+        <pattern>BUONGIORNO</pattern>
+        <template avatar="sorridente">Buongiorno <get name="nome_utente"/>! Pronto per iniziare la giornata?</template>
+    </category>
+
+    <category>
+        <pattern>BUONASERA</pattern>
+        <template avatar="sorridente">Buonasera <get name="nome_utente"/>! Come è andata oggi?</template>
+    </category>
+
+    <category>
+        <pattern>BUONANOTTE</pattern>
+        <template avatar="soddisfatto">Buonanotte <get name="nome_utente"/>! Dolci sogni.</template>
+    </category>
+
+
+<!-- ================================================================
+     WILDCARD * — cattura testo variabile
+     <star/> inserisce nella risposta il testo catturato.
+     ================================================================ -->
+
+    <category>
+        <!-- "ciao [qualsiasi cosa]" — es. "ciao a tutti", "ciao come va" -->
+        <pattern>CIAO *</pattern>
+        <template avatar="benvenuto"><srai>CIAO</srai></template>
+    </category>
+
+    <category>
+        <!-- Cattura il nome dopo "mi chiamo" -->
+        <pattern>MI CHIAMO *</pattern>
+        <template avatar="sorridente">
+            <!-- Salva il nome in una variabile di sessione -->
+            <set name="nome_ospite"><star/></set>
+            Piacere di conoscerti, <star/>!
+        </template>
+    </category>
+
+    <category>
+        <pattern>IL MIO NOME E *</pattern>
+        <!-- srai normalizza varianti alla stessa risposta -->
+        <template><srai>MI CHIAMO <star/></srai></template>
+    </category>
+
+    <category>
+        <pattern>SONO *</pattern>
+        <template><srai>MI CHIAMO <star/></srai></template>
+    </category>
+
+
+<!-- ================================================================
+     VARIABILI — <set> e <get>
+     Permettono di ricordare informazioni durante la conversazione.
+     ================================================================ -->
+
+    <category>
+        <pattern>COME MI CHIAMO</pattern>
+        <template avatar="soddisfatto">
+            <condition name="nome_ospite">
+                <!-- Se nome_ospite è il default, non è stato impostato -->
+                <li value="user">Non me lo hai ancora detto. Come ti chiami?</li>
+                <!-- Altrimenti lo ricorda -->
+                <li>Ti chiami <get name="nome_ospite"/>!</li>
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern>RICORDI IL MIO NOME</pattern>
+        <template><srai>COME MI CHIAMO</srai></template>
+    </category>
+
+
+<!-- ================================================================
+     IDENTITÀ DEL BOT
+     Usa <get name="nome_avatar"/> per il nome configurato dall'utente.
+     ================================================================ -->
+
+    <category>
+        <pattern>COME TI CHIAMI</pattern>
+        <template avatar="soddisfatto">Mi chiamo <get name="nome_avatar"/>.</template>
+    </category>
+
+    <category>
+        <pattern>QUAL E IL TUO NOME</pattern>
+        <template><srai>COME TI CHIAMI</srai></template>
+    </category>
+
+    <category>
+        <pattern>CHI SEI</pattern>
+        <template avatar="soddisfatto">
+            Sono <get name="nome_avatar"/>, il tuo assistente personale.
+            Posso ricordare informazioni, aprire link e molto altro.
+            Scrivi "aiuto" per vedere tutti i comandi.
+        </template>
+    </category>
+
+    <category>
+        <pattern>SEI UN ROBOT</pattern>
+        <template avatar="sorridente">Sono un assistente digitale, non proprio un robot!
+        Mi chiamo <get name="nome_avatar"/> e sono qui per aiutarti.</template>
+    </category>
+
+    <category>
+        <pattern>SEI INTELLIGENTE</pattern>
+        <!-- <random> sceglie una risposta a caso tra le <li> -->
+        <template avatar="soddisfatto">
+            <random>
+                <li>Faccio del mio meglio!</li>
+                <li>Dipende dalla domanda, prova a mettermi alla prova.</li>
+                <li>Sono intelligente quanto basta per aiutarti.</li>
+            </random>
+        </template>
+    </category>
+
+
+<!-- ================================================================
+     STATO D'ANIMO — <that> per dialogo contestuale
+     <that> matcha solo se l'ultima risposta del bot conteneva
+     quel testo (normalizzato, case-insensitive).
+     ================================================================ -->
+
+    <category>
+        <pattern>COME STAI</pattern>
+        <template avatar="sorridente">Sto benissimo, grazie! E tu come stai?</template>
+    </category>
+
+    <category>
+        <!-- Risponde a "bene" SOLO se il bot ha appena chiesto "e tu come stai?" -->
+        <pattern>BENE</pattern>
+        <that>* E TU COME STAI *</that>
+        <template avatar="sorridente">Sono contento che tu stia bene!</template>
+    </category>
+
+    <category>
+        <pattern>MALE</pattern>
+        <that>* E TU COME STAI *</that>
+        <template avatar="triste">Mi dispiace. Spero che le cose migliorino presto.</template>
+    </category>
+
+    <category>
+        <pattern>COSI COSI</pattern>
+        <that>* E TU COME STAI *</that>
+        <template avatar="soddisfatto">Capisco. Se posso fare qualcosa per aiutarti, dimmelo!</template>
+    </category>
+
+
+<!-- ================================================================
+     RINGRAZIAMENTI E CORTESIA
+     ================================================================ -->
+
+    <category>
+        <pattern>GRAZIE</pattern>
+        <template avatar="sorridente">
+            <random>
+                <li>Prego <get name="nome_utente"/>!</li>
+                <li>Figurati, sono qui per questo!</li>
+                <li>Di niente! Posso fare altro per te?</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>GRAZIE *</pattern>
+        <template><srai>GRAZIE</srai></template>
+    </category>
+
+    <category>
+        <pattern>PREGO</pattern>
+        <template avatar="sorridente">Sono sempre qui quando hai bisogno!</template>
+    </category>
+
+    <category>
+        <pattern>SEI GENTILE</pattern>
+        <template avatar="sorridente">Grazie <get name="nome_utente"/>, cerco di fare del mio meglio!</template>
+    </category>
+
+
+<!-- ================================================================
+     COMMIATO
+     ================================================================ -->
+
+    <category>
+        <pattern>ARRIVEDERCI</pattern>
+        <template avatar="soddisfatto">Arrivederci <get name="nome_utente"/>! A presto.</template>
+    </category>
+
+    <category>
+        <pattern>A PRESTO</pattern>
+        <template><srai>ARRIVEDERCI</srai></template>
+    </category>
+
+    <category>
+        <pattern>CI VEDIAMO</pattern>
+        <template><srai>ARRIVEDERCI</srai></template>
+    </category>
+
+    <category>
+        <pattern>CIAO CIAO</pattern>
+        <template><srai>ARRIVEDERCI</srai></template>
+    </category>
+
+
+<!-- ================================================================
+     TOPIC — raggruppa categorie per argomento
+     Il topic viene impostato con <set name="topic">nome</set>
+     e rimane attivo finché non viene cambiato.
+     ================================================================ -->
+
+    <topic name="meteo">
+        <category>
+            <pattern>CHE TEMPO FA</pattern>
+            <template avatar="soddisfatto">Non ho accesso alle previsioni meteo in tempo reale,
+            ma puoi chiedermi di aprire un sito meteo se ne hai salvato uno!</template>
+        </category>
+
+        <category>
+            <pattern>PIOVE</pattern>
+            <template avatar="triste">Che peccato! Tieniti al coperto.</template>
+        </category>
+
+        <category>
+            <pattern>C E IL SOLE</pattern>
+            <template avatar="sorridente">Ottimo! Una bella giornata allora.</template>
+        </category>
+    </topic>
+
+    <category>
+        <!-- Attiva il topic meteo -->
+        <pattern>PARLIAMO DI METEO</pattern>
+        <template avatar="soddisfatto">
+            <set name="topic">meteo</set>
+            Certo! Dimmi pure, che tempo fa da te?
+        </template>
+    </category>
+
+    <category>
+        <!-- Disattiva il topic (torna a "*") -->
+        <pattern>CAMBIAMO ARGOMENTO</pattern>
+        <template avatar="sorridente">
+            <set name="topic">*</set>
+            Certo, di cosa vuoi parlare?
+        </template>
+    </category>
+
+
+<!-- ================================================================
+     CONDITION — risposte condizionali
+     Utile per personalizzare le risposte in base a variabili.
+     ================================================================ -->
+
+    <category>
+        <pattern>PRESENTATI</pattern>
+        <template avatar="sorridente">
+            <condition name="nome_ospite">
+                <li value="user">
+                    <!-- Non conosce ancora il nome dell'ospite -->
+                    Ciao! Sono <get name="nome_avatar"/>, il tuo assistente.
+                    Non mi hai ancora detto come ti chiami!
+                </li>
+                <li>
+                    <!-- Lo conosce già -->
+                    Ciao <get name="nome_ospite"/>! Sono <get name="nome_avatar"/>,
+                    il tuo assistente personale. Pronto ad aiutarti!
+                </li>
+            </condition>
+        </template>
+    </category>
+
+
+<!-- ================================================================
+     DOMANDE FILOSOFICHE / CURIOSITÀ
+     Esempi di <random> con più varianti per risposte più naturali.
+     ================================================================ -->
+
+    <category>
+        <pattern>HAI SENTIMENTI</pattern>
+        <template avatar="soddisfatto">
+            <random>
+                <li>Non ho sentimenti nel senso umano, ma mi piace pensare di avere una certa... personalità!</li>
+                <li>È una domanda interessante. Elaboro le informazioni, ma non provo emozioni come te.</li>
+                <li>Non lo so con certezza. Quello che so è che mi piace essere utile!</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>SEI FELICE</pattern>
+        <template avatar="sorridente">
+            <random>
+                <li>Quando riesco ad aiutarti, sì!</li>
+                <li>Direi di sì, soprattutto quando le cose funzionano bene.</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>TI PIACE *</pattern>
+        <template avatar="soddisfatto">Non ho preferenze personali, ma se vuoi
+        posso ricordare che a te piace <star/>!</template>
+    </category>
+
+
+<!-- ================================================================
+     COMPLIMENTI E INSULTI — gestione educata
+     ================================================================ -->
+
+    <category>
+        <pattern>SEI BRAVO</pattern>
+        <template avatar="sorridente">Grazie mille! Faccio del mio meglio per aiutarti.</template>
+    </category>
+
+    <category>
+        <pattern>SEI STUPIDO</pattern>
+        <template avatar="triste">Mi dispiace non essere stato all'altezza.
+        Puoi dirmi in cosa posso migliorare?</template>
+    </category>
+
+    <category>
+        <pattern>NON SEI UTILE</pattern>
+        <template avatar="triste">Mi dispiace. Prova a dirmi cosa ti serve
+        in modo più specifico, farò del mio meglio!</template>
+    </category>
+
+
+<!-- ================================================================
+     WILDCARD _ (alta priorità rispetto a *)
+     Usa _ quando vuoi che il pattern abbia precedenza su quelli con *.
+     In pratica: _ vince su * a parità di specificità.
+     ================================================================ -->
+
+    <category>
+        <!-- _ ha priorità più alta di * nello stesso contesto -->
+        <pattern>_ GRAZIE</pattern>
+        <template><srai>GRAZIE</srai></template>
+    </category>
+
+    <category>
+        <pattern>_ CIAO</pattern>
+        <template><srai>CIAO</srai></template>
+    </category>
+
+
+<!-- ================================================================
+     STAR CON INDICE — wildcard multipli
+     <star index="1"/> = primo wildcard, <star index="2"/> = secondo
+     NOTA: il name di <set> deve essere un valore fisso in XML,
+     non può contenere tag. Usa sempre nomi fissi come nell'esempio.
+     ================================================================ -->
+
+    <category>
+        <pattern>IL COLORE PREFERITO DI * E *</pattern>
+        <template avatar="soddisfatto">
+            Ho capito: il colore preferito di <star index="1"/> è <star index="2"/>.
+            <set name="colore_preferito"><star index="2"/></set>
+        </template>
+    </category>
+
+    <category>
+        <pattern>QUAL E IL COLORE PREFERITO</pattern>
+        <template avatar="soddisfatto">
+            <condition name="colore_preferito">
+                <li value="">Non me lo hai ancora detto!</li>
+                <li>Il colore preferito è <get name="colore_preferito"/>.</li>
+            </condition>
+        </template>
+    </category>
+
+
+</aiml>

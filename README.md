@@ -16,16 +16,17 @@ Access the full documentation folder (ENG/ITA) here:
 👉 **[Open folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 ---
 
-## ✨  Release 5.x Features — — 🛠️In Progress🛠️
+## ✨  Test Release 5.x Features 🛠In Progress🛠️
 
 - Full compatibility with the AIML standard
-- New: aiml_parser.py
-- Removed: optional external engine similar to AIML
+- New aiml_parser.py
+All features of previous releases except:
+- Removed: optional external engine similar to AIML used in release 4
 
 ---
 ## ✨ Release 4.x Features
 
-- External **engine** similar to AIML (optional)
+- External engine with AIML‑like syntax, configurable via JSON file
 - Rebranding: **myAssistente** Personal Desktop Assistant
 - New Header UI
 - updated **configure** command

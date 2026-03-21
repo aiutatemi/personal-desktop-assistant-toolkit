@@ -31,7 +31,7 @@ No changes to JSON files are required.
 
 ---
 
-### 3. External AIML engine (conversational phrases)
+### 3. External AIML-like engine (conversational phrases)
 
 A conversational response system has been added, based on external JSON files,  
 one per language, supporting:

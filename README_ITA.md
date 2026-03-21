@@ -17,17 +17,18 @@ Documentazione completa (ITA/ENG):
 👉 **[Apri la cartella](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
-## ✨ Funzionalità release   🛠️5.x In corso🛠️
+## ✨ Funzionalità test release 5.x 🛠In corso🛠️
 
-- completa compatibilità AIML standard
+- Completa compatibilità con file standard AIML
 - Un aiml_parser.py completamente nuovo
-- Rimosso: Motore **simile ad AIML** esterno
+Tutte le funzionalità delle release precedenti, eccetto:
+- Rimosso: il motore che usava file json **simile ad AIML** esterno della release 4
 
 ---
 ## ✨ Funzionalità release  4.x
 
 - Nuovo nome: **myAssistente** Assistente personale desktop
-- Motore **simile ad AIML** esterno (opzionale)
+- Motore esterno con sintassi simile ad AIML, configurabile tramite file JSON
 - Nuova intestazione UI
 - Aggiornato comando **configura**
 - Nuovo comando **cerca media** (cerca music, video, picture inside -dati/asset/)

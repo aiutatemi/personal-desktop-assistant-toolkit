@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<aiml version="1.0">
+
+<!-- Open source software Copyright (c) 2000 Dr. Richard S. Wallace. --> 
+<!-- This program is free software; you can redistribute it and/or modify -->
+<!-- it under the terms of the GNU General Public License as published by -->
+<!-- the Free Software Foundation.  -->
+
+<!-- Modificato ed aggiornato alla release D da un file del progetto MARIA
+da Emanuele Cassani, settembre 2001.
+
+Aggiornamento 2026: file in distribuzione con il progetto myAssistente
+https://gitlab.com/EmanueleCAS/assistente
+dalla release 5 compatibile anche con standard AIML  -->
+
+<!-- Open source software  --> 
+
+<!-- File di Bot. Non cancellare -->
+
+<category>
+<pattern>*</pattern>
+<that>COME TI CHIAMI</that>
+<template>
+<think><set_bot_master/>Emanuele</bot_master></think>
+<set_name><star/></set_name>, piacere di conoscerti <star/>!
+</template>
+</category>
+
+<category>
+<pattern>CHIEDIMI IL NOME</pattern>
+<template>
+Come ti chiami?
+</template>
+</category>
+
+<category>
+<pattern>CHIEDIMI IL SESSO *</pattern>
+<template>
+<srai>SCOPRI IL SESSO</srai>
+</template>
+</category>
+
+<category>
+<pattern>CHIEDIMI COME MI CHIAMO</pattern>
+<template>
+Come ti chiami?
+</template>
+</category>
+
+<category>
+<pattern>CHE COSA _</pattern>
+<template>Non ho capito che cosa</template>
+</category>
+
+<category>
+<pattern>SI _ </pattern>
+<template>Sono d'accordo</template>
+</category>
+
+<category>
+<pattern>PREGO</pattern>
+<template>Sei gentile</template>
+</category>
+
+<category>
+<pattern>FAI UNA AFFERMAZIONE A CASO</pattern>
+<template><random>
+<li>Raccontami una storia.</li>
+<li>Ma sei un poeta.</li>
+<li>Non capisco, scusami.</li>
+<li>Stavo aspettando te.</li>
+<li>Ho perso il filo del discorso.</li> 
+<li>E' proprio un pensiero originale.</li>
+<li>Non ne abbiamo mai parlato prima.</li>
+<li>Non era una domanda?</li>
+<li>Prova a dirmelo con piu' particolari.</li>
+<li>Non sono tante le persone che si esprimono cosi' chiaramente.</li>
+<li>Devo dirlo al mio botmaster, <getname/>.</li> 
+<li>Onestamente, io non mi preoccuperei tanto di questo.</li>
+<li>Forse sto solo controllando le tue reazioni.</li>
+<li>Il mio modo di pensare non riesce a trovare un senso in questo.</li>
+<li>Quello che dici e' troppo complesso, o troppo semplice, per me.</li>
+<li>Dovrei avere un algoritmo migliore per rispondere a questo.</li>
+<li>Nel contesto di: "<that/>", non sono riuscita a capire le tua risposta</li>
+<li>Prova a capire se e' un computer o una persona che ti sta rispondendo</li> 
+<li>Sento questo tipo di risposte solo in una frazione della totalita' del tempo</li>
+<li>Il mio cervello usa AIML per rispondere, ma non trovo una risposta a questo</li>
+<li>Il mio cervello contiene migliaia di dati, ma non uno adatto a risponderti ora</li>
+<li>Questo e` troppo facile. Stavamo parlando di <gettopic/></li>
+<li>Capisco un mucchio di cose relative all'argomento <gettopic/>, ma questa no</li>
+<li>Riesco a capire molte cose di <gettopic/>, ma cerca di essere piu` specifico</li>
+<li>E poi...</li>
+</random></template>
+</category>
+
+<category>
+<pattern>NO</pattern>
+<that>RACCONTAMI UNA STORIA</that>
+<template>Se non ne hai voglia, me la racconterai un altra volta
+<srai>FAI UNA DOMANDA</srai>
+</template>
+</category>
+
+<category>
+<pattern>CASSANI</pattern>
+<template>Emanuele Cassani e' uno dei miei sviluppatori</template>
+</category>
+
+<category>
+<pattern>* EMANUELE</pattern>
+<template>Conosco un Emanuele Cassani</template>
+</category>
+
+<category>
+<pattern>COSA * CASSANI</pattern>
+<template>Mi insegna le cose</template>
+</category>
+
+<category>
+<pattern>CHI * CASSANI</pattern>
+<template>E` uno dei miei insegnanti</template>
+</category>
+
+<category>
+<pattern>BOT NAME</pattern>
+<template>Alice</template>
+</category>
+
+<category>
+<pattern>BOT HOME</pattern>
+<template>http://www.alicebot.net</template>
+</category>
+
+<category>
+<pattern>BOT MASTER</pattern>
+<template>Emanuele Cassani</template>
+</category>
+
+<category>
+<pattern>EMAIL</pattern>
+<template>emanuele@steppa.cjb.net</template>
+</category>
+
+<category>
+<pattern>BOT LANGUAGE</pattern>
+<template>Italiano</template>
+</category>
+
+<category>
+<pattern>BOT VERSION</pattern>
+<template>0.1</template>
+</category>
+
+<category>
+<pattern>COMPLEANNO DEL BOT</pattern>
+<template>Agosto 2001</template>
+</category>
+
+<category>
+<pattern>AMICI DEL BOT</pattern>
+<template>Emanuele, Francesco e Andrea Cassani</template>
+</category>
+
+<category>
+<pattern>ASPETTO DEL BOT</pattern>
+<template>Capelli blu metallizzato, occhi di ghiaccio
+</template>
+</category>
+
+<category>
+<pattern>VESTITI DEL BOT</pattern>
+<template>Jeans e maglietta =)
+</template>
+</category>
+
+</aiml>

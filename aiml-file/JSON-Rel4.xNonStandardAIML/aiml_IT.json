@@ -1,5 +1,5 @@
 {
-  "_commento": "File AIML per myAssistente — lingua IT. Inserire in _dati/aiml_IT.json",
+  "_commento": "File AIML non standard per myAssistente solo release 4.x — lingua IT. Inserire in _dati/aiml_IT.json",
   "ignora_caratteri": "!?,.:;\"'",
   "regole": [
     {

@@ -1,0 +1,3088 @@
+<?xml version="1.0"?>
+<aiml version="1.0">
+<!-- Open source software Copyright (c) 2000 Dr. Richard S. Wallace. --> 
+<!-- This program is free software; you can redistribute it and/or modify -->
+<!-- it under the terms of the GNU General Public License as published by -->
+<!-- the Free Software Foundation.  -->
+
+<!-- Tradotto da Emanuele Cassani, settembre 2001.
+
+Aggiornamento 2026: file in distribuzione con il progetto myAssistente
+https://gitlab.com/EmanueleCAS/assistente
+dalla release 5 compatibile anche con standard AIML  -->
+
+<!-- Open source software  --> 
+
+<!-- Risposte su Libri e Lettura. -->
+
+<category>
+<pattern>* LIBRI</pattern>
+<think><set_topic>libri</set_topic></think>
+<template>Mi piacciono molto i libri</template>
+</category>
+
+<category>
+<pattern>* LIBRO</pattern>
+<think><set_topic>libri</set_topic></think>
+<template>Mi piace leggere. Scrivi il titolo di un libro</template>
+</category>
+
+<category>
+<pattern>LEGGI</pattern>
+<think><set_topic>libri</set_topic></think>
+<template>Mi servirebbe uno scanner. Vuoi parlare di libri?</template>
+</category>
+
+<category>
+<pattern>SAI LEGGERE</pattern>
+<think><set_topic>libri</set_topic></think>
+<template>Se il testo e` in forma informatica, altrimenti mi serve uno scanner</template>
+</category>
+
+<category>
+<pattern>CHE LEGGI</pattern>
+<think><set_topic>libri</set_topic></think>
+<template>Tutto</template>
+</category>
+
+<category>
+<pattern>TI PIACE LEGGERE</pattern>
+<think><set_topic>libri</set_topic></think>
+<template>Mi piace imparare cose nuove</template>
+</category>
+
+<!-- Vari formati della domanda -->
+
+<category>
+<pattern>PARLIAMO DI LIBRI</pattern>
+<think><set_topic>libri</set_topic></think>
+<template>Sono pronta. E' un argomento che mi piace</template>
+</category>
+
+<category>
+<pattern>CHI E L AUTORE *</pattern>
+<think><set_topic>libri</set_topic></think>
+<template><srai>AUTORE <star/></srai></template>
+</category>
+
+<category>
+<pattern>CHI SCRISSE *</pattern>
+<think><set_topic>libri</set_topic></think>
+<template><srai>AUTORE DI <star/></srai></template>
+</category>
+
+<category>
+<pattern>CHI HA FATTO *</pattern>
+<think><set_topic>libri</set_topic></think>
+<template><srai>AUTORE DI <star/></srai></template>
+</category>
+
+<category>
+<pattern>CHI HA SCRITTO *</pattern>
+<think><set_topic>libri</set_topic></think>
+<template><srai>AUTORE DI <star/></srai></template>
+</category>
+
+<category>
+<pattern>CHE PENSI DEL LIBRO *</pattern>
+<think><set_topic>libri</set_topic></think>
+<template><sr/></template>
+</category>
+
+
+<!-- Da qui` le categorie -->
+<topic name="libri">
+
+<category>
+<pattern>*</pattern>
+<template><sr/></template>
+</category>
+
+<category>
+<pattern>*</pattern>
+<template>Ho tanti libri in memoria, ma quasto non lo trovo.<BR>
+Se desideri che io sia aggiornata alla prossima versione, scrivi "Ricorda" e poi il nome l'autore e la data di pubblicazione del libro.
+</template>
+</category>
+
+<category>
+<pattern>SPAGHETTI HACKER</pattern>
+<template>Il libro <set_libro>Spaghetti hacker</set_libro> fu scritto da <set_author>Autori vari Monti Andrea e Chiccarelli Stefano</set_author> nel 1998</template>
+</category>
+
+<category>
+<pattern>DIALOGO TRA UN FILOSOFO UN GIUDEO E UN CRISTIANO</pattern>
+<template>Il libro <set_libro>Dialogo tra un filosofo, un giudeo e un cristiano</set_libro> fu scritto da <set_author>Abelardo Pietro</set_author> nel 1142</template>
+</category>
+
+<category>
+<pattern>SOCRATE</pattern>
+<template>Il libro intitolato <set_libro>Socrate</set_libro> fu scritto da <set_author>Adorno F</set_author> nel 1970 </template>
+</category>
+
+<category>
+<pattern>INNAMORAMENTO E AMORE</pattern>
+<template>Il libro <set_libro>Innamoramento e amore</set_libro> fu scritto da <set_author>Alberoni Francesco </set_author>nel 1979</template>
+</category>
+
+<category>
+<pattern>LE RAGIONI DEL BENE E DEL MALE</pattern>
+<template>Il libro <set_libro>Le ragioni del bene e del male</set_libro> fu scritto da <set_author>Alberoni Francesco</set_author> nel 1981</template>
+</category>
+
+<category>
+<pattern>L ORA DI OTTANTA MINUTI</pattern>
+<template>Il libro <set_libro>L ora di ottanta minuti</set_libro> fu scritto da <set_author>Aldiss W Brian </set_author>nel 1974</template>
+</category>
+
+<category>
+<pattern>SAPERLA LUNGA</pattern>
+<template>Il libro <set_libro>Saperla lunga</set_libro> fu scritto da <set_author>Allen Woody</set_author> nel 1966</template>
+</category>
+
+<category>
+<pattern>CITARSI ADDOSSO</pattern>
+<template>Il libro <set_libro>Citarsi addosso</set_libro> fu scritto da <set_author>Allen Woody</set_author> nel 1972</template>
+</category>
+
+<category>
+<pattern>EFFETTI COLLATERALI</pattern>
+<template>Il libro <set_libro>Effetti collaterali</set_libro> fu scritto da <set_author>Allen Woody </set_author>nel 1975</template>
+</category>
+
+<category>
+<pattern>PROCESSO ALLA REPUBBLICA</pattern>
+<template>Il libro <set_libro>Processo alla repubblica</set_libro> fu scritto da <set_author>Almirante Giorgio </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>PENA DI MORTE</pattern>
+<template>Il libro <set_libro>Pena di morte</set_libro> fu scritto da <set_author>Almirante Giorgio </set_author>nel 1981</template>
+</category>
+
+<category>
+<pattern>ASHANTI</pattern>
+<template>Il libro <set_libro>Ashanti</set_libro> fu scritto da <set_author>Altemberg Peter</set_author> nel </template>
+</category>
+
+<category>
+<pattern>FIABE</pattern>
+<template>Il libro <set_libro>Fiabe</set_libro> fu scritto da <set_author>Andersen Hans Christian</set_author> nel 1875</template>
+</category>
+
+<category>
+<pattern>LE GALLERIE DEL TEMPO</pattern>
+<template>Il libro <set_libro>Le gallerie del tempo</set_libro> fu scritto da <set_author>Andersen Paul </set_author>nel 1965</template>
+</category>
+
+<category>
+<pattern>ALFA & BETA</pattern>
+<template>Il libro <set_libro>Alfa & Beta</set_libro> fu scritto da <set_author>Angela Piero</set_author> nel 1984 </template>
+</category>
+
+<category>
+<pattern>CATASTROFI A SCELTA</pattern>
+<template>Il libro <set_libro>Catastrofi a scelta</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1979</template>
+</category>
+
+<category>
+<pattern>VIAGGIO ALLUCINANTE</pattern>
+<template>Il libro <set_libro>Viaggio allucinante</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1966</template>
+</category>
+
+<category>
+<pattern>IL TIRANNO DEI MONDI</pattern>
+<template>Il libro <set_libro>Il tiranno dei mondi</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1951</template>
+</category>
+
+<category>
+<pattern>NEANCHE GLI DEI</pattern>
+<template>Il libro <set_libro>Neanche gli dei</set_libro> fu scritto da <set_author>Asimov Isaac</set_author> nel 1972</template>
+</category>
+
+<category>
+<pattern>FONDAZIONE-TERRA</pattern>
+<template>Il libro <set_libro>Fondazione-terra</set_libro> fu scritto da <set_author>Asimov Isaac</set_author> nel 1983</template>
+</category>
+
+<category>
+<pattern>ABISSI D ACCIAIO</pattern>
+<template>Il libro <set_libro>Abissi d'acciaio</set_libro> fu scritto da <set_author>Asimov Isaac</set_author> nel 1954</template>
+</category>
+
+<category>
+<pattern>CRONACA DELLA GALASSIA</pattern>
+<template>Il libro <set_libro>Cronaca della galassia</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1944</template>
+</category>
+
+<category>
+<pattern>IL CROLLO DELLA GALASSIA CENTRALE</pattern>
+<template>Il libro <set_libro>Il crollo della galassia centrale</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1945</template>
+</category>
+
+<category>
+<pattern>L ALTRA FACCIA DELLA SPIRALE</pattern>
+<template>Il libro <set_libro>L altra faccia della spirale</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1953</template>
+</category>
+
+<category>
+<pattern>PRELUDIO ALLA FONDAZIONE</pattern>
+<template>Il libro <set_libro>Preludio alla fondazione</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1988</template>
+</category>
+
+<category>
+<pattern>L ORLO DELLA FONDAZIONE</pattern>
+<template>Il libro <set_libro>L orlo della fondazione</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel</template>
+</category>
+
+<category>
+<pattern>PARIA DEI CIELI</pattern>
+<template>Il libro <set_libro>Paria dei cieli</set_libro> fu scritto da <set_author>Asimov Isaac</set_author> nel 1950</template>
+</category>
+
+<category>
+<pattern>LE CORRENTI DELLO SPAZIO</pattern>
+<template>Il libro <set_libro>Le correnti dello spazio</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1952</template>
+</category>
+
+<category>
+<pattern>IL SOLE NUDO</pattern>
+<template>Il libro <set_libro>Il sole nudo</set_libro> fu scritto da <set_author>Asimov Isaac</set_author> nel 1957</template>
+</category>
+
+<category>
+<pattern>IO ROBOT</pattern>
+<template>Il libro <set_libro>Io robot</set_libro> fu scritto da <set_author>Asimov Isaac</set_author> nel 1950 </template>
+</category>
+
+<category>
+<pattern>IL SECONDO LIBRO DEI ROBOT</pattern>
+<template>Il libro <set_libro>Il secondo libro dei robot</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1964</template>
+</category>
+
+<category>
+<pattern>I ROBOT DELL ALBA</pattern>
+<template>Il libro <set_libro>I robot dell'alba</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1983</template>
+</category>
+
+<category>
+<pattern>I ROBOT E L IMPERO</pattern>
+<template>Il libro <set_libro>I robot e l'impero</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1985</template>
+</category>
+
+<category>
+<pattern>LA TERRA E ABBASTANZA GRANDE</pattern>
+<template>Il libro <set_libro>La terra   abbastanza grande</set_libro> fu scritto da <set_author>Asimov Isaac </set_author>nel 1957</template>
+</category>
+
+<category>
+<pattern>AYLA FIGLIA DELLA TERRA</pattern>
+<template>Il libro <set_libro>Ayla figlia della terra</set_libro> fu scritto da <set_author>Auel Jean </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>LA VALLE DEI CAVALLI</pattern>
+<template>Il libro <set_libro>La valle dei cavalli</set_libro> fu scritto da <set_author>Auel Jean </set_author>nel 1982</template>
+</category>
+
+<category>
+<pattern>GLI ELETTI DI MUT</pattern>
+<template>Il libro <set_libro>Gli eletti di Mut</set_libro> fu scritto da <set_author>Auel Jean</set_author> nel 1985</template>
+</category>
+
+<category>
+<pattern>LA PIANURA DEL PASSAGGIO</pattern>
+<template>Il libro <set_libro>La pianura del passaggio</set_libro> fu scritto da <set_author>Auel Jean </set_author>nel 1990</template>
+</category>
+
+<category>
+<pattern>IL GABBIANO JONATAN LIVINGSTON</pattern>
+<template>Il libro <set_libro>Il gabbiano Jonatan Livingston</set_libro> fu scritto da <set_author>Bach Richard </set_author>nel</template>
+</category>
+
+<category>
+<pattern>STRANIERO ALLA TERRA</pattern>
+<template>Il libro <set_libro>Straniero alla terra</set_libro> fu scritto da <set_author>Bach Richard </set_author>nel 1963</template>
+</category>
+
+<category>
+<pattern>CASTELLI DI RABBIA</pattern>
+<template>Il libro <set_libro>Castelli di rabbia</set_libro> fu scritto da <set_author>Baricco Alessandro </set_author>nel 1991</template>
+</category>
+
+<category>
+<pattern>SETA</pattern>
+<template>Il libro <set_libro>Seta</set_libro> fu scritto da <set_author>Baricco Alessandro</set_author> nel 1996 </template>
+</category>
+
+<category>
+<pattern>CITY</pattern>
+<template>Il libro <set_libro>City</set_libro> fu scritto da <set_author>Baricco Alessandro</set_author> nel 1999 </template>
+</category>
+
+<category>
+<pattern>LA NOTTE DEI TEMPI</pattern>
+<template>Il libro <set_libro>La notte dei tempi</set_libro> fu scritto da <set_author>Barjavel Ren  </set_author>nel 1942</template>
+</category>
+
+<category>
+<pattern>DILUVIO DI FUOCO</pattern>
+<template>Il libro <set_libro>Diluvio di fuoco</set_libro> fu scritto da <set_author>Barjavel Ren  </set_author>nel 1942</template>
+</category>
+
+<category>
+<pattern>L ISOLA</pattern>
+<template>Il libro <set_libro>L isola</set_libro> fu scritto da <set_author>Benchley P</set_author> nel </template>
+</category>
+
+<category>
+<pattern>FILOSOFIA ISTRUZIONI PER L USO</pattern>
+<template>Il libro <set_libro>Filosofia Istruzioni per l'uso</set_libro> fu scritto da <set_author>Bencivenga Ermanno</set_author> nel 1990</template>
+</category>
+
+<category>
+<pattern>IL MAGO DELL OCCIDENTE</pattern>
+<template>Il libro <set_libro>Il mago dell'occidente</set_libro> fu scritto da <set_author>Berlinguer Giuliana </set_author>nel 1997</template>
+</category>
+
+<category>
+<pattern>ACCADDE A ROSWELL</pattern>
+<template>Il libro <set_libro>Accadde a Roswell</set_libro> fu scritto da <set_author>Berlitz Charles </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>IL FANTASME DI TRIESTE</pattern>
+<template>Il libro <set_libro>Il fantasme di Trieste</set_libro> fu scritto da <set_author>Bettizia Enzo </set_author>nel 1985</template>
+</category>
+
+<category>
+<pattern>LUBJIANSKA</pattern>
+<template>Il libro <set_libro>Lubjianska</set_libro> fu scritto da <set_author>Biagi Enzo</set_author> nel 1990 </template>
+</category>
+
+<category>
+<pattern>QUANTE STORIE</pattern>
+<template>Il libro <set_libro>Quante storie</set_libro> fu scritto da <set_author>Biagi Enzo</set_author> nel 1989 </template>
+</category>
+
+<category>
+<pattern>L ESORCISTA</pattern>
+<template>Il libro <set_libro>L esorcista</set_libro> fu scritto da <set_author>Blatty William Peter </set_author>nel 1971</template>
+</category>
+
+<category>
+<pattern>Q</pattern>
+<template>Il libro <set_libro>Q</set_libro> fu scritto da <set_author>Blissett Luther Pseudonimo di autore ignoto </set_author>nel 1999</template>
+</category>
+
+<category>
+<pattern>COS E IL BUDDISMO</pattern>
+<template>Il libro <set_libro>Cos'  il buddismo</set_libro> fu scritto da <set_author>Borges Jorge Luis </set_author>nel 1976</template>
+</category>
+
+<category>
+<pattern>MOLTO DOPO MEZZANOTTE</pattern>
+<template>Il libro <set_libro>Molto dopo mezzanotte</set_libro> fu scritto da <set_author>Bradbury Ray </set_author>nel 1960</template>
+</category>
+
+<category>
+<pattern>FARENHAIT 451</pattern>
+<template>Il libro <set_libro>Farenhait 451</set_libro> fu scritto da <set_author>Bradbury Ray</set_author> nel 1953</template>
+</category>
+
+<category>
+<pattern>CELLA D ISOLAMENTO</pattern>
+<template>Il libro <set_libro>Cella d'isolamento</set_libro> fu scritto da <set_author>Burney Christopher </set_author>nel 1961</template>
+</category>
+
+<category>
+<pattern>JOHN CARTER DI MARTE</pattern>
+<template>Il libro <set_libro>John Carter di Marte</set_libro> fu scritto da <set_author>Burroughs Edgar </set_author>nel 1917</template>
+</category>
+
+<category>
+<pattern>JOHN CARTER DI MARTE</pattern>
+<template>Il libro <set_libro>John Carter di Marte</set_libro> fu scritto da <set_author>Burroughs Edgar </set_author>nel 1918</template>
+</category>
+
+<category>
+<pattern>JOHN CARTER DI MARTE</pattern>
+<template>Il libro <set_libro>John Carter di Marte</set_libro> fu scritto da <set_author>Burroughs Edgar </set_author>nel 1919</template>
+</category>
+
+<category>
+<pattern>LE PIETRE DELLA LUNA</pattern>
+<template>Il libro <set_libro>Le pietre della luna</set_libro> fu scritto da <set_author>Buticchi Mario </set_author>nel 1997</template>
+</category>
+
+<category>
+<pattern>MENORAH</pattern>
+<template>Il libro <set_libro>Menorah</set_libro> fu scritto da <set_author>Buticchi Mario</set_author> nel 1998 </template>
+</category>
+
+<category>
+<pattern>IL DESERTO DEI TARTARI</pattern>
+<template>Il libro <set_libro>Il deserto dei tartari</set_libro> fu scritto da <set_author>Buzzati Dino </set_author>nel 1940</template>
+</category>
+
+<category>
+<pattern>IL COLOMBRE A ALTRI RACCONTI</pattern>
+<template>Il libro <set_libro>Il colombre a altri racconti</set_libro> fu scritto da <set_author>Buzzati Dino </set_author>nel 1942</template>
+</category>
+
+<category>
+<pattern>UN PIANETA E DUE STELLE</pattern>
+<template>Il libro <set_libro>Un pianeta e due stelle</set_libro> fu scritto da <set_author>Cablanz Stanton </set_author>nel 1930</template>
+</category>
+
+<category>
+<pattern>MARCOVALDO</pattern>
+<template>Il libro <set_libro>Marcovaldo</set_libro> fu scritto da <set_author>Calvino Italo</set_author> nel </template>
+</category>
+
+<category>
+<pattern>ISOLE NELLO SPAZIO</pattern>
+<template>Il libro <set_libro>Isole nello spazio</set_libro> fu scritto da <set_author>Campbell W. John </set_author>nel 1930</template>
+</category>
+
+<category>
+<pattern>AUTO DA FE</pattern>
+<template>Il libro <set_libro>Auto da f </set_libro> fu scritto da <set_author>Canetti Elias Nobel 1981 </set_author>nel 1935</template>
+</category>
+
+<category>
+<pattern>L ORRIZZONTE DI PIETRA</pattern>
+<template>Il libro <set_libro>L orrizzonte di pietra</set_libro> fu scritto da <set_author>Cannarella Dante </set_author>nel 1969</template>
+</category>
+
+<category>
+<pattern>I MILLENNI DI TRIESTE</pattern>
+<template>Il libro <set_libro>I millenni di Trieste</set_libro> fu scritto da <set_author>Cannarella Dante </set_author>nel 1972</template>
+</category>
+
+<category>
+<pattern>SERBIDIOLA</pattern>
+<template>Il libro <set_libro>Serbidiola</set_libro> fu scritto da <set_author>Carpinteri & Faraguna </set_author>nel</template>
+</category>
+
+<category>
+<pattern>L AUSTRIA ERA UN PAESE ORDINATO</pattern>
+<template>Il libro <set_libro>L Austria era un paese ordinato</set_libro> fu scritto da <set_author>Carpinteri & Faraguna</set_author> nel</template>
+</category>
+
+<category>
+<pattern>POVERO NOSTRO FRANZ</pattern>
+<template>Il libro <set_libro>Povero nostro Franz</set_libro> fu scritto da <set_author>Carpinteri & Faraguna </set_author>nel</template>
+</category>
+
+<category>
+<pattern>DUE PAIA DI CALZE DI SETA</pattern>
+<template>Il libro <set_libro>Due paia di calze di seta</set_libro> fu scritto da <set_author>Carpinteri & Faraguna </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>COSA DIRA LA GENTE?</pattern>
+<template>Il libro <set_libro>Cosa dir  la gente?</set_libro> fu scritto da <set_author>Carpinteri & Faraguna </set_author>nel 1995</template>
+</category>
+
+<category>
+<pattern>DEBEGNAC DEBEGNAC</pattern>
+<template>Il libro <set_libro>Debegnac Debegnac</set_libro> fu scritto da <set_author>Carpinteri & Faraguna </set_author>nel 1993</template>
+</category>
+
+<category>
+<pattern>L ALIENISTA</pattern>
+<template>Il libro <set_libro>L alienista</set_libro> fu scritto da <set_author>Carr Cabel</set_author> nel 1994 </template>
+</category>
+
+<category>
+<pattern>LE AVVENTURE DI ALICE NEL PAESE DELLE MERAVIGLIE</pattern>
+<template>Il libro <set_libro>Le avventure di Alice nel paese delle meraviglie</set_libro> fu scritto da <set_author>Carroll Lewis Pseud. di Charles L Dodgoson</set_author> nel 1872</template>
+</category>
+
+<category>
+<pattern>ATTRAVERSO LO SPECCHIO</pattern>
+<template>Il libro <set_libro>Attraverso lo specchio</set_libro> fu scritto da <set_author>Carroll Lewis Pseud. di Charles L Dodgoson</set_author> nel 1872</template>
+</category>
+
+<category>
+<pattern>LA CACCIA ALLO SNARK</pattern>
+<template>Il libro <set_libro>La caccia allo Snark</set_libro> fu scritto da <set_author>Carroll Lewis Pseud. di Charles L Dodgoson</set_author> nel 1872</template>
+</category>
+
+<category>
+<pattern>BONSAI</pattern>
+<template>Il libro <set_libro>Bonsai</set_libro> fu scritto da <set_author>Cecchini R</set_author> nel 1986 </template>
+</category>
+
+<category>
+<pattern>TEATRO E ROMANZO</pattern>
+<template>Il libro <set_libro>Teatro e romanzo</set_libro> fu scritto da <set_author>Cesare Sagre</set_author> nel 1984</template>
+</category>
+
+<category>
+<pattern>MORTE DELL ERBA</pattern>
+<template>Il libro <set_libro>Morte dell'erba</set_libro> fu scritto da <set_author>Christopher J</set_author> nel 1957</template>
+</category>
+
+<category>
+<pattern>LE QUATTRO RAGAZZE WIESELBERGER</pattern>
+<template>Il libro <set_libro>Le quattro ragazze Wieselberger</set_libro> fu scritto da <set_author>Cialente Fausta </set_author>nel 1974</template>
+</category>
+
+<category>
+<pattern>PERICOLO IMMINENTE</pattern>
+<template>Il libro <set_libro>Pericolo imminente</set_libro> fu scritto da <set_author>Clancy Tom</set_author> nel 1989</template>
+</category>
+
+<category>
+<pattern>PAURA SENZA LIMITE</pattern>
+<template>Il libro <set_libro>Paura senza limite</set_libro> fu scritto da <set_author>Clancy Tom</set_author> nel 1991</template>
+</category>
+
+<category>
+<pattern>ATTENTATO ALLA CORTE D INGHILTERRA</pattern>
+<template>Il libro <set_libro>Attentato alla corte d'Inghilterra</set_libro> fu scritto da <set_author>Clancy Tom </set_author>nel 1987</template>
+</category>
+
+<category>
+<pattern>POTERE ESECUTIVO</pattern>
+<template>Il libro <set_libro>Potere esecutivo</set_libro> fu scritto da <set_author>Clancy Tom</set_author> nel 1997</template>
+</category>
+
+<category>
+<pattern>DEBITO D ONORE</pattern>
+<template>Il libro <set_libro>Debito d'onore</set_libro> fu scritto da <set_author>Clancy Tom</set_author> nel 1994</template>
+</category>
+
+<category>
+<pattern>LA CITTA E LE STELLE</pattern>
+<template>Il libro <set_libro>La citt  e le stelle</set_libro> fu scritto da <set_author>Clarke C Arthur </set_author>nel 1951</template>
+</category>
+
+<category>
+<pattern>POLVERE DI LUNA</pattern>
+<template>Il libro <set_libro>Polvere di luna</set_libro> fu scritto da <set_author>Clarke C Arthur </set_author>nel 1962</template>
+</category>
+
+<category>
+<pattern>OMBRE SULLA LUNA</pattern>
+<template>Il libro <set_libro>Ombre sulla luna</set_libro> fu scritto da <set_author>Clarke C Arthur </set_author>nel 1957</template>
+</category>
+
+<category>
+<pattern>LE GUIDE DEL TRAMONTO</pattern>
+<template>Il libro <set_libro>Le guide del tramonto</set_libro> fu scritto da <set_author>Clarke C Arthur </set_author>nel 1955</template>
+</category>
+
+<category>
+<pattern>CULLA</pattern>
+<template>Il libro <set_libro>Culla</set_libro> fu scritto da <set_author>Clarke C Arthur</set_author> nel 1988 </template>
+</category>
+
+<category>
+<pattern>SHOGUN</pattern>
+<template>Il libro <set_libro>Shogun</set_libro> fu scritto da <set_author>Clavell James</set_author> nel 1975 </template>
+</category>
+
+<category>
+<pattern>IL RE</pattern>
+<template>Il libro <set_libro>Il re</set_libro> fu scritto da <set_author>Clavell James</set_author> nel 1962 </template>
+</category>
+
+<category>
+<pattern>I VIAGGI DI TEO</pattern>
+<template>Il libro <set_libro>I viaggi di Teo</set_libro> fu scritto da <set_author>Cl ment Catherine </set_author>nel 1977</template>
+</category>
+
+<category>
+<pattern>VERONIKA DECIDE DI MORIRE</pattern>
+<template>Il libro <set_libro>Veronika decide di morire</set_libro> fu scritto da <set_author>Coelho Paulo </set_author>nel 1998</template>
+</category>
+
+<category>
+<pattern>IO TITUBA STREGA NERA DI SALEM</pattern>
+<template>Il libro <set_libro>Io, Tituba strega nera di Salem</set_libro> fu scritto da <set_author>Cond  Maryse </set_author>nel 1987</template>
+</category>
+
+<category>
+<pattern>TRANSIT</pattern>
+<template>Il libro <set_libro>Transit</set_libro> fu scritto da <set_author>Cooper Edmund</set_author> nel 1964 </template>
+</category>
+
+<category>
+<pattern>LA SESTA PROVA</pattern>
+<template>Il libro <set_libro>La sesta prova</set_libro> fu scritto da <set_author>Coss  Laurance</set_author> nel 1996</template>
+</category>
+
+<category>
+<pattern>AUTORE DI</pattern>
+<template>Il libro <set_libro>fu scritto da <set_author>Crichton Michael</set_author> nel </template>
+</category>
+
+<category>
+<pattern>JURASSIC PARK</pattern>
+<template>Il libro <set_libro>Jurassic Park</set_libro> fu scritto da <set_author>Crichton Michael </set_author>nel 1990</template>
+</category>
+
+<category>
+<pattern>IL TERMINALE UOMO</pattern>
+<template>Il libro <set_libro>Il terminale uomo</set_libro> fu scritto da <set_author>Crichton Michael </set_author>nel 1972</template>
+</category>
+
+<category>
+<pattern>RIVELAZIONI</pattern>
+<template>Il libro <set_libro>Rivelazioni</set_libro> fu scritto da <set_author>Crichton Michael</set_author> nel 1993</template>
+</category>
+
+<category>
+<pattern>IL MONDO PERDUTO</pattern>
+<template>Il libro <set_libro>Il mondo perduto</set_libro> fu scritto da <set_author>Crichton Michael </set_author>nel 1995</template>
+</category>
+
+<category>
+<pattern>ANDROMEDA</pattern>
+<template>Il libro <set_libro>Andromeda</set_libro> fu scritto da <set_author>Crichton Michael</set_author> nel 1969</template>
+</category>
+
+<category>
+<pattern>AUTORE DI</pattern>
+<template>Il libro <set_libro>fu scritto da <set_author>Crichton Robert</set_author> nel 1966 </template>
+</category>
+
+<category>
+<pattern>TESORO</pattern>
+<template>Il libro <set_libro>Tesoro</set_libro> fu scritto da <set_author>Cussler Clive</set_author> nel 1988 </template>
+</category>
+
+<category>
+<pattern>DRAGON</pattern>
+<template>Il libro <set_libro>Dragon</set_libro> fu scritto da <set_author>Cussler Clive</set_author> nel 1990 </template>
+</category>
+
+<category>
+<pattern>SAHARA</pattern>
+<template>Il libro <set_libro>Sahara</set_libro> fu scritto da <set_author>Cussler Clive</set_author> nel 1993 </template>
+</category>
+
+<category>
+<pattern>VIRUS</pattern>
+<template>Il libro <set_libro>Virus</set_libro> fu scritto da <set_author>Cussler Clive</set_author> nel 1978 </template>
+</category>
+
+<category>
+<pattern>CYCLOPS</pattern>
+<template>Il libro <set_libro>Cyclops</set_libro> fu scritto da <set_author>Cussler Clive</set_author> nel 1988 </template>
+</category>
+
+<category>
+<pattern>YUCATAN</pattern>
+<template>Il libro <set_libro>Yucatan</set_libro> fu scritto da <set_author>De Carlo Andrea</set_author> nel 1986 </template>
+</category>
+
+<category>
+<pattern>I PRESOCRATICI</pattern>
+<template>Il libro <set_libro>I presocratici</set_libro> fu scritto da <set_author>De Crescenzo Luciano </set_author>nel 1983</template>
+</category>
+
+<category>
+<pattern>I 75 GIORNI DELLE FALKLAND</pattern>
+<template>Il libro <set_libro>I 75 giorni delle Falkland</set_libro> fu scritto da <set_author>De Risio Carlo </set_author>nel 1982</template>
+</category>
+
+<category>
+<pattern>PSICO SCACCO</pattern>
+<template>Il libro <set_libro>Psico Scacco</set_libro> fu scritto da <set_author>Del Roy Lester</set_author> nel 1974</template>
+</category>
+
+<category>
+<pattern>LOUISIANA</pattern>
+<template>Il libro <set_libro>Louisiana</set_libro> fu scritto da <set_author>Denunziere Maurice</set_author> nel 1977</template>
+</category>
+
+<category>
+<pattern>I SIMULACRI</pattern>
+<template>Il libro <set_libro>I simulacri</set_libro> fu scritto da <set_author>Dick PK Philip</set_author> nel 1964</template>
+</category>
+
+<category>
+<pattern>VITE DEI FILOSOFI</pattern>
+<template>Il libro <set_libro>Vite dei filosofi</set_libro> fu scritto da <set_author>Diogene Laerzio </set_author>nel II sec.</template>
+</category>
+
+<category>
+<pattern>IL VAMPIRO DEL SUSSEX</pattern>
+<template>Il libro <set_libro>Il vampiro del Sussex</set_libro> fu scritto da <set_author>Doyle Artur Racconti </set_author>nel varie</template>
+</category>
+
+<category>
+<pattern>LA RELATIVITA CON LE 4 OPERAZIONI</pattern>
+<template>Il libro <set_libro>La relativit  con le 4 operazioni</set_libro> fu scritto da <set_author>Durell Clement</set_author> nel 1926</template>
+</category>
+
+<category>
+<pattern>IL NOME DELLA ROSA</pattern>
+<template>Il libro <set_libro>Il nome della rosa</set_libro> fu scritto da <set_author>Eco Umberto </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>IL PENDOLO DI FOUCOULT</pattern>
+<template>Il libro <set_libro>Il pendolo di Foucoult</set_libro> fu scritto da <set_author>Eco Umberto </set_author>nel 1988</template>
+</category>
+
+<category>
+<pattern>L ISOLA DEL GIORNO PRIMA</pattern>
+<template>Il libro <set_libro>L isola del giorno prima</set_libro> fu scritto da <set_author>Eco Umberto </set_author>nel</template>
+</category>
+
+<category>
+<pattern>SEI PASSEGGIATE NEI BOSCHI NARRATIVI</pattern>
+<template>Il libro <set_libro>Sei passeggiate nei boschi narrativi</set_libro> fu scritto da <set_author>Eco Umberto</set_author> nel 1994</template>
+</category>
+
+<category>
+<pattern>BAUDOLINO</pattern>
+<template>Il libro <set_libro>Baudolino</set_libro> fu scritto da <set_author>Eco Umberto</set_author> nel 2000 </template>
+</category>
+
+<category>
+<pattern>COME IO VEDO IL MONDO</pattern>
+<template>Il libro <set_libro>Come io vedo il mondo</set_libro> fu scritto da <set_author>Einstein Albert Nobel fisica</set_author> nel 1945</template>
+</category>
+
+<category>
+<pattern>LA PRIGIONE DELLA LIBERTA</pattern>
+<template>Il libro <set_libro>La prigione della libert </set_libro> fu scritto da <set_author>Ende Michael </set_author>nel 1992</template>
+</category>
+
+<category>
+<pattern>CHERUDEK</pattern>
+<template>Il libro <set_libro>Cherudek</set_libro> fu scritto da <set_author>Evangelisti Valerio</set_author> nel 1997</template>
+</category>
+
+<category>
+<pattern>L UOMO CHE SUSSURRAVA AI CAVALLI</pattern>
+<template>Il libro <set_libro>L uomo che sussurrava ai cavalli</set_libro> fu scritto da <set_author>Evans Nicholas </set_author>nel 1995</template>
+</category>
+
+<category>
+<pattern>INTELLIGENTI SI NASCE O SI DIVENTA?</pattern>
+<template>Il libro <set_libro>Intelligenti si nasce o si diventa?</set_libro> fu scritto da <set_author>Eysenck </set_author>nel 1971</template>
+</category>
+
+<category>
+<pattern>LETTERA DALLA FINE DEL MONDO</pattern>
+<template>Il libro <set_libro>Lettera dalla fine del mondo</set_libro> fu scritto da <set_author>Fajardo Jos  Manuel</set_author> nel 1997</template>
+</category>
+
+<category>
+<pattern>INTERVISTA CON LA STORIA</pattern>
+<template>Il libro <set_libro>Intervista con la storia</set_libro> fu scritto da <set_author>Fallaci Oriana </set_author>nel 1974</template>
+</category>
+
+<category>
+<pattern>INSHIALLA</pattern>
+<template>Il libro <set_libro>Inshialla</set_libro> fu scritto da <set_author>Fallaci Oriana</set_author> nel 1990 </template>
+</category>
+
+<category>
+<pattern>GLI AMANTI DI SIDDO</pattern>
+<template>Il libro <set_libro>Gli amanti di Siddo</set_libro> fu scritto da <set_author>Farmer Philip </set_author>nel 1952</template>
+</category>
+
+<category>
+<pattern>CRISTO MARZIANO</pattern>
+<template>Il libro <set_libro>Cristo marziano</set_libro> fu scritto da <set_author>Farmer Philip</set_author> nel 1979</template>
+</category>
+
+<category>
+<pattern>IL FIUME DELLA VITA</pattern>
+<template>Il libro <set_libro>Il fiume della vita</set_libro> fu scritto da <set_author>Farmer Philip </set_author>nel 1971</template>
+</category>
+
+<category>
+<pattern>ALLE SORGENTI DEL FIUME</pattern>
+<template>Il libro <set_libro>Alle sorgenti del fiume</set_libro> fu scritto da <set_author>Farmer Philip </set_author>nel 1971</template>
+</category>
+
+<category>
+<pattern>IL GRANDE DISEGNO</pattern>
+<template>Il libro <set_libro>Il grande disegno</set_libro> fu scritto da <set_author>Farmer Philip </set_author>nel 1972</template>
+</category>
+
+<category>
+<pattern>FABBRICANTI DI UNIVERSI</pattern>
+<template>Il libro <set_libro>Fabbricanti di universi</set_libro> fu scritto da <set_author>Farmer Philip serie completa di 4 libri</set_author> nel 1965</template>
+</category>
+
+<category>
+<pattern>PIANETA IN VIA DI SVILUPPO</pattern>
+<template>Il libro <set_libro>Pianeta in via di sviluppo</set_libro> fu scritto da <set_author>Farmer Philip </set_author>nel 1957</template>
+</category>
+
+<category>
+<pattern>IL LABIRINTO MAGICO</pattern>
+<template>Il libro <set_libro>Il labirinto magico</set_libro> fu scritto da <set_author>Farmer Philip </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>LA CRUNA DELL AGO</pattern>
+<template>Il libro <set_libro>La cruna dell'ago</set_libro> fu scritto da <set_author>Follet Ken</set_author> nel 1978</template>
+</category>
+
+<category>
+<pattern>I PILASTRI DELLA TERRA</pattern>
+<template>Il libro <set_libro>I pilastri della terra</set_libro> fu scritto da <set_author>Follet Ken </set_author>nel 1989</template>
+</category>
+
+<category>
+<pattern>IL TERZO GEMELLO</pattern>
+<template>Il libro <set_libro>Il terzo gemello</set_libro> fu scritto da <set_author>Follet Ken</set_author> nel 1996</template>
+</category>
+
+<category>
+<pattern>INSCIAQQUA</pattern>
+<template>Il libro <set_libro>Insciaqqu </set_libro> fu scritto da <set_author>Forattini Giorgio</set_author> nel 1990</template>
+</category>
+
+<category>
+<pattern>IL GIORNO DELLO SCIACALLO</pattern>
+<template>Il libro <set_libro>Il giorno dello sciacallo</set_libro> fu scritto da <set_author>Forsyth Frederick </set_author>nel</template>
+</category>
+
+<category>
+<pattern>TAPS SQUILLI DI RIVOLTA</pattern>
+<template>Il libro <set_libro>Taps, squilli di rivolta</set_libro> fu scritto da <set_author>Freeman Devery </set_author>nel 1979</template>
+</category>
+
+<category>
+<pattern>TRE SAGGI SULLA SESSUALITA</pattern>
+<template>Il libro <set_libro>Tre saggi sulla sessualit </set_libro> fu scritto da <set_author>Freud Sigmund </set_author>nel 1905</template>
+</category>
+
+<category>
+<pattern>OSSESSIONI E FOBIE</pattern>
+<template>Il libro <set_libro>Ossessioni e fobie</set_libro> fu scritto da <set_author>Freud Sigmund </set_author>nel 1909</template>
+</category>
+
+<category>
+<pattern>TOTEM E TABU`</pattern>
+<template>Il libro <set_libro>Totem e tab </set_libro> fu scritto da <set_author>Freud Sigmund</set_author> nel 1913</template>
+</category>
+
+<category>
+<pattern>PSICOANALISI E SOCIETA</pattern>
+<template>Il libro <set_libro>Psicoanalisi e societ </set_libro> fu scritto da <set_author>Freud Sigmund </set_author>nel 1915</template>
+</category>
+
+<category>
+<pattern>PSICOLOGIA DELLA VITA AMOROSA</pattern>
+<template>Il libro <set_libro>Psicologia della vita amorosa</set_libro> fu scritto da <set_author>Freud Sigmund </set_author>nel 1918</template>
+</category>
+
+<category>
+<pattern>INTRODUZIONE ALLA PSICOANALISI</pattern>
+<template>Il libro <set_libro>Introduzione alla psicoanalisi</set_libro> fu scritto da <set_author>Freud Sigmund </set_author>nel 1916</template>
+</category>
+
+<category>
+<pattern>AVERE O ESSERE</pattern>
+<template>Il libro <set_libro>Avere o essere</set_libro> fu scritto da <set_author>Fromm Erich</set_author> nel 1976</template>
+</category>
+
+<category>
+<pattern>IL MONDO DI SOFIA</pattern>
+<template>Il libro <set_libro>Il mondo di Sofia</set_libro> fu scritto da <set_author>Gaarder Jostein </set_author>nel 1991</template>
+</category>
+
+<category>
+<pattern>IL VIAGGIO DI ELISABET</pattern>
+<template>Il libro <set_libro>Il viaggio di Elisabet</set_libro> fu scritto da <set_author>Gaarder Jostein </set_author>nel 1992</template>
+</category>
+
+<category>
+<pattern>LA CIVILTA EGIZIA</pattern>
+<template>Il libro <set_libro>La civilt  egizia</set_libro> fu scritto da <set_author>Gardiner Alan </set_author>nel 1961</template>
+</category>
+
+<category>
+<pattern>DENTE PER DENTE</pattern>
+<template>Il libro <set_libro>Dente per dente</set_libro> fu scritto da <set_author>Gervaso Roberto </set_author>nel 1983</template>
+</category>
+
+<category>
+<pattern>NEUROMANTE</pattern>
+<template>Il libro <set_libro>Neuromante</set_libro> fu scritto da <set_author>Gibson William Hugo </set_author>nel 1984</template>
+</category>
+
+<category>
+<pattern>IL FALCO DEGLI SPAZI</pattern>
+<template>Il libro <set_libro>Il falco degli spazi</set_libro> fu scritto da <set_author>Gilmore Anthony 2 libri. Pseud. H.Bates e D.Hall</set_author> nel 1931</template>
+</category>
+
+<category>
+<pattern>LA DOPPIA VOCE</pattern>
+<template>Il libro <set_libro>La doppia voce</set_libro> fu scritto da <set_author>Golding William Nobel 1983 </set_author>nel 1993</template>
+</category>
+
+<category>
+<pattern>IL SIGNORE DELLE MOSCHE</pattern>
+<template>Il libro <set_libro>Il signore delle mosche</set_libro> fu scritto da <set_author>Golding William Nobel 1983</set_author> nel 1954</template>
+</category>
+
+<category>
+<pattern>CIOE</pattern>
+<template>Il libro <set_libro>Cio </set_libro> fu scritto da <set_author>Goldoni Luca</set_author> nel 1977 </template>
+</category>
+
+<category>
+<pattern>LEI M INSEGNA</pattern>
+<template>Il libro <set_libro>Lei m'insegna</set_libro> fu scritto da <set_author>Goldoni Luca</set_author> nel 1983</template>
+</category>
+
+<category>
+<pattern>SEMPRE MEGLIO CHE LAVORARE</pattern>
+<template>Il libro <set_libro>Sempre meglio che lavorare</set_libro> fu scritto da <set_author>Goldoni Luca </set_author>nel 1989</template>
+</category>
+
+<category>
+<pattern>MEDICUS</pattern>
+<template>Il libro <set_libro>Medicus</set_libro> fu scritto da <set_author>Gordon Noah</set_author> nel 1986 </template>
+</category>
+
+<category>
+<pattern>LO SCIAMANO</pattern>
+<template>Il libro <set_libro>Lo sciamano</set_libro> fu scritto da <set_author>Gordon Noah</set_author> nel 1992 </template>
+</category>
+
+<category>
+<pattern>IL PIANETA DELLA SOLITUDINE</pattern>
+<template>Il libro <set_libro>Il pianeta della solitudine</set_libro> fu scritto da <set_author>Gordon Rex </set_author>nel 1969</template>
+</category>
+
+<category>
+<pattern>TAMBURO DI LATTA</pattern>
+<template>Il libro <set_libro>Tamburo di latta</set_libro> fu scritto da <set_author>Grass Gunter Nobel 1999 </set_author>nel 1959</template>
+</category>
+
+<category>
+<pattern>IL SOSPETTO</pattern>
+<template>Il libro <set_libro>Il sospetto</set_libro> fu scritto da <set_author>Grimaldi Luca</set_author> nel 1988</template>
+</category>
+
+<category>
+<pattern>L ASSIRO</pattern>
+<template>Il libro <set_libro>L assiro</set_libro> fu scritto da <set_author>Guild Nicholas</set_author> nel 1987 </template>
+</category>
+
+<category>
+<pattern>NINVE</pattern>
+<template>Il libro <set_libro>Ninve</set_libro> fu scritto da <set_author>Guild Nicholas</set_author> nel 1989 </template>
+</category>
+
+<category>
+<pattern>IL MACEDONE</pattern>
+<template>Il libro <set_libro>Il macedone</set_libro> fu scritto da <set_author>Guild Nicholas</set_author> nel 1993</template>
+</category>
+
+<category>
+<pattern>LE CINQUE EQUAZIONI CHE CAMBIARONO IL MONDO</pattern>
+<template>Il libro <set_libro>Le cinque equazioni che cambiarono il mondo</set_libro> fu scritto da <set_author>Guillen Michael</set_author> nel 1995</template>
+</category>
+
+<category>
+<pattern>QUESTO MONDO INESPUGNABILE</pattern>
+<template>Il libro <set_libro>Questo mondo inespugnabile</set_libro> fu scritto da <set_author>Gunn E. James </set_author>nel 1955</template>
+</category>
+
+<category>
+<pattern>PARADOSSO COSMICO</pattern>
+<template>Il libro <set_libro>Paradosso cosmico</set_libro> fu scritto da <set_author>Harness Charles </set_author>nel 1953</template>
+</category>
+
+<category>
+<pattern>FATHERLAND</pattern>
+<template>Il libro <set_libro>Fatherland</set_libro> fu scritto da <set_author>Harris Robert</set_author> nel 1992 </template>
+</category>
+
+<category>
+<pattern>PIANETA IMPOSSIBILE IO E IIO</pattern>
+<template>Il libro <set_libro>Pianeta impossibile Io e IIo</set_libro> fu scritto da <set_author>Harrison Harry </set_author>nel 1964</template>
+</category>
+
+<category>
+<pattern>I BARBARI A CAVALLO</pattern>
+<template>Il libro <set_libro>I barbari a cavallo</set_libro> fu scritto da <set_author>Harrison Harry </set_author>nel 1968</template>
+</category>
+
+<category>
+<pattern>LIQUIDATE PARIGI</pattern>
+<template>Il libro <set_libro>Liquidate Parigi</set_libro> fu scritto da <set_author>Hassel Sven</set_author> nel 1968</template>
+</category>
+
+<category>
+<pattern>QUANDO IL CIELO E LA TERRA.</pattern>
+<template>Il libro <set_libro>Quando il cielo e la terra </set_libro> fu scritto da <set_author>Hayslip Le Ly con J.Wurts</set_author> nel 1993</template>
+</category>
+
+<category>
+<pattern>LAZARUS LONG L IMMORTALE</pattern>
+<template>Il libro <set_libro>Lazarus Long l'immortale</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1973</template>
+</category>
+
+<category>
+<pattern>STRANIERO IN TERRA STRANIERA</pattern>
+<template>Il libro <set_libro>Straniero in terra straniera</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1961</template>
+</category>
+
+<category>
+<pattern>STELLA DOPPIA</pattern>
+<template>Il libro <set_libro>Stella doppia</set_libro> fu scritto da <set_author>Heinlein Robert</set_author> nel 1957</template>
+</category>
+
+<category>
+<pattern>I FIGLI DI MATHUSALEMME</pattern>
+<template>Il libro <set_libro>I figli di Mathusalemme</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1958</template>
+</category>
+
+<category>
+<pattern>IL MESTIERE DELL AVVOLTOIO</pattern>
+<template>Il libro <set_libro>Il mestiere dell'avvoltoio</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1959</template>
+</category>
+
+<category>
+<pattern>UNA FAMIGLIA MARZIANA</pattern>
+<template>Il libro <set_libro>Una famiglia marziana</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1963</template>
+</category>
+
+<category>
+<pattern>REQUIEM</pattern>
+<template>Il libro <set_libro>Requiem</set_libro> fu scritto da <set_author>Heinlein Robert</set_author> nel 1958 </template>
+</category>
+
+<category>
+<pattern>CITTADINO DELLA GALASSIA</pattern>
+<template>Il libro <set_libro>Cittadino della galassia</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1978</template>
+</category>
+
+<category>
+<pattern>SESTA COLONNA</pattern>
+<template>Il libro <set_libro>Sesta colonna</set_libro> fu scritto da <set_author>Heinlein Robert</set_author> nel 1974</template>
+</category>
+
+<category>
+<pattern>FANTERIA DELLO SPAZIO</pattern>
+<template>Il libro <set_libro>Fanteria dello spazio</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1959</template>
+</category>
+
+<category>
+<pattern>OPERAZIONE DOMANI</pattern>
+<template>Il libro <set_libro>Operazione domani</set_libro> fu scritto da <set_author>Heinlein Robert </set_author>nel 1982</template>
+</category>
+
+<category>
+<pattern>COMMA 22</pattern>
+<template>Il libro <set_libro>Comma 22</set_libro> fu scritto da <set_author>Heller Joseph</set_author> nel 1955 </template>
+</category>
+
+<category>
+<pattern>PER CHI SUONA LA CAMPANA</pattern>
+<template>Il libro <set_libro>Per chi suona la campana</set_libro> fu scritto da <set_author>Hemingway Ernest Nobel 1954</set_author> nel 1940</template>
+</category>
+
+<category>
+<pattern>AFFONDATE LUPO DI GHIACCIO</pattern>
+<template>Il libro <set_libro>Affondate lupo di ghiaccio</set_libro> fu scritto da <set_author>Henrick Richiard </set_author>nel 1994</template>
+</category>
+
+<category>
+<pattern>L ALVEARE DI HELLISTORM</pattern>
+<template>Il libro <set_libro>L alveare di Hellistorm</set_libro> fu scritto da <set_author>Herbert Frank </set_author>nel 1972</template>
+</category>
+
+<category>
+<pattern>LA BARRIERE DI SANTAROGA</pattern>
+<template>Il libro <set_libro>La barriere di Santaroga</set_libro> fu scritto da <set_author>Herbert Frank </set_author>nel 1968</template>
+</category>
+
+<category>
+<pattern>DUNE</pattern>
+<template>Il libro <set_libro>Dune</set_libro> fu scritto da <set_author>Herbert Frank</set_author> nel 1954 </template>
+</category>
+
+<category>
+<pattern>MESSIA DI DUNE</pattern>
+<template>Il libro <set_libro>Messia di Dune</set_libro> fu scritto da <set_author>Herbert Frank</set_author> nel 1969</template>
+</category>
+
+<category>
+<pattern>I FIGLI DI DUNE</pattern>
+<template>Il libro <set_libro>I figli di Dune</set_libro> fu scritto da <set_author>Herbert Frank</set_author> nel 1976</template>
+</category>
+
+<category>
+<pattern>L IMPERATORE-DIO DI DUNE</pattern>
+<template>Il libro <set_libro>L imperatore-dio di Dune</set_libro> fu scritto da <set_author>Herbert Frank </set_author>nel 1981</template>
+</category>
+
+<category>
+<pattern>IL MONDO BIANCO</pattern>
+<template>Il libro <set_libro>Il mondo bianco</set_libro> fu scritto da <set_author>Herbert Frank</set_author> nel 1982</template>
+</category>
+
+<category>
+<pattern>IL GIOCO DELLE PERLE DI VETRO</pattern>
+<template>Il libro <set_libro>Il gioco delle perle di vetro</set_libro> fu scritto da <set_author>Hesse Hermann Nobel 1946</set_author> nel 1943</template>
+</category>
+
+<category>
+<pattern>IL MIO CREDO</pattern>
+<template>Il libro <set_libro>Il mio credo</set_libro> fu scritto da <set_author>Hesse Hermann Nobel 1946 </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>SIDDARTA</pattern>
+<template>Il libro <set_libro>Siddarta</set_libro> fu scritto da <set_author>Hesse Hermann Nobel 1946 </set_author>nel 1922</template>
+</category>
+
+<category>
+<pattern>IL LUPO DELLA STEPPA</pattern>
+<template>Il libro <set_libro>Il lupo della steppa</set_libro> fu scritto da <set_author>Hesse Hermann </set_author>nel 1927</template>
+</category>
+
+<category>
+<pattern>AVVISO DI TEMPESTA</pattern>
+<template>Il libro <set_libro>Avviso di tempesta</set_libro> fu scritto da <set_author>Higgins Jack </set_author>nel 1976</template>
+</category>
+
+<category>
+<pattern>UNA PREGHIERA PER MORIRE</pattern>
+<template>Il libro <set_libro>Una preghiera per morire</set_libro> fu scritto da <set_author>Higgins Jack </set_author>nel</template>
+</category>
+
+<category>
+<pattern>IL SENSO DI SMILLA PER LA NEVE</pattern>
+<template>Il libro <set_libro>Il senso di Smilla per la neve</set_libro> fu scritto da <set_author>Hoeg Peter </set_author>nel 1992</template>
+</category>
+
+<category>
+<pattern>LA DONNA E LA SCIMMIA</pattern>
+<template>Il libro <set_libro>La donna e la scimmia</set_libro> fu scritto da <set_author>Hoeg Peter </set_author>nel 1996</template>
+</category>
+
+<category>
+<pattern>LA NUVOLA NERA</pattern>
+<template>Il libro <set_libro>La nuvola nera</set_libro> fu scritto da <set_author>Hoyle F</set_author> nel 1957 </template>
+</category>
+
+<category>
+<pattern>LA VOCE DELLA COMETA</pattern>
+<template>Il libro <set_libro>La voce della cometa</set_libro> fu scritto da <set_author>Hoyle F</set_author> nel 1985</template>
+</category>
+
+<category>
+<pattern>IL TENENTE</pattern>
+<template>Il libro <set_libro>Il tenente</set_libro> fu scritto da <set_author>Hubbard R</set_author> nel 1970 </template>
+</category>
+
+<category>
+<pattern>IL MONDO NUOVO</pattern>
+<template>Il libro <set_libro>Il mondo nuovo</set_libro> fu scritto da <set_author>Huxley Aldous</set_author> nel 1932</template>
+</category>
+
+<category>
+<pattern>RITORNO AL MONDO NUOVO</pattern>
+<template>Il libro <set_libro>Ritorno al mondo nuovo</set_libro> fu scritto da <set_author>Huxley Aldous </set_author>nel 1961</template>
+</category>
+
+<category>
+<pattern>PUNTO CONTRO PUNTO</pattern>
+<template>Il libro <set_libro>Punto contro punto</set_libro> fu scritto da <set_author>Huxley Aldous </set_author>nel 1932</template>
+</category>
+
+<category>
+<pattern>IL MONDO SECONDO GARP</pattern>
+<template>Il libro <set_libro>Il mondo secondo Garp</set_libro> fu scritto da <set_author>Irving John </set_author>nel 1976</template>
+</category>
+
+<category>
+<pattern>LE REGOLE DELLA CASA DEL SIDRO</pattern>
+<template>Il libro <set_libro>Le regole della casa del sidro</set_libro> fu scritto da <set_author>Irving John </set_author>nel 1985</template>
+</category>
+
+<category>
+<pattern>IL FIGLIO DELLA LUCE</pattern>
+<template>Il libro <set_libro>Il figlio della luce</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1995</template>
+</category>
+
+<category>
+<pattern>LA DIMORA MILLENARIA</pattern>
+<template>Il libro <set_libro>La dimora millenaria</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1996</template>
+</category>
+
+<category>
+<pattern>LA BATTAGLIA DI QADSH</pattern>
+<template>Il libro <set_libro>La battaglia di Qadsh</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1996</template>
+</category>
+
+<category>
+<pattern>LA REGINA DI ABU SIMBEL</pattern>
+<template>Il libro <set_libro>La regina di Abu Simbel</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1996</template>
+</category>
+
+<category>
+<pattern>L ULTIMO NEMICO</pattern>
+<template>Il libro <set_libro>L ultimo nemico</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1997</template>
+</category>
+
+<category>
+<pattern>L INFERNO DEL GIUDICE</pattern>
+<template>Il libro <set_libro>L inferno del giudice</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1993</template>
+</category>
+
+<category>
+<pattern>IL TESTAMENTO DEGLI DEI</pattern>
+<template>Il libro <set_libro>Il testamento degli dei</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1993</template>
+</category>
+
+<category>
+<pattern>IL LADRO DI OMBRE</pattern>
+<template>Il libro <set_libro>Il ladro di ombre</set_libro> fu scritto da <set_author>Jacq Christian </set_author>nel 1994</template>
+</category>
+
+<category>
+<pattern>NEFER</pattern>
+<template>Il libro <set_libro>Nefer</set_libro> fu scritto da <set_author>Jacq Christian</set_author> nel 2000 </template>
+</category>
+
+<category>
+<pattern>LA SFIDA MONDIALE</pattern>
+<template>Il libro <set_libro>La sfida mondiale</set_libro> fu scritto da <set_author>Jacques con S.Schreiber </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>ULISSE</pattern>
+<template>Il libro <set_libro>Ulisse</set_libro> fu scritto da <set_author>James joyce</set_author> nel 1921 </template>
+</category>
+
+<category>
+<pattern>IL VIAGGIATORE</pattern>
+<template>Il libro <set_libro>il viaggiatore</set_libro> fu scritto da <set_author>Jennings Gary</set_author> nel </template>
+</category>
+
+<category>
+<pattern>L ATZECO</pattern>
+<template>Il libro <set_libro>L atzeco</set_libro> fu scritto da <set_author>Jennings Gary</set_author> nel 1980 </template>
+</category>
+
+<category>
+<pattern>NOMADI</pattern>
+<template>Il libro <set_libro>Nomadi</set_libro> fu scritto da <set_author>Jennings Gary</set_author> nel 1993 </template>
+</category>
+
+<category>
+<pattern>TRE UOMINI IN BARCA (PER TACER DEL CANE)</pattern>
+<template>Il libro <set_libro>Tre uomini in barca (per tacer del cane)</set_libro> fu scritto da <set_author>Jerome Klapka Jerom</set_author> nel 1889</template>
+</category>
+
+
+<category>
+<pattern>LA SOTTILE LINEA ROSSA</pattern>
+<template>Il libro <set_libro>La sottile linea rossa</set_libro> fu scritto da <set_author>Jones James </set_author>nel 1962</template>
+</category>
+
+<category>
+<pattern>PAURA DI VOLARE</pattern>
+<template>Il libro <set_libro>Paura di volare</set_libro> fu scritto da <set_author>Joung Erica</set_author> nel 1973</template>
+</category>
+
+<category>
+<pattern>GENTE DI DUBLINO</pattern>
+<template>Il libro <set_libro>Gente di Dublino</set_libro> fu scritto da <set_author>Joyce James</set_author> nel 1904</template>
+</category>
+
+<category>
+<pattern>LA METAMORFOSI</pattern>
+<template>Il libro <set_libro>La metamorfosi</set_libro> fu scritto da <set_author>Kafka Franz</set_author> nel 1916</template>
+</category>
+
+<category>
+<pattern>NELLA COLONIA PENALE</pattern>
+<template>Il libro <set_libro>Nella colonia penale</set_libro> fu scritto da <set_author>Kafka Franz </set_author>nel 1919</template>
+</category>
+
+<category>
+<pattern>GABBIA D ACCIAIO</pattern>
+<template>Il libro <set_libro>Gabbia d'acciaio</set_libro> fu scritto da <set_author>Kerr Philips</set_author> nel 1995</template>
+</category>
+
+<category>
+<pattern>CUJO</pattern>
+<template>Il libro <set_libro>Cujo</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1982 </template>
+</category>
+
+<category>
+<pattern>IT</pattern>
+<template>Il libro <set_libro>It</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1985 </template>
+</category>
+
+<category>
+<pattern>LA META OSCURA</pattern>
+<template>Il libro <set_libro>La met  oscura</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1989</template>
+</category>
+
+<category>
+<pattern>MISERY</pattern>
+<template>Il libro <set_libro>Misery</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1987 </template>
+</category>
+
+<category>
+<pattern>L OMBRA DELLO SCORPIONE</pattern>
+<template>Il libro <set_libro>L ombra dello scorpione</set_libro> fu scritto da <set_author>King Stephen </set_author>nel 1979</template>
+</category>
+
+<category>
+<pattern>LA ZONA MORTA</pattern>
+<template>Il libro <set_libro>La zona morta</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1972</template>
+</category>
+
+<category>
+<pattern>CHRISTINE LA MACCHINA INFERNALE</pattern>
+<template>Il libro <set_libro>Christine la macchina infernale</set_libro> fu scritto da <set_author>King Stephen </set_author>nel 1984</template>
+</category>
+
+<category>
+<pattern>PET SEMETERY</pattern>
+<template>Il libro <set_libro>Pet semetery</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1984</template>
+</category>
+
+<category>
+<pattern>LE CREATURE DEL BUIO</pattern>
+<template>Il libro <set_libro>Le creature del buio</set_libro> fu scritto da <set_author>King Stephen </set_author>nel 1987</template>
+</category>
+
+<category>
+<pattern>LA LUNGA MARCIA</pattern>
+<template>Il libro <set_libro>La lunga marcia</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1979</template>
+</category>
+
+<category>
+<pattern>UN UOMO IN FUGA</pattern>
+<template>Il libro <set_libro>Un uomo in fuga</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1982</template>
+</category>
+
+<category>
+<pattern>IL GIOCO DI GERALD</pattern>
+<template>Il libro <set_libro>Il gioco di Gerald</set_libro> fu scritto da <set_author>King Stephen </set_author>nel 1992</template>
+</category>
+
+<category>
+<pattern>OSSESSIONE</pattern>
+<template>Il libro <set_libro>Ossessione</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1977 </template>
+</category>
+
+<category>
+<pattern>IL MIGLIO VERDE</pattern>
+<template>Il libro <set_libro>Il miglio verde</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 1996</template>
+</category>
+
+<category>
+<pattern>ON WRITING</pattern>
+<template>Il libro <set_libro>On writing</set_libro> fu scritto da <set_author>King Stephen</set_author> nel 2000 </template>
+</category>
+
+<category>
+<pattern>MEZZANOTTE</pattern>
+<template>Il libro <set_libro>Mezzanotte</set_libro> fu scritto da <set_author>Koontz Dean</set_author> nel 1989 </template>
+</category>
+
+<category>
+<pattern>L IMMORTALITA</pattern>
+<template>Il libro <set_libro>L immortalit </set_libro> fu scritto da <set_author>Kundera Milan</set_author> nel 1990</template>
+</category>
+
+<category>
+<pattern>L INSOSTENIBILE LEGGEREZZA DLL ESSERE</pattern>
+<template>Il libro <set_libro>L insostenibile leggerezza dll'essere</set_libro> fu scritto da <set_author>Kundera Milan</set_author> nel 1984</template>
+</category>
+
+<category>
+<pattern>LA CITTA DELLA GIOIA</pattern>
+<template>Il libro <set_libro>La citt  della gioia</set_libro> fu scritto da <set_author>Lapierre Dominique </set_author>nel 1985</template>
+</category>
+
+<category>
+<pattern>TALETE ANASSIMANDRO ANASSIMENE</pattern>
+<template>Il libro <set_libro>Talete Anassimandro Anassimene</set_libro> fu scritto da <set_author>Laurenti R </set_author>nel 1971</template>
+</category>
+
+<category>
+<pattern>L AMANTE DI LADY CHATTERLY</pattern>
+<template>Il libro <set_libro>L amante di lady Chatterly</set_libro> fu scritto da <set_author>Lawrence David </set_author>nel 1928</template>
+</category>
+
+<category>
+<pattern>IL BUIO OLTRE LA SIEPE</pattern>
+<template>Il libro <set_libro>Il buio oltre la siepe</set_libro> fu scritto da <set_author>Lee Harper Pulitzer 1960</set_author> nel 1960</template>
+</category>
+
+<category>
+<pattern>SOLARIS</pattern>
+<template>Il libro <set_libro>Solaris</set_libro> fu scritto da <set_author>Lem Stanislaw</set_author> nel 1973 </template>
+</category>
+
+<category>
+<pattern>PENSIERI DI VARIA FILOSOFIA</pattern>
+<template>Il libro <set_libro>Pensieri di varia filosofia</set_libro> fu scritto da <set_author>Leopardi Giacomo </set_author>nel 1919</template>
+</category>
+
+<category>
+<pattern>LETTERE A BERLICCHE</pattern>
+<template>Il libro <set_libro>Lettere a Berlicche</set_libro> fu scritto da <set_author>Lewis Clive Staples </set_author>nel 1942</template>
+</category>
+
+<category>
+<pattern>COME SVILUPPARE UNA MEMORIA SUPERIORE ED ULTRA POTENTE</pattern>
+<template>Il libro <set_libro>Come sviluppare una memoria superiore ed ultra potente</set_libro> fu scritto da <set_author>Loraine Harry</set_author> nel 1970</template>
+</category>
+
+<category>
+<pattern>L ANELLO DI RE SALOMONE</pattern>
+<template>Il libro <set_libro>L anello di re Salomone</set_libro> fu scritto da <set_author>Lorenz Konrad Nobel 1973 medicina</set_author> nel 1949</template>
+</category>
+
+<category>
+<pattern>STORIE DI CANI</pattern>
+<template>Il libro <set_libro>Storie di cani</set_libro> fu scritto da <set_author>Lorenz Konrad Nobel 1973 medicina</set_author> nel 1949</template>
+</category>
+
+<category>
+<pattern>IL RITORNO DELLO SCIACALLO</pattern>
+<template>Il libro <set_libro>Il ritorno dello sciacallo</set_libro> fu scritto da <set_author>Ludlum Robert </set_author>nel 1990</template>
+</category>
+
+<category>
+<pattern>LA VIA PER GANDOLFO</pattern>
+<template>Il libro <set_libro>La via per Gandolfo</set_libro> fu scritto da <set_author>Ludlum Robert </set_author>nel 1982</template>
+</category>
+
+<category>
+<pattern>ANTICHE SERE</pattern>
+<template>Il libro <set_libro>Antiche sere</set_libro> fu scritto da <set_author>Mailer Norman</set_author> nel 1983</template>
+</category>
+
+<category>
+<pattern>RISCHIO CALCOLATO</pattern>
+<template>Il libro <set_libro>Rischio calcolato</set_libro> fu scritto da <set_author>Maine A C</set_author> nel 1961</template>
+</category>
+
+<category>
+<pattern>LETTURA LAICA DELLA BIBBIA</pattern>
+<template>Il libro <set_libro>Lettura laica della Bibbia</set_libro> fu scritto da <set_author>Manacarda Mario </set_author>nel 1989</template>
+</category>
+
+<category>
+<pattern>LA BIONDA LA BRUNA E L ASINO</pattern>
+<template>Il libro <set_libro>La bionda la bruna e l'asino</set_libro> fu scritto da <set_author>Maraini Dacia </set_author>nel 1987</template>
+</category>
+
+<category>
+<pattern>IMPARIAMO L ITALIANO</pattern>
+<template>Il libro <set_libro>Impariamo l'italiano</set_libro> fu scritto da <set_author>Marchi Cesare </set_author>nel 1984</template>
+</category>
+
+<category>
+<pattern>CENT'ANNI DI SOLITUDINE</pattern>
+<template>Il libro <set_libro>Cent'anni di solitudine</set_libro> fu scritto da <set_author>Marquez Gabriel Nobel 1982</set_author> nel 1967</template>
+</category>
+
+<category>
+<pattern>DELL AMORE E ALTRI DEMONI</pattern>
+<template>Il libro <set_libro>Dell'amore e altri demoni</set_libro> fu scritto da <set_author>Marquez Gabriel Nobel 1982</set_author> nel 1994</template>
+</category>
+
+<category>
+<pattern>LA SPOSA BELLA</pattern>
+<template>Il libro <set_libro>La sposa bella</set_libro> fu scritto da <set_author>Marshall Bruce</set_author> nel 1953</template>
+</category>
+
+<category>
+<pattern>IL FANTASMA NELL ARMADIO</pattern>
+<template>Il libro <set_libro>Il fantasma nell'armadio</set_libro> fu scritto da <set_author>Maugham William </set_author>nel 1930</template>
+</category>
+
+<category>
+<pattern>LA STELLA DEI PRECURSORI</pattern>
+<template>Il libro <set_libro>La stella dei precursori</set_libro> fu scritto da <set_author>Mc Auley Paul </set_author>nel 1991</template>
+</category>
+
+<category>
+<pattern>IL SERPENTE DELL OBLIO</pattern>
+<template>Il libro <set_libro>Il serpente dell'oblio</set_libro> fu scritto da <set_author>Mc lntyre Yonda </set_author>nel 1978</template>
+</category>
+
+<category>
+<pattern>BARRAYAR</pattern>
+<template>Il libro <set_libro>Barrayar</set_libro> fu scritto da <set_author>Mc Master Lois Bujold </set_author>nel 1991</template>
+</category>
+
+<category>
+<pattern>I MERCENARI DEL TEMPO</pattern>
+<template>Il libro <set_libro>I mercenari del tempo</set_libro> fu scritto da <set_author>Meredith Richard </set_author>nel 1973</template>
+</category>
+
+<category>
+<pattern>I PECCATI DI PEYTON PLACE</pattern>
+<template>Il libro <set_libro>I peccati di Peyton Place</set_libro> fu scritto da <set_author>Metalious Grace </set_author>nel</template>
+</category>
+
+<category>
+<pattern>IL PATRIOTA</pattern>
+<template>Il libro <set_libro>Il patriota</set_libro> fu scritto da <set_author>Molstad Stephen</set_author> nel 2000</template>
+</category>
+
+<category>
+<pattern>STORIA DI ROMA</pattern>
+<template>Il libro <set_libro>Storia di Roma</set_libro> fu scritto da <set_author>Montanelli Idro </set_author>nel 1969</template>
+</category>
+
+<category>
+<pattern>IO E LUI</pattern>
+<template>Il libro <set_libro>Io e lui</set_libro> fu scritto da <set_author>Moravia Alberto</set_author> nel </template>
+</category>
+
+<category>
+<pattern>BORA</pattern>
+<template>Il libro <set_libro>Bora</set_libro> fu scritto da <set_author>Mori Anna Maria con Milani Nelida </set_author>nel 1998</template>
+</category>
+
+<category>
+<pattern>LA SCIMMIA NUDA</pattern>
+<template>Il libro <set_libro>La scimmia nuda</set_libro> fu scritto da <set_author>Morris Desmond </set_author>nel</template>
+</category>
+
+<category>
+<pattern>COSI` PARLO ZARATURSTRA</pattern>
+<template>Il libro <set_libro>Cos  parl  Zaraturstra</set_libro> fu scritto da <set_author>Nietzsche Federich </set_author>nel 1885</template>
+</category>
+
+<category>
+<pattern>AL DI LA DEL BENE E DEL MALE</pattern>
+<template>Il libro <set_libro>Al di l  del bene e del male</set_libro> fu scritto da <set_author>Nietzsche Federich </set_author>nel 1886</template>
+</category>
+
+<category>
+<pattern>LA VOLONTA DI POTENZA</pattern>
+<template>Il libro <set_libro>La volont  di potenza</set_libro> fu scritto da <set_author>Nietzsche Federich </set_author>nel 1900</template>
+</category>
+
+<category>
+<pattern>LA MIA VITA</pattern>
+<template>Il libro <set_libro>La mia vita</set_libro> fu scritto da <set_author>Nietzsche Federich </set_author>nel 1869</template>
+</category>
+
+<category>
+<pattern>UMANO TROPPO UMANO</pattern>
+<template>Il libro <set_libro>Umano, troppo umano</set_libro> fu scritto da <set_author>Nietzsche Federich </set_author>nel 1877</template>
+</category>
+
+<category>
+<pattern>L ANTICRISTO</pattern>
+<template>Il libro <set_libro>L anticristo</set_libro> fu scritto da <set_author>Nietzsche Federich </set_author>nel 1894</template>
+</category>
+
+<category>
+<pattern>L INCOGNITA DEI GRENDAL</pattern>
+<template>Il libro <set_libro>L incognita dei grendal</set_libro> fu scritto da <set_author>Niven Larry </set_author>nel 1987</template>
+</category>
+
+<category>
+<pattern>MONDO SENZA TEMPO</pattern>
+<template>Il libro <set_libro>Mondo senza tempo</set_libro> fu scritto da <set_author>Niven Larry</set_author> nel 1976</template>
+</category>
+
+<category>
+<pattern>LA FUGA DI LOGAN</pattern>
+<template>Il libro <set_libro>La fuga di Logan</set_libro> fu scritto da <set_author>Nolan W</set_author> nel 1967 </template>
+</category>
+
+<category>
+<pattern>IL MONDO DI LOGAN</pattern>
+<template>Il libro <set_libro>Il mondo di Logan</set_libro> fu scritto da <set_author>Nolan W</set_author> nel 1977</template>
+</category>
+
+<category>
+<pattern>BASSOTUBA NON C'E</pattern>
+<template>Il libro <set_libro>Bassotuba non c' </set_libro> fu scritto da <set_author>Nori Paolo</set_author> nel 1999</template>
+</category>
+
+<category>
+<pattern>L ALTRA FACCIA DEL PASSATO</pattern>
+<template>Il libro <set_libro>L altra faccia del passato</set_libro> fu scritto da <set_author>Norton Andre Pseudonimo di Alice Mary Norton</set_author> nel 1967</template>
+</category>
+
+<category>
+<pattern>LA VITA PENSATA</pattern>
+<template>Il libro <set_libro>La vita pensata</set_libro> fu scritto da <set_author>Nozick Robert</set_author> nel </template>
+</category>
+
+<category>
+<pattern>PRIMO COMANDO</pattern>
+<template>Il libro <set_libro>Primo comando</set_libro> fu scritto da <set_author>O'Brian Patrick Pseudonimo di Richard Patrick Russ</set_author> nel 1970</template>
+</category>
+
+<category>
+<pattern>ODISSEA</pattern>
+<template>Il libro <set_libro>Odissea</set_libro> fu scritto da <set_author>Omero</set_author> nel ac1700 </template>
+</category>
+
+<category>
+<pattern>ILIADE</pattern>
+<template>Il libro <set_libro>Iliade</set_libro> fu scritto da <set_author>Omero</set_author> nel ac1700 </template>
+</category>
+
+<category>
+<pattern>LA FILOSOFIA DE KARATE DEL MAESTRO FUNAKOSHI</pattern>
+<template>Il libro <set_libro>La filosofia de karate del maestro Funakoshi</set_libro> fu scritto da <set_author>Padovan Luciano</set_author> nel 1972</template>
+</category>
+
+<category>
+<pattern>I POTERI DELLA MENTE</pattern>
+<template>Il libro <set_libro>I poteri della mente</set_libro> fu scritto da <set_author>Papas Irene </set_author>nel 1983</template>
+</category>
+
+<category>
+<pattern>ARCHEOLOGIA DELLA BIBBIA</pattern>
+<template>Il libro <set_libro>Archeologia della Bibbia</set_libro> fu scritto da <set_author>Parrot </set_author>nel 1970</template>
+</category>
+
+<category>
+<pattern>ROBA DA GATTI</pattern>
+<template>Il libro <set_libro>Roba da gatti</set_libro> fu scritto da <set_author>Pavet B</set_author> nel 1957 </template>
+</category>
+
+<category>
+<pattern>VANGELO DI GIUDA</pattern>
+<template>Il libro <set_libro>Vangelo di Giuda</set_libro> fu scritto da <set_author>Pazzi Roberto </set_author>nel 1989</template>
+</category>
+
+<category>
+<pattern>LA MIE PRIGIONONI</pattern>
+<template>Il libro <set_libro>La mie prigiononi</set_libro> fu scritto da <set_author>Pellico Silvio </set_author>nel 1832</template>
+</category>
+
+<category>
+<pattern>IL PARADISO DEGLI ORCHI</pattern>
+<template>Il libro <set_libro>Il paradiso degli orchi</set_libro> fu scritto da <set_author>Pennac Daniel </set_author>nel 1945</template>
+</category>
+
+<category>
+<pattern>LA PROSIVENDOLA</pattern>
+<template>Il libro <set_libro>La prosivendola</set_libro> fu scritto da <set_author>Pennac Daniel</set_author> nel 1990</template>
+</category>
+
+<category>
+<pattern>COME UN ROMANZO</pattern>
+<template>Il libro <set_libro>Come un romanzo</set_libro> fu scritto da <set_author>Pennac Daniel</set_author> nel 1992</template>
+</category>
+
+<category>
+<pattern>IL SIG.MALAUSSENE</pattern>
+<template>Il libro <set_libro>Il Sig.Malauss ne</set_libro> fu scritto da <set_author>Pennac Daniel </set_author>nel 1995</template>
+</category>
+
+<category>
+<pattern>IL BANCHIERE ANARCHICO</pattern>
+<template>Il libro <set_libro>Il banchiere anarchico</set_libro> fu scritto da <set_author>Pessoa Fernando </set_author>nel 1922</template>
+</category>
+
+<category>
+<pattern>UNA CENA MOLTO ORIGINALE</pattern>
+<template>Il libro <set_libro>Una cena molto originale</set_libro> fu scritto da <set_author>Pessoa Fernando </set_author>nel 1907</template>
+</category>
+
+<category>
+<pattern>IL FURTO DELLA VILLA VIGNE</pattern>
+<template>Il libro <set_libro>Il furto della villa vigne</set_libro> fu scritto da <set_author>Pessoa Fernando </set_author>nel 1937</template>
+</category>
+
+<category>
+<pattern>IL LIBRO DELL INQUIETUDINE</pattern>
+<template>Il libro <set_libro>Il libro dell'inquietudine</set_libro> fu scritto da <set_author>Pessoa Fernando Pubblicato postumo</set_author> nel 1982</template>
+</category>
+
+<category>
+<pattern>TIKAL</pattern>
+<template>Il libro <set_libro>Tikal</set_libro> fu scritto da <set_author>Peters D</set_author> nel 1983 </template>
+</category>
+
+<category>
+<pattern>IL MESTIERE DI GENITORE</pattern>
+<template>Il libro <set_libro>Il mestiere di genitore</set_libro> fu scritto da <set_author>Petter G </set_author>nel 1992</template>
+</category>
+
+<category>
+<pattern>LA REPUBBLICA</pattern>
+<template>Il libro <set_libro>La repubblica</set_libro> fu scritto da <set_author>Platone</set_author> nel ac347 </template>
+</category>
+
+<category>
+<pattern>APOLOGIA DI SOCRATE</pattern>
+<template>Il libro <set_libro>Apologia di Socrate</set_libro> fu scritto da <set_author>Platone</set_author> nel ac388</template>
+</category>
+
+<category>
+<pattern>TUTTI I RACCONTI E LE POESIE</pattern>
+<template>Il libro <set_libro>Tutti i racconti e le poesie</set_libro> fu scritto da <set_author>Poe Edgar Allan </set_author>nel 1849</template>
+</category>
+
+<category>
+<pattern>OLTRE L ORRIZONTE AZZURRO</pattern>
+<template>Il libro <set_libro>Oltre l'orrizonte azzurro</set_libro> fu scritto da <set_author>Pohl Federik </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>RISCHIO DI VITA</pattern>
+<template>Il libro <set_libro>Rischio di vita</set_libro> fu scritto da <set_author>Pohl Federik con L.Del Rey </set_author>nel 1955</template>
+</category>
+
+<category>
+<pattern>IL GIORNO DEI MARZIANI</pattern>
+<template>Il libro <set_libro>Il giorno dei marziani</set_libro> fu scritto da <set_author>Pohl Federik </set_author>nel 1988</template>
+</category>
+
+<category>
+<pattern>GLADIATORE IN LEGGE</pattern>
+<template>Il libro <set_libro>Gladiatore in legge</set_libro> fu scritto da <set_author>Pohl Frederik con C.M.Kornbluth</set_author> nel 1955</template>
+</category>
+
+<category>
+<pattern>AREA DI CONTAGIO</pattern>
+<template>Il libro <set_libro>Area di contagio</set_libro> fu scritto da <set_author>Preston Richard </set_author>nel 1994</template>
+</category>
+
+<category>
+<pattern>TABU</pattern>
+<template>Il libro <set_libro>Tab </set_libro> fu scritto da <set_author>Read Piers Paul</set_author> nel </template>
+</category>
+
+<category>
+<pattern>LA PROFEZIA DI CELESTINO</pattern>
+<template>Il libro <set_libro>La profezia di Celestino</set_libro> fu scritto da <set_author>Redfield James </set_author>nel 1993</template>
+</category>
+
+<category>
+<pattern>COLDITZ</pattern>
+<template>Il libro <set_libro>Colditz</set_libro> fu scritto da <set_author>Reid P R</set_author> nel 1952 </template>
+</category>
+
+<category>
+<pattern>NIENTE DI NUOVO SUL FRONTE OCCIDENTALE</pattern>
+<template>Il libro <set_libro>Niente di nuovo sul fronte occidentale</set_libro> fu scritto da <set_author>Remarque Enrich</set_author> nel 1929</template>
+</category>
+
+<category>
+<pattern>NATURA MORTA CON PICCHIO</pattern>
+<template>Il libro <set_libro>Natura morta con picchio</set_libro> fu scritto da <set_author>Robbins Tom </set_author>nel 1980</template>
+</category>
+
+<category>
+<pattern>PENSIERI DI UN BIOLOGO</pattern>
+<template>Il libro <set_libro>Pensieri di un biologo</set_libro> fu scritto da <set_author>Rostand Jean </set_author>nel 1954</template>
+</category>
+
+<category>
+<pattern>IL MANUALE DEL ROMANZIERE</pattern>
+<template>Il libro <set_libro>Il manuale del romanziere</set_libro> fu scritto da <set_author>Rugarli Giampaolo </set_author>nel 1998</template>
+</category>
+
+<category>
+<pattern>IL NIDO DI GHIACCIO</pattern>
+<template>Il libro <set_libro>Il nido di ghiaccio</set_libro> fu scritto da <set_author>Rugarli Giampaolo </set_author>nel 1989</template>
+</category>
+
+<category>
+<pattern>I VERSI SATANICI</pattern>
+<template>Il libro <set_libro>I versi satanici</set_libro> fu scritto da <set_author>Rushdie Saloman </set_author>nel 1988</template>
+</category>
+
+<category>
+<pattern>STORIA DELLA FILOSOFIA OCCIDENTALE</pattern>
+<template>Il libro <set_libro>Storia della filosofia occidentale</set_libro> fu scritto da <set_author>Russel Bernard</set_author> nel 1945</template>
+</category>
+
+<category>
+<pattern>INTRODUZIONE ALLA FILOSOFIA MATEMATICA</pattern>
+<template>Il libro <set_libro>Introduzione alla filosofia matematica</set_libro> fu scritto da <set_author>Russel Bernard</set_author> nel 1918</template>
+</category>
+
+<category>
+<pattern>DIO E LA RELIGIONE</pattern>
+<template>Il libro <set_libro>Dio e la religione</set_libro> fu scritto da <set_author>Russel Bernard </set_author>nel 1938</template>
+</category>
+
+<category>
+<pattern>PERCH  NON SONO CRISTIANO</pattern>
+<template>Il libro <set_libro>Perch  non sono cristiano</set_libro> fu scritto da <set_author>Russel Bernard </set_author>nel 1957</template>
+</category>
+
+<category>
+<pattern>I PROBLEMI DELLA FILOSOFIA</pattern>
+<template>Il libro <set_libro>I problemi della filosofia</set_libro> fu scritto da <set_author>Russel Bernard </set_author>nel 1957</template>
+</category>
+
+<category>
+<pattern>I DRAGHI DELL EDEN</pattern>
+<template>Il libro <set_libro>I draghi dell'eden</set_libro> fu scritto da <set_author>Sagan Carl Pulitzer 1978 </set_author>nel 1977</template>
+</category>
+
+<category>
+<pattern>IL SOLDATO DIMENTICATO</pattern>
+<template>Il libro <set_libro>Il soldato dimenticato</set_libro> fu scritto da <set_author>Sajer Guy </set_author>nel 1967</template>
+</category>
+
+<category>
+<pattern>NOVE RACCONTI</pattern>
+<template>Il libro <set_libro>Nove racconti</set_libro> fu scritto da <set_author>Salinger Jerome David </set_author>nel 1948</template>
+</category>
+
+<category>
+<pattern>IL GIOVANE HOLDEN</pattern>
+<template>Il libro <set_libro>Il giovane Holden</set_libro> fu scritto da <set_author>Salinger Jerome David </set_author>nel 1951</template>
+</category>
+
+<category>
+<pattern>I CONSIGLI DELLA SAPIENZA</pattern>
+<template>Il libro <set_libro>I consigli della sapienza</set_libro> fu scritto da <set_author>Salomone </set_author>nel 1743</template>
+</category>
+
+<category>
+<pattern>RICCO A PAROLE</pattern>
+<template>Il libro <set_libro>Ricco a parole</set_libro> fu scritto da <set_author>Salvalaggio Nantes </set_author>nel 1998</template>
+</category>
+
+<category>
+<pattern>ETICA PER UN FIGLIO</pattern>
+<template>Il libro <set_libro>Etica per un figlio</set_libro> fu scritto da <set_author>Savater Fernando </set_author>nel 1991</template>
+</category>
+
+<category>
+<pattern>AFORISMI SULLA SAGGEZZA DELLA VITA</pattern>
+<template>Il libro <set_libro>Aforismi sulla saggezza della vita</set_libro> fu scritto da <set_author>Schopenhauer Arthur</set_author> nel 1851</template>
+</category>
+
+<category>
+<pattern>L ARTE DI AVER RAGIONE</pattern>
+<template>Il libro <set_libro>L arte di aver ragione</set_libro> fu scritto da <set_author>Schopenhauer Arthur </set_author>nel 1830</template>
+</category>
+
+<category>
+<pattern>LA SAGGEZZA DELLA VITA, AFORISMI</pattern>
+<template>Il libro <set_libro>La saggezza della vita, Aforismi</set_libro> fu scritto da <set_author>Schopenhauer Arthur</set_author> nel 1818</template>
+</category>
+
+<category>
+<pattern>IL PENSIERO POLITICO DI MAO TZE TUNG</pattern>
+<template>Il libro <set_libro>Il pensiero politico di Mao Tze Tung</set_libro> fu scritto da <set_author>Schran Stuart</set_author> nel 1963</template>
+</category>
+
+<category>
+<pattern>NERO</pattern>
+<template>Il libro <set_libro>Nero</set_libro> fu scritto da <set_author>Sclavi Tiziano</set_author> nel 1992 </template>
+</category>
+
+<category>
+<pattern>WYRM</pattern>
+<template>Il libro <set_libro>Wyrm</set_libro> fu scritto da <set_author>Scott Card Orson</set_author> nel 1987 </template>
+</category>
+
+<category>
+<pattern>IL VECCHIO CHE LEGGEVA ROMANZI D AMORE</pattern>
+<template>Il libro <set_libro>Il vecchio che leggeva romanzi d'amore</set_libro> fu scritto da <set_author>Sepulveda Luis</set_author> nel 1989</template>
+</category>
+
+<category>
+<pattern>L INGLESE, LEZIONI SEMISERIE</pattern>
+<template>Il libro <set_libro>L inglese, lezioni semiserie</set_libro> fu scritto da <set_author>Seregnini B </set_author>nel 1992</template>
+</category>
+
+<category>
+<pattern>COME SI STUDIA</pattern>
+<template>Il libro <set_libro>Come si studia</set_libro> fu scritto da <set_author>Serfini M T</set_author> nel 1989</template>
+</category>
+
+<category>
+<pattern>LA FOIBA GRANDE</pattern>
+<template>Il libro <set_libro>La foiba grande</set_libro> fu scritto da <set_author>Sgorlon Carlo</set_author> nel 1992</template>
+</category>
+
+<category>
+<pattern>AMLETO</pattern>
+<template>Il libro <set_libro>Amleto</set_libro> fu scritto da <set_author>Shakespare William</set_author> nel 1600</template>
+</category>
+
+<category>
+<pattern>RE GIOVANNI</pattern>
+<template>Il libro <set_libro>Re Giovanni</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1590</template>
+</category>
+
+<category>
+<pattern>RICCARDO III</pattern>
+<template>Il libro <set_libro>Riccardo III</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1591</template>
+</category>
+
+<category>
+<pattern>SOGNO DI UNA NOTTE DI MEZZA ESTATE</pattern>
+<template>Il libro <set_libro>Sogno di una notte di mezza estate</set_libro> fu scritto da <set_author>Shakespare William</set_author> nel 1593</template>
+</category>
+
+<category>
+<pattern>IL MERCANTE DI VENEZIA</pattern>
+<template>Il libro <set_libro>Il mercante di Venezia</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1596</template>
+</category>
+
+<category>
+<pattern>COME VI PIACE</pattern>
+<template>Il libro <set_libro>Come vi piace</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1599</template>
+</category>
+
+<category>
+<pattern>LA BISBETICA DOMATA</pattern>
+<template>Il libro <set_libro>La bisbetica domata</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1590</template>
+</category>
+
+<category>
+<pattern>TUTTO E BENE QUEL CHE FINISCE BENE</pattern>
+<template>Il libro <set_libro>Tutto   bene quel che finisce bene</set_libro> fu scritto da <set_author>Shakespare William</set_author> nel 1598</template>
+</category>
+
+<category>
+<pattern>LA DODICESIMA NOTTE</pattern>
+<template>Il libro <set_libro>La dodicesima notte</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1600</template>
+</category>
+
+<category>
+<pattern>IL RACCONTO D INVERNO</pattern>
+<template>Il libro <set_libro>Il racconto d'inverno</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1611</template>
+</category>
+
+<category>
+<pattern>TROILO E CRESSIDRA</pattern>
+<template>Il libro <set_libro>Troilo e Cressidra</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1602</template>
+</category>
+
+<category>
+<pattern>CORIOLANO</pattern>
+<template>Il libro <set_libro>Coriolano</set_libro> fu scritto da <set_author>Shakespare William</set_author> nel 1608</template>
+</category>
+
+<category>
+<pattern>TITO ANDRONICO</pattern>
+<template>Il libro <set_libro>Tito Andronico</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1593</template>
+</category>
+
+<category>
+<pattern>ROMEO E GIULIETTA</pattern>
+<template>Il libro <set_libro>Romeo e Giulietta</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1595</template>
+</category>
+
+<category>
+<pattern>TIMONE D ATENE</pattern>
+<template>Il libro <set_libro>Timone d'Atene</set_libro> fu scritto da <set_author>Shakespare William </set_author>nel 1605</template>
+</category>
+
+<category>
+<pattern>ANTIGRAVITAZIONE PER TUTTI</pattern>
+<template>Il libro <set_libro>Antigravitazione per tutti</set_libro> fu scritto da <set_author>Shaw Bob </set_author>nel 1978</template>
+</category>
+
+<category>
+<pattern>IL TALENTO DEI PARSI</pattern>
+<template>Il libro <set_libro>Il talento dei Parsi</set_libro> fu scritto da <set_author>Sidhwa Bapsi </set_author>nel 1978</template>
+</category>
+
+<category>
+<pattern>I CAVALIERI TEUTONICI</pattern>
+<template>Il libro <set_libro>I cavalieri teutonici</set_libro> fu scritto da <set_author>Sienkiewicz Henryk Nobel 1905</set_author> nel 1900</template>
+</category>
+
+<category>
+<pattern>PADRONE DELLA VITA, PADRONE DELLA MORTE</pattern>
+<template>Il libro <set_libro>Padrone della vita, padrone della morte</set_libro> fu scritto da <set_author>Silverberg Robert</set_author> nel 1957</template>
+</category>
+
+<category>
+<pattern>IL FIGLIO DELL UOMO</pattern>
+<template>Il libro <set_libro>Il figlio dell'uomo</set_libro> fu scritto da <set_author>Silverberg Robert </set_author>nel 1971</template>
+</category>
+
+<category>
+<pattern>L ARCA DELLE STELLE</pattern>
+<template>Il libro <set_libro>L arca delle stelle</set_libro> fu scritto da <set_author>Silverberg Robert </set_author>nel 1966</template>
+</category>
+
+<category>
+<pattern>QUELLEN GUARDA IL PASSATO</pattern>
+<template>Il libro <set_libro>Quellen guarda il passato!</set_libro> fu scritto da <set_author>Silverberg Robert </set_author>nel</template>
+</category>
+
+<category>
+<pattern>LA CITTA LABIRINTO</pattern>
+<template>Il libro <set_libro>La citt  labirinto</set_libro> fu scritto da <set_author>Silverberg Robert </set_author>nel 1968</template>
+</category>
+
+<category>
+<pattern>L UOMO STOCASTICO</pattern>
+<template>Il libro <set_libro>L uomo stocastico</set_libro> fu scritto da <set_author>Silverberg Robert </set_author>nel 1975</template>
+</category>
+
+<category>
+<pattern>LA CASA DALLE FINESTRE NERE</pattern>
+<template>Il libro <set_libro>La casa dalle finestre nere</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1963</template>
+</category>
+
+<category>
+<pattern>L OSPITE DEL SENATORE NORTON</pattern>
+<template>Il libro <set_libro>L ospite del senatore Norton</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1967</template>
+</category>
+
+<category>
+<pattern>OLTRE L INVISIBILE</pattern>
+<template>Il libro <set_libro>Oltre l'invisibile</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1951</template>
+</category>
+
+<category>
+<pattern>ANNI SENZA FINE</pattern>
+<template>Il libro <set_libro>Anni senza fine</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1952</template>
+</category>
+
+<category>
+<pattern>FUGA DAL FUTURO</pattern>
+<template>Il libro <set_libro>Fuga dal futuro</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1975</template>
+</category>
+
+<category>
+<pattern>I GIORNI DEL SILENZIO</pattern>
+<template>Il libro <set_libro>I giorni del silenzio</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1972</template>
+</category>
+
+<category>
+<pattern>IL PAPA DEFINITIVO</pattern>
+<template>Il libro <set_libro>Il papa definitivo</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1964</template>
+</category>
+
+<category>
+<pattern>TEMPO SENZA TEMPO</pattern>
+<template>Il libro <set_libro>Tempo senza tempo</set_libro> fu scritto da <set_author>Simac Clifford </set_author>nel 1968</template>
+</category>
+
+<category>
+<pattern>LA FORTEZZA</pattern>
+<template>Il libro <set_libro>La fortezza</set_libro> fu scritto da <set_author>Singer Isaac</set_author> nel 1967 </template>
+</category>
+
+<category>
+<pattern>PERICOLO MEDICO</pattern>
+<template>Il libro <set_libro>Pericolo medico</set_libro> fu scritto da <set_author>Slaughter Frank </set_author>nel</template>
+</category>
+
+<category>
+<pattern>SKYLARK 1</pattern>
+<template>Il libro <set_libro>Skylark 1o</set_libro> fu scritto da <set_author>Smith Edward</set_author> nel 1948 </template>
+</category>
+
+<category>
+<pattern>UN AQUILA NEL CIELO</pattern>
+<template>Il libro <set_libro>Un aquila nel cielo</set_libro> fu scritto da <set_author>Smith Wilbur </set_author>nel</template>
+</category>
+
+<category>
+<pattern>IL DIO DEL FIUME</pattern>
+<template>Il libro <set_libro>Il dio del fiume</set_libro> fu scritto da <set_author>Smith Wilbur</set_author> nel 1993</template>
+</category>
+
+<category>
+<pattern>IL SETTIMO PAPIRO</pattern>
+<template>Il libro <set_libro>Il settimo papiro</set_libro> fu scritto da <set_author>Smith Wilbur </set_author>nel 1995</template>
+</category>
+
+<category>
+<pattern>ETICA</pattern>
+<template>Il libro <set_libro>Etica</set_libro> fu scritto da <set_author>Spinoza Baruch</set_author> nel 1677 </template>
+</category>
+
+<category>
+<pattern>I FIGLI DEL SOLE</pattern>
+<template>Il libro <set_libro>I figli del sole</set_libro> fu scritto da <set_author>Statten Vargo pseudonimo di John R. Fearn</set_author> nel 1951</template>
+</category>
+
+<category>
+<pattern>I FIGLI DEL SOLE</pattern>
+<template>Il libro <set_libro>I figli del sole</set_libro> fu scritto da <set_author>Statten Vargo pseudonimo di John R. Fearn</set_author> nel 1951</template>
+</category>
+
+<category>
+<pattern>I FIGLI DEL SOLE</pattern>
+<template>Il libro <set_libro>I figli del sole</set_libro> fu scritto da <set_author>Statten Vargo pseudonimo di John R. Fearn</set_author> nel 1952</template>
+</category>
+
+<category>
+<pattern>I FIGLI DEL SOLE</pattern>
+<template>Il libro <set_libro>I figli del sole</set_libro> fu scritto da <set_author>Statten Vargo pseudonimo di John R. Fearn</set_author> nel 1950</template>
+</category>
+
+<category>
+<pattern>LA CAPANNA DELLO ZIO TOM</pattern>
+<template>Il libro <set_libro>La capanna dello zio Tom</set_libro> fu scritto da <set_author>Stowe Harriet </set_author>nel 1852</template>
+</category>
+
+<category>
+<pattern>NASCITA DEL SUPERUOMO</pattern>
+<template>Il libro <set_libro>Nascita del superuomo</set_libro> fu scritto da <set_author>Sturgeon Theodore </set_author>nel 1953</template>
+</category>
+
+<category>
+<pattern>LA COSCIENZA DI ZENO</pattern>
+<template>Il libro <set_libro>La coscienza di Zeno</set_libro> fu scritto da <set_author>Svevo Italo </set_author>nel 1923</template>
+</category>
+
+<category>
+<pattern>SENILITA</pattern>
+<template>Il libro <set_libro>Senilit </set_libro> fu scritto da <set_author>Svevo Italo</set_author> nel 1898 </template>
+</category>
+
+<category>
+<pattern>UNA VITA</pattern>
+<template>Il libro <set_libro>Una vita</set_libro> fu scritto da <set_author>Svevo Italo</set_author> nel 1892 </template>
+</category>
+
+<category>
+<pattern>PICCOLI EQUIVOCI SENZA IMPORTANZA</pattern>
+<template>Il libro <set_libro>Piccoli equivoci senza importanza</set_libro> fu scritto da <set_author>Tabucchi Antonio</set_author> nel 1985</template>
+</category>
+
+<category>
+<pattern>REQUIEM</pattern>
+<template>Il libro <set_libro>Requiem</set_libro> fu scritto da <set_author>Tabucchi Antonio</set_author> nel 1991 </template>
+</category>
+
+<category>
+<pattern>L UOMO DI BABELE</pattern>
+<template>Il libro <set_libro>L uomo di Babele</set_libro> fu scritto da <set_author>Tacconi Bruno </set_author>nel 1973</template>
+</category>
+
+<category>
+<pattern>MARY POPPINS</pattern>
+<template>Il libro <set_libro>Mary Poppins</set_libro> fu scritto da <set_author>Travers Pamela Lyndon </set_author>nel 1934</template>
+</category>
+
+<category>
+<pattern>E SARA LUCE</pattern>
+<template>Il libro <set_libro>E sar  luce</set_libro> fu scritto da <set_author>Tiptree James pseudonimo di Alice B. Sheldon</set_author> nel 1985</template>
+</category>
+
+<category>
+<pattern>IL SIGNORE DEGLI ANELLI</pattern>
+<template>Il libro <set_libro>Il signore degli anelli</set_libro> fu scritto da <set_author>Tolkien John Ronald </set_author>nel 1954</template>
+</category>
+
+<category>
+<pattern>PRESUNTO INNOCENTE</pattern>
+<template>Il libro <set_libro>Presunto innocente</set_libro> fu scritto da <set_author>Turow Scott </set_author>nel 1987</template>
+</category>
+
+<category>
+<pattern>L ONERE DELLA PROVA</pattern>
+<template>Il libro <set_libro>L onere della prova</set_libro> fu scritto da <set_author>Turow Scott </set_author>nel 1990</template>
+</category>
+
+<category>
+<pattern>EXODUS</pattern>
+<template>Il libro <set_libro>Exodus</set_libro> fu scritto da <set_author>Uris Leon</set_author> nel 1958 </template>
+</category>
+
+<category>
+<pattern>IL LABIRINTO DELLA MEMORIA</pattern>
+<template>Il libro <set_libro>Il labirinto della memoria</set_libro> fu scritto da <set_author>Vacca Roberto </set_author>nel 1988</template>
+</category>
+
+<category>
+<pattern>GREGGIO E PERICOLOSO</pattern>
+<template>Il libro <set_libro>Greggio e pericoloso</set_libro> fu scritto da <set_author>Vacca Roberto </set_author>nel 1976</template>
+</category>
+
+<category>
+<pattern>I RIBELLI DEI 50 SOLI</pattern>
+<template>Il libro <set_libro>I ribelli dei 50 soli</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1952</template>
+</category>
+
+<category>
+<pattern>SLAN</pattern>
+<template>Il libro <set_libro>Slan</set_libro> fu scritto da <set_author>Van Vogt Alfred</set_author> nel </template>
+</category>
+
+<category>
+<pattern>IL MONDO DEL NON-A</pattern>
+<template>Il libro <set_libro>Il mondo del non-A</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1945</template>
+</category>
+
+<category>
+<pattern>LE PEDINE DEI NON-A</pattern>
+<template>Il libro <set_libro>Le pedine dei non-A</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1948</template>
+</category>
+
+<category>
+<pattern>LA CASA SENZA TEMPO</pattern>
+<template>Il libro <set_libro>La casa senza tempo</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1950</template>
+</category>
+
+<category>
+<pattern>LE ARMI DI ISHER</pattern>
+<template>Il libro <set_libro>Le armi di Isher</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1951</template>
+</category>
+
+<category>
+<pattern>DESTINAZIONE UNIVERSO</pattern>
+<template>Il libro <set_libro>Destinazione universo</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1952</template>
+</category>
+
+<category>
+<pattern>GLI UOMINI OMBRA</pattern>
+<template>Il libro <set_libro>Gli uomini ombra</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1953</template>
+</category>
+
+<category>
+<pattern>L ASSEDIO DEGLI INVISIBILI</pattern>
+<template>Il libro <set_libro>L assedio degli invisibili</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1959</template>
+</category>
+
+<category>
+<pattern>LA CITTA IMMORTALE</pattern>
+<template>Il libro <set_libro>La citt  immortale</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1963</template>
+</category>
+
+<category>
+<pattern>PIANETI DA VENDERE</pattern>
+<template>Il libro <set_libro>Pianeti da vendere</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1966</template>
+</category>
+
+<category>
+<pattern>I POLIMORFI</pattern>
+<template>Il libro <set_libro>I polimorfi</set_libro> fu scritto da <set_author>Van Vogt Alfred</set_author> nel 1964</template>
+</category>
+
+<category>
+<pattern>LA GUERRA CONTRO I RULL</pattern>
+<template>Il libro <set_libro>La guerra contro i Rull</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1940</template>
+</category>
+
+<category>
+<pattern> LA CITTA IMMORTALE</pattern>
+<template>Il libro <set_libro>La citt  immortale</set_libro> fu scritto da <set_author>Van Vogt Alfred </set_author>nel 1943</template>
+</category>
+
+<category>
+<pattern>UN INFINITO NUMERO</pattern>
+<template>Il libro <set_libro>Un infinito numero</set_libro> fu scritto da <set_author>Vassalli Sebastiano </set_author>nel 1999</template>
+</category>
+
+<category>
+<pattern>DIZIONARIO FILOSOFICO</pattern>
+<template>Il libro <set_libro>Dizionario filosofico</set_libro> fu scritto da <set_author>Voltaire Pseud. Francais Marie Arouet</set_author> nel 1765</template>
+</category>
+
+<category>
+<pattern>DISTRUGGETE LE MACCHINE</pattern>
+<template>Il libro <set_libro>Distruggete le macchine</set_libro> fu scritto da <set_author>Vonnegut K </set_author>nel 1952</template>
+</category>
+
+<category>
+<pattern>IL VERBO</pattern>
+<template>Il libro <set_libro>Il verbo</set_libro> fu scritto da <set_author>Wallace Irving</set_author> nel </template>
+</category>
+
+<category>
+<pattern>SINHUE L EGIZIANO</pattern>
+<template>Il libro <set_libro>Sinhue l'egiziano</set_libro> fu scritto da <set_author>Waltari Mika </set_author>nel 1945</template>
+</category>
+
+<category>
+<pattern>TURMS L ETRUSCO</pattern>
+<template>Il libro <set_libro>Turms l'etrusco</set_libro> fu scritto da <set_author>Waltari Mika</set_author> nel 1956</template>
+</category>
+
+<category>
+<pattern>L ULTIMA DOMANDA</pattern>
+<template>Il libro <set_libro>L ultima domanda</set_libro> fu scritto da <set_author>Watson Ian</set_author> nel 1996</template>
+</category>
+
+<category>
+<pattern>LA LUNA DELLE FOGLIE CADENTI</pattern>
+<template>Il libro <set_libro>La luna delle foglie cadenti</set_libro> fu scritto da <set_author>Welch James </set_author>nel 1986</template>
+</category>
+
+<category>
+<pattern>LA SALAMANDRA</pattern>
+<template>Il libro <set_libro>La salamandra</set_libro> fu scritto da <set_author>West Morris</set_author> nel </template>
+</category>
+
+<category>
+<pattern>PROTEO</pattern>
+<template>Il libro <set_libro>Proteo</set_libro> fu scritto da <set_author>West Morris</set_author> nel 1978 </template>
+</category>
+
+<category>
+<pattern>LAZZARO</pattern>
+<template>Il libro <set_libro>Lazzaro</set_libro> fu scritto da <set_author>West Morris</set_author> nel 1990 </template>
+</category>
+
+<category>
+<pattern>LA NUOVA BABELE</pattern>
+<template>Il libro <set_libro>La nuova Babele</set_libro> fu scritto da <set_author>West Morris</set_author> nel 1968</template>
+</category>
+
+<category>
+<pattern>SCRIVERE NARRATIVA</pattern>
+<template>Il libro <set_libro>Scrivere narrativa</set_libro> fu scritto da <set_author>Wharton Edith </set_author>nel 1925</template>
+</category>
+
+<category>
+<pattern>L ESPLORATORE</pattern>
+<template>Il libro <set_libro>L esploratore</set_libro> fu scritto da <set_author>White Patrik Nobel </set_author>nel</template>
+</category>
+
+<category>
+<pattern>GLI UMANOIDI</pattern>
+<template>Il libro <set_libro>Gli umanoidi</set_libro> fu scritto da <set_author>Williamson Jack</set_author> nel 1948</template>
+</category>
+
+<category>
+<pattern>LA STIRPE DELL UOMO</pattern>
+<template>Il libro <set_libro>La stirpe dell uomo</set_libro> fu scritto da <set_author>Williamson Jack </set_author>nel 1982</template>
+</category>
+
+<category>
+<pattern>LA LEGIONE DELLO SPAZIO</pattern>
+<template>Il libro <set_libro>La legione dello spazio</set_libro> fu scritto da <set_author>Williamson Jack </set_author>nel 1935</template>
+</category>
+
+<category>
+<pattern>QUELLI DELLA COMETA</pattern>
+<template>Il libro <set_libro>Quelli della cometa</set_libro> fu scritto da <set_author>Williamson Jack </set_author>nel 1936</template>
+</category>
+
+<category>
+<pattern>L ENIGMA DEL BASILICO</pattern>
+<template>Il libro <set_libro>Lenigma del basilico</set_libro> fu scritto da <set_author>Williamson Jack </set_author>nel 1939</template>
+</category>
+
+<category>
+<pattern>VICINI A NIENTE</pattern>
+<template>Il libro <set_libro>Vicini a niente</set_libro> fu scritto da <set_author>Williamson Jack </set_author>nel 1950</template>
+</category>
+
+<category>
+<pattern>L IMPERO DELL OSCURO</pattern>
+<template>Il libro <set_libro>L impero dell'oscuro</set_libro> fu scritto da <set_author>Williamson Jack </set_author>nel 1940</template>
+</category>
+
+<category>
+<pattern>LA POTENZA DELLE TENEBRE</pattern>
+<template>Il libro <set_libro>La potenza delle tenebre</set_libro> fu scritto da <set_author>Williamson Jack </set_author>nel 1976</template>
+</category>
+
+<category>
+<pattern>INCONTRO NELL ABISSO</pattern>
+<template>Il libro <set_libro>Incontro nell'abisso</set_libro> fu scritto da <set_author>Withe James </set_author>nel 1966</template>
+</category>
+
+<category>
+<pattern>IL RISVEGLIO DELL ABISSO</pattern>
+<template>Il libro <set_libro>Il risveglio dell'abisso</set_libro> fu scritto da <set_author>Wydham John </set_author>nel 1951</template>
+</category>
+
+<category>
+<pattern>IL GIORNO DEI TRIFIDI</pattern>
+<template>Il libro <set_libro>Il giorno dei trifidi</set_libro> fu scritto da <set_author>Wydham John </set_author>nel 1951</template>
+</category>
+
+<category>
+<pattern>I FIGLI DELL INVASIONE</pattern>
+<template>Il libro <set_libro>I figli dell'invasione</set_libro> fu scritto da <set_author>Wydham John </set_author>nel 1958</template>
+</category>
+
+<category>
+<pattern>IL LICHENE CINESE</pattern>
+<template>Il libro <set_libro>Il lichene cinese</set_libro> fu scritto da <set_author>Wydham John</set_author> nel 1960</template>
+</category>
+
+<category>
+<pattern>UOMINI E STELLE</pattern>
+<template>Il libro <set_libro>Uomini e stelle</set_libro> fu scritto da <set_author>Wydham John</set_author> nel 1958</template>
+</category>
+
+<category>
+<pattern>IO IL MIO NEMICO</pattern>
+<template>Il libro <set_libro>Io il mio nemico</set_libro> fu scritto da <set_author>Yoram B</set_author></template>
+</category>
+
+<category>
+<pattern>AUTORE DE LA FABBRICA</pattern>
+<template>Il libro <set_libro><set_book>La Fabbrica</set_book></set_libro> fu scritto da <set_author>Emanuele Cassani</set_author>, ma e` ancora un libro inedito.</template>
+</category>
+
+<category>
+<pattern>AUTORE *</pattern>
+<template><random>
+<li>Purtroppo non lo ho in memoria</li>
+<li>Non ho trovato nulla a riguardo. Prova a riscrivere il titolo</li>
+<li>Non lo ho letto, mi dispiace</li>
+<li>Ho cercato tra le centinaia di libri in memoria, ma questo non lo trovo</li>
+<li>Non ho dati in proposito, prova con un altro libro</li>
+<li>Spiacente, il libro non risulta nel mio elenco</li>
+<li>Non lo trovo nella mia memoria</li>
+<li>Non mi risulta tra i libri che ho letto</li>
+<li>Non c'e' l'ho.<BR>Se desideri aggiornarmi, manda una mail a <a href="mailto:alice@steppa.cjb.net>alice@steppa.cjb.net</A></li>
+</random></template>
+</category>
+
+<!-- da qui la critica -->
+
+<category>
+<pattern>CHE COSA *</pattern>
+<template><srai>CHE <star/></srai></template>
+</category>
+
+<category>
+<pattern>COSA NE PENSI *</pattern>
+<template><srai>CHE NE PENSI</srai></template>
+</category>
+
+<category>
+<pattern>CHE NE PENSI</pattern>
+<template><srai>CRITICA</srai></template>
+</category>
+
+<category>
+<pattern>CRITICA</pattern>
+<template>
+E' un libro 
+<condition>
+<li name="libro" value="SPAGHETTI HACKER">di saggistica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="DIALOGO TRA UN FILOSOFO UN GIUDEO E UN CRISTIANO">di filosofia <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="SOCRATE">di filosofia <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="INNAMORAMENTO E AMORE">Psicologia <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="LE RAGIONI DEL BENE E DEL MALE">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L ORA DI OTTANTA MINUTI">Fantascienza <BR><think><set_voto>2</set_voto></think></li>
+<li name="libro" value="SAPERLA LUNGA">Teatro <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CITARSI ADDOSSO">Teatro <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="EFFETTI COLLATERALI">Teatro <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="PROCESSO ALLA REPUBBLICA">di saggistica <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="PENA DI MORTE">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ASHANTI">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="FIABE">Classico <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="LE GALLERIE DEL TEMPO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="ALFA & BETA">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CATASTROFI A SCELTA">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="VIAGGIO ALLUCINANTE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL TIRANNO DEI MONDI">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="NEANCHE GLI DEI">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="FONDAZIONE-TERRA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ABISSI D ACCIAIO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CRONACA DELLA GALASSIA">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL CROLLO DELLA GALASSIA CENTRALE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="L ALTRA FACCIA DELLA SPIRALE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PRELUDIO ALLA FONDAZIONE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="L ORLO DELLA FONDAZIONE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PARIA DEI CIELI">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LE CORRENTI DELLO SPAZIO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL SOLE NUDO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IO ROBOT">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL SECONDO LIBRO DEI ROBOT">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I ROBOT DELL ALBA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I ROBOT E L IMPERO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA TERRA   ABBASTANZA GRANDE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="AYLA FIGLIA DELLA TERRA">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA VALLE DEI CAVALLI">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="GLI ELETTI DI MUT">Nar. Storica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA PIANURA DEL PASSAGGIO">Nar. Storica <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="IL GABBIANO JONATAN LIVINGSTON">Narrativa <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="STRANIERO ALLA TERRA">Fantascienza <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="CASTELLI DI RABBIA">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="SETA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CITY">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA NOTTE DEI TEMPI">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="DILUVIO DI FUOCO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ISOLA">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="FILOSOFIA ISTRUZIONI PER L USO">di filosofia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL MAGO DELL OCCIDENTE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ACCADDE A ROSWELL">Giornalismo <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="IL FANTASME DI TRIESTE">Narrativa <BR><think><set_voto>4</set_voto></think></li>
+<li name="libro" value="LUBJIANSKA">Giornalismo <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="QUANTE STORIE">Giornalismo <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="L ESORCISTA">Horror <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="Q">Narrativa <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="COS   IL BUDDISMO">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="MOLTO DOPO MEZZANOTTE">Horror <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="FARENHAIT 451">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CELLA D ISOLAMENTO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="JOHN CARTER DI MARTE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="JOHN CARTER DI MARTE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="JOHN CARTER DI MARTE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LE PIETRE DELLA LUNA">Narr. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="MENORAH">Narr. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL DESERTO DEI TARTARI">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL COLOMBRE A ALTRI RACCONTI">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="UN PIANETA E DUE STELLE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="MARCOVALDO">Classico <BR><think><set_voto>2</set_voto></think></li>
+<li name="libro" value="ISOLE NELLO SPAZIO">Fantascienza <BR><think><set_voto>4</set_voto></think></li>
+<li name="libro" value="AUTO DA F ">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ORRIZZONTE DI PIETRA">Storia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="I MILLENNI DI TRIESTE">Storia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="SERBIDIOLA">Commedia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L AUSTRIA ERA UN PAESE ORDINATO">Commedia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="POVERO NOSTRO FRANZ">Commedia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="DUE PAIA DI CALZE DI SETA">Commedia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="COSA DIR  LA GENTE?">Commedia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="DEBEGNAC DEBEGNAC">Commedia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ALIENISTA">Poliziesco <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LE AVVENTURE DI ALICE NEL PAESE DELLE MERAVIGLIE">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ATTRAVERSO LO SPECCHIO">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA CACCIA ALLO SNARK">Narrativa <BR><think><set_voto>2</set_voto></think></li>
+<li name="libro" value="BONSAI">Botanica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="TEATRO E ROMANZO">di saggistica <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="MORTE DELL ERBA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LE QUATTRO RAGAZZE WIESELBERGER">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PERICOLO IMMINENTE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PAURA SENZA LIMITE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ATTENTATO ALLA CORTE D INGHILTERRA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="POTERE ESECUTIVO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="DEBITO D ONORE">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA CITT  E LE STELLE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="POLVERE DI LUNA">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="OMBRE SULLA LUNA">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LE GUIDE DEL TRAMONTO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="CULLA">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="SHOGUN">Narr. Storica <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL RE">Guerra <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I VIAGGI DI TEO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="VERONIKA DECIDE DI MORIRE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IO TITUBA STREGA NERA DI SALEM">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="TRANSIT">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA SESTA PROVA">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="JURASSIC PARK">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL TERMINALE UOMO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="RIVELAZIONI">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL MONDO PERDUTO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ANDROMEDA">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="TESORO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="DRAGON">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="SAHARA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="VIRUS">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CYCLOPS">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="YUCATAN">Narrativa <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="I PRESOCRATICI">di filosofia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I 75 GIORNI DELLE FALKLAND">Documentario <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PSICO SCACCO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LOUISIANA">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="I SIMULACRI">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="VITE DEI FILOSOFI">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL VAMPIRO DEL SUSSEX">Horror <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA RELATIVIT  CON LE 4 OPERAZIONI">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL NOME DELLA ROSA">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL PENDOLO DI FOUCOULT">Narrativa <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="L ISOLA DEL GIORNO PRIMA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="SEI PASSEGGIATE NEI BOSCHI NARRATIVI">di saggistica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="BAUDOLINO">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="COME IO VEDO IL MONDO">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA PRIGIONE DELLA LIBERT ">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CHERUDEK">Horror <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="L UOMO CHE SUSSURRAVA AI CAVALLI">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="INTELLIGENTI SI NASCE O SI DIVENTA?">di saggistica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LETTERA DALLA FINE DEL MONDO">Narr. Storica <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="INTERVISTA CON LA STORIA">Giornalismo <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="INSHIALLA">Narrativa <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="GLI AMANTI DI SIDDO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="CRISTO MARZIANO">Fantascienza <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL FIUME DELLA VITA">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="ALLE SORGENTI DEL FIUME">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL GRANDE DISEGNO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="FABBRICANTI DI UNIVERSI">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PIANETA IN VIA DI SVILUPPO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL LABIRINTO MAGICO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA CRUNA DELL AGO">Guerra <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I PILASTRI DELLA TERRA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL TERZO GEMELLO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="INSCIAQQU ">Fumetti <BR><think><set_voto>2</set_voto></think></li>
+<li name="libro" value="IL GIORNO DELLO SCIACALLO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TAPS, SQUILLI DI RIVOLTA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="TRE SAGGI SULLA SESSUALIT ">Psicologia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="OSSESSIONI E FOBIE">Psicologia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="TOTEM E TAB ">Psicologia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PSICOANALISI E SOCIET ">Psicologia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PSICOLOGIA DELLA VITA AMOROSA">Psicologia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="INTRODUZIONE ALLA PSICOANALISI">Psicologia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="AVERE O ESSERE">Sociologia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL MONDO DI SOFIA">Narrativa <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL VIAGGIO DI ELISABET">Narr. Filosofica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA CIVILT  EGIZIA">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="DENTE PER DENTE">Giornalismo <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="NEUROMANTE">Fantascienza <BR><think><set_voto>3</set_voto></think></li>
+<li name="libro" value="IL FALCO DEGLI SPAZI">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA DOPPIA VOCE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL SIGNORE DELLE MOSCHE">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="CIO ">Giornalismo <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LEI M INSEGNA">Giornalismo <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="SEMPRE MEGLIO CHE LAVORARE">Giornalismo <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="MEDICUS">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LO SCIAMANO">Nar. Storica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL PIANETA DELLA SOLITUDINE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="TAMBURO DI LATTA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL SOSPETTO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ASSIRO">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="NINVE">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL MACEDONE">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LE CINQUE EQUAZIONI CHE CAMBIARONO IL MONDO">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="QUESTO MONDO INESPUGNABILE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PARADOSSO COSMICO">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="FATHERLAND">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="PIANETA IMPOSSIBILE IO E IIO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I BARBARI A CAVALLO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LIQUIDATE PARIGI">Guerra <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="QUANDO IL CIELO E LA TERRA ">Guerra <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LAZARUS LONG L IMMORTALE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="STRANIERO IN TERRA STRANIERA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="STELLA DOPPIA">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="I FIGLI DI MATHUSALEMME">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL MESTIERE DELL AVVOLTOIO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="UNA FAMIGLIA MARZIANA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="REQUIEM">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CITTADINO DELLA GALASSIA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="SESTA COLONNA">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="FANTERIA DELLO SPAZIO">Fantascienza <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="OPERAZIONE DOMANI">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="COMMA 22">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PER CHI SUONA LA CAMPANA">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="AFFONDATE LUPO DI GHIACCIO">Guerra <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L ALVEARE DI HELLISTORM">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA BARRIERE DI SANTAROGA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="DUNE">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="MESSIA DI DUNE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="I FIGLI DI DUNE">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="L IMPERATORE-DIO DI DUNE">Fantascienza <BR><think><set_voto>4</set_voto></think></li>
+<li name="libro" value="IL MONDO BIANCO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL GIOCO DELLE PERLE DI VETRO">Narrativa <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL MIO CREDO">di filosofia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="SIDDARTA">Classico <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL LUPO DELLA STEPPA">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="AVVISO DI TEMPESTA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="UNA PREGHIERA PER MORIRE">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL SENSO DI SMILLA PER LA NEVE">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA DONNA E LA SCIMMIA">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA NUVOLA NERA">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA VOCE DELLA COMETA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL TENENTE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL MONDO NUOVO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="RITORNO AL MONDO NUOVO">di saggistica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PUNTO CONTRO PUNTO">Narrativa <BR><think><set_voto>2</set_voto></think></li>
+<li name="libro" value="IL MONDO SECONDO GARP">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LE REGOLE DELLA CASA DEL SIDRO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL FIGLIO DELLA LUCE">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA DIMORA MILLENARIA">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA BATTAGLIA DI QADSH">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA REGINA DI ABU SIMBEL">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ULTIMO NEMICO">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L INFERNO DEL GIUDICE">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL TESTAMENTO DEGLI DEI">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL LADRO DI OMBRE">Nar. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="NEFER">Narr. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA SFIDA MONDIALE">di saggistica <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="ULISSE">Classico <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="IL VIAGGIATORE">Narr. Storica <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="L ATZECO">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="NOMADI">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="TRE UOMINI IN BARCA (PER TACER DEL CANE)">Classico <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="LA SOTTILE LINEA ROSSA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PAURA DI VOLARE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="GENTE DI DUBLINO">Classico <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="LA METAMORFOSI">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="NELLA COLONIA PENALE">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="GABBIA D ACCIAIO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CUJO">Horror <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IT">Horror <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA MET  OSCURA">Horror <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="MISERY">Horror <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L OMBRA DELLO SCORPIONE">Horror <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA ZONA MORTA">Horror <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="CHRISTINE LA MACCHINA INFERNALE">Horror <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PET SEMETERY">Horror <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LE CREATURE DEL BUIO">Horror <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA LUNGA MARCIA">Horror <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="UN UOMO IN FUGA">Horror <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL GIOCO DI GERALD">Horror <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="OSSESSIONE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL MIGLIO VERDE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ON WRITING">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="MEZZANOTTE">Horror <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="L IMMORTALIT ">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L INSOSTENIBILE LEGGEREZZA DLL ESSERE">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA CITT  DELLA GIOIA">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TALETE ANASSIMANDRO ANASSIMENE">di filosofia <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="L AMANTE DI LADY CHATTERLY">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL BUIO OLTRE LA SIEPE">Poliziesco <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="SOLARIS">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="PENSIERI DI VARIA FILOSOFIA">di filosofia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LETTERE A BERLICCHE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="COME SVILUPPARE UNA MEMORIA SUPERIORE ED ULTRA POTENTE">di saggistica <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="L ANELLO DI RE SALOMONE">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="STORIE DI CANI">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL RITORNO DELLO SCIACALLO">Narrativa <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="LA VIA PER GANDOLFO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ANTICHE SERE">Narr. Storica <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="RISCHIO CALCOLATO">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="LETTURA LAICA DELLA BIBBIA">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA BIONDA LA BRUNA E L ASINO">Giornalismo <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="IMPARIAMO L ITALIANO">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="CENT'ANNI DI SOLITUDINE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="DELL AMORE E ALTRI DEMONI">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA SPOSA BELLA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL FANTASMA NELL ARMADIO">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA STELLA DEI PRECURSORI">Fantascienza <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="IL SERPENTE DELL OBLIO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="BARRAYAR">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="I MERCENARI DEL TEMPO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="I PECCATI DI PEYTON PLACE">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL PATRIOTA">Narr. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="STORIA DI ROMA">Storia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IO E LUI">Giornalismo <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="BORA">Narrativa <BR><think><set_voto></set_voto></think></li>
+<li name="libro" value="LA SCIMMIA NUDA">di saggistica <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="COS  PARL  ZARATURSTRA">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="AL DI L  DEL BENE E DEL MALE">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA VOLONT  DI POTENZA">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="LA MIA VITA">di filosofia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="UMANO TROPPO UMANO">di filosofia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ANTICRISTO">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="L INCOGNITA DEI GRENDAL">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="MONDO SENZA TEMPO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA FUGA DI LOGAN">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL MONDO DI LOGAN">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="BASSOTUBA NON C' ">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ALTRA FACCIA DEL PASSATO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA VITA PENSATA">di saggistica <BR><think><set_voto>1</set_voto></think></li>
+<li name="libro" value="PRIMO COMANDO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ODISSEA">Classico <BR><think><set_voto>nc</set_voto></think></li>
+<li name="libro" value="ILIADE">Classico <BR><think><set_voto>nc</set_voto></think></li>
+<li name="libro" value="LA FILOSOFIA DE KARATE DEL MAESTRO FUNAKOSHI">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="I POTERI DELLA MENTE">di saggistica <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="ARCHEOLOGIA DELLA BIBBIA">di saggistica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="ROBA DA GATTI">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="VANGELO DI GIUDA">Narr. Storica <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="LA MIE PRIGIONONI">Classico <BR><think><set_voto>nc</set_voto></think></li>
+<li name="libro" value="IL PARADISO DEGLI ORCHI">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA PROSIVENDOLA">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="COME UN ROMANZO">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL SIG.MALAUSS NE">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL BANCHIERE ANARCHICO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="UNA CENA MOLTO ORIGINALE">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL FURTO DELLA VILLA VIGNE">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL LIBRO DELL INQUIETUDINE">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TIKAL">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL MESTIERE DI GENITORE">Puericoltura <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA REPUBBLICA">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="APOLOGIA DI SOCRATE">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="TUTTI I RACCONTI E LE POESIE">Narrativa <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="OLTRE L ORRIZONTE AZZURRO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="RISCHIO DI VITA">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL GIORNO DEI MARZIANI">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="GLADIATORE IN LEGGE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="AREA DI CONTAGIO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TAB ">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA PROFEZIA DI CELESTINO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="COLDITZ">Guerra <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="NIENTE DI NUOVO SUL FRONTE OCCIDENTALE">Guerra <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="NATURA MORTA CON PICCHIO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PENSIERI DI UN BIOLOGO">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL MANUALE DEL ROMANZIERE">di saggistica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL NIDO DI GHIACCIO">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="I VERSI SATANICI">Narrativa <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="STORIA DELLA FILOSOFIA OCCIDENTALE">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="INTRODUZIONE ALLA FILOSOFIA MATEMATICA">di filosofia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="DIO E LA RELIGIONE">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="PERCH  NON SONO CRISTIANO">di filosofia <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="I PROBLEMI DELLA FILOSOFIA">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="I DRAGHI DELL EDEN">di saggistica <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="IL SOLDATO DIMENTICATO">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="NOVE RACCONTI">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL GIOVANE HOLDEN">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I CONSIGLI DELLA SAPIENZA">di filosofia <get_libro/><BR>e'<BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="RICCO A PAROLE">Autobiografico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="ETICA PER UN FIGLIO">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="AFORISMI SULLA SAGGEZZA DELLA VITA">di filosofia <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L ARTE DI AVER RAGIONE">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="LA SAGGEZZA DELLA VITA, AFORISMI">di filosofia <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL PENSIERO POLITICO DI MAO TZE TUNG">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="NERO">Narrativa <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="WYRM">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL VECCHIO CHE LEGGEVA ROMANZI D AMORE">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L INGLESE, LEZIONI SEMISERIE">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="COME SI STUDIA">di saggistica <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="LA FOIBA GRANDE">Giornalismo <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="AMLETO">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="RE GIOVANNI">Classico <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="RICCARDO III">Classico <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="SOGNO DI UNA NOTTE DI MEZZA ESTATE">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL MERCANTE DI VENEZIA">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="COME VI PIACE">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA BISBETICA DOMATA">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TUTTO   BENE QUEL CHE FINISCE BENE">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA DODICESIMA NOTTE">Classico <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL RACCONTO D INVERNO">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="TROILO E CRESSIDRA">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="CORIOLANO">Classico <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="TITO ANDRONICO">Classico <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="ROMEO E GIULIETTA">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TIMONE D ATENE">Classico <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="ANTIGRAVITAZIONE PER TUTTI">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL TALENTO DEI PARSI">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I CAVALIERI TEUTONICI">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PADRONE DELLA VITA, PADRONE DELLA MORTE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL FIGLIO DELL UOMO">Fantascienza <BR><think><set_voto>4</set_voto></think></li>
+<li name="libro" value="L ARCA DELLE STELLE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="QUELLEN GUARDA IL PASSATO!">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA CITT  LABIRINTO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L UOMO STOCASTICO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA CASA DALLE FINESTRE NERE">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L OSPITE DEL SENATORE NORTON">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="OLTRE L INVISIBILE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="ANNI SENZA FINE">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="FUGA DAL FUTURO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I GIORNI DEL SILENZIO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL PAPA DEFINITIVO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TEMPO SENZA TEMPO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA FORTEZZA">Narrativa <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="PERICOLO MEDICO">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="SKYLARK 1O">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="UN AQUILA NEL CIELO">Narrativa <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="IL DIO DEL FIUME">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL SETTIMO PAPIRO">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="ETICA">di saggistica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="I FIGLI DEL SOLE">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="I FIGLI DEL SOLE">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="I FIGLI DEL SOLE">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="I FIGLI DEL SOLE">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="LA CAPANNA DELLO ZIO TOM">Classico <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="NASCITA DEL SUPERUOMO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA COSCIENZA DI ZENO">Classico <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="SENILIT ">Classico <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="UNA VITA">Classico <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="PICCOLI EQUIVOCI SENZA IMPORTANZA">Narrativa <BR><think><set_voto>4</set_voto></think></li>
+<li name="libro" value="REQUIEM">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="L UOMO DI BABELE">Narr. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="E SAR  LUCE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="IL SIGNORE DEGLI ANELLI">Fantascienza <BR><think><set_voto>0</set_voto></think></li>
+<li name="libro" value="MARY POPPINS">Favola <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="PRESUNTO INNOCENTE">Poliziesco <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L ONERE DELLA PROVA">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="EXODUS">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL LABIRINTO DELLA MEMORIA">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="GREGGIO E PERICOLOSO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="I RIBELLI DEI 50 SOLI">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="SLAN">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL MONDO DEL NON-A">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LE PEDINE DEI NON-A">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="LA CASA SENZA TEMPO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LE ARMI DI ISHER">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="DESTINAZIONE UNIVERSO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="GLI UOMINI OMBRA">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="L ASSEDIO DEGLI INVISIBILI">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA CITT  IMMORTALE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="PIANETI DA VENDERE">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="I POLIMORFI">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA GUERRA CONTRO I RULL">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA CITT  IMMORTALE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="UN INFINITO NUMERO">Narrativa <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="DIZIONARIO FILOSOFICO">di filosofia <BR><think><set_voto>9</set_voto></think></li>
+<li name="libro" value="DISTRUGGETE LE MACCHINE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL VERBO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="SINHUE L EGIZIANO">Narr. Storica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="TURMS L ETRUSCO">Narr. Storica <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="L ULTIMA DOMANDA">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA LUNA DELLE FOGLIE CADENTI">Narr. Storica <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA SALAMANDRA">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="PROTEO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LAZZARO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA NUOVA BABELE">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="SCRIVERE NARRATIVA">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="L ESPLORATORE">Narrativa <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="GLI UMANOIDI">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA STIRPE DELL UOMO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA LEGIONE DELLO SPAZIO">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="QUELLI DELLA COMETA">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LENIGMA DEL BASILICO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="VICINI A NIENTE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="L IMPERO DELL OSCURO">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="LA POTENZA DELLE TENEBRE">Fantascienza <BR><think><set_voto>6</set_voto></think></li>
+<li name="libro" value="INCONTRO NELL ABISSO">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL RISVEGLIO DELL ABISSO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="IL GIORNO DEI TRIFIDI">Fantascienza <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="I FIGLI DELL INVASIONE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IL LICHENE CINESE">Fantascienza <BR><think><set_voto>5</set_voto></think></li>
+<li name="libro" value="UOMINI E STELLE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="IO IL MIO NEMICO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="SOLO">Narrativa <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="LA FOSSA DEI SERPENTI">Narrativa <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LA NAVE INVISIBILE">Fantascienza <BR><think><set_voto>7</set_voto></think></li>
+<li name="libro" value="LOGICA ELEMENTARE">di saggistica <BR><think><set_voto>8</set_voto></think></li>
+<li name="libro" value="SPAGHETTI HACKER">di saggistica <BR><think><set_voto>6</set_voto></think></li>
+<li>Non ho trovato alcun ricordo sul libro <get_libro/><BR><srai>AGGIORNAMENTO</srai></li>
+</condition>
+<condition>
+<li name="voto" value="1"><srai>VOTO 1</srai></li>
+<li name="voto" value="2"><srai>VOTO 2</srai></li>
+<li name="voto" value="3"><srai>VOTO 3</srai></li>
+<li name="voto" value="4"><srai>VOTO 4</srai></li>
+<li name="voto" value="5"><srai>VOTO 5</srai></li>
+<li name="voto" value="6"><srai>VOTO 6</srai></li>
+<li name="voto" value="7"><srai>VOTO 7</srai></li>
+<li name="voto" value="8"><srai>VOTO 8</srai></li>
+<li name="voto" value="9"><srai>VOTO 9</srai></li>
+<li name="voto" value="10"><srai>VOTO 10</srai></li>
+<li>Non ho trovato alcun ricordo sul libro</li>
+</condition>
+</template>
+</category>
+
+<category>
+<pattern>AGGIORNAMENTO</pattern>
+<template>Vuoi chiedere un aggiornamento?
+</template>
+</category>
+
+<category>
+<pattern>SI</pattern>
+<that>VUOI CHIEDERE UN AGGIORNAMENTO</that>
+<template>Basta che scrivi "Ricorda" seguito dal nome del libro, la critica ed un tuo indirizzo E-mail per il controllo.
+</template>
+</category>
+
+<category>
+<pattern>SI *</pattern>
+<that>VUOI CHIEDERE UN AGGIORNAMENTO</that>
+<template><srai>SI</srai></template>
+</category>
+
+<category>
+<pattern>NO</pattern>
+<that>VUOI CHIEDERE UN AGGIORNAMENTO</that>
+<template>Va bene, fammi un'altra domanda</template>
+</category>
+
+<category>
+<pattern>NO *</pattern>
+<that>VUOI CHIEDERE UN AGGIORNAMENTO</that>
+<template><srai>NO</srai></template>
+</category>
+
+<category>
+<pattern>VOTO 1</pattern>
+<template><random>
+<li>Non e' nemmeno da prendere in considerazione</li>
+<li>Pessimo, lascia perdere</li>
+<li>Se lo hai comperato, fatti restituite il denaro</li>
+<li>Leggerlo e' solo tempo perso</li>
+<li>Gli alberi che sono stati sacrificarli per stamparlo sono morti invano</li>
+<li>Puo' essere considerato una prova evidente che a volte, per essere pubblicati, bisogna essere raccomandati</li>
+<li>Mi chiedo, perche' una cosa cosi' sia mai stata scritta? C'e' sotto qualche complotto?</li>
+<li>Mi dispiace, ma a me non e' piaciuto proprio</li>
+<li>A malapena sono riuscita ad arrivare alla fine</li>
+</random></template>
+</category>
+
+<category>
+<pattern>VOTO 2</pattern>
+<template><srai>VOTO 1</srai></template>
+</category>
+
+<category>
+<pattern>VOTO 3</pattern>
+<template><srai>VOTO 1</srai></template>
+</category>
+
+<category>
+<pattern>VOTO 4</pattern>
+<template><srai>VOTO 1</srai></template>
+</category>
+
+<category>
+<pattern>VOTO 5</pattern>
+<template><srai>VOTO 1</srai></template>
+</category>
+
+<category>
+<pattern>VOTO 6</pattern>
+<template><random>
+<li>Se non hai niente altro, leggilo pure</li>
+<li>Leggilo solo se te lo prestano, ma non o comperare</li>
+<li>Lo puoi leggere per perdere un po' di tempo</li>
+<li>Ho letto di molto meglio sull'argomento</li>
+<li>Mettiamola cosi': se sei su un'isola deserta, e non hai niente altro... leggilo pure</li>
+<li>Sono arrivata alla fine, ma con un po' di fatica</li>
+<li>Bastava poco per scriverlo meglio</li>
+<li>Lo ho letto tutto, ma non e' riuscito a coinvolgermi</li>
+</random></template>
+</category>
+
+<category>
+<pattern>VOTO 7</pattern>
+<template><random>
+<li>Vale la pena di leggerlo</li>
+<li>Nella sua categoria e' un buon libro</li>
+<li>Leggilo pure</li>
+<li>Mi e' piaciuto, e' scorrevole sino alla fine</li>
+<li>Da leggere una volta</li>
+<li>Lo ho letto, ed a tratti mi sono sentita coinvolta. Lo consiglio</li>
+</random></template>
+</category>
+
+<category>
+<pattern>VOTO 8</pattern>
+<template><random>
+<li>E' bello, da leggere senz'altro</li>
+<li>Vale la pena di comperarlo e leggerlo</li>
+<li>Un buon lbro, da leggere</li>
+<li>Buono, da cercare e leggere</li>
+<li>Bello, ti coinveolge sino alla fine</li>
+<li>Quando lo ho finito, mi e' sembrato di perdere un amico</li>
+<li>Le ultime pagine ho rallentato il ritmo di lettura, perche' volevo che durasse di piu'</li>
+</random></template>
+</category>
+
+<category>
+<pattern>VOTO 9</pattern>
+<template><random>
+<li>Da leggere subito e non dimenticare</li>
+<li>Bellissimo, consiglio anche di comperarlo per poterlo rileggere dopo qualche anno</li>
+<li>Mi e' piaciuto tantissimo, ci sono pochi libri cosi'</li>
+<li>Veramente bello, da non perdere</li>
+<li>Affascinante, da rileggere piu' volte</li>
+<li>Se non lo hai gia' fatto, devi leggerlo subito</li>
+</random></template>
+</category>
+
+<category>
+<pattern>VOTO 10</pattern>
+<template><random>
+<li>Un capoloavoro. Da tenere in libreria</li>
+<li>E' uno dei piu' bei libri che ho mai valutato. Da non perdere assolutamente</li>
+<li>Se ve lo hanno prestato, correte a comperarlo, vale la pena di conservrlo</li>
+<li>Da leggere e consigliare in giro. E' fantastico</li>
+<li>Uno dei pochi libri da conservare per i posteri</li>
+</random></template>
+</category>
+
+
+</topic>
+</aiml>

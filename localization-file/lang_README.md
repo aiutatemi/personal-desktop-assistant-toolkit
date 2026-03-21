@@ -1,7 +1,6 @@
 # 🌍 Available Languages
 
 
-
 | ISO Code | Language (EN)            | File name          | Native name | Flag |
 |---------|---------------------------|--------------------|-------------|------|
 | **AR**  | Arabic                    | lang_AR.json       | العربية            | 🇸🇦 |
