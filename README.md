@@ -10,16 +10,17 @@ Built with Python and Tkinter, it runs on **Windows** (full features) and
 **Linux / macOS** (from release 3.x full features)
 
 ## 📘 Documentation
-Access the documentation release 4.x (ENG/ITA) here:  
-**[Open rel.4.x Documentation](https://www.steppa.net/cassani/articoli/assistente/docs/index.html)**
+Access the documentation release 5.x (ENG/ITA) here:  
+**[Open rel.4.x Documentation](https://www.steppa.net/cassani/articoli/myAssistente/docs/index.html)**
 Access the full documentation folder (ENG/ITA) here:  
 👉 **[Open folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 ---
 
-## ✨  Test Release 5.x Features 🛠In Progress🛠️
+## ✨ Release 5.x Features️
 
 - Full compatibility with the AIML standard
 - New aiml_parser.py
+- Distribuibile 🪟 **Windows** and 🐧 **Linux** ready ZIP archives
 All features of previous releases except:
 - Removed: optional external engine similar to AIML used in release 4
 

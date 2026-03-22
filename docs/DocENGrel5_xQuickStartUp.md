@@ -1,4 +1,4 @@
-# **🚀 Quick Start Up Guide release 4.x**
+# **🚀 Quick Start Up Guide release 5.x**
 
 ### 👉 1. **Download the ZIP file.**  
 ### 👉 2. **Unzip the `./myAssistente` folder** anywhere you prefer (USB drives are supported too).

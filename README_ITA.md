@@ -11,21 +11,23 @@ Scritto in Python con Tkinter, funziona su **Windows** (funzionalità
 complete) e **Linux / macOS** (dalla release 3.x funzionalità complete).
 
 ## 📘 Documentazione
-Documentazione release 4.x (ITA/ENG):  
-**[Apri documentazione rel.4.x](https://www.steppa.net/cassani/articoli/assistente/docs/indice.html)**
+Documentazione release 5.x (ITA/ENG):  
+**[Apri documentazione rel.5.x](https://www.steppa.net/cassani/articoli/myAssistente/docs/indice.html)**
 Documentazione completa (ITA/ENG):  
 👉 **[Apri la cartella](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
-## ✨ Funzionalità test release 5.x 🛠In corso🛠️
+## ✨ Funzionalità release 5.x️
 
 - Completa compatibilità con file standard AIML
 - Un aiml_parser.py completamente nuovo
+- Pacchetti distribuibili: Archivio ZIP pronto per 🪟 **Windows** e 🐧 **Linux**
 Tutte le funzionalità delle release precedenti, eccetto:
 - Rimosso: il motore che usava file json **simile ad AIML** esterno della release 4
 
+
 ---
-## ✨ Funzionalità release  4.x
+## ✨ Funzionalità release 4.x
 
 - Nuovo nome: **myAssistente** Assistente personale desktop
 - Motore esterno con sintassi simile ad AIML, configurabile tramite file JSON
@@ -39,7 +41,7 @@ Tutte le funzionalità delle release precedenti
 
 ---
 
-## ✨ Funzionalità release  3.x
+## ✨ Funzionalità release 3.x
 
 - Voce Multi-piattaforma TTS (pyttsx3)
 - Parametri **STT configurabili** dall'utente
