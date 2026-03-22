@@ -10,6 +10,7 @@ Scarica i file necessari dal repository del progetto
 [Apri il progeto](https://gitlab.com/EmanueleCAS/assistente/)
 
 - myAssistenteX_X.py
+- aiml_parser.py
 - la cartella completa _dati
 
 Opzionale
@@ -17,7 +18,9 @@ Opzionale
 - lang_IT.json e lang_EN.json sono incluse nella cartella _dati,
 se servissero altre lingue, scaricare dalla cartella localization-file del repository
 ed inserirle nella cartella _dati
-- documentaizione dalla cartella doc/ (Manuale utente e/o QuickStartUp)
+- alcuni AIML file sono inclusi nella cartella _dati, 
+aggiungi qualsiasi file AIML compatibile nella cartella della tua lingua es _dati/aiml/IT/
+- documentazione dalla cartella doc/ (Manuale utente e/o QuickStartUp)
 
 ## 🪟 Distribuibile Windows
 

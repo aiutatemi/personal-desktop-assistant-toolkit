@@ -10,6 +10,7 @@ Download all necessary files from the repository
 [Open project folder](https://gitlab.com/EmanueleCAS/assistente/)
 
 - myAssistenteX_X.py
+- aiml_parser.py
 - complete _dati folder
 
 Optional
@@ -17,6 +18,8 @@ Optional
 - lang_EN.json and lang_IT.json are included inside _dati folder,
 if additional languages are needed, downlod them from the localization-file folder
 and insert it inside the _dati folder
+- some AIML files are included inside _dati folder, 
+add any AIML compatible file under your language folder i.e _dati/aiml/EN/
 - documentation from project doc folder (User Manual and/or QuickStartUp)
 
 ## 🪟 Windows Distributable
