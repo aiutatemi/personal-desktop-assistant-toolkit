@@ -144,19 +144,19 @@ class AIMLParser:
         return candidati[0][1], candidati[0][2]
 
     def _priorita(self, cat):
-        p = cat.pattern
-        if "*" not in p and "_" not in p:
+        pattern = cat.pattern
+        if "*" not in pattern and "_" not in pattern:
             tipo = 0
-        elif "_" in p and "*" not in p:
+        elif "_" in pattern and "*" not in pattern:
             tipo = 1
-        elif "*" in p and "_" not in p:
+        elif "*" in pattern and "_" not in pattern:
             tipo = 2
         else:
-            tipo = 1 if p.index("_") < p.index("*") else 2
+            tipo = 1 if pattern.index("_") < pattern.index("*") else 2
         return (tipo,
                 0 if cat.that  != "*" else 1,
                 0 if cat.topic != "*" else 1,
-                -len(p))
+                -len(pattern))
 
     def _pattern_match(self, pattern, testo, testo_originale=None):
         """
@@ -183,14 +183,14 @@ class AIMLParser:
                         qp += ch
                 rp.append(qp)
         regex = "^" + "".join(rp) + "$"
-        m = re.match(regex, testo, re.IGNORECASE | re.DOTALL)
-        if not m:
+        stars_match = re.match(regex, testo, re.IGNORECASE | re.DOTALL)
+        if not stars_match:
             return None
         if testo_originale is not None:
             m2 = re.match(regex, testo_originale, re.IGNORECASE | re.DOTALL)
             if m2:
                 return list(m2.groups())
-        return list(m.groups())
+        return list(stars_match.groups())
 
     def _match_that(self, that_pattern):
         if that_pattern == "*":
@@ -252,9 +252,9 @@ class AIMLParser:
         if not testo:
             return ""
         self._srai_depth += 1
-        r = self._match_e_rispondi(testo)
+        risposta = self._match_e_rispondi(testo)
         self._srai_depth -= 1
-        return r["testo"] if r else ""
+        return risposta["testo"] if risposta else ""
 
     def _valuta_random(self, elem, stars, input_originale):
         items = [c for c in elem if c.tag.lower() == "li"]

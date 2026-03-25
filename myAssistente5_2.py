@@ -1,12 +1,11 @@
 """
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
-v5.1  AIML 1.x engine (aiml_parser.py) sostituisce aiml_XX.json
-      Nuova modalita' risposta: aiml_only / ai_only / aiml_then_ai
-      Avatar da attributo <template avatar="..."> nei file .aiml
-
-v3.x  STT/TTS + multiLANGUAGE + optional AI Integration
-      Fix TTS pyttsx3 for Windows: one thread, one queue, one direct stop handle
+v5.2  AIML 1.x engine (aiml_parser.py) replace aiml_XX.json
+      New answer mode: aiml_only / ai_only / aiml_then_ai
+      Avatar from AIML attribute <template avatar="...">
+    
+optional AI Integration
     
     © 2026, Emanuele Cassani https://www.steppa.net/cassani/
 """
@@ -170,12 +169,34 @@ APP_URL  = "https://www.steppa.net/cassani/articoli/assistente/assistente.htm"
 # CONFIGURAZIONE DEFAULT (con nuove sezioni)
 # ---------------------------------------------------------------------------
 DEFAULT_CONFIG = {
-    "nome_avatar":   "Assistente",
-    "nome_utente":   "utente",
+    "nome_avatar":   "Assistant",
+    "nome_utente":   "user",
     "avatar_iniziale": "benvenuto",
-    "avatar_random": ["sorridente", "soddisfatto"],
-    "avatar_finale": "ciao.mp4",
-    "frase_finale":  "Ci vediamo presto!",
+    "avatar_random":   "generico",
+    "avatar_finale":   "ciao.mp4",
+
+    # Gruppi avatar: ogni gruppo e' una lista di nomi usata per la scelta casuale.
+    # avatar_random indica quale gruppo usare di default.
+    # In memory.json e nei file .aiml si puo' indicare sia un nome esatto
+    # che il nome di un gruppo (es. "positivo") per una scelta casuale nel gruppo.
+    "avatar_gruppi": {
+        "generico":  ["sorridente", "soddisfatto"],
+        "positivo":  ["sorridente", "soddisfatto"],
+        "negativo":  ["triste"]
+    },
+
+    # Colori usati da _placeholder_avatar quando manca il file immagine.
+    # "default" e' il colore di fallback per nomi non presenti nella mappa.
+    "avatar_colori": {
+        "benvenuto":    "#89b4fa",
+        "sorridente":   "#a6e3a1",
+        "soddisfatto":  "#fab387",
+        "triste":       "#f38ba8",
+        "magazziniere": "#cba6f7",
+        "ciao":         "#94e2d5",
+        "default":      "#6c7086"
+    },
+    "frase_finale":  "Ciao!",
     "lingua":        "it",
     
     # Nuova sezione TTS
@@ -208,24 +229,27 @@ DEFAULT_CONFIG = {
     },
     
     "alias_comandi": {
-        "dammi":  ["dimmi"],
-        "apri":   ["lancia"],
-        "cerca":  [],
-        "ricorda": [],
-        "impara":  [],
-        "elenca":  [],
-        "modifica": [],
-        "elimina":  [],
-        "copia":    [],
+        "dammi":  ["dimmi, give"],
+        "apri":   ["lancia, open"],
+        "cerca":  ["search"],
+        "ricorda": ["remember"],
+        "impara":  ["learn"],
+        "elenca":  ["list"],
+        "modifica": ["modify"],
+        "elimina":  ["delete"],
+        "copia":    ["copy"],
         "configura": ["config", "impostazioni", "settings"],
         "aiuto":    ["help"],
-        "esci":     ["chiudi", "arrivederci"]
+        "esci":     ["chiudi", "arrivederci", "exit"]
     },
     
     "risposte_fisse": {
         "grazie":  "Prego, {nome_utente}!",
         "ciao":    "Ciao, {nome_utente}!",
-        "come stai": "Sto benissimo, grazie!"
+        "come stai": "Sto benissimo, grazie!",
+        "autore":  "Il mio autore è Emanuele Cassani",
+        "author":  "My author is Emanuele Cassani",
+        "credit":  "©2026, Emanuele Cassani www.steppa.net/cassani",
     },
     
     # Modalita' risposta: aiml_only | ai_only | aiml_then_ai
@@ -234,10 +258,10 @@ DEFAULT_CONFIG = {
     },
 
     "shortcut": [
-        {"etichetta": "Aiuto", "comando": "aiuto"},
-        {"etichetta": "Elenca memoria", "comando": "elenca"},
-        {"etichetta": "Configura", "comando": "configura"},
-        {"etichetta": "Chiudi assistente", "comando": "esci"}
+        {"etichetta": "Help", "comando": "aiuto"},
+        {"etichetta": "Memory", "comando": "elenca"},
+        {"etichetta": "Config", "comando": "configura"},
+        {"etichetta": "Exit", "comando": "esci"}
     ]
 }
 
@@ -249,11 +273,16 @@ def carica_config() -> dict:
             for k, v in DEFAULT_CONFIG.items():
                 if k not in cfg:
                     cfg[k] = v
-                elif isinstance(v, dict) and k in cfg:
+                elif isinstance(v, dict) and isinstance(cfg.get(k), dict):
                     # Merge dizionari nidificati
                     for sub_k, sub_v in v.items():
                         if sub_k not in cfg[k]:
                             cfg[k][sub_k] = sub_v
+                elif k == "avatar_random" and isinstance(cfg.get(k), list):
+                    vecchia_lista = cfg[k]
+                    cfg.setdefault("avatar_gruppi", {})["generico"] = vecchia_lista
+                    cfg[k] = "generico"
+                    print("[CONFIG] Migrazione avatar_random: lista -> gruppo 'generico'")
             return cfg
         except Exception:
             pass
@@ -263,7 +292,7 @@ def carica_config() -> dict:
     return DEFAULT_CONFIG.copy()
 
 # ---------------------------------------------------------------------------
-# LOCALIZZAZIONE (aggiornata con articoli/stop-words)
+# LOCALIZZAZIONE (con articoli/stop-words)
 # ---------------------------------------------------------------------------
 def salva_config(cfg: dict):
     """
@@ -333,37 +362,37 @@ _LANG_IT_FALLBACK = {
     "avvio_memoria_vuota": "Purtroppo la mia memoria è vuota.",
     "apri_subito": "Apro subito", 
     "apri_cosa": "Che cosa devo aprire?",
-    "apri_non_trovato": "Non ho trovato '{q}' in memoria.",
+    "apri_non_trovato": "Purtroppo non ho trovato '{q}' in memoria.",
     "apri_errore": "Non riesco ad aprire: {err}",
-    "dammi_cosa": "Cosa devo darti? Dimmi il nome.",
+    "dammi_cosa": "Che cosa devo darti? Dimmi un nome.",
     "dammi_non_trovato": "Non ho trovato nulla per '{q}'.",
     "dammi_risultato_1": "I dati di '{nome}' ({soggetto}):",
     "dammi_risultati_n": "Ho trovato {n} voci:",
-    "cerca_cosa": "Cosa devo cercare?", 
-    "cerca_non_trovato": "Nessun risultato per '{q}'.",
+    "cerca_cosa": "Che cosa devo cercare?", 
+    "cerca_non_trovato": "Purtroppo nessun risultato per '{q}'.",
     "cerca_trovato": "Ho trovato {n} risultato/i per '{q}':",
-    "elimina_cosa": "Cosa devo eliminare?", 
-    "elimina_non_trovato": "Non ho trovato '{q}'.",
+    "elimina_cosa": "Che cosa devo dimenticare?", 
+    "elimina_non_trovato": "Purtroppo non ho trovato '{q}'.",
     "elimina_conferma": "Vuoi eliminare:\n{entry}\nScrivi 'sì' per confermare.",
     "elimina_ok": "'{nome}' eliminato.", 
     "elimina_annullato": "Eliminazione annullata.",
-    "elimina_si": ["sì", "si", "s", "yes"],
+    "elimina_si": ["sì", "si", "s", "ok", "yes"],
     "modifica_cosa": "Quale voce devo modificare?", 
-    "modifica_non_trovato": "Non ho trovato '{q}'.",
+    "modifica_non_trovato": "Purtroppo non ho trovato '{q}'.",
     "modifica_trovata": "Voce trovata:\n{entry}\nQuale campo?",
     "modifica_campo_no": "Campo non riconosciuto: '{campo}'.\nScegli tra: {campi}",
     "modifica_valore_chiedi": "Inserisci il nuovo valore per '{campo}':",
     "modifica_ok": "Modificato! '{campo}' = {valore}", 
-    "modifica_errore": "Errore: voce non trovata.",
-    "elenca_vuota": "La memoria è vuota.", 
+    "modifica_errore": "Errore: non trovo la voce.",
+    "elenca_vuota": "La mia memoria è vuota.", 
     "elenca_intestazione": "Ho {n} voce/i in memoria:",
-    "copia_cosa": "Cosa devo copiare?", 
-    "copia_non_trovato": "Non ho trovato '{q}'.",
+    "copia_cosa": "Che cosa devo copiare?", 
+    "copia_non_trovato": "Purtroppo non ho trovato '{q}'.",
     "copia_ok": "Copiato:\n  {dati}",
     "ricorda_chiedi_nome": "Che cosa devo ricordare? Dimmi il nome:",
     "ricorda_chiedi_dati": "Dimmi i dati per '{nome}':", 
     "ricorda_ok": "Fatto! '{nome}' salvato.",
-    "ricorda_img_titolo": "Seleziona immagine", 
+    "ricorda_img_titolo": "Seleziona una immagine", 
     "ricorda_img_nessuna": "Nessuna immagine selezionata.",
     "ricorda_img_nome": "Nome per l'immagine?", 
     "ricorda_img_tag": "Descrizione (tag)?",
@@ -371,9 +400,9 @@ _LANG_IT_FALLBACK = {
     "impara_intro": "Inserimento guidato.\nScrivi 'salta' per i campi opzionali, 'fine' per annullare.",
     "impara_annullato": "Inserimento annullato.", 
     "impara_obbligatorio": "Il campo '{campo}' è obbligatorio.",
-    "impara_salvato": "Salvato! '{nome}'.\n\nAltro elemento? (sì / no)",
+    "impara_salvato": "Salvato! '{nome}'.\n\nUn altro elemento? (sì / no)",
     "impara_completato": "Inserimento completato.", 
-    "impara_si": ["sì", "si", "s", "yes"],
+    "impara_si": ["sì", "si", "s", "ok", "yes"],
     "impara_fine": "fine", 
     "impara_salta": "salta",
     "impara_prompt_nome": "Nome (obbligatorio):",
@@ -381,7 +410,7 @@ _LANG_IT_FALLBACK = {
     "impara_prompt_soggetto": "Soggetto (opzionale — 'salta' per usare il tuo nome):",
     "impara_prompt_dati": "Dati da memorizzare (obbligatorio):",
     "impara_prompt_tag": "Tag (opzionale — 'salta' per saltare):",
-    "impara_prompt_avatar": "Avatar (opzionale — 'salta' per 'sorridente'):",
+    "impara_prompt_avatar": "Avatar (opzionale — 'salta' per default):",
     
     # Nuove stringhe per comando configura
     "configura_intro": "Configurazione guidata. Parametri disponibili:",
@@ -407,8 +436,8 @@ _LANG_IT_FALLBACK = {
     
     # Stringhe AI
     "ai_pensando": "Sto pensando...",
-    "ai_errore": "Errore nella comunicazione con l'IA: {errore}",
-    "ai_non_disponibile": "Funzione IA non disponibile o non configurata.",
+    "ai_errore": "Non riesco a comunicare con l'IA: {errore}",
+    "ai_non_disponibile": "/la funzione IA non è disponibile o non è configurata.",
     "ai_chiedi_chiave": "Inserisci la chiave API per {provider}:",
     
     "aiuto_testo": "Comandi: dammi · apri · cerca · cerca media · elenca · configura · aiuto · esci · impara · ricorda · modifica · elimina · copia · lingua",
@@ -424,7 +453,7 @@ _LANG_IT_FALLBACK = {
     "stt_nessun_audio": "Nessun audio rilevato.", 
     "stt_non_capito": "Purtroppo non ho capito, puoi ripetere?",
     "stt_errore": "Errore STT: {err}", 
-    "stt_mic_errore": "Microfono non disponibile: {err}",
+    "stt_mic_errore": "Il microfono non è disponibile: {err}",
     "shortcut_nessuno": "Nessuno shortcut configurato.",
     "label_lingua": "LINGUA", 
     "lingua_nessuna": "Nessun file lingua\ntrovato in _dati/",
@@ -464,7 +493,7 @@ def carica_aiml(codice: str) -> list:
         }
       ],
       "ignora_caratteri": "!?,.:;\"'",  <- opzionale
-      "wizard": { ... }                  <- opzionale (futuro)
+      "wizard": { ... }                 <- opzionale (futuro)
     }
     """
     for cartella in [INTERNAL_DIR, BASE_DIR]:
@@ -508,7 +537,7 @@ def _aiml_wildcard_match(pattern: str, testo: str) -> bool:
     """
     Confronta un pattern con wildcard '*' contro un testo normalizzato.
     '*' matcha zero o più caratteri (inclusi spazi).
-    Es: '*coniglio*' matcha 'ho visto un coniglio bianco'.
+    Es: '*coniglio*' matcha 'ho visto un coniglio nero'.
     """
     regex = re.escape(pattern).replace(r'\*', '.*')
     return bool(re.fullmatch(regex, testo, re.IGNORECASE))
@@ -581,7 +610,7 @@ def salva_memoria(mem: list):
         json.dump(mem, f, indent=2, ensure_ascii=False)
 
 def cerca_in_memoria(mem: list, query: str) -> list:
-    """Ricerca su nome e alias prima, poi su soggetto, dati e tag."""
+    """Cerca su nome e alias prima, poi su soggetto, dati e tag."""
     q = query.lower()
 
     prioritari = [
@@ -625,7 +654,7 @@ COMANDI = ["ricorda", "apri", "dammi", "cerca", "elimina", "modifica",
 def rimuovi_articoli(testo: str, articoli: list) -> str:
     """Rimuove gli articoli/stop-words dal testo."""
     parole = testo.split()
-    parole_filtrate = [p for p in parole if p.lower() not in articoli]
+    parole_filtrate = [parola for parola in parole if parola.lower() not in articoli]
     return " ".join(parole_filtrate)
 
 def estrai_alias(testo: str):
@@ -715,8 +744,40 @@ def parse_comando(testo: str, nome_utente: str, alias_comandi: dict = None, arti
 # ---------------------------------------------------------------------------
 # HELPERS
 # ---------------------------------------------------------------------------
-def avatar_random(cfg: dict) -> str:
-    return random.choice(cfg.get("avatar_random", ["sorridente"]))
+def avatar_random(cfg: dict, gruppo: str = None) -> str:
+    """
+    Restituisce un avatar scelto casualmente dal gruppo indicato.
+    Se gruppo e' None usa il gruppo di default da cfg["avatar_random"].
+    Se il nome non corrisponde a nessun gruppo, lo usa come nome diretto.
+    Fallback finale: "sorridente".
+    """
+    gruppi = cfg.get("avatar_gruppi", {})
+    # Determina il gruppo da usare
+    nome_gruppo = gruppo or cfg.get("avatar_random", "generico")
+    if nome_gruppo in gruppi:
+        lista = gruppi[nome_gruppo]
+        if lista:
+            return random.choice(lista)
+    # nome_gruppo non e' un gruppo: usalo come nome diretto
+    if nome_gruppo:
+        return nome_gruppo
+    return "sorridente"
+
+
+def risolvi_avatar(cfg: dict, nome: str) -> str:
+    """
+    Risolve un nome avatar: se e' un gruppo lo converte in un nome casuale,
+    altrimenti lo restituisce direttamente (anche se non è in gruppi o colori).
+    Usato da _mostra_avatar per supportare avatar="positivo" in AIML e memory.json.
+    """
+    if not nome:
+        return avatar_random(cfg)
+    gruppi = cfg.get("avatar_gruppi", {})
+    if nome in gruppi:
+        return avatar_random(cfg, nome)
+    # Qualsiasi nome va bene: se esiste un file con quel nome, verrà mostrato,
+    # altrimenti _mostra_avatar farà il placeholder con il nome stesso
+    return nome
 
 def formatta_entry(entry: dict) -> str:
     righe = []
@@ -894,7 +955,12 @@ class Assistente:
         self._aiml.set_predicato("nome_utente", self.cfg.get("nome_utente", ""))
         self._aiml.set_predicato("nome_avatar",  self.cfg.get("nome_avatar",  ""))
         self._aiml.carica_cartella(cartella)
-        print(f"[AIML] Parser attivo — {len(self._aiml._categorie)} categorie")
+        # Usa un metodo pubblico se disponibile, altrimenti ignora il conteggio
+        try:
+            cnt = len(self._aiml.categorie) if hasattr(self._aiml, 'categorie') else "?"
+        except:
+            cnt = "?"
+        print(f"[AIML] Parser attivo — {cnt} categorie")
 
     def _inizializza_ai(self):
         """Inizializza il client AI se configurato."""
@@ -1366,6 +1432,8 @@ class Assistente:
     def _mostra_avatar(self, nome: str):
         if not nome:
             return
+        # Risolve gruppi avatar (es. "positivo" -> "sorridente")
+        nome = risolvi_avatar(self.cfg, nome)
         if self._video_after_id:
             self.root.after_cancel(self._video_after_id)
             self._video_after_id = None
@@ -1416,10 +1484,11 @@ class Assistente:
             self._placeholder_avatar(path.stem)
 
     def _placeholder_avatar(self, nome: str):
-        colori = {"benvenuto": "#89b4fa", "sorridente": "#a6e3a1",
-                  "soddisfatto": "#fab387", "triste": "#f38ba8",
-                  "magazziniere": "#cba6f7", "ciao": "#94e2d5"}
-        col = colori.get(nome.lower().replace(".mp4", ""), "#6c7086")
+        # Legge la mappa colori da config.json; fallback al colore "default"
+        # o al grigio se neanche "default" e' definito
+        colori  = self.cfg.get("avatar_colori", {})
+        chiave  = nome.lower().replace(".mp4", "")
+        col     = colori.get(chiave) or colori.get("default", "#6c7086")
         testo = nome.upper().replace(".MP4", "")
         self._reset_avatar_label()   # reset PRIMA di impostare testo
         # In modalita testo, width/height sono in caratteri: usiamo valori
@@ -2291,14 +2360,26 @@ class Assistente:
         self._scrivi_risposta(self._t("ricorda_chiedi_nome"))
 
     def _ricorda_step_nome(self, testo: str):
+        # Se INVIO vuoto o "salta", usa il nome dal config
+        if not testo.strip() or testo.strip().lower() == self._t("impara_salta"):
+            testo = self.cfg["nome_utente"]
+            self._scrivi_risposta(f"  → Usato nome: {testo}")
         self.dati_temp["nome"] = testo
         self.stato = "attesa_dati_ricorda"
         self._scrivi_risposta(self._t("ricorda_chiedi_dati", nome=testo))
 
     def _ricorda_step2_dati(self, testo: str):
         self.stato = "idle"
+        # Se INVIO vuoto o "salta", usa dati di default
+        if not testo.strip() or testo.strip().lower() == self._t("impara_salta"):
+            testo = "Nessun dato specificato"
+            self._scrivi_risposta(f"  → Usato dato: {testo}")
         self.dati_temp["dati"]   = testo
-        self.dati_temp["avatar"] = avatar_random(self.cfg)
+        # Avatar: se non specificato, usa il gruppo default
+        avatar = self.dati_temp.get("avatar")
+        if not avatar:
+            avatar = avatar_random(self.cfg)
+        self.dati_temp["avatar"] = avatar
         entry = {k: v for k, v in self.dati_temp.items() if v is not None}
         self.mem.append(entry)
         salva_memoria(self.mem)
@@ -2371,10 +2452,14 @@ class Assistente:
             if campo == "soggetto":
                 self.dati_temp["soggetto"] = self.cfg["nome_utente"]
             elif campo == "avatar":
-                self.dati_temp["avatar"] = "sorridente"
+                # Salta = usa il gruppo default (non più "sorridente" fisso)
+                self.dati_temp["avatar"] = avatar_random(self.cfg)
         else:
             if campo == "tag":
                 self.dati_temp["tag"] = [x.strip() for x in t.split(",") if x.strip()]
+            elif campo == "avatar":
+                # Non validare: qualsiasi nome va bene (può essere un file o un placeholder)
+                self.dati_temp["avatar"] = t
             else:
                 self.dati_temp[campo] = t
 
@@ -2390,7 +2475,7 @@ class Assistente:
         self.stato = "impara_altro"
         entry = {k: v for k, v in self.dati_temp.items() if v is not None}
         entry.setdefault("soggetto", self.cfg["nome_utente"])
-        entry.setdefault("avatar",   "sorridente")
+        entry.setdefault("avatar",   avatar_random(self.cfg))
         self.mem.append(entry)
         salva_memoria(self.mem)
         self._mostra_avatar(entry.get("avatar", "sorridente"))
@@ -2751,6 +2836,7 @@ class Assistente:
             alias = f" [{entry['alias']}]" if entry.get("alias") else ""
             msg += f"\n  {i}. {entry.get('nome','')}{alias} — {entry.get('soggetto','')}"
         self._scrivi_risposta(msg)
+        # Mostra un avatar casuale invece di nessuno
         self._mostra_avatar(avatar_random(self.cfg))
 
     def _cmd_copia(self, parsed: dict):
