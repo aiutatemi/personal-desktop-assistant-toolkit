@@ -163,7 +163,7 @@ for d in [INTERNAL_DIR, ASSET_DIR, INTERNAL_DIR / "asset"]:
 # IDENTITÀ APPLICAZIONE — modifica qui nome e URL del programma
 # ---------------------------------------------------------------------------
 APP_NAME = "myAssistente"
-APP_URL  = "https://www.steppa.net/cassani/articoli/assistente/assistente.htm"
+APP_URL  = "https://www.steppa.net/cassani/articoli/myAssistente/myAssistenteENG.htm#contribute"
 
 # ---------------------------------------------------------------------------
 # CONFIGURAZIONE DEFAULT (con nuove sezioni)
@@ -1450,6 +1450,13 @@ class Assistente:
             self._riproduci_video(path_mp4)
             return
 
+        # Fallback: prova avatar/default.jpg (o varianti) prima del placeholder colorato
+        for ext in [".jpg", ".jpeg", ".png", ".gif"]:
+            path_default = ASSET_DIR / ("default" + ext)
+            if path_default.exists():
+                self._mostra_immagine(path_default)
+                return
+
         self._placeholder_avatar(nome)
 
     def _reset_avatar_label(self):
@@ -1735,10 +1742,16 @@ class Assistente:
     # ------------------------------------------------------------------
     def _on_invia(self):
         testo = self.input_var.get().strip()
-        # Permetti INVIO vuoto solo durante la configurazione (per interrompere)
-        if not testo and not self.stato.startswith("configura_"):
+        # Permetti INVIO vuoto durante configurazione, impara e ricorda (per saltare campi opzionali)
+        stati_invio_vuoto = (
+            self.stato.startswith("configura_")
+            or self.stato.startswith("impara_")
+            or self.stato in ("attesa_nome_ricorda", "attesa_dati_ricorda",
+                              "attesa_nome_img", "attesa_tag_img")
+        )
+        if not testo and not stati_invio_vuoto:
             return
-        if not self._history or self._history[-1] != testo:
+        if testo and (not self._history or self._history[-1] != testo):
             self._history.append(testo)
         self._history_idx = -1
         self._scrivi_utente(testo)
@@ -2327,6 +2340,36 @@ class Assistente:
 
         dati_inline = parsed.get("dati_inline")
 
+        # ── Comando rapido su riga singola: ricorda NOME DATO... ────────────
+        # Se non c'erano dati_inline ma il testo originale ha almeno 3 token
+        # (ricorda + nome + almeno un dato), tratta il primo argomento come
+        # nome e tutto il resto come dati.
+        if not dati_inline and nome:
+            testo_orig = parsed.get("testo_originale", "")
+            parti_orig = testo_orig.strip().split(None, 2)   # max 3 parti
+            # parti_orig[0] = comando ("ricorda"), [1] = nome, [2] = dati
+            if len(parti_orig) >= 3:
+                nome_rapido = parti_orig[1].strip()
+                dati_rapido = parti_orig[2].strip()
+                if nome_rapido and dati_rapido:
+                    av = avatar_random(self.cfg)
+                    entry = {
+                        "nome":     nome_rapido,
+                        "alias":    "",
+                        "soggetto": self.cfg["nome_utente"],
+                        "dati":     dati_rapido,
+                        "tag":      [],
+                        "avatar":   av,
+                    }
+                    # Rimuovi campi vuoti per coerenza con il resto
+                    entry = {k: v for k, v in entry.items() if v not in (None, "", [])}
+                    self.mem.append(entry)
+                    salva_memoria(self.mem)
+                    self._mostra_avatar(av)
+                    self._scrivi_risposta(self._t("ricorda_ok", nome=nome_rapido))
+                    return
+        # ── Fine comando rapido ──────────────────────────────────────────────
+
         if nome and dati_inline:
             av    = avatar_random(self.cfg)
             entry = {k: v for k, v in {
@@ -2445,7 +2488,9 @@ class Assistente:
             self._scrivi_risposta(self._t("impara_annullato"))
             return
 
-        if t.lower() == self._t("impara_salta"):
+        # INVIO vuoto o "salta" → salta se opzionale
+        salta_parola = self._t("impara_salta")
+        if t == "" or t.lower() == salta_parola.lower():
             if campo not in self._IMPARA_OPZIONALI:
                 self._scrivi_risposta(self._t("impara_obbligatorio", campo=campo))
                 return
@@ -2750,7 +2795,13 @@ class Assistente:
             self._scrivi_risposta(self._t("elimina_annullato"))
 
     def _cmd_elimina(self, parsed: dict):
-        q = parsed.get("nome", "")
+        q = parsed.get("nome", "").strip()
+        # Fallback: se il parser ha svuotato il nome (es. solo articoli), usa
+        # la parte del testo originale dopo la keyword "elimina"
+        if not q:
+            testo_orig = parsed.get("testo_originale", "")
+            parti = testo_orig.strip().split(None, 1)
+            q = parti[1].strip() if len(parti) > 1 else ""
         if not q:
             self._scrivi_risposta(self._t("elimina_cosa"))
             return
