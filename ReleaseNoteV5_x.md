@@ -6,8 +6,8 @@
 
 ## Overview
 
-Version 5.0 introduces a full **AIML 1.x standard engine**, replacing the proprietary  
-`aiml_XX.json` format used in v4.x. The new engine is implemented as a standalone  
+Version 5 introduces a full **AIML 1.x standard engine**, replacing the proprietary  
+`aiml_XX.json` format used in v4. The new engine is implemented as a standalone  
 module (`aiml_parser.py`) and supports standard `.aiml` files, making it compatible  
 with the large ecosystem of existing AIML knowledge bases.
 
@@ -163,6 +163,12 @@ showing where the last response came from:
 | 🔵 Blue | `AIML` | Response from a `.aiml` file |
 | 🔴 Red | `AI` | Response from external AI (OpenAI / Gemini) |
 | ⚫ Grey | `—` | System messages (startup, help, not understood, configuration) |
+
+---
+
+### 6. Manuals documentation inside distribution packet
+
+Introducing *manuals* command to open HTML manuals, now located in _dati/asset/manuals/index.html
 
 ---
 

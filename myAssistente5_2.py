@@ -159,6 +159,21 @@ AIML_DIR     = INTERNAL_DIR / "aiml"             # Cartella file .aiml
 for d in [INTERNAL_DIR, ASSET_DIR, INTERNAL_DIR / "asset"]:
     d.mkdir(parents=True, exist_ok=True)
 
+def risolvi_percorso(percorso: str) -> str:
+    """
+    Converte un percorso relativo in assoluto usando BASE_DIR come base.
+    URL (http/ftp/mailto/file) e percorsi assoluti vengono restituiti invariati.
+    Supporta sia / che \\ come separatori.
+    """
+    if re.match(r'^https?://', percorso, re.IGNORECASE):
+        return percorso
+    if re.match(r'^(ftp|ftps|mailto|file)://', percorso, re.IGNORECASE):
+        return percorso
+    p = Path(percorso.replace("\\", "/"))
+    if p.is_absolute():
+        return str(p)
+    return str(BASE_DIR / p)
+
 # ---------------------------------------------------------------------------
 # IDENTITÀ APPLICAZIONE — modifica qui nome e URL del programma
 # ---------------------------------------------------------------------------
@@ -229,27 +244,29 @@ DEFAULT_CONFIG = {
     },
     
     "alias_comandi": {
-        "dammi":  ["dimmi, give"],
-        "apri":   ["lancia, open"],
-        "cerca":  ["search"],
-        "ricorda": ["remember"],
-        "impara":  ["learn"],
-        "elenca":  ["list"],
-        "modifica": ["modify"],
-        "elimina":  ["delete"],
-        "copia":    ["copy"],
-        "configura": ["config", "impostazioni", "settings"],
-        "aiuto":    ["help"],
-        "esci":     ["chiudi", "arrivederci", "exit"]
+    "dammi":    ["trova", "dimmi", "mostrami", "visualizza"],
+    "apri":     ["apri", "lancia", "avvia", "esegui", "metti"],
+    "cerca":    ["cerca", "ricerca"],
+    "elenca":   ["elenca", "lista", "mostra tutto"],
+    "configura":["configura", "impostazioni", "settings", "preferenze"],
+    "aiuto":    ["aiuto", "help", "comandi"],
+    "esci":     ["esci", "chiudi", "arrivederci", "quit", "exit"],
+    "impara":   ["impara", "apprendi", "inserisci"],
+    "ricorda":  ["ricorda", "memorizza", "salva"],
+    "modifica": ["modifica", "cambia", "aggiorna"],
+    "elimina":  ["cancella", "rimuovi"],
+    "copia":    ["copia", "duplica", "copy"]
     },
     
     "risposte_fisse": {
-        "grazie":  "Prego, {nome_utente}!",
-        "ciao":    "Ciao, {nome_utente}!",
-        "come stai": "Sto benissimo, grazie!",
-        "autore":  "Il mio autore è Emanuele Cassani",
-        "author":  "My author is Emanuele Cassani",
-        "credit":  "©2026, Emanuele Cassani www.steppa.net/cassani",
+    "ciao":   "Ciao, {nome_utente}!",
+    "autore": "Il mio autore è Emanuele Cassani",
+    "author": "My author is Emanuele Cassani",
+    "credit": "©2026, Emanuele Cassani www.steppa.net/cassani",
+    "progetto": "https://www.steppa.net/cassani/articoli/myAssistente/myAssistente.htm",
+    "project": "https://www.steppa.net/cassani/articoli/myAssistente/myAssistenteENG.htm",
+    "manuali":    "_dati\\asset\\manuals\\indice.html",
+    "manuals":    "_dati\\asset\\manuals\\index.html"
     },
     
     # Modalita' risposta: aiml_only | ai_only | aiml_then_ai
@@ -258,14 +275,12 @@ DEFAULT_CONFIG = {
     },
 
     "shortcut": [
-        {"etichetta": "Help", "comando": "aiuto"},
-        {"etichetta": "Memory", "comando": "elenca"},
-        {"etichetta": "Config", "comando": "configura"},
-        {"etichetta": "Exit", "comando": "esci"}
+        {"etichetta": "Quit", "comando": "ok"}
     ]
 }
 
-def carica_config() -> dict:
+def carica_config() -> tuple:
+    """Restituisce (cfg, config_creata) dove config_creata=True se il file non esisteva."""
     if CFG_FILE.exists():
         try:
             with open(CFG_FILE, encoding="utf-8") as f:
@@ -283,13 +298,13 @@ def carica_config() -> dict:
                     cfg.setdefault("avatar_gruppi", {})["generico"] = vecchia_lista
                     cfg[k] = "generico"
                     print("[CONFIG] Migrazione avatar_random: lista -> gruppo 'generico'")
-            return cfg
+            return cfg, False
         except Exception:
             pass
-    
+
     with open(CFG_FILE, "w", encoding="utf-8") as f:
         json.dump(DEFAULT_CONFIG, f, indent=2, ensure_ascii=False)
-    return DEFAULT_CONFIG.copy()
+    return DEFAULT_CONFIG.copy(), True
 
 # ---------------------------------------------------------------------------
 # LOCALIZZAZIONE (con articoli/stop-words)
@@ -305,16 +320,17 @@ def salva_config(cfg: dict):
     with open(CFG_FILE, "w", encoding="utf-8") as f:
         json.dump(cfg, f, indent=2, ensure_ascii=False)
 
-def carica_lingua(codice: str) -> dict:
+def carica_lingua(codice: str) -> tuple:
     """
     Carica il file lang_XX.json corrispondente al codice lingua.
     Se non trovato restituisce il fallback italiano embedded.
+    Restituisce (dizionario_lingua, lingua_non_trovata).
     """
     path = INTERNAL_DIR / f"lang_{codice}.json"
     if path.exists():
         try:
             with open(path, encoding="utf-8") as f:
-                return json.load(f)
+                return json.load(f), False
         except Exception as e:
             print(f"[LINGUA] Errore caricamento {path.name}: {e}")
     
@@ -322,35 +338,35 @@ def carica_lingua(codice: str) -> dict:
     if path2.exists():
         try:
             with open(path2, encoding="utf-8") as f:
-                return json.load(f)
+                return json.load(f), False
         except Exception as e:
             print(f"[LINGUA] Errore caricamento {path2.name}: {e}")
     
     print(f"[LINGUA] File lang_{codice}.json non trovato, uso italiano embedded.")
-    return _LANG_IT_FALLBACK.copy()
+    return _LANG_IT_FALLBACK.copy(), True
 
 
 # Fallback minimo italiano — usato solo se lang_it.json manca del tutto
 _LANG_IT_FALLBACK = {
-    "btn_invia": "Invia", 
-    "titolo_finestra": "Assistente – {nome_avatar}",
-    "label_comandi": "COMANDI", 
-    "label_shortcut": "SHORTCUT",
-    "panel_dammi": "dammi ...", 
-    "panel_apri": "apri ...",
-    "panel_cerca": "cerca ...",
+    "btn_invia": "Enter", 
+    "titolo_finestra": "myAssistente – {nome_avatar}",
+    "label_comandi": "COMANDI",
+    "panel_dammi": "trova...",
+    "panel_apri": "apri...",
+    "panel_cerca": "cerca...",
     "panel_media": "cerca media",
     "panel_elenca": "elenca memoria",
-    "panel_aiuto": "aiuto", 
-    "panel_esci": "esci",
     "panel_configura": "configura",
-    "panel_sep_memoria": "── GESTISCI MEMORIA ──", 
+    "panel_aiuto": "aiuto",
+    "panel_esci": "esci",
+    "panel_sep_memoria": "── MEMORY ──",
     "panel_impara": "impara",
-    "panel_ricorda": "ricorda ...", 
+    "panel_ricorda": "ricorda...", 
     "panel_ricorda_img": "ricorda immagine",
-    "panel_modifica": "modifica ...", 
-    "panel_elimina": "elimina ...",
-    "panel_copia": "copia ...",
+    "panel_modifica": "modifica...", 
+    "panel_elimina": "cancella...",
+    "panel_copia": "copia...",
+    "label_shortcut": "SHORTCUT",
     
     # Articoli/stop-words per parsing più naturale
     "articoli": ["il", "lo", "la", "i", "gli", "le", "un", "una", "uno", 
@@ -359,7 +375,11 @@ _LANG_IT_FALLBACK = {
                  "dai", "dagli", "dalle", "col", "coi", "su", "per", "con"],
     
     "avvio_saluto": "Ciao {nome_utente}! Sono {nome_avatar}.\nDigita 'aiuto' per vedere che cosa posso fare.",
+    "avvio_config_creata": "Non ho trovato il file configurazione, ne creo uno nuovo.",
+    "avvio_lingua_mancante": "Non ho trovato il file della lingua, uso quella di sistema.",
+    "avvio_memoria_corrotta": "La mia memoria è vuota, il file era corrotto.",
     "avvio_memoria_vuota": "Purtroppo la mia memoria è vuota.",
+    "avvio_aiml_trovati": "Ho trovato {n} file AIML.",
     "apri_subito": "Apro subito", 
     "apri_cosa": "Che cosa devo aprire?",
     "apri_non_trovato": "Purtroppo non ho trovato '{q}' in memoria.",
@@ -376,7 +396,7 @@ _LANG_IT_FALLBACK = {
     "elimina_conferma": "Vuoi eliminare:\n{entry}\nScrivi 'sì' per confermare.",
     "elimina_ok": "'{nome}' eliminato.", 
     "elimina_annullato": "Eliminazione annullata.",
-    "elimina_si": ["sì", "si", "s", "ok", "yes"],
+    "elimina_si": ["sì", "si", "s", "ok", "yes", "y"],
     "modifica_cosa": "Quale voce devo modificare?", 
     "modifica_non_trovato": "Purtroppo non ho trovato '{q}'.",
     "modifica_trovata": "Voce trovata:\n{entry}\nQuale campo?",
@@ -402,7 +422,7 @@ _LANG_IT_FALLBACK = {
     "impara_obbligatorio": "Il campo '{campo}' è obbligatorio.",
     "impara_salvato": "Salvato! '{nome}'.\n\nUn altro elemento? (sì / no)",
     "impara_completato": "Inserimento completato.", 
-    "impara_si": ["sì", "si", "s", "ok", "yes"],
+    "impara_si": ["sì", "si", "s", "ok", "yes", "y"],
     "impara_fine": "fine", 
     "impara_salta": "salta",
     "impara_prompt_nome": "Nome (obbligatorio):",
@@ -412,7 +432,7 @@ _LANG_IT_FALLBACK = {
     "impara_prompt_tag": "Tag (opzionale — 'salta' per saltare):",
     "impara_prompt_avatar": "Avatar (opzionale — 'salta' per default):",
     
-    # Nuove stringhe per comando configura
+    # Stringhe per comando configura
     "configura_intro": "Configurazione guidata. Parametri disponibili:",
     "configura_chiedi_valore": "Inserisci il nuovo valore per '{param}':",
     "configura_mostra_valore": "{param} attuale = '{valore}'",
@@ -420,7 +440,7 @@ _LANG_IT_FALLBACK = {
     "configura_lista": "Parametri configurabili:",
     "configura_parametro_non_trovato": "Parametro '{param}' non trovato.",
     "configura_proseguire": "Vuoi configurare altri parametri? (sì/no)",
-    "configura_proseguire_si": ["s", "si", "sì", "sí", "ok", "yes", "y", "1"],
+    "configura_proseguire_si": ["s", "si", "sì", "sí", "ok", "yes", "y"],
     "configura_fine": "Configurazione completata.",
     "configura_annullato": "Configurazione annullata.",
     "configura_cosa": "Cosa vuoi configurare? Usa 'configura lista' per vedere i parametri.",
@@ -440,13 +460,13 @@ _LANG_IT_FALLBACK = {
     "ai_non_disponibile": "/la funzione IA non è disponibile o non è configurata.",
     "ai_chiedi_chiave": "Inserisci la chiave API per {provider}:",
     
-    "aiuto_testo": "Comandi: dammi · apri · cerca · cerca media · elenca · configura · aiuto · esci · impara · ricorda · modifica · elimina · copia · lingua",
-    "non_capito": "Non ho capito. Le parole chiave sono: dammi · apri · cerca · cerca media · elenca · configura · aiuto · esci · impara · ricorda · modifica · elimina · copia · lingua",
+    "aiuto_testo": "Comandi: trova, apri, cerca, media, elenca, configura, aiuto, esci, impara, ricorda, modifica, cancella, copia, lingua",
+    "non_capito": "Non ho capito. Le parole chiave sono: trova, apri, cerca, media, elenca, configura, aiuto, esci, impara, ricorda, modifica, cancella, copia, lingua",
     
     # Suggerimenti incrociati apri ↔ dammi
     "dammi_trovato_link":   "Ho trovato un link per '{nome}'. Vuoi che lo apra?",
     "apri_trovato_dato":    "Ho trovato solo un dato (non un link) per '{nome}': {dati}\nVuoi vederlo?",
-    "conferma_si":          ["s", "si", "sì", "ok", "yes", "apri", "vai", "vedi"],
+    "conferma_si":          ["s", "si", "sì", "ok", "yes", "apri", "vai", "vedi", "y"],
     "lingua_ok": "Lingua impostata su: {lingua}", 
     "lingua_non_trovata": "File lingua '{file}' non trovato.",
     "lingua_uso": "Uso: lingua <codice>  (es: lingua en)",
@@ -466,7 +486,7 @@ _LANG_IT_FALLBACK = {
     "cerca_media_trovati":      "Ho trovato {n} {tipo} nella cartella asset/. Vuoi la lista?",
     "cerca_media_vuoto":        "Purtroppo non ho {tipo} nella mia memoria (asset/ vuota o assente).",
     "cerca_media_lista":        "Elenco {tipo} in asset/ ({n}):",
-    "cerca_media_lista_si":     ["s", "si", "sì", "ok", "yes", "lista", "mostra"],
+    "cerca_media_lista_si":     ["s", "si", "sì", "ok", "yes", "lista", "mostra", "y"],
 }
 
 # ---------------------------------------------------------------------------
@@ -589,19 +609,20 @@ def aiml_match(regole: list, testo: str, ignora: str,
 # ---------------------------------------------------------------------------
 # MEMORIA
 # ---------------------------------------------------------------------------
-def carica_memoria() -> list:
+def carica_memoria() -> tuple:
+    """Restituisce (lista_memoria, memoria_corrotta)."""
     if MEM_FILE.exists():
         try:
             with open(MEM_FILE, encoding="utf-8") as f:
-                return json.load(f)
+                return json.load(f), False
         except json.JSONDecodeError:
             backup = MEM_FILE.with_suffix(".json.bak")
             shutil.copy2(MEM_FILE, backup)
             with open(MEM_FILE, "w", encoding="utf-8") as f:
                 json.dump([], f)
             print(f"[AVVISO] memory.json corrotto — backup in {backup.name}.")
-            return []
-    return []
+            return [], True
+    return [], False
 
 def salva_memoria(mem: list):
     if MEM_FILE.exists():
@@ -821,9 +842,9 @@ COMANDI_PANEL = [
 class Assistente:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.cfg  = carica_config()
-        self.mem  = carica_memoria()
-        self.L    = carica_lingua(self.cfg.get("lingua", "it"))
+        self.cfg, self._avvio_config_creata   = carica_config()
+        self.mem, self._avvio_memoria_corrotta = carica_memoria()
+        self.L,   self._avvio_lingua_mancante  = carica_lingua(self.cfg.get("lingua", "it"))
         # self.AIML rimosso in v5.0 — sostituito da self._aiml (AIMLParser)
         self.stato     = "idle"
         self.dati_temp = {}
@@ -944,6 +965,7 @@ class Assistente:
 
     def _inizializza_aiml(self):
         """Carica i file .aiml per la lingua corrente."""
+        self._avvio_aiml_count = 0
         if not AIML_DISPONIBILE:
             return
         lingua  = self.cfg.get("lingua", "it")
@@ -955,6 +977,11 @@ class Assistente:
         self._aiml.set_predicato("nome_utente", self.cfg.get("nome_utente", ""))
         self._aiml.set_predicato("nome_avatar",  self.cfg.get("nome_avatar",  ""))
         self._aiml.carica_cartella(cartella)
+        # Conta i file .aiml caricati
+        try:
+            self._avvio_aiml_count = len(list(cartella.glob("*.aiml")))
+        except Exception:
+            self._avvio_aiml_count = 0
         # Usa un metodo pubblico se disponibile, altrimenti ignora il conteggio
         try:
             cnt = len(self._aiml.categorie) if hasattr(self._aiml, 'categorie') else "?"
@@ -1076,9 +1103,21 @@ class Assistente:
                     nome_utente=self.cfg["nome_utente"],
                     nome_avatar=self.cfg["nome_avatar"])
         )
-        if not self.mem:
+        # Messaggi di stato avvio
+        if self._avvio_config_creata:
+            self._scrivi_risposta(self._t("avvio_config_creata"))
+        if self._avvio_lingua_mancante:
+            self._scrivi_risposta(self._t("avvio_lingua_mancante"))
+        if self._avvio_memoria_corrotta:
+            self._scrivi_risposta(self._t("avvio_memoria_corrotta"))
+            self._mostra_avatar("triste")
+        elif not self.mem:
             self._scrivi_risposta(self._t("avvio_memoria_vuota"))
             self._mostra_avatar("triste")
+        # Messaggio file AIML trovati (sempre mostrato)
+        self._scrivi_risposta(
+            self._t("avvio_aiml_trovati", n=self._avvio_aiml_count)
+        )
 
     # ------------------------------------------------------------------
     # UI
@@ -1774,9 +1813,13 @@ class Assistente:
         testo_lower = testo.strip().lower()
         for trigger, risposta in self.cfg.get("risposte_fisse", {}).items():
             if testo_lower == trigger.lower():
-                testo_risposta = self._espandi_segnaposto(risposta)
                 self._aggiorna_sorgente("memoria")
-                self._scrivi_risposta(testo_risposta)
+                if self._e_link(risposta):
+                    link = risolvi_percorso(risposta)
+                    self._apri_link_diretto(link, trigger, {})
+                else:
+                    testo_risposta = self._espandi_segnaposto(risposta)
+                    self._scrivi_risposta(testo_risposta)
                 self._mostra_avatar(avatar_random(self.cfg))
                 return
 
@@ -2546,17 +2589,18 @@ class Assistente:
             return True
         if re.match(r'^(ftp|ftps|mailto|file)://', t, re.IGNORECASE):
             return True
-        # Percorso Windows o Unix
-        if re.match(r'^[A-Za-z]:\\', t) or t.startswith('/') or t.startswith('./'):
+        # Percorso Windows o Unix (assoluto o relativo con prefisso)
+        if re.match(r'^[A-Za-z]:\\', t) or t.startswith('/') or t.startswith('./') or t.startswith('.\\'):
             return True
-        # Estensione di file eseguibile/documento
-        if re.search(r'\.(exe|bat|cmd|sh|lnk|url|html?|pdf|docx?|xlsx?)$',
+        # Estensione di file eseguibile/documento (cattura anche percorsi relativi senza ./)
+        if re.search(r'\.(exe|bat|cmd|sh|lnk|url|html?|pdf|docx?|xlsx?|png|jpe?g|gif|webp|mp3|mp4|avi|mkv)$',
                      t, re.IGNORECASE):
             return True
         return False
 
     def _apri_link_diretto(self, link: str, nome_voce: str, entry: dict):
         """Apre fisicamente un link e aggiorna UI."""
+        link = risolvi_percorso(link)
         self.output.configure(state=tk.NORMAL)
         self.output.insert(tk.END,
             f"\n{self.cfg['nome_avatar']}:> {self._t('apri_subito')}: {link}\n")
@@ -2962,7 +3006,7 @@ class Assistente:
                         file=f"lang_{codice}.json",
                         cartella=str(INTERNAL_DIR)))
             return
-        self.L = carica_lingua(codice)
+        self.L, _ = carica_lingua(codice)
         self.cfg["lingua"] = codice
         # Sincronizza lingua STT: legge da lang_XX.json, fallback a codice+"_XX"
         lingua_stt = self.L.get("lingua_stt") or self.cfg.get("stt_config", {}).get("lingua", "it-IT")

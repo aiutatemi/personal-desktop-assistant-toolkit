@@ -1,48 +1,35 @@
 {
   "lingua_stt": "en-US",
 
+  "avvio_saluto":         "Hello {nome_utente}! I'm {nome_avatar}.\nType 'help' to see the commands to use.\nType 'manuals' to read the manuals",
+  "avvio_memoria_vuota": "My memory is empty.\nIf it shouldn't be, restore the file\n  .\\_dati\\memoria.json.bak",
+  "avvio_memoria_corrotta": "My memory is empty; the file was corrupted.",
+  "avvio_config_creata": "I didn't find the configuration file, creating a new one.",
+  "avvio_lingua_mancante": "I didn't find the language file, using the system language.",
+  "avvio_aiml_trovati": "Found {n} AIML files.",
+
   "alias_comandi": {
-    "ricorda":  ["remember", "save", "store"],
-    "impara":   ["learn", "teach"],
-    "apri":     ["open", "launch", "start"],
     "dammi":    ["give", "show", "get"],
+    "apri":     ["open", "launch", "start"],
     "cerca":    ["search", "find", "look"],
     "elenca":   ["list", "all"],
-    "modifica": ["modify", "edit", "update", "change"],
-    "elimina":  ["delete", "remove", "erase"],
-    "copia":    ["copy"],
     "configura":["configure", "settings", "config"],
     "aiuto":    ["help"],
     "esci":     ["exit", "quit", "close", "bye"],
-    "lingua":   ["language"]
+    "impara":   ["learn", "teach"],
+    "ricorda":  ["remember", "save", "store"],
+    "modifica": ["modify", "edit", "update", "change"],
+    "elimina":  ["delete", "remove", "erase"],
+    "copia":    ["copy"]
   },
 
-  "dammi_trovato_link":     "I found a link for '{nome}'. Do you want me to open it?",
-  "apri_trovato_dato":      "I only found one piece of data (not a link) for '{nome}': {dati}\nDo you want to see it?",
-  "conferma_si":            ["y", "yes", "ok", "open", "go", "show"],
-  "cerca_media_immagini":   "images",
-  "cerca_media_musica":     "music",
-  "cerca_media_video":      "videos",
-  "cerca_media_trovati":    "I found {n} {tipo} in the asset/ folder. Do you want the list?",
-  "cerca_media_vuoto":      "I don't have any {tipo} in my memory (asset/ is empty or missing).",
-  "cerca_media_lista":      "List of {tipo} in asset/ ({n}):",
-  "cerca_media_lista_si":   ["y", "yes", "ok", "list", "go", "open", "show"],
-  "panel_media":            "search media",
-  "configura_vuoi_interrompere": "Do you want to stop the configuration? (yes/no)",
-  "configura_invio_annulla": "Leave empty to cancel",
-  "configura_proseguire_si": ["yes", "ok", "y", "s", "si", "1"],
-  "configura_short_cmd":    ["short", "quick", "basic"],
-  "configura_short_avatar": "Assistant name setup: {param} current value = '{valore}'\nEnter new value or leave empty to cancel",
-  "configura_short_utente": "User name setup: {param} current value = '{valore}'\nEnter new value or leave empty to cancel",
-
-  "btn_invia":        "Send",
   "titolo_finestra":  "Assistant – {nome_avatar}",
-  "label_comandi":    "COMMANDS",
-  "label_shortcut":   "SHORTCUTS",
 
+  "label_comandi":        "COMMANDS",
   "panel_dammi":          "give ...",
   "panel_apri":           "open ...",
   "panel_cerca":          "search ...",
+  "panel_media":            "search media",
   "panel_elenca":         "list memory",
   "panel_configura":      "configure",
   "panel_aiuto":          "help",
@@ -54,15 +41,31 @@
   "panel_modifica":       "modify ...",
   "panel_elimina":        "delete ...",
   "panel_copia":          "copy ...",
+  "label_shortcut":       "SHORTCUTS",
+  "label_lingua":         "LANGUAGE",
+  "btn_invia":            "Send",
 
-  "articoli": [
-    "the", "a", "an",
-    "of", "in", "on", "at", "to", "for",
-    "with", "by", "from", "into"
-  ],
+  "cerca_media_immagini":   "images",
+  "cerca_media_musica":     "music",
+  "cerca_media_video":      "videos",
 
-  "avvio_saluto":         "Hello {nome_utente}! I'm {nome_avatar}.\nType 'help' to see what I can do.",
-  "avvio_memoria_vuota":  "My memory is empty.",
+  "cerca_media_trovati":    "I found {n} {tipo} in the asset/ folder. Do you want the list?",
+  "cerca_media_vuoto":      "I don't have any {tipo} in my memory (asset/ is empty or missing).",
+  "cerca_media_lista":      "List of {tipo} in asset/ ({n}):",
+  "cerca_media_lista_si":   ["y", "yes", "ok", "list", "go", "open", "show"],
+
+  "articoli": [ "the", "a", "an", "of", "in", "on", "at", "to", "for", "with", "by", "from", "into" ],
+
+  "configura_vuoi_interrompere": "Do you want to stop the configuration? (yes/no)",
+  "configura_invio_annulla": "Leave empty to cancel",
+  "configura_proseguire_si": ["yes", "ok", "y", "s", "si", "1"],
+  "configura_short_cmd":    ["short", "quick", "basic"],
+  "configura_short_avatar": "Assistant name setup: {param} current value = '{valore}'\nEnter new value or leave empty to cancel",
+  "configura_short_utente": "User name setup: {param} current value = '{valore}'\nEnter new value or leave empty to cancel",
+
+  "dammi_trovato_link":     "I found a link for '{nome}'. Do you want me to open it?",
+  "apri_trovato_dato":      "I only found one piece of data (not a link) for '{nome}': {dati}\nDo you want to see it?",
+  "conferma_si":            ["y", "yes", "ok", "open", "go", "show"],
 
   "apri_subito":          "Opening",
   "apri_cosa":            "What should I open?",
@@ -146,7 +149,7 @@
   "ai_non_disponibile":   "AI function not available or not configured.",
   "ai_chiedi_chiave":     "Enter API key for {provider}:",
 
-  "aiuto_testo":          "Commands: give · open · search · list · configure · help · exit · learn · remember · remember image · modify · delete · copy · language",
+  "aiuto_testo":          "Type 'manuals' to open the manuals\nCommands: give · open · search · list · configure · help · exit · learn · remember · remember image · modify · delete · copy · language",
   "non_capito":           "I didn't understand. Keywords: remember · learn · open · give · search · list · modify · delete · copy · configure · exit · help",
 
   "lingua_ok":            "Language set to: {lingua}",
@@ -159,7 +162,5 @@
   "stt_mic_errore":       "Microphone not available: {err}",
 
   "shortcut_nessuno":     "No shortcuts configured.",
-
-  "label_lingua":         "LANGUAGE",
   "lingua_nessuna":       "No language file\nfound in _dati/"
 }

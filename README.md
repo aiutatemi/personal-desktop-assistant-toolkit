@@ -9,17 +9,27 @@ microphone button.
 Built with Python and Tkinter, it runs on **Windows** (full features) and
 **Linux / macOS** (from release 3.x full features)
 
+---
+## ✨ myAssistente in brief
+Get started in 30 seconds — no account, no cloud, no installation procedure required (download, unzip, run).
+
+Fully configurable desktop assistant — remember information, store media, open files, folders, programs and websites
+Optional connection with an external AI (API key required)
+Full compatibility with AIML 1.x files to personalize the assistant's behaviour and comprehension
+Voice or text commands, with multilingual support
+Privacy first — all data stays local by default (except Google Speech-to-Text and optional AI integration)
+
+---
 ## 📘 Documentation
 Access the documentation release 5.x (ENG/ITA) here:  
 **[Open rel.4.x Documentation](https://www.steppa.net/cassani/articoli/myAssistente/docs/index.html)**
 Access the full documentation folder (ENG/ITA) here:  
 👉 **[Open folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
----
 
+---
 ## ✨ Release 5.x Features️
 
-- Full compatibility with the AIML standard
-- New aiml_parser.py
+- Full compatibility with the AIML standard using new aiml_parser.py
 - Distribuibile 🪟 **Windows** and 🐧 **Linux** ready ZIP archives
 All features of previous releases except:
 - Removed: optional external engine similar to AIML used in release 4
@@ -40,12 +50,12 @@ All features of previous releases
 ---
 ## ✨ Release 3.x Features
 
+- Optional **AI Integration**
 - **Multi-platform Voice output** TTS (pyttsx3)
 - Configurable **STT parameters**
 - **Natural language parsing** with **stop-words**
 - **Internationalization** improvements (config.json memory.json and localization files)
 - New command with **interactive wizard**, to configure config.json
-- Optional **AI Integration**
 - Localized in **12 languages** [Open localization folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
 - Distribuibile 🪟 **Windows** ready ZIP archive
 All features of previous releases

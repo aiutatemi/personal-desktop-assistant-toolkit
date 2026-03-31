@@ -1,27 +1,32 @@
-* Main changes Changelog
+# Main changes Changelog
 
-** Release 5.x
-Compatibility with the AIML standard files
-New aiml_parser.py
-Under development
+## myAssistente5
+Full compatibility with the *AIML standard* files using new aiml_parser.py
+*Windows* and *Linux* distributable package
 
-** Release 4.x
+## myAssistente4
 AIML-like engine based on JSON files
 Windows and Linux distributable package
 
-** Release 3.x
-Releases with multiplatform STT /TTS VOICE functions enabled
+## Assistente3
+Optional connection with *external AI* (API key)
+Release with multiplatform *STT /TTS VOICE functions* enabled
 Windows and Linux distributable package
 15 languages available
 
-** Release 2.x
-Releases with VOICE functions enabled (STT multiplatform, TTS only for windows)
+## Assistente2
+Release with VOICE functions enabled (STT multiplatform, TTS only for windows)
 Italian and English Language
 Windows and Linux distributable package
 distributed from GitLab, repository mirror only on GitHub
 
-** Release 1.x
-First stable releases
+## Assistente1
+First stable release
 Italian Language only
 Windows distributable package
 distributed from GitHub
+
+## Assistente0
+test release
+Italian Language only
+Windows distributable package

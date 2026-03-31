@@ -2,14 +2,32 @@
   "nome_avatar": "Assistant",
   "nome_utente": "user",
   "avatar_iniziale": "benvenuto",
-  "avatar_random": [
-    "sorridente",
-    "coniglio",
-    "soddisfatto"
-  ],
+  "avatar_random": "generico",
   "avatar_finale": "ciao.mp4",
+  "avatar_gruppi": {
+    "generico": [
+      "sorridente",
+      "soddisfatto"
+    ],
+    "positivo": [
+      "sorridente",
+      "soddisfatto"
+    ],
+    "negativo": [
+      "triste"
+    ]
+  },
+  "avatar_colori": {
+    "benvenuto": "#89b4fa",
+    "sorridente": "#a6e3a1",
+    "soddisfatto": "#fab387",
+    "triste": "#f38ba8",
+    "magazziniere": "#cba6f7",
+    "ciao": "#94e2d5",
+    "default": "#6c7086"
+  },
   "frase_finale": "Ciao!",
-  "lingua": "en",
+  "lingua": "it",
   "tts_config": {
     "engine": "auto",
     "rate": 150,
@@ -22,7 +40,7 @@
     "sample_rate": 16000,
     "max_secondi": 10,
     "silenzio_secondi": 0.5,
-    "lingua": "en-US"
+    "lingua": "it-IT"
   },
   "ai_config": {
     "enabled": false,
@@ -33,22 +51,82 @@
     "max_tokens": 500,
     "fallback_to_ai": true
   },
+  "alias_comandi": {
+    "dammi": [
+      "trova",
+      "dimmi",
+      "mostrami",
+      "visualizza"
+    ],
+    "apri": [
+      "apri",
+      "lancia",
+      "avvia",
+      "esegui",
+      "metti"
+    ],
+    "cerca": [
+      "cerca",
+      "ricerca"
+    ],
+    "elenca": [
+      "elenca",
+      "lista",
+      "mostra tutto"
+    ],
+    "configura": [
+      "configura",
+      "impostazioni",
+      "settings",
+      "preferenze"
+    ],
+    "aiuto": [
+      "aiuto",
+      "help",
+      "comandi"
+    ],
+    "esci": [
+      "esci",
+      "chiudi",
+      "arrivederci",
+      "quit",
+      "exit"
+    ],
+    "impara": [
+      "impara",
+      "apprendi",
+      "inserisci"
+    ],
+    "ricorda": [
+      "ricorda",
+      "memorizza",
+      "salva"
+    ],
+    "modifica": [
+      "modifica",
+      "cambia",
+      "aggiorna"
+    ],
+    "elimina": [
+      "cancella",
+      "rimuovi"
+    ],
+    "copia": [
+      "copia",
+      "duplica",
+      "copy"
+    ]
+  },
+  "risposte_fisse": {
+    "ciao":   "Ciao, {nome_utente}!"
+  },
+  "risposta_config": {
+    "modalita": "aiml_then_ai"
+  },
   "shortcut": [
     {
-      "etichetta": "Quiet please",
+      "etichetta": "Quit",
       "comando": "ok"
-    },
-    {
-      "etichetta": "Task manager",
-      "comando": "open task"
-    },
-    {
-      "etichetta": "Control panel",
-      "comando": "open panel"
-    },
-    {
-      "etichetta": "Configure",
-      "comando": "configura"
     }
   ]
 }
