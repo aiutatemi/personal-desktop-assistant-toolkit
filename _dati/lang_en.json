@@ -23,7 +23,7 @@
     "copia":    ["copy"]
   },
 
-  "titolo_finestra":  "Assistant – {nome_avatar}",
+  "titolo_finestra":  "EN Assistant – {nome_avatar}",
 
   "label_comandi":        "COMMANDS",
   "panel_dammi":          "give ...",

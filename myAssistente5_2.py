@@ -1880,19 +1880,20 @@ class Assistente:
         if self._aiml is not None:
             risposta_aiml = self._aiml.rispondi(testo)
             if risposta_aiml is not None:
-                # ── punto 3: esegui comando AIML se presente ────────
-                cmd_aiml = risposta_aiml.get("comando")
-                if cmd_aiml:
-                    self._aggiorna_sorgente("aiml")
-                    self._gestisci_input(cmd_aiml)
-                    return
                 self._aggiorna_sorgente("aiml")
-                self._scrivi_risposta(risposta_aiml["testo"])
+                # Mostra sempre testo e avatar, indipendentemente dal comando
+                testo_aiml = risposta_aiml.get("testo", "")
+                if testo_aiml:
+                    self._scrivi_risposta(testo_aiml)
                 av = risposta_aiml.get("avatar")
                 if av:
                     self._mostra_avatar(av)
                 else:
                     self._mostra_avatar(avatar_random(self.cfg))
+                # ── Esegui comando AIML se presente (dopo aver mostrato la risposta)
+                cmd_aiml = risposta_aiml.get("comando")
+                if cmd_aiml:
+                    self._gestisci_input(cmd_aiml)
                 return
 
         # AIML non ha risposto

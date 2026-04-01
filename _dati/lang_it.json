@@ -24,7 +24,7 @@
     "copia":    ["copia", "duplica", "copy"]
   },
 
-  "titolo_finestra":  "Assistente – {nome_avatar}",
+  "titolo_finestra":  "IT Assistente – {nome_avatar}",
 
   "label_comandi":        "COMANDI",
   "panel_dammi":          "trova...",
