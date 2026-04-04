@@ -93,7 +93,8 @@ the myAssistente project, silently ignored by standard AIML parsers:
 ```
 
 If the `avatar` attribute is absent, the assistant uses a random avatar as before.  
-The value is the image filename without extension (same convention as v4.x).
+The value is the image filename saved inside _dati/asset/avatar/ directory, 
+without extension when .jpg files are used (same convention as v4.x).
 
 ---
 
@@ -104,13 +105,13 @@ assistant command directly, as if the user had typed it:
 
 ```xml
 <category>
-    <pattern>PUOI APRIRE IL PROGRAMMA DI POSTA</pattern>
-    <template comando="apri posta">Sure, opening your mail app!</template>
+    <pattern>CAN YOU OPEN THE MAIL PROGRAM</pattern>
+    <template comando="open mail">Sure, opening your mail app!</template>
 </category>
 
 <category>
-    <pattern>* APRI * POSTA *</pattern>
-    <template comando="apri posta">Opening mail!</template>
+    <pattern>* OPEN * MAIL *</pattern>
+    <template comando="open mail">Opening mail!</template>
 </category>
 ```
 

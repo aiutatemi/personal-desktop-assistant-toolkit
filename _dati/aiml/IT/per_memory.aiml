@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+categorie AIML usate nell'esempio del manuale *6-ManualeAIMLITArel5*
+-->
+<!-- creato per myAssistente da Emanuele Cassani, marzo 2026 -->
+<aiml version="1.0" encoding="UTF-8">
+
+<category>
+    <pattern>* APRI * POSTA *</pattern>
+    <template avatar="positivo" comando="apri posta">
+        <random>
+            <li>Apro la posta per te!</li>
+            <li>Ecco la posta di oggi.</li>
+            <li>Aperta! Stiamo aspettando dei messaggi?</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* APRIRE * POSTA *</pattern>
+    <template><srai>APRI POSTA</srai></template>
+</category>
+</aiml>

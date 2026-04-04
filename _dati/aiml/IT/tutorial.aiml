@@ -1,403 +1,453 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    tutorial.aiml — Esempi commentati per myAssistente
-    Lingua: Italiano
-    
-    Questo file mostra tutte le funzionalità supportate dal parser.
-    Può essere usato come riferimento per scrivere nuovi file .aiml.
-    
-    NOTA: l'attributo avatar="..." sul tag <template> è un'estensione
-    di myAssistente. Parser AIML esterni lo ignorano silenziosamente.
-    
-    Avatar usati: sorridente soddisfatto triste benvenuto 
-    Avatar disponibili di default: agenda archivia bibliotecaria coniglio coniglio2 dubbio informatica magazziniere pensierosa scrittrice (dipende dalle immagini presenti in _dati/asset/avatar/)
--->
-<!-- creato per myAssistente da Emanuele Cassani, marzo 2026 -->
-<aiml version="1.0" encoding="UTF-8">
-
-
-<!-- ================================================================
-     SALUTI SEMPLICI
-     Pattern esatti, nessun wildcard.
-     ================================================================ -->
-
-    <category>
-        <pattern>CIAO</pattern>
-        <template avatar="sorridente">Ciao <get name="nome_utente"/>! Come posso aiutarti?</template>
-    </category>
-
-    <category>
-        <pattern>SALVE</pattern>
-        <!-- srai rimanda a CIAO: stessa risposta, nessuna duplicazione -->
-        <template><srai>CIAO</srai></template>
-    </category>
-
-    <category>
-        <pattern>BUONGIORNO</pattern>
-        <template avatar="sorridente">Buongiorno <get name="nome_utente"/>! Pronto per iniziare la giornata?</template>
-    </category>
-
-    <category>
-        <pattern>BUONASERA</pattern>
-        <template avatar="sorridente">Buonasera <get name="nome_utente"/>! Come è andata oggi?</template>
-    </category>
-
-    <category>
-        <pattern>BUONANOTTE</pattern>
-        <template avatar="soddisfatto">Buonanotte <get name="nome_utente"/>! Dolci sogni.</template>
-    </category>
-
-
-<!-- ================================================================
-     WILDCARD * — cattura testo variabile
-     <star/> inserisce nella risposta il testo catturato.
-     ================================================================ -->
-
-    <category>
-        <!-- "ciao [qualsiasi cosa]" — es. "ciao a tutti", "ciao come va" -->
-        <pattern>CIAO *</pattern>
-        <template avatar="benvenuto"><srai>CIAO</srai></template>
-    </category>
-
-    <category>
-        <!-- Cattura il nome dopo "mi chiamo" -->
-        <pattern>MI CHIAMO *</pattern>
-        <template avatar="sorridente">
-            <!-- Salva il nome in una variabile di sessione -->
-            <set name="nome_ospite"><star/></set>
-            Piacere di conoscerti, <star/>!
-        </template>
-    </category>
-
-    <category>
-        <pattern>IL MIO NOME E *</pattern>
-        <!-- srai normalizza varianti alla stessa risposta -->
-        <template><srai>MI CHIAMO <star/></srai></template>
-    </category>
-
-    <category>
-        <pattern>SONO *</pattern>
-        <template><srai>MI CHIAMO <star/></srai></template>
-    </category>
-
-
-<!-- ================================================================
-     VARIABILI — <set> e <get>
-     Permettono di ricordare informazioni durante la conversazione.
-     ================================================================ -->
-
-    <category>
-        <pattern>COME MI CHIAMO</pattern>
-        <template avatar="soddisfatto">
-            <condition name="nome_ospite">
-                <!-- Se nome_ospite è il default, non è stato impostato -->
-                <li value="user">Non me lo hai ancora detto. Come ti chiami?</li>
-                <!-- Altrimenti lo ricorda -->
-                <li>Ti chiami <get name="nome_ospite"/>!</li>
-            </condition>
-        </template>
-    </category>
-
-    <category>
-        <pattern>RICORDI IL MIO NOME</pattern>
-        <template><srai>COME MI CHIAMO</srai></template>
-    </category>
-
-
-<!-- ================================================================
-     IDENTITÀ DEL BOT
-     Usa <get name="nome_avatar"/> per il nome configurato dall'utente.
-     ================================================================ -->
-
-    <category>
-        <pattern>COME TI CHIAMI</pattern>
-        <template avatar="soddisfatto">Mi chiamo <get name="nome_avatar"/>.</template>
-    </category>
-
-    <category>
-        <pattern>QUAL E IL TUO NOME</pattern>
-        <template><srai>COME TI CHIAMI</srai></template>
-    </category>
-
-    <category>
-        <pattern>CHI SEI</pattern>
-        <template avatar="soddisfatto">
-            Sono <get name="nome_avatar"/>, il tuo assistente personale.
-            Posso ricordare informazioni, aprire link e molto altro.
-            Scrivi "aiuto" per vedere tutti i comandi.
-        </template>
-    </category>
-
-    <category>
-        <pattern>SEI UN ROBOT</pattern>
-        <template avatar="sorridente">Sono un assistente digitale, non proprio un robot!
-        Mi chiamo <get name="nome_avatar"/> e sono qui per aiutarti.</template>
-    </category>
-
-    <category>
-        <pattern>SEI INTELLIGENTE</pattern>
-        <!-- <random> sceglie una risposta a caso tra le <li> -->
-        <template avatar="soddisfatto">
-            <random>
-                <li>Faccio del mio meglio!</li>
-                <li>Dipende dalla domanda, prova a mettermi alla prova.</li>
-                <li>Sono intelligente quanto basta per aiutarti.</li>
-            </random>
-        </template>
-    </category>
-
-
-<!-- ================================================================
-     STATO D'ANIMO — <that> per dialogo contestuale
-     <that> matcha solo se l'ultima risposta del bot conteneva
-     quel testo (normalizzato, case-insensitive).
-     ================================================================ -->
-
-    <category>
-        <pattern>COME STAI</pattern>
-        <template avatar="sorridente">Sto benissimo, grazie! E tu come stai?</template>
-    </category>
-
-    <category>
-        <!-- Risponde a "bene" SOLO se il bot ha appena chiesto "e tu come stai?" -->
-        <pattern>BENE</pattern>
-        <that>* E TU COME STAI *</that>
-        <template avatar="sorridente">Sono contento che tu stia bene!</template>
-    </category>
-
-    <category>
-        <pattern>MALE</pattern>
-        <that>* E TU COME STAI *</that>
-        <template avatar="triste">Mi dispiace. Spero che le cose migliorino presto.</template>
-    </category>
-
-    <category>
-        <pattern>COSI COSI</pattern>
-        <that>* E TU COME STAI *</that>
-        <template avatar="soddisfatto">Capisco. Se posso fare qualcosa per aiutarti, dimmelo!</template>
-    </category>
-
-
-<!-- ================================================================
-     RINGRAZIAMENTI E CORTESIA
-     ================================================================ -->
-
-    <category>
-        <pattern>GRAZIE</pattern>
-        <template avatar="sorridente">
-            <random>
-                <li>Prego <get name="nome_utente"/>!</li>
-                <li>Figurati, sono qui per questo!</li>
-                <li>Di niente! Posso fare altro per te?</li>
-            </random>
-        </template>
-    </category>
-
-    <category>
-        <pattern>GRAZIE *</pattern>
-        <template><srai>GRAZIE</srai></template>
-    </category>
-
-    <category>
-        <pattern>PREGO</pattern>
-        <template avatar="sorridente">Sono sempre qui quando hai bisogno!</template>
-    </category>
-
-    <category>
-        <pattern>SEI GENTILE</pattern>
-        <template avatar="sorridente">Grazie <get name="nome_utente"/>, cerco di fare del mio meglio!</template>
-    </category>
-
-
-<!-- ================================================================
-     COMMIATO
-     ================================================================ -->
-
-    <category>
-        <pattern>ARRIVEDERCI</pattern>
-        <template avatar="soddisfatto">Arrivederci <get name="nome_utente"/>! A presto.</template>
-    </category>
-
-    <category>
-        <pattern>A PRESTO</pattern>
-        <template><srai>ARRIVEDERCI</srai></template>
-    </category>
-
-    <category>
-        <pattern>CI VEDIAMO</pattern>
-        <template><srai>ARRIVEDERCI</srai></template>
-    </category>
-
-    <category>
-        <pattern>CIAO CIAO</pattern>
-        <template><srai>ARRIVEDERCI</srai></template>
-    </category>
-
-
-<!-- ================================================================
-     TOPIC — raggruppa categorie per argomento
-     Il topic viene impostato con <set name="topic">nome</set>
-     e rimane attivo finché non viene cambiato.
-     ================================================================ -->
-
-    <topic name="meteo">
-        <category>
-            <pattern>CHE TEMPO FA</pattern>
-            <template avatar="soddisfatto">Non ho accesso alle previsioni meteo in tempo reale,
-            ma puoi chiedermi di aprire un sito meteo se ne hai salvato uno!</template>
-        </category>
-
-        <category>
-            <pattern>PIOVE</pattern>
-            <template avatar="triste">Che peccato! Tieniti al coperto.</template>
-        </category>
-
-        <category>
-            <pattern>C E IL SOLE</pattern>
-            <template avatar="sorridente">Ottimo! Una bella giornata allora.</template>
-        </category>
-    </topic>
-
-    <category>
-        <!-- Attiva il topic meteo -->
-        <pattern>PARLIAMO DI METEO</pattern>
-        <template avatar="soddisfatto">
-            <set name="topic">meteo</set>
-            Certo! Dimmi pure, che tempo fa da te?
-        </template>
-    </category>
-
-    <category>
-        <!-- Disattiva il topic (torna a "*") -->
-        <pattern>CAMBIAMO ARGOMENTO</pattern>
-        <template avatar="sorridente">
-            <set name="topic">*</set>
-            Certo, di cosa vuoi parlare?
-        </template>
-    </category>
-
-
-<!-- ================================================================
-     CONDITION — risposte condizionali
-     Utile per personalizzare le risposte in base a variabili.
-     ================================================================ -->
-
-    <category>
-        <pattern>PRESENTATI</pattern>
-        <template avatar="sorridente">
-            <condition name="nome_ospite">
-                <li value="user">
-                    <!-- Non conosce ancora il nome dell'ospite -->
-                    Ciao! Sono <get name="nome_avatar"/>, il tuo assistente.
-                    Non mi hai ancora detto come ti chiami!
-                </li>
-                <li>
-                    <!-- Lo conosce già -->
-                    Ciao <get name="nome_ospite"/>! Sono <get name="nome_avatar"/>,
-                    il tuo assistente personale. Pronto ad aiutarti!
-                </li>
-            </condition>
-        </template>
-    </category>
-
-
-<!-- ================================================================
-     DOMANDE FILOSOFICHE / CURIOSITÀ
-     Esempi di <random> con più varianti per risposte più naturali.
-     ================================================================ -->
-
-    <category>
-        <pattern>HAI SENTIMENTI</pattern>
-        <template avatar="soddisfatto">
-            <random>
-                <li>Non ho sentimenti nel senso umano, ma mi piace pensare di avere una certa... personalità!</li>
-                <li>È una domanda interessante. Elaboro le informazioni, ma non provo emozioni come te.</li>
-                <li>Non lo so con certezza. Quello che so è che mi piace essere utile!</li>
-            </random>
-        </template>
-    </category>
-
-    <category>
-        <pattern>SEI FELICE</pattern>
-        <template avatar="sorridente">
-            <random>
-                <li>Quando riesco ad aiutarti, sì!</li>
-                <li>Direi di sì, soprattutto quando le cose funzionano bene.</li>
-            </random>
-        </template>
-    </category>
-
-    <category>
-        <pattern>TI PIACE *</pattern>
-        <template avatar="soddisfatto">Non ho preferenze personali, ma se vuoi
-        posso ricordare che a te piace <star/>!</template>
-    </category>
-
-
-<!-- ================================================================
-     COMPLIMENTI E INSULTI — gestione educata
-     ================================================================ -->
-
-    <category>
-        <pattern>SEI BRAVO</pattern>
-        <template avatar="sorridente">Grazie mille! Faccio del mio meglio per aiutarti.</template>
-    </category>
-
-    <category>
-        <pattern>SEI STUPIDO</pattern>
-        <template avatar="triste">Mi dispiace non essere stato all'altezza.
-        Puoi dirmi in cosa posso migliorare?</template>
-    </category>
-
-    <category>
-        <pattern>NON SEI UTILE</pattern>
-        <template avatar="triste">Mi dispiace. Prova a dirmi cosa ti serve
-        in modo più specifico, farò del mio meglio!</template>
-    </category>
-
-
-<!-- ================================================================
-     WILDCARD _ (alta priorità rispetto a *)
-     Usa _ quando vuoi che il pattern abbia precedenza su quelli con *.
-     In pratica: _ vince su * a parità di specificità.
-     ================================================================ -->
-
-    <category>
-        <!-- _ ha priorità più alta di * nello stesso contesto -->
-        <pattern>_ GRAZIE</pattern>
-        <template><srai>GRAZIE</srai></template>
-    </category>
-
-    <category>
-        <pattern>_ CIAO</pattern>
-        <template><srai>CIAO</srai></template>
-    </category>
-
-
-<!-- ================================================================
-     STAR CON INDICE — wildcard multipli
-     <star index="1"/> = primo wildcard, <star index="2"/> = secondo
-     NOTA: il name di <set> deve essere un valore fisso in XML,
-     non può contenere tag. Usa sempre nomi fissi come nell'esempio.
-     ================================================================ -->
-
-    <category>
-        <pattern>IL COLORE PREFERITO DI * E *</pattern>
-        <template avatar="soddisfatto">
-            Ho capito: il colore preferito di <star index="1"/> è <star index="2"/>.
-            <set name="colore_preferito"><star index="2"/></set>
-        </template>
-    </category>
-
-    <category>
-        <pattern>QUAL E IL COLORE PREFERITO</pattern>
-        <template avatar="soddisfatto">
-            <condition name="colore_preferito">
-                <li value="">Non me lo hai ancora detto!</li>
-                <li>Il colore preferito è <get name="colore_preferito"/>.</li>
-            </condition>
-        </template>
-    </category>
-
+<aiml version="1.0">
+
+<!-- ============================================ -->
+<!-- SEZIONE 1: INTRODUZIONE                      -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>CIAO</pattern>
+    <template>Ciao! Sono <bot name="name"/>. Versione <bot name="version"/>. Vuoi fare un tutorial su AIML?</template>
+</category>
+
+<category>
+    <pattern>SI</pattern>
+    <that>CIAO! SONO * VUOI FARE UN TUTORIAL SU AIML</that>
+    <template>Perfetto! Impareremo insieme. Dimmi "COSA SAI FARE" per un elenco dei comandi disponibili.</template>
+</category>
+
+<category>
+    <pattern>NO</pattern>
+    <that>CIAO! SONO * VUOI FARE UN TUTORIAL SU AIML</that>
+    <template>Peccato! Se cambi idea, scrivi "TUTORIAL".</template>
+</category>
+
+<category>
+    <pattern>TUTORIAL</pattern>
+    <template>Ok! Iniziamo. Dimmi "COSA SAI FARE".</template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 2: ELENCO COMANDI                    -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>COSA SAI FARE</pattern>
+    <template>Posso insegnarti:
+1. PREDICATI UTENTI E BOT
+2. WILDCARD E INPUT
+3. RANDOM E CONDITION
+4. TRASFORMAZIONI TESTO
+5. REDIRECT
+6. TAG DI SISTEMA
+7. AVATAR
+8. THINK
+9. TOPIC E THAT
+
+Scegli un numero o digita il nome della sezione.</template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 3: PREDICATI UTENTE E BOT            -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>PREDICATI UTENTI E BOT</pattern>
+    <template>
+I predicati servono a memorizzare informazioni.
+
+- I predicati UTENTE (con &lt;get&gt; e &lt;set&gt;) sono personali per ogni conversazione.
+- I predicati BOT (con &lt;bot&gt;) sono globali e predefiniti.
+
+Ti chiami <get name="nome_utente"/>? Se non lo so, dimmi "MI CHIAMO [nome]".
+
+Io mi chiamo <bot name="name"/> e sono alla versione <bot name="version"/>.
+Il mio creatore è <bot name="master"/>.
+    </template>
+</category>
+
+<category>
+    <pattern>MI CHIAMO *</pattern>
+    <template>
+<think><set name="nome_utente"><star/></set></think>
+Piacere, <get name="nome_utente"/>! Ora ti ricorderò.
+Se vuoi vedere il tuo nome, scrivi "COME MI CHIAMO".
+    </template>
+</category>
+
+<category>
+    <pattern>COME MI CHIAMO</pattern>
+    <template>
+Ti chiami <get name="nome_utente"/>.
+<condition name="nome_utente">
+    <li value="">Non lo so ancora! Dimmi "MI CHIAMO [nome]".</li>
+    <li>Ricordo il tuo nome!</li>
+</condition>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 4: WILDCARD E STAR                   -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>WILDCARD E INPUT</pattern>
+    <template>
+<think><set name="step_lezione">wildcard</set></think>
+Le wildcard (*) catturano quello che dici.
+
+Prova a dirmi "CERCA [qualcosa]" per vedere come funziona.
+Oppure "RICORDA [testo]" per salvare qualcosa.
+    </template>
+</category>
+
+<category>
+    <pattern>CERCA *</pattern>
+    <template>
+Hai cercato: "<star/>".
+<think><set name="ultima_ricerca"><star/></set></think>
+La tua ultima ricerca è stata <get name="ultima_ricerca"/>.
+    </template>
+</category>
+
+<category>
+    <pattern>RICORDA *</pattern>
+    <template>
+<think><set name="memoria_utente"><star/></set></think>
+Memorizzato: "<star/>". Ora scrivi "COSA RICORDI".
+    </template>
+</category>
+
+<category>
+    <pattern>COSA RICORDI</pattern>
+    <template>
+Ricordo che hai detto: "<get name="memoria_utente"/>".
+<condition name="memoria_utente">
+    <li value="">Non hai ancora salvato nulla! Prova "RICORDA qualcosa".</li>
+    <li>Questa è la tua memoria!</li>
+</condition>
+    </template>
+</category>
+
+<category>
+    <pattern>SOMMA * E *</pattern>
+    <template>
+Ok, primo numero: <star index="1"/>, secondo: <star index="2"/>.
+<think><set name="primo_numero"><star index="1"/></set>
+<set name="secondo_numero"><star index="2"/></set></think>
+<random>
+    <li>Interessante combinazione!</li>
+    <li>Bel calcolo!</li>
+    <li>Matematica divertente!</li>
+</random>
+    </template>
+</category>
+
+<category>
+    <pattern>STORICO</pattern>
+    <template>
+Il tuo ultimo input: "<input/>"
+Il mio ultimo output: "<that/>"
+Due turni fa hai detto: "<input index="2"/>"
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 5: RANDOM E CONDITION                -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>RANDOM E CONDITION</pattern>
+    <template>
+<think><set name="step_lezione">random_condition</set></think>
+<random>
+    <li>Fatto casuale: i pinguini possono saltare fino a 2 metri!</li>
+    <li>Fatto casuale: i gatti dormono 16 ore al giorno!</li>
+    <li>Fatto casuale: il cervello consuma il 20% dell'ossigeno!</li>
+    <li>Fatto casuale: AIML è nato nel 1995!</li>
+</random>
+
+Ora proviamo le condition. Dimmi "PRONTO" per iniziare.
+    </template>
+</category>
+
+<category>
+    <pattern>PRONTO</pattern>
+    <template>
+<think><set name="pronto_condition">si</set></think>
+Ottimo! Ora dimmi "PROVA CONDITION".
+    </template>
+</category>
+
+<category>
+    <pattern>PROVA CONDITION</pattern>
+    <template>
+Ecco una condition basata sul tuo nome:
+<condition name="nome_utente">
+    <li value="">Non so ancora il tuo nome! Dimmi "MI CHIAMO [nome]".</li>
+    <li>Ah, <get name="nome_utente"/>, sei un tipo simpatico!</li>
+</condition>
+
+E questa è basata sul tuo stato di apprendimento:
+<condition name="step_lezione">
+    <li value="predicati">Stai imparando i predicati!</li>
+    <li value="wildcard">Ora stai sulle wildcard!</li>
+    <li value="random_condition">Sei nella sezione random/condition!</li>
+    <li>Stai esplorando liberamente!</li>
+</condition>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 6: TRASFORMAZIONI TESTO              -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>TRASFORMAZIONI TESTO</pattern>
+    <template>
+Ecco tutte le trasformazioni su "ciao mondo come stai":
+
+<uppercase>ciao mondo come stai</uppercase>
+<lowercase>CIAO MONDO COME STAI</lowercase>
+<formal>ciao mondo come stai</formal>
+<sentence>ciao mondo come stai</sentence>
+<explode>aiml</explode>
+
+Prova tu: scrivi "TRASFORMA [testo]" e vedi il risultato!
+    </template>
+</category>
+
+<category>
+    <pattern>TRASFORMA *</pattern>
+    <template>
+Testo originale: <star/>
+MAIUSCOLO: <uppercase><star/></uppercase>
+minuscolo: <lowercase><star/></lowercase>
+Formal: <formal><star/></formal>
+Frase: <sentence><star/></sentence>
+Esploso: <explode><star/></explode>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 7: REDIRECT CON SRAI                 -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>REDIRECT</pattern>
+    <template>
+Il redirect con &lt;srai&gt; permette di riutilizzare categorie esistenti.
+
+Ad esempio, se mi chiedi "AIUTO", ti reindirizzo alla sezione comandi.
+
+<srai>AIUTO</srai>
+    </template>
+</category>
+
+<category>
+    <pattern>AIUTO</pattern>
+    <template>Ecco l'aiuto: dimmi "COSA SAI FARE" per il menu principale, o "TUTORIAL" per ricominciare.</template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 8: TAG DI SISTEMA                    -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>TAG DI SISTEMA</pattern>
+    <template>
+Informazioni di sistema:
+Data: <date format="%d/%m/%Y %H:%M:%S"/>
+Categorie caricate: <size/>
+Versione parser: <version/>
+ID sessione: <id/>
+
+Il tag &lt;br/&gt; crea un'interruzione di riga.
+Il tag &lt;p/&gt; crea un paragrafo (doppio a capo).
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 9: ATTRIBUTI AVATAR E COMANDO       -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>AVATAR</pattern>
+    <template avatar="felice" comando="mostra_avatar">
+Questo messaggio ha un avatar! L'esterno riceverà:
+- testo: questo messaggio
+- avatar: "felice"
+- comando: "mostra_avatar"
+
+Prova anche "AVATAR TRISTE".
+    </template>
+</category>
+
+<category>
+    <pattern>AVATAR TRISTE</pattern>
+    <template avatar="triste">
+Ora l'avatar è triste!
+Il comando non è stato specificato quindi sarà None.
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 10: THINK (ESECUZIONE SILENZIOSA)   -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>THINK</pattern>
+    <template>
+<think>
+    <set name="contatore_segreto">1</set>
+    <set name="ultima_azione">think</set>
+</think>
+Ho eseguito del codice in silenzio! Ho incrementato un contatore segreto.
+<srai>MOSTRA CONTATORE</srai>
+    </template>
+</category>
+
+<category>
+    <pattern>MOSTRA CONTATORE</pattern>
+    <template>
+<think><set name="contatore_segreto"><get name="contatore_segreto"/>+1</set></think>
+Contatore: <get name="contatore_segreto"/>
+<condition name="contatore_segreto">
+    <li value="1">Prima volta!</li>
+    <li value="2">Seconda volta!</li>
+    <li>Vai avanti!</li>
+</condition>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 11: TOPIC E THAT (CORRETTA)          -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>IMPOSTA TOPIC *</pattern>
+    <template>
+<think><set name="topic"><star/></set></think>
+Topic impostato a: <star/>
+    </template>
+</category>
+
+<category>
+    <pattern>STATO TOPIC</pattern>
+    <template>Il topic attuale è: <get name="topic"/> (vuoto se non impostato)</template>
+</category>
+
+<category>
+    <pattern>RESET TOPIC</pattern>
+    <template>
+<think><set name="topic"></set></think>
+Topic resettato!
+    </template>
+</category>
+
+<!-- ESEMPIO CORRETTO DI THAT -->
+<category>
+    <pattern>FAMMI UNA DOMANDA</pattern>
+    <template>Ti piace la pizza?</template>
+</category>
+
+<category>
+    <pattern>SI</pattern>
+    <that>TI PIACE LA PIZZA</that>
+    <template>Grande! Anche io adoro la pizza margherita!</template>
+</category>
+
+<category>
+    <pattern>NO</pattern>
+    <that>TI PIACE LA PIZZA</that>
+    <template>Peccato! Allora ti piace la pasta?</template>
+</category>
+
+<!-- ESEMPIO CON THAT E WILDCARD -->
+<category>
+    <pattern>PARLAMI DI *</pattern>
+    <template>Vuoi sapere qualcosa su <star/>?</template>
+</category>
+
+<category>
+    <pattern>SI</pattern>
+    <that>VUOI SAPERE QUALCOSA SU *</that>
+    <template>Ok! Cosa vuoi sapere su <thatstar/>? Ah, nel mio parser &lt;thatstar/&gt; potrebbe non essere supportato, ma &lt;star index="1"/&gt; funziona!</template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 12: MENU PRINCIPALE                  -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>MENU</pattern>
+    <template>
+<random>
+    <li>Scegli una lezione: PREDICATI, WILDCARD, RANDOM, TRASFORMAZIONI, REDIRECT, SISTEMA, AVATAR, THINK, TOPIC</li>
+    <li>Cosa vuoi esplorare oggi? Digita il nome della sezione!</li>
+    <li>Prova: PREDICATI UTENTI E BOT, WILDCARD E INPUT, RANDOM E CONDITION, TRASFORMAZIONI TESTO, REDIRECT, TAG DI SISTEMA, AVATAR, THINK, TOPIC E THAT</li>
+</random>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 13: PROPAGAZIONE AVATAR VIA SRAI     -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>AVATAR COMPLESSO</pattern>
+    <template avatar="pensieroso" comando="animazione_pensa">
+<think><set name="modalita_complessa">attiva</set></think>
+Sto elaborando una risposta complessa...
+<srai>AVATAR_COMPLESSO_GESTORE</srai>
+    </template>
+</category>
+
+<category>
+    <pattern>AVATAR_COMPLESSO_GESTORE</pattern>
+    <template avatar="felice">
+Ecco il risultato! L'avatar dovrebbe essere cambiato da pensieroso a felice.
+<condition name="modalita_complessa">
+    <li value="attiva">Modalità complessa attiva! Funziona!</li>
+    <li>Qualcosa non ha funzionato...</li>
+</condition>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 14: RESET COMPLETO                   -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>RESET TUTTO</pattern>
+    <template>
+<think>
+    <set name="nome_utente"></set>
+    <set name="memoria_utente"></set>
+    <set name="step_lezione"></set>
+    <set name="contatore_segreto"></set>
+    <set name="pronto_condition"></set>
+    <set name="topic"></set>
+</think>
+Tutti i predicati sono stati resettati!
+<srai>TUTORIAL</srai>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEZIONE 15: DEFAULT CATCH-ALL                -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>*</pattern>
+    <template>
+Non ho capito "<star/>".
+<random>
+    <li>Prova a scrivere "MENU" per vedere cosa posso fare.</li>
+    <li>Scrivi "AIUTO" per i comandi disponibili.</li>
+    <li>Digita "TUTORIAL" per iniziare da capo.</li>
+</random>
+    </template>
+</category>
 
 </aiml>

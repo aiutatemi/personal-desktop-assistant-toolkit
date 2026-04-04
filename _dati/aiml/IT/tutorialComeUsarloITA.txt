@@ -1,0 +1,47 @@
+Prova questi comandi in ordine:
+
+CIAO - per presentazione
+
+MENU - per vedere tutte le sezioni
+
+PREDICATI UTENTI E BOT - per imparare i predicati
+
+MI CHIAMO Mario - per testare i predicati
+
+WILDCARD E INPUT - per wildcard
+
+CERCA qualcosa - test wildcard
+
+RANDOM E CONDITION - per random e condition
+
+PRONTO poi PROVA CONDITION
+
+TRASFORMAZIONI TESTO
+
+TRASFORMA ciao mondo
+
+REDIRECT
+
+TAG DI SISTEMA
+
+AVATAR - per vedere attributi
+
+THINK
+
+TOPIC
+
+RESET TUTTO - per ricominciare
+
+Cosa imparerai:
+Sezione	Concetti
+1-2	Pattern base, <bot>, <formal>, <lowercase>
+3	<set>, <get>, predicati utente e bot
+4	<star>, wildcard multiple (index)
+5	<random>, <condition> in tutte le forme
+6	<uppercase>, <lowercase>, <formal>, <sentence>, <explode>
+7	<srai> per redirect ricorsivo
+8	<date>, <size>, <version>, <id>, <br>, <p>
+9	Attributi avatar= e comando=
+10	<think> per esecuzione silenziosa
+11	<that>, <topic> e <topicstar>
+12-15	Combinazioni complesse, <input>, propagazione avatar via srai

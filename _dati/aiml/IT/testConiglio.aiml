@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0.1" encoding="UTF-8">
+
+    <!-- ========================================================= -->
+    <!--  FILE: testConiglio.aiml                                  -->
+    <!--  Scopo: esempio avanzato con stati, ramificazioni,        -->
+    <!--         memoria simulata e SRAI                           -->
+    <!-- ========================================================= -->
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE 1 — TRIGGER GENERALE                             -->
+    <!--  Ogni frase che contiene "CONIGLIO" viene instradata      -->
+    <!--  verso un gestore centrale che decide cosa fare           -->
+    <!-- ========================================================= -->
+
+    <category>
+        <!-- Cattura qualsiasi frase con la parola CONIGLIO -->
+        <pattern>* CONIGLIO *</pattern>
+        <template>
+            <!-- Reindirizza al gestore principale -->
+            <srai>CONIGLIO.GESTORE</srai>
+        </template>
+    </category>
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE 2 — GESTORE PRINCIPALE                           -->
+    <!--  Qui decidiamo lo "stato" della conversazione             -->
+    <!--  usando una memoria simulata: <set> e <get>               -->
+    <!-- ========================================================= -->
+
+    <!-- Se non esiste ancora un valore, inizializziamo -->
+    <category>
+        <pattern>CONIGLIO.GESTORE</pattern>
+        <template>
+            <!-- Se la memoria è vuota, inizializza a 1 -->
+            <think>
+                <set name="coniglio_step">
+                    <condition name="coniglio_step">
+                        <li value="">1</li>
+                        <li> <get name="coniglio_step"/> </li>
+                    </condition>
+                </set>
+            </think>
+
+            <!-- Ora reindirizza allo step corretto -->
+            <srai>CONIGLIO.STEP.<get name="coniglio_step"/></srai>
+        </template>
+    </category>
+
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE 3 — 25 STEP DI ESCALATION                        -->
+    <!--  Ogni step aumenta la memoria e produce una risposta       -->
+    <!-- ========================================================= -->
+
+    <!-- TEMPLATE PER CREARE GLI STEP:
+         Ogni step:
+         1. Risponde
+         2. Incrementa la memoria
+         3. Prepara il passo successivo
+    -->
+
+    <!-- STEP 1 -->
+    <category>
+        <pattern>CONIGLIO.STEP.1</pattern>
+        <template avatar="coniglio2">
+            Quale coniglio?
+            <think><set name="coniglio_step">2</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 2 -->
+    <category>
+        <pattern>CONIGLIO.STEP.2</pattern>
+        <template avatar="coniglio">
+            Sei sicuro di aver visto un coniglio?
+            <think><set name="coniglio_step">3</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 3 -->
+    <category>
+        <pattern>CONIGLIO.STEP.3</pattern>
+        <template avatar="dubbio">
+            Interessante. Perché proprio un coniglio?
+            <think><set name="coniglio_step">4</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 4 -->
+    <category>
+        <pattern>CONIGLIO.STEP.4</pattern>
+        <template avatar="sorridente">
+            Capisco. E com'era fatto, esattamente?
+            <think><set name="coniglio_step">5</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 5 -->
+    <category>
+        <pattern>CONIGLIO.STEP.5</pattern>
+        <template avatar="coniglio">
+            Un coniglio così particolare non si vede tutti i giorni.
+            <think><set name="coniglio_step">6</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 6 -->
+    <category>
+        <pattern>CONIGLIO.STEP.6</pattern>
+        <template avatar="coniglio2">
+            Sei sicuro che non fosse un altro animale?
+            <think><set name="coniglio_step">7</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 7 -->
+    <category>
+        <pattern>CONIGLIO.STEP.7</pattern>
+        <template avatar="coniglio">
+            Dove lo hai visto?
+            <think><set name="coniglio_step">8</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 8 -->
+    <category>
+        <pattern>CONIGLIO.STEP.8</pattern>
+        <template avatar="sorridente">
+            Curioso... quella zona non è famosa per i conigli.
+            <think><set name="coniglio_step">9</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 9 -->
+    <category>
+        <pattern>CONIGLIO.STEP.9</pattern>
+        <template avatar="soddisfatto">
+            Era fermo o si muoveva?
+            <think><set name="coniglio_step">10</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 10 -->
+    <category>
+        <pattern>CONIGLIO.STEP.10</pattern>
+        <template avatar="pensierosa">
+            Interessante. E ti ha guardato?
+            <think><set name="coniglio_step">11</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 11 -->
+    <category>
+        <pattern>CONIGLIO.STEP.11</pattern>
+        <template avatar="sorridente">
+            Un coniglio che guarda qualcuno... non è così comune.
+            <think><set name="coniglio_step">12</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 12 -->
+    <category>
+        <pattern>CONIGLIO.STEP.12</pattern>
+        <template avatar="soddisfatto">
+            Forse voleva comunicarti qualcosa.
+            <think><set name="coniglio_step">13</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 13 -->
+    <category>
+        <pattern>CONIGLIO.STEP.13</pattern>
+        <template avatar="pensierosa">
+            O forse eri tu a voler vedere un coniglio.
+            <think><set name="coniglio_step">14</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 14 -->
+    <category>
+        <pattern>CONIGLIO.STEP.14</pattern>
+        <template avatar="coniglio">
+            Dimmi la verità: ti piacciono i conigli?
+            <think><set name="coniglio_step">15</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 15 -->
+    <category>
+        <pattern>CONIGLIO.STEP.15</pattern>
+        <template avatar="coniglio2">
+            Capisco. Questo cambia tutto.
+            <think><set name="coniglio_step">16</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 16 -->
+    <category>
+        <pattern>CONIGLIO.STEP.16</pattern>
+        <template avatar="sorridente">
+            Allora forse non era un incontro casuale.
+            <think><set name="coniglio_step">17</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 17 -->
+    <category>
+        <pattern>CONIGLIO.STEP.17</pattern>
+        <template avatar="soddisfatto">
+            Hai notato qualcosa di strano nel suo comportamento?
+            <think><set name="coniglio_step">18</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 18 -->
+    <category>
+        <pattern>CONIGLIO.STEP.18</pattern>
+        <template avatar="dubbiosa">
+            Questo è davvero insolito.
+            <think><set name="coniglio_step">19</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 19 -->
+    <category>
+        <pattern>CONIGLIO.STEP.19</pattern>
+        <template avatar="sorridente">
+            Più ne parli, più mi convinco che non fosse un semplice coniglio.
+            <think><set name="coniglio_step">20</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 20 -->
+    <category>
+        <pattern>CONIGLIO.STEP.20</pattern>
+        <template avatar="soddisfatto">
+            Potrebbe essere stato un segnale.
+            <think><set name="coniglio_step">21</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 21 -->
+    <category>
+        <pattern>CONIGLIO.STEP.21</pattern>
+        <template avatar="dubbiosa">
+            Un segnale di cosa, però?
+            <think><set name="coniglio_step">22</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 22 -->
+    <category>
+        <pattern>CONIGLIO.STEP.22</pattern>
+        <template avatar="coniglio">
+            Forse dovremmo approfondire seriamente questa storia.
+            <think><set name="coniglio_step">23</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 23 -->
+    <category>
+        <pattern>CONIGLIO.STEP.23</pattern>
+        <template avatar="coniglio2">
+            Hai visto impronte, tracce o qualcosa di simile?
+            <think><set name="coniglio_step">24</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 24 -->
+    <category>
+        <pattern>CONIGLIO.STEP.24</pattern>
+        <template avatar="dubbiosa">
+            Questo diventa sempre più interessante.
+            <think><set name="coniglio_step">25</set></think>
+        </template>
+    </category>
+
+    <!-- STEP 25 -->
+    <category>
+        <pattern>CONIGLIO.STEP.25</pattern>
+        <template avatar="soddisfatto">
+            Se continui a parlarne, potrei iniziare a sospettare che il coniglio stia cercando proprio te.
+            <think><set name="coniglio_step">26</set></think>
+        </template>
+    </category>
+
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE 4 — RAMIFICAZIONI                                -->
+    <!--  Se l’utente risponde "SI", "NO", "FORSE", ecc.           -->
+    <!--  dopo certi step, possiamo creare percorsi alternativi    -->
+    <!-- ========================================================= -->
+
+    <!-- Esempio: se dopo lo step 14 l’utente risponde "SI" -->
+    <category>
+        <pattern>SI</pattern>
+        <that>Dimmi la verità: ti piacciono i conigli?</that>
+        <template avatar="soddisfatto">
+            Lo immaginavo. Allora la tua percezione potrebbe essere influenzata.
+        </template>
+    </category>
+
+    <!-- Esempio: se risponde "NO" -->
+    <category>
+        <pattern>NO</pattern>
+        <that>Dimmi la verità: ti piacciono i conigli?</that>
+        <template avatar="soddisfatto">
+            Interessante. Allora perché ti ha colpito così tanto?
+        </template>
+    </category>
+
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE 5 — RESET DELLA MEMORIA                          -->
+    <!-- ========================================================= -->
+
+    <category>
+        <pattern>RESET CONIGLIO</pattern>
+        <template avatar="soddisfatto">
+            Memoria del coniglio azzerata.
+            <think><set name="coniglio_step">1</set></think>
+        </template>
+    </category>
+
+</aiml>

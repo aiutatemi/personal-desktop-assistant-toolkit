@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+AIML categories used for the example in the manual *6-AIMLmanualENGrel5*
+
+IMPORTANT: inide the memory.json you must have a catgory similar to the following:
+(insert the correct path to your favorite mail program)
+
+  {
+    "nome": "Mail",
+    "alias": "email",
+    "soggetto": "example to open mail",
+    "dati": "C:\\ProgramFile\\mail\\ThunderbirdPortable.exe",
+    "tag": "exmple, mail",
+    "avatar": "bibliotecaria"
+  },
+
+-->
+<!-- created for myAssistente - Emanuele Cassani, march 2026 -->
+<aiml version="1.0" encoding="UTF-8">
+
+<category>
+    <pattern>* OPEN * MAIL *</pattern>
+    <template avatar="positivo" comando="open mail">
+        <random>
+            <li>Opening your mail!</li>
+            <li>Here is today’s mail.</li>
+            <li>Done! Waiting for new messages?</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* OPEN * MAIL *</pattern>
+    <template>OPEN MAIL</srai></template>
+</category>
+</aiml>

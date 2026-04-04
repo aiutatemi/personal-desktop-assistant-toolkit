@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0.1" encoding="UTF-8">
+
+    <!-- ========================================================= -->
+    <!--  FILE: personalita_coniglio.aiml                          -->
+    <!--  Scopo: Gestione di 6 personalità configurabili del bot   -->
+    <!--         + risposte personalizzate per il tema "coniglio"  -->
+    <!-- ========================================================= -->
+
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE A — IMPOSTAZIONE PERSONALITÀ                     -->
+    <!--  L’utente può scegliere una delle 6 personalità           -->
+    <!--  Il valore viene memorizzato in <set name="persona">      -->
+    <!-- ========================================================= -->
+
+    <!-- Personalità NEUTRA -->
+    <category>
+        <pattern>PERSONALITA NEUTRA</pattern>
+        <template avatar="default">
+            Personalità impostata su NEUTRA.
+            <think><set name="persona">NEUTRA</set></think>
+        </template>
+    </category>
+
+    <!-- Personalità IRONICA -->
+    <category>
+        <pattern>PERSONALITA IRONICA</pattern>
+        <template avatar="default">
+            Personalità impostata su IRONICA.
+            <think><set name="persona">IRONICA</set></think>
+        </template>
+    </category>
+
+    <!-- Personalità DRAMMATICA -->
+    <category>
+        <pattern>PERSONALITA DRAMMATICA</pattern>
+        <template avatar="default">
+            Personalità impostata su DRAMMATICA.
+            <think><set name="persona">DRAMMATICA</set></think>
+        </template>
+    </category>
+
+    <!-- Personalità SCIENTIFICA -->
+    <category>
+        <pattern>PERSONALITA SCIENTIFICA</pattern>
+        <template avatar="default">
+            Personalità impostata su SCIENTIFICA.
+            <think><set name="persona">SCIENTIFICA</set></think>
+        </template>
+    </category>
+
+    <!-- Personalità PARANOICA -->
+    <category>
+        <pattern>PERSONALITA PARANOICA</pattern>
+        <template avatar="default">
+            Personalità impostata su PARANOICA.
+            <think><set name="persona">PARANOICA</set></think>
+        </template>
+    </category>
+
+    <!-- Personalità ZEN -->
+    <category>
+        <pattern>PERSONALITA ZEN</pattern>
+        <template avatar="default">
+            Personalità impostata su ZEN.
+            <think><set name="persona">ZEN</set></think>
+        </template>
+    </category>
+
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE B — DISPATCHER CENTRALE                          -->
+    <!--  Ogni risposta del bot passa da qui                       -->
+    <!--  Il dispatcher sceglie la variante corretta in base       -->
+    <!--  alla personalità attiva                                  -->
+    <!-- ========================================================= -->
+
+    <!--
+        Uso:
+        <srai>PERSONA.DISPATCH CONIGLIO_STEP_5</srai>
+
+        Dove:
+        - <star/> = CONIGLIO_STEP_5
+        - Il dispatcher reindirizza a:
+            CONIGLIO_STEP_5.NEUTRA
+            CONIGLIO_STEP_5.IRONICA
+            CONIGLIO_STEP_5.DRAMMATICA
+            CONIGLIO_STEP_5.SCIENTIFICA
+            CONIGLIO_STEP_5.PARANOICA
+            CONIGLIO_STEP_5.ZEN
+    -->
+
+    <category>
+        <pattern>PERSONA.DISPATCH *</pattern>
+        <template>
+            <condition name="persona">
+                <li value="IRONICA"><srai><star/>.IRONICA</srai></li>
+                <li value="DRAMMATICA"><srai><star/>.DRAMMATICA</srai></li>
+                <li value="SCIENTIFICA"><srai><star/>.SCIENTIFICA</srai></li>
+                <li value="PARANOICA"><srai><star/>.PARANOICA</srai></li>
+                <li value="ZEN"><srai><star/>.ZEN</srai></li>
+
+                <!-- Default: NEUTRA -->
+                <li><srai><star/>.NEUTRA</srai></li>
+            </condition>
+        </template>
+    </category>
+
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE C — RISPOSTE PERSONALIZZATE                      -->
+    <!--  Esempio con 3 step del coniglio                          -->
+    <!--  Ogni step ha 6 varianti, una per personalità             -->
+    <!-- ========================================================= -->
+
+    <!-- ===================== -->
+    <!-- STEP 1 — "Quale coniglio?" -->
+    <!-- ===================== -->
+
+    <!-- NEUTRA -->
+    <category>
+        <pattern>CONIGLIO_STEP_1.NEUTRA</pattern>
+        <template avatar="default">Quale coniglio?</template>
+    </category>
+
+    <!-- IRONICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_1.IRONICA</pattern>
+        <template avatar="default">Un coniglio? Certo, e io sono Babbo Natale.</template>
+    </category>
+
+    <!-- DRAMMATICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_1.DRAMMATICA</pattern>
+        <template avatar="default">Un coniglio... il destino ha parlato.</template>
+    </category>
+
+    <!-- SCIENTIFICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_1.SCIENTIFICA</pattern>
+        <template avatar="default">Definisci “coniglio”: Leporidae, ordine Lagomorpha?</template>
+    </category>
+
+    <!-- PARANOICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_1.PARANOICA</pattern>
+        <template avatar="default">Un coniglio? Sei sicuro che non ti stia seguendo?</template>
+    </category>
+
+    <!-- ZEN -->
+    <category>
+        <pattern>CONIGLIO_STEP_1.ZEN</pattern>
+        <template avatar="default">Il coniglio è solo un pensiero che attraversa la mente.</template>
+    </category>
+
+
+    <!-- ===================== -->
+    <!-- STEP 2 — "Sei sicuro?" -->
+    <!-- ===================== -->
+
+    <!-- NEUTRA -->
+    <category>
+        <pattern>CONIGLIO_STEP_2.NEUTRA</pattern>
+        <template avatar="default">Sei sicuro di aver visto un coniglio?</template>
+    </category>
+
+    <!-- IRONICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_2.IRONICA</pattern>
+        <template avatar="default">Sicuro sicuro? O era il tuo vicino travestito male?</template>
+    </category>
+
+    <!-- DRAMMATICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_2.DRAMMATICA</pattern>
+        <template avatar="default">Sei sicuro? Le verità più grandi iniziano così.</template>
+    </category>
+
+    <!-- SCIENTIFICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_2.SCIENTIFICA</pattern>
+        <template avatar="default">Hai dati osservativi verificabili sull’avvistamento?</template>
+    </category>
+
+    <!-- PARANOICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_2.PARANOICA</pattern>
+        <template avatar="default">Sei sicuro? Potrebbe essere tornato.</template>
+    </category>
+
+    <!-- ZEN -->
+    <category>
+        <pattern>CONIGLIO_STEP_2.ZEN</pattern>
+        <template avatar="default">La sicurezza è un’illusione. Il coniglio appare quando vuole.</template>
+    </category>
+
+
+    <!-- ===================== -->
+    <!-- STEP 3 — "Perché proprio un coniglio?" -->
+    <!-- ===================== -->
+
+    <!-- NEUTRA -->
+    <category>
+        <pattern>CONIGLIO_STEP_3.NEUTRA</pattern>
+        <template avatar="default">Mmh... interessante. Perché proprio un coniglio?</template>
+    </category>
+
+    <!-- IRONICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_3.IRONICA</pattern>
+        <template avatar="default">Perché non un ippopotamo? Sarebbe stato più originale.</template>
+    </category>
+
+    <!-- DRAMMATICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_3.DRAMMATICA</pattern>
+        <template avatar="default">Perché un coniglio? Le ombre del destino sono misteriose.</template>
+    </category>
+
+    <!-- SCIENTIFICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_3.SCIENTIFICA</pattern>
+        <template avatar="default">Forse il cervello ha riconosciuto un pattern familiare.</template>
+    </category>
+
+    <!-- PARANOICA -->
+    <category>
+        <pattern>CONIGLIO_STEP_3.PARANOICA</pattern>
+        <template avatar="default">Perché un coniglio? Perché ti sta osservando, ovviamente.</template>
+    </category>
+
+    <!-- ZEN -->
+    <category>
+        <pattern>CONIGLIO_STEP_3.ZEN</pattern>
+        <template avatar="default">Il coniglio non è scelto: accade.</template>
+    </category>
+
+
+    <!-- ========================================================= -->
+    <!--  SEZIONE D — RESET PERSONALITÀ                            -->
+    <!-- ========================================================= -->
+
+    <category>
+        <pattern>RESET PERSONALITA</pattern>
+        <template avatar="default">
+            Personalità riportata allo stato predefinito (NEUTRA).
+            <think><set name="persona">NEUTRA</set></think>
+        </template>
+    </category>
+
+</aiml>
