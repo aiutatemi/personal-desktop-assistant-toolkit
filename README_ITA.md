@@ -17,7 +17,7 @@ Documentazione completa (ITA/ENG):
 👉 **[Apri la cartella](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
-## ✨ Funzionalità release 5.x️
+## ✨ Funzionalità release 5️
 
 - Completa compatibilità con file standard AIML
 - Un aiml_parser.py completamente nuovo
@@ -27,7 +27,7 @@ Tutte le funzionalità delle release precedenti, eccetto:
 
 
 ---
-## ✨ Funzionalità release 4.x
+## ✨ Funzionalità release 4
 
 - Nuovo nome: **myAssistente** Assistente personale desktop
 - Motore esterno con sintassi simile ad AIML, configurabile tramite file JSON
@@ -41,7 +41,7 @@ Tutte le funzionalità delle release precedenti
 
 ---
 
-## ✨ Funzionalità release 3.x
+## ✨ Funzionalità release 3
 
 - Voce Multi-piattaforma TTS (pyttsx3)
 - Parametri **STT configurabili** dall'utente
@@ -55,7 +55,7 @@ Tutte le funzionalità delle release precedenti
 
 ---
 
-## ✨ Funzionalità release 2.x
+## ✨ Funzionalità release 2
 
 - **Input vocale (STT)** — dai comandi con la voce tramite microfono,
   con riconoscimento Google Speech

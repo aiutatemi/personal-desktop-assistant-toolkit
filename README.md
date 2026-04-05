@@ -21,13 +21,13 @@ Privacy first — all data stays local by default (except Google Speech-to-Text 
 
 ---
 ## 📘 Documentation
-Access the documentation release 5.x (ENG/ITA) here:  
-**[Open rel.4.x Documentation](https://www.steppa.net/cassani/articoli/myAssistente/docs/index.html)**
+Access the documentation release 5 (ENG/ITA) here:  
+**[Open rel.5 Documentation](https://www.steppa.net/cassani/articoli/myAssistente/docs/index.html)**
 Access the full documentation folder (ENG/ITA) here:  
 👉 **[Open folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs)**
 
 ---
-## ✨ Release 5.x Features️
+## ✨ Release 5 Features️
 
 - Full compatibility with the AIML standard using new aiml_parser.py
 - Distribuibile 🪟 **Windows** and 🐧 **Linux** ready ZIP archives
@@ -35,7 +35,7 @@ All features of previous releases except:
 - Removed: optional external engine similar to AIML used in release 4
 
 ---
-## ✨ Release 4.x Features
+## ✨ Release 4 Features
 
 - External engine with AIML‑like syntax, configurable via JSON file
 - Rebranding: **myAssistente** Personal Desktop Assistant
@@ -48,7 +48,7 @@ All features of previous releases except:
 All features of previous releases
 
 ---
-## ✨ Release 3.x Features
+## ✨ Release 3 Features
 
 - Optional **AI Integration**
 - **Multi-platform Voice output** TTS (pyttsx3)
@@ -62,7 +62,7 @@ All features of previous releases
 
 ---
 
-## ✨ Features Release 2.x
+## ✨ Release 2 Features
 
 - **Voice input (STT)** — speak your commands via microphone, powered by
   Google Speech Recognition

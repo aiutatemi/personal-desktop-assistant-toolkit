@@ -30,13 +30,13 @@ strumenti-> apri shell di sistema e naviga nella directory corretta
 *** Comandi PyInstaller
 ```bash
 D: ^
---cd ProgettiPython\\progetto-assistente\\sorgente
+--cd D:\\ProgettiPython\\progetto-assistente\\sorgente
 
 pyinstaller --onedir --noconsole --clean ^
 --icon=iconWIN.ico ^
 --collect-all PIL ^
 --collect-all cv2 ^
---name myAssistente myAssistente5_2.py
+--name myAssistente myAssistente5_3.py
 ```
 👉 sovrascrive cartella /dist se precedentemente compilato con linux
 per Windows, l'icona deve essere in formato .ico

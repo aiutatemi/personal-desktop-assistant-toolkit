@@ -1,6 +1,8 @@
 """
-aiml_parser.py -- Parser AIML 1.1 per myAssistente
+aiml_parser.py -- Parser AIML 1.3 per myAssistente
 2026 - Licenza: stessa del progetto myAssistente
+
+normalizzazione pattern in MAIUSCOLO
 
 Tag <template> supportati
 ──────────────────────────
@@ -46,11 +48,17 @@ Punteggiatura / spazio
 Attributi speciali su <template>
   avatar="..."               passato nel dict di ritorno di rispondi()
   comando="..."              passato nel dict di ritorno di rispondi()
+  menu="XXXX"                stringa 4 cifre (0/1) per aprire/chiudere sezioni UI
+                             [comandi][memoria][shortcut][lingua]
+                             passato nel dict di ritorno di rispondi()
+                             
+Uniformizza accenti (problema differenza e congiunzione o verbo essere)
 """
 
 import re
 import random
 import uuid
+import unicodedata
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
@@ -59,7 +67,7 @@ from pathlib import Path
 # ─────────────────────────────────────────────
 #  Versione del parser
 # ─────────────────────────────────────────────
-_PARSER_VERSION = "1.1.0"
+_PARSER_VERSION = "1.2.0"
 
 # Profondità massima ricorsione SRAI
 _MAX_SRAI_DEPTH = 20
@@ -69,14 +77,15 @@ _MAX_HISTORY = 10
 
 
 class Categoria:
-    __slots__ = ("pattern", "that", "topic", "template", "avatar", "file")
+    __slots__ = ("pattern", "that", "topic", "template", "avatar", "menu", "file")
 
-    def __init__(self, pattern, that, topic, template, avatar, file):
+    def __init__(self, pattern, that, topic, template, avatar, menu, file):
         self.pattern  = pattern
         self.that     = that
         self.topic    = topic
         self.template = template
         self.avatar   = avatar
+        self.menu     = menu
         self.file     = file
 
     def __repr__(self):
@@ -102,6 +111,7 @@ class AIMLParser:
         self._srai_depth    = 0
         self._srai_avatar   = None   # avatar propagato dall'ultimo <srai> risolto
         self._srai_comando  = None   # comando propagato dall'ultimo <srai> risolto
+        self._srai_menu     = None   # menu propagato dall'ultimo <srai> risolto
         self._session_id    = str(uuid.uuid4())
 
     # ── Predicati utente ──────────────────────────────────────────────────
@@ -199,6 +209,7 @@ class AIMLParser:
             topic    = topic_contenitore,
             template = template_elem,
             avatar   = template_elem.attrib.get("avatar", None),
+            menu     = template_elem.attrib.get("menu",   None),
             file     = str(path),
         )
 
@@ -208,6 +219,7 @@ class AIMLParser:
         self._srai_depth   = 0
         self._srai_avatar  = None
         self._srai_comando = None
+        self._srai_menu    = None
         # Aggiorna storico input
         self._input_history.insert(0, testo_utente)
         if len(self._input_history) > _MAX_HISTORY:
@@ -236,6 +248,7 @@ class AIMLParser:
             "testo":   testo,
             "avatar":  cat.avatar or self._srai_avatar,
             "comando": cat.template.attrib.get("comando", None) or self._srai_comando,
+            "menu":    cat.menu or self._srai_menu,
         }
 
     # ── Ricerca categoria ─────────────────────────────────────────────────
@@ -491,11 +504,13 @@ class AIMLParser:
         risposta = self._match_e_rispondi(testo)
         self._srai_depth -= 1
         if risposta:
-            # Propaga avatar e comando dalla risposta ricorsiva, se presenti
+            # Propaga avatar, comando e menu dalla risposta ricorsiva, se presenti
             if risposta.get("avatar"):
                 self._srai_avatar = risposta["avatar"]
             if risposta.get("comando"):
                 self._srai_comando = risposta["comando"]
+            if risposta.get("menu"):
+                self._srai_menu = risposta["menu"]
             return risposta["testo"]
         return ""
 
@@ -510,7 +525,7 @@ class AIMLParser:
         value = elem.attrib.get("value", None)
         # Forma compatta: <condition name="x" value="y">
         if nome and value is not None:
-            if self.get_predicato(nome).lower() == value.lower():
+            if self.get_predicato(nome).upper() == value.upper():
                 return self._valuta_template(elem, stars, input_originale)
             return ""
         # Forma a lista: <condition name="x"><li value="y">...</li><li>...</li>
@@ -520,15 +535,24 @@ class AIMLParser:
             if li_value is None:
                 # <li> senza value → ramo default
                 return self._valuta_template(li, stars, input_originale)
-            if self.get_predicato(li_nome).lower() == li_value.lower():
+            if self.get_predicato(li_nome).upper() == li_value.upper():
                 return self._valuta_template(li, stars, input_originale)
         return ""
 
     # ── Utilità ───────────────────────────────────────────────────────────
 
     def _normalizza(self, testo):
-        testo = testo.lower()
-        testo = re.sub(r"[.,!?;:]", " ", testo)
+        testo = testo.upper()
+        # Normalizza apostrofo tipografico (' curly) in apostrofo dritto
+        testo = testo.replace("\u2019", "'").replace("\u2018", "'")
+        # Apostrofo usato come sostituto dell'accento a fine parola
+        # es. "si'" → "si", "po'" → "po", "e'" → "e"
+        testo = re.sub(r"([aeiou])'(?=\s|$)", r"\1", testo)
+        # Rimuove i segni diacritici (accenti): sì→si, è→e, à→a, ù→u, ecc.
+        testo = unicodedata.normalize("NFD", testo)
+        testo = "".join(c for c in testo if unicodedata.category(c) != "Mn")
+        # Punteggiatura e apostrofi residui → spazio
+        testo = re.sub(r"[.,!?;:']", " ", testo)
         return re.sub(r"\s+", " ", testo).strip()
 
     def _testo_completo(self, elem):
@@ -686,7 +710,7 @@ if __name__ == "__main__":
     tmp.write_text(aiml_test, encoding="utf-8")
 
     p = AIMLParser()
-    p.set_predicato("nome_utente", "Mario")
+    p.set_predicato("nome_utente", "Emanuele")
     p.set_bot_predicato("name", "Assistente")
     p.carica_file(tmp)
     tmp.unlink()
@@ -698,7 +722,7 @@ if __name__ == "__main__":
         # Saluti / predicati utente
         "ciao",
         "ciao amico",
-        "mi chiamo Luigi",
+        "mi chiamo Emanuele",
         "come mi chiamo",
         # Predicati bot / sistema
         "come ti chiami",
@@ -710,7 +734,7 @@ if __name__ == "__main__":
         # Trasformazioni
         "maiuscolo ciao mondo",
         "minuscolo CIAO MONDO",
-        "formale mario rossi",
+        "formale andrea rossi",
         "esplodi ciao",
         "frase buongiorno a tutti",
         # Storico

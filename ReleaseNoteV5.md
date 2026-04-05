@@ -1,4 +1,4 @@
-# myAssistente v5.1 — Release Notes  
+# myAssistente v5 — Release Notes  
 # Desktop Personal Assistant  
 # `https://www.steppa.net/cassani/articoli/myAssistente/myAssistente.htm` [(steppa.net in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.steppa.net%2Fcassani%2Farticoli%2FmyAssistente%2FmyAssistente.htm")
 
@@ -12,7 +12,7 @@ module (`aiml_parser.py`) and supports standard `.aiml` files, making it compati
 with the large ecosystem of existing AIML knowledge bases.
 
 Two additional features have been added: a **response source indicator** visible  
-in the UI, and support for **AIML-triggered commands** that the engine can  
+in the UI, and support for **AIML-triggered special functions** that the engine can  
 forward directly to the assistant for execution.
 
 ---
@@ -93,8 +93,7 @@ the myAssistente project, silently ignored by standard AIML parsers:
 ```
 
 If the `avatar` attribute is absent, the assistant uses a random avatar as before.  
-The value is the image filename saved inside _dati/asset/avatar/ directory, 
-without extension when .jpg files are used (same convention as v4.x).
+The value is the image filename without extension (same convention as v4.x).
 
 ---
 
@@ -122,6 +121,17 @@ link opening, etc.
 This makes AIML a **natural language translator** for assistant commands:  
 users can phrase requests freely and AIML maps them to the correct command.
 
+### 3b. AIML-triggered GUI menu
+
+```xml
+<category>
+    <pattern>CAN YOU CHANGE LANGAGE</pattern>
+    <template menu="0001">Sure, choose the language from the open panel</template>
+</category>
+```
+
+The first three GUI menu on the right of the panel will be closed,
+the last one (Language) wil lbe open
 ---
 
 ### 4. Configurable response mode

@@ -1,6 +1,8 @@
 # aiml_parser.py — Release Notes
 
-## Versione 1.1.0
+## Versione 1.3.0
+
+normalizzazione pattern in MAIUSCOLO
 
 ### Tag `<template>` supportati
 
@@ -18,7 +20,7 @@ Il predicato speciale `topic` aggiorna automaticamente il topic della conversazi
 
 ---
 
-#### Predicati bot *(novità v1.1)*
+#### Predicati bot
 
 | Tag | Sintassi | Descrizione |
 |-----|----------|-------------|
@@ -109,6 +111,7 @@ Predefiniti disponibili: `name`, `version`, `master`, `dateformat`.
 |-----------|---------|-------------|
 | `avatar` | `<template avatar="sorridente">` | Passa il nome dell'espressione avatar nel dict di ritorno di `rispondi()` |
 | `comando` | `<template comando="apri_menu">` | Passa un comando arbitrario al programma principale nel dict di ritorno |
+| `menu` | `<template menu="1111">` | Apre o chiude i 4 menu laterali (COMANDI, MEMORIA, SHORTCUT, LINGUA)
 
 Il dict restituito da `rispondi()` ha sempre la struttura:
 ```python
@@ -116,12 +119,13 @@ Il dict restituito da `rispondi()` ha sempre la struttura:
     "testo":   "...",   # testo della risposta
     "avatar":  "...",   # valore di avatar= (o None)
     "comando": "...",   # valore di comando= (o None)
+    "menu":    "...",   # valore di menu= (o None)
 }
 ```
 
 ---
 
-#### Tag di esecuzione silenziosa *(novità v1.1)*
+#### Tag di esecuzione silenziosa *(da v1.1)*
 
 | Tag | Sintassi | Descrizione |
 |-----|----------|-------------|

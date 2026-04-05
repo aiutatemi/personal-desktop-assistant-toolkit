@@ -1,11 +1,11 @@
 """
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
-v5.2  AIML 1.x engine (aiml_parser.py) replace aiml_XX.json
-      New answer mode: aiml_only / ai_only / aiml_then_ai
-      Avatar from AIML attribute <template avatar="...">
-    
-optional AI Integration
+v5.3  AIML 1.3 engine (aiml_parser.py)
+      Answer mode: aiml_only / ai_only / aiml_then_ai
+      Avatar, comands and GUI menu open/close from AIML attribute
+      <template avatar="positivo" comando="apri posta"  menu="0010">
+      Optional AI Integration
     
     © 2026, Emanuele Cassani https://www.steppa.net/cassani/
 """
@@ -175,13 +175,13 @@ def risolvi_percorso(percorso: str) -> str:
     return str(BASE_DIR / p)
 
 # ---------------------------------------------------------------------------
-# IDENTITÀ APPLICAZIONE — modifica qui nome e URL del programma
+# IDENTITÀ APPLICAZIONE — nome e URL del programma
 # ---------------------------------------------------------------------------
 APP_NAME = "myAssistente"
 APP_URL  = "https://www.steppa.net/cassani/articoli/myAssistente/myAssistenteENG.htm#contribute"
 
 # ---------------------------------------------------------------------------
-# CONFIGURAZIONE DEFAULT (con nuove sezioni)
+# CONFIGURAZIONE DEFAULT
 # ---------------------------------------------------------------------------
 DEFAULT_CONFIG = {
     "nome_avatar":   "Assistant",
@@ -214,7 +214,7 @@ DEFAULT_CONFIG = {
     "frase_finale":  "Ciao!",
     "lingua":        "it",
     
-    # Nuova sezione TTS
+    # Sezione TTS
     "tts_config": {
         "engine": "auto",      # auto, sapi5, nsss, espeak
         "rate": 150,           # velocità di lettura (parole/minuto)
@@ -223,7 +223,7 @@ DEFAULT_CONFIG = {
         "voice_gender": "auto" # auto, male, female
     },
     
-    # Nuova sezione STT
+    # Sezione STT
     "stt_config": {
         "soglia_rumore": 200,      # STT_SOGLIA (200 per Windows, 2000 per Linux)
         "sample_rate": 16000,      # STT_SAMPLERATE
@@ -232,7 +232,7 @@ DEFAULT_CONFIG = {
         "lingua": "it-IT"          # Lingua per il riconoscimento
     },
     
-    # Nuova sezione AI
+    # Sezione AI
     "ai_config": {
         "enabled": False,
         "provider": "openai",      # openai, gemini
@@ -359,7 +359,7 @@ _LANG_IT_FALLBACK = {
     "panel_configura": "configura",
     "panel_aiuto": "aiuto",
     "panel_esci": "esci",
-    "panel_sep_memoria": "── MEMORY ──",
+    "panel_sep_memoria": "MEMORIA",
     "panel_impara": "impara",
     "panel_ricorda": "ricorda...", 
     "panel_ricorda_img": "ricorda immagine",
@@ -488,123 +488,6 @@ _LANG_IT_FALLBACK = {
     "cerca_media_lista":        "Elenco {tipo} in asset/ ({n}):",
     "cerca_media_lista_si":     ["s", "si", "sì", "ok", "yes", "lista", "mostra", "y"],
 }
-
-# ---------------------------------------------------------------------------
-# MOTORE AIML — caricamento e matching
-# ---------------------------------------------------------------------------
-
-def carica_aiml(codice: str) -> list:
-    """
-    Carica il file aiml_XX.json dalla cartella _dati/ o dalla base dir.
-    Restituisce una lista di regole ordinate (più specifiche prima).
-    Se non trovato restituisce lista vuota (graceful degradation).
-
-    Formato atteso del file aiml_XX.json:
-    {
-      "regole": [
-        {
-          "trigger": "ciao",          <- testo esatto (o con wildcard *)
-          "risposta": "Ciao {nome_utente}!",
-          "avatar": "sorridente",     <- opzionale, senza estensione = .jpg
-          "followup": {               <- opzionale: risposte contestuali
-            "come stai": "Bene grazie!",
-            "*": "Non ho capito, stavi parlando con me?"
-          }
-        }
-      ],
-      "ignora_caratteri": "!?,.:;\"'",  <- opzionale
-      "wizard": { ... }                 <- opzionale (futuro)
-    }
-    """
-    for cartella in [INTERNAL_DIR, BASE_DIR]:
-        path = cartella / f"aiml_{codice}.json"
-        if path.exists():
-            try:
-                with open(path, encoding="utf-8") as f:
-                    dati = json.load(f)
-                regole = dati.get("regole", [])
-                # Ordina per specificità decrescente:
-                #   0 asterischi (match esatto)  → priorità massima
-                #   2+ asterischi (*parola*)      → prima del catch-all
-                #   1 asterisco (es. "apri *")    → dopo i wildcard doppi
-                #   catch-all "*" puro            → sempre ultimo
-                def _priorita(r):
-                    t = r.get("trigger", "")
-                    n = t.count("*")
-                    if n == 0:
-                        return 0    # match esatto: massima priorità
-                    if t == "*":
-                        return 999  # catch-all puro: sempre ultimo
-                    if n == 1:
-                        return 2    # es. "apri *"
-                    return 1        # es. "*coniglio*": più specifico di "apri *"
-                regole.sort(key=_priorita)
-                print(f"[AIML] Caricato {path.name}: {len(regole)} regole")
-                return regole, dati.get("ignora_caratteri", "")
-            except Exception as e:
-                print(f"[AIML] Errore caricamento {path.name}: {e}")
-    return [], ""
-
-
-def _aiml_normalizza(testo: str, ignora: str) -> str:
-    """Rimuove i caratteri da ignorare e porta in minuscolo."""
-    if ignora:
-        testo = testo.translate(str.maketrans("", "", ignora))
-    return testo.strip().lower()
-
-
-def _aiml_wildcard_match(pattern: str, testo: str) -> bool:
-    """
-    Confronta un pattern con wildcard '*' contro un testo normalizzato.
-    '*' matcha zero o più caratteri (inclusi spazi).
-    Es: '*coniglio*' matcha 'ho visto un coniglio nero'.
-    """
-    regex = re.escape(pattern).replace(r'\*', '.*')
-    return bool(re.fullmatch(regex, testo, re.IGNORECASE))
-
-
-def aiml_match(regole: list, testo: str, ignora: str,
-               contesto: str = None) -> dict | None:
-    """
-    Cerca la prima regola che matcha il testo.
-    Se contesto è impostato (stato followup), cerca prima nel followup
-    della regola di contesto, poi torna al matching normale.
-    Restituisce la regola matchata o None.
-    """
-    testo_norm = _aiml_normalizza(testo, ignora)
-
-    # ── 1. Cerca nel followup del contesto attivo ────────────────────────
-    if contesto:
-        # Il contesto contiene il trigger della regola precedente
-        regola_ctx = next(
-            (r for r in regole if r.get("trigger", "") == contesto), None)
-        if regola_ctx:
-            followup = regola_ctx.get("followup", {})
-            # Prima i trigger esatti nel followup
-            for ftrigger, frisposta in followup.items():
-                if ftrigger == "*":
-                    continue
-                if _aiml_wildcard_match(ftrigger, testo_norm):
-                    return {"trigger": ftrigger,
-                            "risposta": frisposta,
-                            "avatar": regola_ctx.get("avatar"),
-                            "_da_followup": True}
-            # Poi il catch-all '*' nel followup
-            if "*" in followup:
-                return {"trigger": "*",
-                        "risposta": followup["*"],
-                        "avatar": regola_ctx.get("avatar"),
-                        "_da_followup": True}
-
-    # ── 2. Matching normale sul testo ────────────────────────────────────
-    for regola in regole:
-        # Normalizza il trigger con gli stessi criteri dell'input (ignora_caratteri)
-        pattern = _aiml_normalizza(regola.get("trigger", ""), ignora)
-        if _aiml_wildcard_match(pattern, testo_norm):
-            return regola
-
-    return None
-
 
 # ---------------------------------------------------------------------------
 # MEMORIA
@@ -1251,54 +1134,92 @@ class Assistente:
         self._costruisci_pannello()
 
     def _costruisci_pannello(self):
-        tk.Label(self.frame_pannello, text=self._t("label_comandi"),
-                 bg="#181825", fg="#89b4fa",
-                 font=("Segoe UI", 9, "bold")).pack(pady=(12, 4))
+        # ── Sezione COMANDI (collassabile) ──────────────────────────────
+        self._comandi_aperto = True
+        lbl_comandi = self._t("label_comandi")
+        self._btn_comandi_toggle = tk.Button(
+            self.frame_pannello,
+            text=f"▼  {lbl_comandi}",
+            bg="#181825", fg="#89b4fa",
+            font=("Segoe UI", 9, "bold"),
+            relief=tk.FLAT, cursor="hand2", anchor="w",
+            command=self._toggle_comandi
+        )
+        self._btn_comandi_toggle.pack(fill=tk.X, padx=8, pady=(12, 2), ipady=2)
+        self._btn_comandi_toggle.bind(
+            "<Enter>", lambda e: self._btn_comandi_toggle.configure(fg="#cdd6f4"))
+        self._btn_comandi_toggle.bind(
+            "<Leave>", lambda e: self._btn_comandi_toggle.configure(fg="#89b4fa"))
 
-        # Pannello comandi localizzato dinamicamente
-        # Ogni voce: (chiave_panel, cmd_interno, ha_spazio_finale)
-        # cmd_interno = None per separatori
-        # ha_spazio_finale = True  → il pannello aspetta argomento (non invia subito)
-        # "ricorda questa immagine" è un caso speciale: frase completa, niente traduzione
-        comandi_panel = [
-            (self._t("panel_dammi"),       "dammi",    True),
-            (self._t("panel_apri"),        "apri",     True),
-            (self._t("panel_cerca"),       "cerca",    True),
-            (self._t("panel_media"),       "media",    True),
-            (self._t("panel_elenca"),      "elenca",   False),
-            (self._t("panel_configura"),   "configura",False),
-            (self._t("panel_aiuto"),       "aiuto",    False),
-            (self._t("panel_esci"),        "esci",     False),
-            (self._t("panel_sep_memoria"), None,       False),
-            (self._t("panel_impara"),      "impara",   False),
-            (self._t("panel_ricorda"),     "ricorda",  True),
-            (self._t("panel_ricorda_img"), "__ricorda_img__", False),
-            (self._t("panel_modifica"),    "modifica", True),
-            (self._t("panel_elimina"),     "elimina",  True),
-            (self._t("panel_copia"),       "copia",    True),
+        self._frame_comandi = tk.Frame(self.frame_pannello, bg="#181825")
+        self._frame_comandi.pack(fill=tk.X)
+
+        comandi_panel_base = [
+            (self._t("panel_dammi"),     "dammi",     True),
+            (self._t("panel_apri"),      "apri",      True),
+            (self._t("panel_cerca"),     "cerca",     True),
+            (self._t("panel_media"),     "media",     True),
+            (self._t("panel_elenca"),    "elenca",    False),
+            (self._t("panel_configura"), "configura", False),
+            (self._t("panel_aiuto"),     "aiuto",     False),
+            (self._t("panel_esci"),      "esci",      False),
         ]
+        for etichetta, cmd_interno, con_spazio in comandi_panel_base:
+            testo_cmd = self._localizza_comando(cmd_interno, con_spazio)
+            btn = tk.Button(
+                self._frame_comandi, text=etichetta,
+                bg="#313244", fg="#cdd6f4",
+                font=("Segoe UI", 9),
+                relief=tk.FLAT, cursor="hand2", anchor="w",
+                command=lambda c=testo_cmd: self._inserisci_comando(c)
+            )
+            btn.pack(fill=tk.X, padx=8, pady=2, ipady=3)
+            btn.bind("<Enter>", lambda e, b=btn: b.configure(bg="#45475a"))
+            btn.bind("<Leave>", lambda e, b=btn: b.configure(bg="#313244"))
 
-        for etichetta, cmd_interno, con_spazio in comandi_panel:
-            if cmd_interno is None:
-                tk.Label(self.frame_pannello, text=etichetta,
-                         bg="#181825", fg="#6c7086",
-                         font=("Segoe UI", 8)).pack(pady=(8, 2), padx=8, anchor="w")
-            else:
-                testo_cmd = self._localizza_comando(cmd_interno, con_spazio)
-                btn = tk.Button(
-                    self.frame_pannello, text=etichetta,
-                    bg="#313244", fg="#cdd6f4",
-                    font=("Segoe UI", 9),
-                    relief=tk.FLAT, cursor="hand2", anchor="w",
-                    command=lambda c=testo_cmd: self._inserisci_comando(c)
-                )
-                btn.pack(fill=tk.X, padx=8, pady=2, ipady=3)
-                btn.bind("<Enter>", lambda e, b=btn: b.configure(bg="#45475a"))
-                btn.bind("<Leave>", lambda e, b=btn: b.configure(bg="#313244"))
+        # ── Sezione GESTISCI MEMORIA (collassabile) ──────────────────────
+        self._memoria_aperto = True
+        sep_label = self._t("panel_sep_memoria")
+        self._btn_memoria_toggle = tk.Button(
+            self.frame_pannello,
+            text=f"▼  {sep_label}",
+            bg="#181825", fg="#6c7086",
+            font=("Segoe UI", 8, "bold"),
+            relief=tk.FLAT, cursor="hand2", anchor="w",
+            command=self._toggle_memoria
+        )
+        self._btn_memoria_toggle.pack(fill=tk.X, padx=8, pady=(8, 2), ipady=2)
+        self._btn_memoria_toggle.bind(
+            "<Enter>", lambda e: self._btn_memoria_toggle.configure(fg="#cdd6f4"))
+        self._btn_memoria_toggle.bind(
+            "<Leave>", lambda e: self._btn_memoria_toggle.configure(fg="#6c7086"))
 
-        # ── Sezione SHORTCUT collassabile ──────────────────────────────
+        self._frame_memoria = tk.Frame(self.frame_pannello, bg="#181825")
+        self._frame_memoria.pack(fill=tk.X)
+
+        comandi_panel_memoria = [
+            (self._t("panel_impara"),      "impara",          False),
+            (self._t("panel_ricorda"),     "ricorda",         True),
+            (self._t("panel_ricorda_img"), "__ricorda_img__", False),
+            (self._t("panel_modifica"),    "modifica",        True),
+            (self._t("panel_elimina"),     "elimina",         True),
+            (self._t("panel_copia"),       "copia",           True),
+        ]
+        for etichetta, cmd_interno, con_spazio in comandi_panel_memoria:
+            testo_cmd = self._localizza_comando(cmd_interno, con_spazio)
+            btn = tk.Button(
+                self._frame_memoria, text=etichetta,
+                bg="#313244", fg="#cdd6f4",
+                font=("Segoe UI", 9),
+                relief=tk.FLAT, cursor="hand2", anchor="w",
+                command=lambda c=testo_cmd: self._inserisci_comando(c)
+            )
+            btn.pack(fill=tk.X, padx=8, pady=2, ipady=3)
+            btn.bind("<Enter>", lambda e, b=btn: b.configure(bg="#45475a"))
+            btn.bind("<Leave>", lambda e, b=btn: b.configure(bg="#313244"))
+
+        # ── Sezione SHORTCUT (collassabile) ───────────────────────────────
         self._shortcut_aperto = False
-
         lbl_shortcut = f"▶  {self._t('label_shortcut')}"
         self._btn_shortcut_toggle = tk.Button(
             self.frame_pannello,
@@ -1342,11 +1263,24 @@ class Assistente:
                 justify="left"
             ).pack(padx=12, pady=4, anchor="w")
 
-        # ── Sezione LINGUA ─────────────────────────────────────────────
-        tk.Label(self.frame_pannello, text=self._t("label_lingua"),
-                 bg="#181825", fg="#94e2d5",
-                 font=("Segoe UI", 8, "bold")).pack(
-                     fill=tk.X, padx=8, pady=(12, 2), anchor="w")
+        # ── Sezione LINGUA (collassabile) ─────────────────────────────────
+        self._lingua_aperto = False
+        lbl_lingua = self._t("label_lingua")
+        self._btn_lingua_toggle = tk.Button(
+            self.frame_pannello,
+            text=f"▶  {lbl_lingua}",
+            bg="#181825", fg="#94e2d5",
+            font=("Segoe UI", 8, "bold"),
+            relief=tk.FLAT, cursor="hand2", anchor="w",
+            command=self._toggle_lingua
+        )
+        self._btn_lingua_toggle.pack(fill=tk.X, padx=8, pady=(12, 2), ipady=2)
+        self._btn_lingua_toggle.bind(
+            "<Enter>", lambda e: self._btn_lingua_toggle.configure(fg="#cdd6f4"))
+        self._btn_lingua_toggle.bind(
+            "<Leave>", lambda e: self._btn_lingua_toggle.configure(fg="#94e2d5"))
+
+        self._frame_lingua = tk.Frame(self.frame_pannello, bg="#181825")
 
         lingue = self._lingue_disponibili()
         if lingue:
@@ -1357,7 +1291,7 @@ class Assistente:
                 fg_color = "#94e2d5" if attiva else "#6c7086"
                 prefisso = "● " if attiva else "○ "
                 btn = tk.Button(
-                    self.frame_pannello,
+                    self._frame_lingua,
                     text=f"{prefisso}{etichetta}",
                     bg=bg_color, fg=fg_color,
                     font=("Segoe UI", 9),
@@ -1370,7 +1304,7 @@ class Assistente:
                          lambda e, b=btn, a=attiva, bg=bg_color:
                              b.configure(bg=bg))
         else:
-            tk.Label(self.frame_pannello,
+            tk.Label(self._frame_lingua,
                      text=self._t("lingua_nessuna"),
                      bg="#181825", fg="#6c7086",
                      font=("Segoe UI", 7),
@@ -1404,6 +1338,26 @@ class Assistente:
                   "confidenza": 1, "testo_originale": f"lingua {codice}"}
         self._cmd_lingua(parsed)
 
+    def _toggle_comandi(self):
+        lbl = self._t("label_comandi")
+        if self._comandi_aperto:
+            self._frame_comandi.pack_forget()
+            self._btn_comandi_toggle.configure(text=f"▶  {lbl}")
+        else:
+            self._frame_comandi.pack(fill=tk.X, after=self._btn_comandi_toggle)
+            self._btn_comandi_toggle.configure(text=f"▼  {lbl}")
+        self._comandi_aperto = not self._comandi_aperto
+
+    def _toggle_memoria(self):
+        sep = self._t("panel_sep_memoria")
+        if self._memoria_aperto:
+            self._frame_memoria.pack_forget()
+            self._btn_memoria_toggle.configure(text=f"▶  {sep}")
+        else:
+            self._frame_memoria.pack(fill=tk.X, after=self._btn_memoria_toggle)
+            self._btn_memoria_toggle.configure(text=f"▼  {sep}")
+        self._memoria_aperto = not self._memoria_aperto
+
     def _toggle_shortcut(self):
         lbl = self._t("label_shortcut")
         if self._shortcut_aperto:
@@ -1413,6 +1367,39 @@ class Assistente:
             self._frame_shortcut.pack(fill=tk.X, after=self._btn_shortcut_toggle)
             self._btn_shortcut_toggle.configure(text=f"▼  {lbl}")
         self._shortcut_aperto = not self._shortcut_aperto
+
+    def _toggle_lingua(self):
+        lbl = self._t("label_lingua")
+        if self._lingua_aperto:
+            self._frame_lingua.pack_forget()
+            self._btn_lingua_toggle.configure(text=f"▶  {lbl}")
+        else:
+            self._frame_lingua.pack(fill=tk.X, after=self._btn_lingua_toggle)
+            self._btn_lingua_toggle.configure(text=f"▼  {lbl}")
+        self._lingua_aperto = not self._lingua_aperto
+
+    def _imposta_menu(self, codice: str):
+        """
+        Apre/chiude le sezioni del pannello laterale via AIML.
+        codice è una stringa di 4 cifre:  [comandi][memoria][shortcut][lingua]
+        '0' = chiudi,  '1' = apri.
+        Esempio: <template menu="0010"> → comandi chiuso, memoria chiuso,
+                                          shortcut aperto, lingua chiuso.
+        """
+        if not hasattr(self, "_comandi_aperto"):
+            return  # pannello non ancora costruito
+        codice = (codice or "").strip().ljust(4, "0")[:4]
+        mappa = [
+            (codice[0], "_comandi_aperto",  self._toggle_comandi),
+            (codice[1], "_memoria_aperto",  self._toggle_memoria),
+            (codice[2], "_shortcut_aperto", self._toggle_shortcut),
+            (codice[3], "_lingua_aperto",   self._toggle_lingua),
+        ]
+        for cifra, attr, toggle_fn in mappa:
+            vuole_aperto = (cifra == "1")
+            e_aperto     = getattr(self, attr, False)
+            if vuole_aperto != e_aperto:
+                toggle_fn()
 
     def _localizza_comando(self, cmd_interno: str, con_spazio: bool) -> str:
         """
@@ -1894,6 +1881,10 @@ class Assistente:
                 cmd_aiml = risposta_aiml.get("comando")
                 if cmd_aiml:
                     self._gestisci_input(cmd_aiml)
+                # ── Gestisci attributo menu AIML (es. menu="0010")
+                menu_code = risposta_aiml.get("menu")
+                if menu_code:
+                    self.root.after(0, self._imposta_menu, menu_code)
                 return
 
         # AIML non ha risposto
