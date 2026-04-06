@@ -163,6 +163,14 @@ The mode can be changed at runtime with the `configura` command:
 
 ---
 
+### 4b.Plugin Integration **myNote, myTodo, myAgenda**
+
+Three companion web apps can now share data with myAssistente through a dedicated `_dati/plugins/` folder. Each app exports a JSON file (`myNote.json`, `myTodo.json`, `myAgenda.json`) in a format compatible with the assistant's memory engine, so entries are searchable via the standard `cerca`, `dammi`, and `elenca` commands without any changes to the core memory system.
+
+All three apps support the **File System Access API**: the first time the user clicks "🔗 Salva per Assistente", the browser asks for a save location; subsequent saves — including automatic saves triggered by every add, edit, or delete action — write silently to the same file. The chosen path is persisted via IndexedDB so it survives browser restarts. A JSON backup/restore option is retained for browsers that do not support the File System Access API.
+
+From the assistant side, three new voice wizards are available: `ricorda nota` (two steps: title, text), `ricorda todo` (four steps: text, type, date, recurrence), and `ricorda agenda` (four steps: date, colour/category, note, recurrence). All new entries are written directly to the corresponding plugin file, keeping `memory.json` lean. A manual `aggiorna` command reloads all plugin files on demand; plugins are also loaded automatically at startup.
+
 ### 5. Response source indicator
 
 A small colored dot with label is displayed above the avatar (bottom-left),  

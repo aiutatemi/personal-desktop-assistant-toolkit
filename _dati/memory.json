@@ -63,35 +63,35 @@
     "tag": "example, program",
     "avatar": "bibliotecaria"
   },
-  {
-    "nome": "Things to do",
-    "alias": "todo",
-    "soggetto": "miniApp on web",
-    "dati": "https://www.steppa.net/cassani/articoli/tool/todo/todo.html",
-    "tag": "miniApp",
-    "avatar": "agenda"
-  },
-  {
-    "nome": "Calendar",
-    "alias": "agenda",
-    "soggetto": "miniApp on web",
-    "dati": "https://www.steppa.net/cassani/articoli/tool/agendina/agendina.html",
-    "tag": "miniApp",
-    "avatar": "agenda"
-  },
-  {
-    "nome": "NoteBook",
-    "alias": "moleskine",
-    "soggetto": "miniApp on web",
-    "dati": "https://www.steppa.net/cassani/articoli/tool/taccuino/taccuinoVOCALE.html",
-    "tag": "miniApp",
-    "avatar": "scrittrice"
-  },
-  {
+ {
     "nome": "Note",
-    "alias": "postit",
-    "soggetto": "miniApp on web",
-    "dati": "https://www.steppa.net/cassani/articoli/tool/note/noteVOCALE.html",
+    "alias": "mynote",
+    "soggetto": "plugin",
+    "dati": "./_dati/asset/plugin/myNote.html",
+    "tag": "miniApp",
+    "avatar": "postit"
+  },
+  {
+    "nome": "Agenda",
+    "alias": "myagenda",
+    "soggetto": "plugin",
+    "dati": "./_dati/asset/plugin/myAgenda.html",
+    "tag": "miniApp",
+    "avatar": "agenda"
+  },
+    {
+    "nome": "Todo",
+    "alias": "mytodo",
+    "soggetto": plugin",
+    "dati": "./_dati/asset/plugin/myTodo.html",
+    "tag": "miniApp",
+    "avatar": "todo"
+  },
+  {
+    "nome": "Moleskine",
+    "alias": "taccuino",
+    "soggetto": "plugin",
+    "dati": "D:/web/sito/cassani/articoli/tool/taccuino/taccuinoVOCALE.html",
     "tag": "miniApp",
     "avatar": "scrittrice"
   },
@@ -126,5 +126,13 @@
     "dati": "taskmgr.exe",
     "tag": "windows comand",
     "avatar": "informatica"
+  },
+  {
+    "nome": "Manuals",
+    "alias": "help",
+    "soggetto": "myAssistente",
+    "dati": "_dati\\asset\\manuals\\index.html",
+    "tag": [ "information" ],
+    "avatar": "insegnante"
   }
 ]

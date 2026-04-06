@@ -6,8 +6,7 @@ No cloud subscriptions, no data sent anywhere — except for the optional
 voice recognition, which uses Google Speech API only when you press the
 microphone button.
 
-Built with Python and Tkinter, it runs on **Windows** (full features) and
-**Linux / macOS** (from release 3.x full features)
+Built with Python and Tkinter, it runs on **Windows** and **Linux** (**macOS** with Python)
 
 ---
 ## ✨ myAssistente in brief
@@ -30,6 +29,7 @@ Access the full documentation folder (ENG/ITA) here:
 ## ✨ Release 5 Features️
 
 - Full compatibility with the AIML standard using new aiml_parser.py
+- Intergation with HTML javascript mini App: *myAgenda* *myTodo* *myNote*
 - Distribuibile 🪟 **Windows** and 🐧 **Linux** ready ZIP archives
 All features of previous releases except:
 - Removed: optional external engine similar to AIML used in release 4

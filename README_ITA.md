@@ -7,8 +7,16 @@ Nessun abbonamento cloud, nessun dato inviato altrove — ad eccezione del
 riconoscimento vocale opzionale, che usa Google Speech API solo quando
 premi il pulsante del microfono.
 
-Scritto in Python con Tkinter, funziona su **Windows** (funzionalità
-complete) e **Linux / macOS** (dalla release 3.x funzionalità complete).
+Scritto in Python con Tkinter, funziona su **Windows** e **Linux** (**macOS** con Python)
+
+✨ myAssistente in breve
+Inizia in 30 secondi — nessun account, nessun cloud, nessuna procedura di installazione richiesta (scarica, decomprimi, avvia).
+
+Assistente desktop completamente configurabile — memorizza informazioni, archivia contenuti multimediali, apre file, cartelle, programmi e siti web.
+Connessione opzionale con un’AI esterna (richiesta API key).
+Piena compatibilità con file AIML 1.x per personalizzare comportamento e capacità di comprensione.
+Comandi vocali o testuali, con supporto multilingue.
+Privacy prima di tutto — tutti i dati restano in locale per impostazione predefinita (eccetto Google Speech-to-Text e integrazione AI opzionale).
 
 ## 📘 Documentazione
 Documentazione release 5.x (ITA/ENG):  
@@ -21,6 +29,7 @@ Documentazione completa (ITA/ENG):
 
 - Completa compatibilità con file standard AIML
 - Un aiml_parser.py completamente nuovo
+- Integrazione con mini App javascript in HTML: *myAgenda* *myTodo* *myNote*
 - Pacchetti distribuibili: Archivio ZIP pronto per 🪟 **Windows** e 🐧 **Linux**
 Tutte le funzionalità delle release precedenti, eccetto:
 - Rimosso: il motore che usava file json **simile ad AIML** esterno della release 4

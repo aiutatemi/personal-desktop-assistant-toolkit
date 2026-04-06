@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+
+<!-- ============================================ -->
+<!-- CONFIGURAZIONE modificabile                  -->
+<!--
+
+TRIGGER :>inizia
+
+configurare memory.json
+<nomi=	posta
+	estratto conto				
+	myTodo myAgenda myNote
+		  -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>num_frasi</pattern>
+    <template>5</template>
+</category>
+
+<category>
+    <pattern>txt_1</pattern>
+    <template avatar="postino" comando="apri posta">🖥️ Apro la posta</template>
+</category>
+
+<category>
+    <pattern>txt_2</pattern>
+    <template avatar="informatica" comando="apri estratto">🖥️ Apro estratto conto</template>
+</category>
+
+<category>
+    <pattern>txt_3</pattern>
+    <template avatar="agenda" comando="apri myagenda">📖 Apro myAgenda</template>
+</category>
+
+<category>
+    <pattern>txt_4</pattern>
+    <template avatar="todo" comando="apri mytodo">📖 Apro le cosa da fare</template>
+</category>
+
+<category>
+    <pattern>txt_5</pattern>
+    <template avatar="postit" comando="apri mynote">✅ Apro i post it</template>
+</category>
+
+<!-- ============================================ -->
+<!-- MAPPA COMANDI SINGOLI                        -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>apri posta</pattern>
+    <template>
+        <think><set name="step">0</set></think>
+        <srai>txt_1</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri estratto</pattern>
+    <template>
+        <think><set name="step">0</set></think>
+        <srai>txt_2</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri agenda</pattern>
+    <template>
+        <think><set name="step">0</set></think>
+        <srai>txt_3</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri todo</pattern>
+    <template>
+        <think><set name="step">0</set></think>
+        <srai>txt_4</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri note</pattern>
+    <template>
+        <think><set name="step">0</set></think>
+        <srai>txt_5</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- VARIAZIONI DEI COMANDI SINGOLI               -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>apri solo posta</pattern>
+    <template><srai>apri posta</srai></template>
+</category>
+
+<category>
+    <pattern>apri solo estratto</pattern>
+    <template><srai>apri estratto</srai></template>
+</category>
+
+<category>
+    <pattern>apri solo agenda</pattern>
+    <template><srai>apri agenda</srai></template>
+</category>
+
+<category>
+    <pattern>apri solo todo</pattern>
+    <template><srai>apri todo</srai></template>
+</category>
+
+<category>
+    <pattern>apri solo note</pattern>
+    <template><srai>apri note</srai></template>
+</category>
+
+<!-- ============================================ -->
+<!-- AVVIO                                        -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>inizia</pattern>
+    <template>Vuoi che apra tutto? (rispondi si, ok, vai, oppure dimmi cosa aprire: posta, estratto, agenda, todo, note)</template>
+</category>
+
+<!-- ============================================ -->
+<!-- GESTIONE RISPOSTA NO                         -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>no</pattern>
+    <template>
+        <think><set name="step">0</set></think>
+        Va bene, fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>no grazie</pattern>
+    <template><srai>no</srai></template>
+</category>
+
+<category>
+    <pattern>non voglio nulla</pattern>
+    <template><srai>no</srai></template>
+</category>
+
+<!-- ============================================ -->
+<!-- GESTIONE RISPOSTA SI (APRE TUTTO IN SEQUENZA AUTOMATICA) -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>si</pattern>
+    <pattern>ok</pattern>
+    <pattern>vai</pattern>
+    <pattern>sì</pattern>
+    <pattern>inizia pure</pattern>
+    <pattern>apri tutto</pattern>
+    <template>
+        <think>
+            <set name="step">1</set>
+            <set name="totale"><srai>num_frasi</srai></set>
+        </think>
+        <srai>sequenza_automatica</srai>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- SEQUENZA AUTOMATICA (RICORSIVA)              -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>sequenza_automatica</pattern>
+    <template>
+        <srai>txt_<get name="step"/></srai>
+        
+        <think>
+            <set name="step"><get name="step"/>+1</set>
+        </think>
+        
+        <condition name="step">
+            <li value="<get name="totale"/>+1">
+                <think>
+                    <set name="step">0</set>
+                </think>
+                <br/>Ho aperto tutto! fammi sapere se ti servisse altro
+            </li>
+            <li>
+                <br/>
+                <srai>sequenza_automatica</srai>
+            </li>
+        </condition>
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- RESET                                        -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>reset</pattern>
+    <template>
+        <think><set name="step">0</set></think>
+        Reset effettuato, fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- GESTIONE RICHIESTE DURANTE LA SEQUENZA       -->
+<!-- Se l'utente chiede un singolo file mentre è in corso la sequenza -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>apri posta</pattern>
+    <that>*</that>
+    <template>
+        <think><set name="step">0</set></think>
+        Interrompo la sequenza.
+        <srai>txt_1</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri estratto</pattern>
+    <that>*</that>
+    <template>
+        <think><set name="step">0</set></think>
+        Interrompo la sequenza.
+        <srai>txt_2</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri agenda</pattern>
+    <that>*</that>
+    <template>
+        <think><set name="step">0</set></think>
+        Interrompo la sequenza.
+        <srai>txt_3</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri todo</pattern>
+    <that>*</that>
+    <template>
+        <think><set name="step">0</set></think>
+        Interrompo la sequenza.
+        <srai>txt_4</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<category>
+    <pattern>apri note</pattern>
+    <that>*</that>
+    <template>
+        <think><set name="step">0</set></think>
+        Interrompo la sequenza.
+        <srai>txt_5</srai>
+        <br/>fammi sapere se ti servisse altro
+    </template>
+</category>
+
+<!-- ============================================ -->
+<!-- DEFAULT CATCH-ALL                            -->
+<!-- ============================================ -->
+
+<category>
+    <pattern>*</pattern>
+    <template>
+        Non ho capito. Puoi dirmi:
+        - "inizia" per aprire tutto
+        - "apri posta" (o estratto, agenda, todo, note)
+        - "no" se non vuoi nulla
+        - "reset" per ricominciare
+    </template>
+</category>
+
+</aiml>

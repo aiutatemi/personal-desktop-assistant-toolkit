@@ -2,11 +2,12 @@
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
 v5.3  AIML 1.3 engine (aiml_parser.py)
-      Answer mode: aiml_only / ai_only / aiml_then_ai
-      Avatar, comands and GUI menu open/close from AIML attribute
-      <template avatar="positivo" comando="apri posta"  menu="0010">
-      Optional AI Integration
-    
+      # integration with myNote, myTodo and myAgenda
+      # Avatar, comands and GUI menu open/close from AIML attribute
+       <template avatar="positivo" comando="apri posta"  menu="0010">
+      # Optional AI Integration
+       Answer mode: aiml_only / ai_only / aiml_then_ai
+
     © 2026, Emanuele Cassani https://www.steppa.net/cassani/
 """
 
@@ -155,8 +156,9 @@ ASSET_DIR    = INTERNAL_DIR / "asset" / "avatar"
 MEM_FILE     = INTERNAL_DIR / "memory.json"      # Rinominato in inglese
 CFG_FILE     = INTERNAL_DIR / "config.json"      # Rinominato in inglese
 AIML_DIR     = INTERNAL_DIR / "aiml"             # Cartella file .aiml
+PLUGINS_DIR  = INTERNAL_DIR / "plugins"          # Cartella file plugin (note, agenda…)
 
-for d in [INTERNAL_DIR, ASSET_DIR, INTERNAL_DIR / "asset"]:
+for d in [INTERNAL_DIR, ASSET_DIR, INTERNAL_DIR / "asset", PLUGINS_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
 def risolvi_percorso(percorso: str) -> str:
@@ -553,7 +555,7 @@ def cerca_per_tag(mem: list, tag: str) -> list:
 # ---------------------------------------------------------------------------
 COMANDI = ["ricorda", "apri", "dammi", "cerca", "elimina", "modifica",
            "elenca", "aiuto", "copia", "impara", "esci", "lingua", "configura",
-           "media", "autore", "author"]
+           "media", "autore", "author", "aggiorna"]
 
 def rimuovi_articoli(testo: str, articoli: list) -> str:
     """Rimuove gli articoli/stop-words dal testo."""
@@ -730,6 +732,7 @@ class Assistente:
         self.L,   self._avvio_lingua_mancante  = carica_lingua(self.cfg.get("lingua", "it"))
         # self.AIML rimosso in v5.0 — sostituito da self._aiml (AIMLParser)
         self.stato     = "idle"
+        self._mem_plugin: list = []  # voci caricate dai file plugin
         self.dati_temp = {}
         self._video_after_id  = None
         self._video_frames    = []
@@ -738,6 +741,7 @@ class Assistente:
         # AIML 1.x parser
         self._aiml: object = None   # istanza AIMLParser o None
         self._inizializza_aiml()
+        self._carica_plugin_tutti()
 
         # Cronologia comandi (stile shell)
         self._history: list[str] = []
@@ -902,6 +906,95 @@ class Assistente:
             print(f"[AI] Errore inizializzazione: {e}")
 
     # ------------------------------------------------------------------
+    # PLUGIN — caricamento e salvataggio voci da _dati/plugins/
+    # ------------------------------------------------------------------
+
+    @property
+    def _mem_totale(self) -> list:
+        """Memoria unificata: memory.json + tutti i file plugin."""
+        return self.mem + self._mem_plugin
+
+    def _carica_plugin_tutti(self):
+        """Carica tutti i file *.json da _dati/plugins/ nella memoria plugin."""
+        self._mem_plugin = []
+        if not PLUGINS_DIR.exists():
+            return
+        count = 0
+        for path in sorted(PLUGINS_DIR.glob("*.json")):
+            voci = self._carica_plugin_file(path)
+            self._mem_plugin.extend(voci)
+            count += len(voci)
+        if count:
+            print(f"[PLUGIN] Caricate {count} voci da plugins/")
+        self._avvio_plugin_count = count
+
+    def _carica_plugin_file(self, path: Path) -> list:
+        """
+        Carica un singolo file plugin.
+        Formato atteso: lista di oggetti con almeno il campo 'nome'.
+        Campi speciali (_plugin, _id, _data, _html, colore) vengono conservati
+        ma non interferiscono con cerca_in_memoria().
+        """
+        try:
+            with open(path, encoding="utf-8") as f:
+                dati = json.load(f)
+            if not isinstance(dati, list):
+                print(f"[PLUGIN] {path.name}: formato non valido (attesa lista)")
+                return []
+            voci = [e for e in dati if isinstance(e, dict) and e.get("nome")]
+            for v in voci:
+                v["_source"] = path.stem   # marca la sorgente per debug
+            return voci
+        except Exception as e:
+            print(f"[PLUGIN] Errore caricamento {path.name}: {e}")
+            return []
+
+    def _salva_nota_plugin(self, nome: str, dati: str, colore: str = "#ffd966"):
+        """
+        Salva o aggiorna una nota in _dati/plugins/myNote.json.
+        Se la nota con lo stesso nome esiste già la aggiorna, altrimenti
+        la aggiunge. Dopo il salvataggio ricarica la memoria plugin.
+        """
+        path = PLUGINS_DIR / "myNote.json"
+        try:
+            voci = []
+            if path.exists():
+                with open(path, encoding="utf-8") as f:
+                    voci = json.load(f)
+        except Exception:
+            voci = []
+
+        # Cerca voce esistente con lo stesso nome (aggiornamento)
+        esistente = next(
+            (i for i, v in enumerate(voci)
+             if v.get("nome", "").lower() == nome.lower()), None)
+
+        import time as _time
+        nuova = {
+            "nome":    nome,
+            "dati":    dati,
+            "tag":     ["nota"],
+            "soggetto": self.cfg.get("nome_utente", "utente"),
+            "colore":  colore,
+            "_plugin": "myNote",
+            "_id":     int(_time.time() * 1000),
+            "_data":   datetime.now().strftime("%d/%m/%Y, %H:%M:%S"),
+            "_html":   dati.replace("\n", "<br/>\n"),
+        }
+
+        if esistente is not None:
+            nuova["_id"] = voci[esistente].get("_id", nuova["_id"])
+            voci[esistente] = nuova
+        else:
+            voci.append(nuova)
+
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(voci, f, indent=2, ensure_ascii=False)
+
+        self._carica_plugin_tutti()
+
+
+    # ------------------------------------------------------------------
     # LOCALIZZAZIONE
     # ------------------------------------------------------------------
     def _t(self, chiave: str, **kw) -> str:
@@ -1001,6 +1094,10 @@ class Assistente:
         self._scrivi_risposta(
             self._t("avvio_aiml_trovati", n=self._avvio_aiml_count)
         )
+        # Voci plugin caricate
+        n_plugin = getattr(self, "_avvio_plugin_count", 0)
+        if n_plugin:
+            self._scrivi_risposta(f"Plugin: {n_plugin} voci caricate da plugins/")
 
     # ------------------------------------------------------------------
     # UI
@@ -1844,6 +1941,7 @@ class Assistente:
             "media":    self._cmd_media,
             "autore":   self._cmd_autore,
             "author":   self._cmd_autore,
+            "aggiorna": self._cmd_aggiorna_plugin,
         }
 
         # ── 3. Esegui il comando se riconosciuto ─────────────────────────────
@@ -1897,6 +1995,26 @@ class Assistente:
 
     def _gestisci_stati_dialogo(self, testo: str):
         """Gestisce i vari stati di dialogo (ricorda, impara, elimina, modifica, configura)."""
+        if self.stato == "attesa_nome_nota_plugin":
+            self._nota_plugin_step_nome(testo); return
+        if self.stato == "attesa_dati_nota_plugin":
+            self._nota_plugin_step_dati(testo); return
+        if self.stato == "attesa_data_agenda_plugin":
+            self._agenda_plugin_step_data(testo); return
+        if self.stato == "attesa_colore_agenda_plugin":
+            self._agenda_plugin_step_colore(testo); return
+        if self.stato == "attesa_nota_agenda_plugin":
+            self._agenda_plugin_step_nota(testo); return
+        if self.stato == "attesa_ricorrenza_agenda_plugin":
+            self._agenda_plugin_step_ricorrenza(testo); return
+        if self.stato == "attesa_testo_todo_plugin":
+            self._todo_plugin_step_testo(testo); return
+        if self.stato == "attesa_tipo_todo_plugin":
+            self._todo_plugin_step_tipo(testo); return
+        if self.stato == "attesa_data_todo_plugin":
+            self._todo_plugin_step_data(testo); return
+        if self.stato == "attesa_ricorrenza_todo_plugin":
+            self._todo_plugin_step_ricorrenza(testo); return
         if self.stato == "attesa_nome_ricorda":
             self._ricorda_step_nome(testo); return
         if self.stato == "attesa_dati_ricorda":
@@ -2369,6 +2487,23 @@ class Assistente:
     def _cmd_ricorda(self, parsed: dict):
         nome = parsed.get("nome", "").strip()
 
+        # ── Smista verso plugin nota ─────────────────────────────────────
+        if nome.lower() == "nota" or nome.lower().startswith("nota "):
+            nome_nota = nome[5:].strip() if nome.lower().startswith("nota ") else ""
+            self._ricorda_nota_plugin(nome_nota, parsed)
+            return
+
+        # ── Smista verso plugin agenda ───────────────────────────────────
+        if nome.lower() == "agenda" or nome.lower().startswith("agenda "):
+            self._ricorda_agenda_plugin()
+            return
+
+        # ── Smista verso plugin todo ─────────────────────────────────────
+        if nome.lower() == "todo" or nome.lower().startswith("todo "):
+            nome_todo = nome[5:].strip() if nome.lower().startswith("todo ") else ""
+            self._ricorda_todo_plugin(nome_todo, parsed)
+            return
+
         if "immagine" in parsed["testo_originale"].lower():
             self._ricorda_immagine()
             return
@@ -2436,6 +2571,276 @@ class Assistente:
             "alias":    parsed.get("alias")
         }
         self._scrivi_risposta(self._t("ricorda_chiedi_nome"))
+
+
+    def _salva_todo_plugin(self, testo: str, tipo: str = "svago",
+                           data: str = None, ricorrenza: str = "none"):
+        """
+        Aggiunge o aggiorna un task in _dati/plugins/myTodo.json.
+        Ricarica la memoria plugin dopo il salvataggio.
+        """
+        path = PLUGINS_DIR / "myTodo.json"
+        try:
+            voci = []
+            if path.exists():
+                with open(path, encoding="utf-8") as f:
+                    voci = json.load(f)
+        except Exception:
+            voci = []
+
+        import time as _time
+        data_iso = data or datetime.now().strftime("%Y-%m-%d %H:%M")
+        # Descrizione leggibile per il campo dati
+        mesi = ["gennaio","febbraio","marzo","aprile","maggio","giugno",
+                "luglio","agosto","settembre","ottobre","novembre","dicembre"]
+        try:
+            _d = datetime.fromisoformat(data_iso.replace(" ", "T"))
+            data_human = f"{_d.day} {mesi[_d.month-1]} {_d.year} {_d.hour:02d}:{_d.minute:02d}"
+        except Exception:
+            data_human = data_iso
+        ric_label = {"daily":"giornaliero","weekly":"settimanale",
+                     "monthly":"mensile","yearly":"annuale"}.get(ricorrenza, "")
+        dati = data_human + (f" — {ric_label}" if ric_label else "")
+
+        nuovo = {
+            "nome":      testo,
+            "dati":      dati,
+            "soggetto":  tipo,
+            "tag":       ["todo", tipo],
+            "_plugin":   "myTodo",
+            "_id":       int(_time.time() * 1000),
+            "_data":     data_iso,
+            "_type":     tipo,
+            "_recurring": ricorrenza,
+            "_completed": False,
+            "_completedOccurrences": {}
+        }
+        voci.append(nuovo)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(voci, f, indent=2, ensure_ascii=False)
+        self._carica_plugin_tutti()
+
+
+    def _salva_agenda_plugin(self, data_iso: str, colore: str,
+                              nota: str, ricorrenza: str = "yearly"):
+        """
+        Aggiunge o aggiorna un evento in _dati/plugins/myAgenda.json.
+        data_iso: "YYYY-MM-DD"  ricorrenza: "yearly" | "permanent"
+        """
+        path = PLUGINS_DIR / "myAgenda.json"
+        try:
+            voci = []
+            if path.exists():
+                with open(path, encoding="utf-8") as f:
+                    voci = json.load(f)
+        except Exception:
+            voci = []
+
+        mesi = ["gennaio","febbraio","marzo","aprile","maggio","giugno",
+                "luglio","agosto","settembre","ottobre","novembre","dicembre"]
+        colori_tag = {"green":"verde","blue":"azzurro","yellow":"giallo",
+                      "orange":"arancione","red":"rosso"}
+        try:
+            _d = datetime.fromisoformat(data_iso)
+            if ricorrenza == "permanent":
+                key  = f"permanent-{_d.month - 1}-{_d.day}"
+                nome = f"{_d.day} {mesi[_d.month - 1]}"
+            else:
+                key  = f"{_d.year}-{_d.month - 1}-{_d.day}"
+                nome = f"{_d.day} {mesi[_d.month - 1]} {_d.year}"
+        except Exception:
+            key = data_iso; nome = data_iso
+
+        # Rimuovi voce precedente con la stessa chiave
+        voci = [v for v in voci if v.get("_key") != key]
+
+        voci.append({
+            "nome":       nome,
+            "dati":       nota,
+            "soggetto":   colori_tag.get(colore, colore),
+            "tag":        ["agenda", colore],
+            "_plugin":    "myAgenda",
+            "_key":       key,
+            "_color":     colore,
+            "_completed": False,
+            "_recurrence": ricorrenza
+        })
+
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(voci, f, indent=2, ensure_ascii=False)
+        self._carica_plugin_tutti()
+
+    def _ricorda_nota_plugin(self, nome: str, parsed: dict):
+        # pylint: disable=unused-argument
+        """
+        Wizard per ricordare una nota in plugins/myNote.json.
+        Se il nome è già noto avvia il wizard per i dati,
+        altrimenti chiede prima il nome (titolo).
+        """
+        if nome:
+            self.stato     = "attesa_dati_nota_plugin"
+            self.dati_temp = {"nome_nota": nome}
+            self._scrivi_risposta(
+                f"Dimmi il testo della nota '{nome}':")
+        else:
+            self.stato     = "attesa_nome_nota_plugin"
+            self.dati_temp = {}
+            self._scrivi_risposta("Titolo della nota (o 'salta' per usare la data):")
+
+    def _cmd_aggiorna_plugin(self, parsed=None):
+        # pylint: disable=unused-argument
+        """Ricarica tutti i file plugin da _dati/plugins/."""
+        self._carica_plugin_tutti()
+        n = len(self._mem_plugin)
+        self._scrivi_risposta(
+            f"Plugin aggiornati: {n} voci caricate da plugins/.")
+        self._mostra_avatar(avatar_random(self.cfg))
+
+    def _nota_plugin_step_nome(self, testo: str):
+        salta = self._t("impara_salta")
+        if not testo.strip() or testo.strip().lower() == salta.lower():
+            nome = datetime.now().strftime("nota %d/%m/%Y %H:%M")
+        else:
+            nome = testo.strip()
+        self.dati_temp["nome_nota"] = nome
+        self.stato = "attesa_dati_nota_plugin"
+        self._scrivi_risposta(f"Dimmi il testo della nota '{nome}':")
+
+    def _nota_plugin_step_dati(self, testo: str):
+        self.stato = "idle"
+        nome = self.dati_temp.get("nome_nota",
+                                   datetime.now().strftime("nota %d/%m/%Y %H:%M"))
+        dati = testo.strip()
+        if not dati:
+            self._scrivi_risposta("Nessun testo inserito, nota non salvata.")
+            self.dati_temp = {}
+            return
+        self._salva_nota_plugin(nome, dati)
+        self._scrivi_risposta(self._t("ricorda_ok", nome=nome))
+        self._mostra_avatar(avatar_random(self.cfg))
+        self.dati_temp = {}
+
+    def _ricorda_todo_plugin(self, testo: str, parsed: dict):
+        # pylint: disable=unused-argument
+        """Wizard per aggiungere un task in plugins/myTodo.json."""
+        if testo:
+            self.stato     = "attesa_tipo_todo_plugin"
+            self.dati_temp = {"testo_todo": testo}
+            self._scrivi_risposta(
+                f"Tipo per '{testo}'?\n"
+                "  svago · scadenza · tassa · ricorrenza · sanita · macchine")
+        else:
+            self.stato     = "attesa_testo_todo_plugin"
+            self.dati_temp = {}
+            self._scrivi_risposta("Testo del task da ricordare:")
+
+    def _todo_plugin_step_testo(self, testo: str):
+        if not testo.strip():
+            self._scrivi_risposta("Testo non inserito, task non salvato.")
+            self.stato = "idle"; self.dati_temp = {}; return
+        self.dati_temp["testo_todo"] = testo.strip()
+        self.stato = "attesa_tipo_todo_plugin"
+        self._scrivi_risposta(
+            "Tipo?  svago · scadenza · tassa · ricorrenza · sanita · macchine")
+
+    def _todo_plugin_step_tipo(self, testo: str):
+        TIPI = {"scadenza":"scadenza","tassa":"tassa","svago":"svago",
+                "ricorrenza":"ricorrenza","sanita":"sanita","salute":"sanita",
+                "macchine":"macchine","auto":"macchine"}
+        tipo = TIPI.get(testo.strip().lower(), "svago")
+        self.dati_temp["tipo_todo"] = tipo
+        self.stato = "attesa_data_todo_plugin"
+        self._scrivi_risposta(
+            "Data e ora (es. 2026-06-15 10:00) o 'salta' per oggi:")
+
+    def _todo_plugin_step_data(self, testo: str):
+        salta = self._t("impara_salta")
+        if not testo.strip() or testo.strip().lower() == salta.lower():
+            data = datetime.now().strftime("%Y-%m-%d %H:%M")
+        else:
+            data = testo.strip()
+        self.dati_temp["data_todo"] = data
+        self.stato = "attesa_ricorrenza_todo_plugin"
+        self._scrivi_risposta(
+            "Ricorrenza? none · daily · weekly · monthly · yearly  (o 'salta')")
+
+    def _todo_plugin_step_ricorrenza(self, testo: str):
+        self.stato = "idle"
+        salta = self._t("impara_salta")
+        VALIDI = {"none","daily","weekly","monthly","yearly"}
+        ric = testo.strip().lower()
+        if not ric or ric == salta.lower() or ric not in VALIDI:
+            ric = "none"
+        testo_todo = self.dati_temp.get("testo_todo", "")
+        tipo       = self.dati_temp.get("tipo_todo", "svago")
+        data       = self.dati_temp.get("data_todo",
+                                        datetime.now().strftime("%Y-%m-%d %H:%M"))
+        self._salva_todo_plugin(testo_todo, tipo, data, ric)
+        self._scrivi_risposta(self._t("ricorda_ok", nome=testo_todo))
+        self._mostra_avatar(avatar_random(self.cfg))
+        self.dati_temp = {}
+
+    def _ricorda_agenda_plugin(self):
+        """Wizard per aggiungere un evento in plugins/myAgenda.json."""
+        self.stato     = "attesa_data_agenda_plugin"
+        self.dati_temp = {}
+        self._scrivi_risposta(
+            "Data dell'evento? (es. 2026-06-15)")
+
+    def _agenda_plugin_step_data(self, testo: str):
+        t = testo.strip()
+        # Accetta anche formati "15/06/2026" o "15-06-2026"
+        t = re.sub(r'[/]', '-', t)
+        parts = t.split('-')
+        if len(parts) == 3:
+            try:
+                if len(parts[0]) == 4:
+                    data_iso = f"{parts[0]}-{parts[1].zfill(2)}-{parts[2].zfill(2)}"
+                else:
+                    data_iso = f"{parts[2]}-{parts[1].zfill(2)}-{parts[0].zfill(2)}"
+                # Valida
+                datetime.fromisoformat(data_iso)
+                self.dati_temp["data_agenda"] = data_iso
+                self.stato = "attesa_colore_agenda_plugin"
+                self._scrivi_risposta(
+                    "Colore/categoria?\n"
+                    "  green (svago)  \xb7  blue (salute)  \xb7  yellow (auto)\n"
+                    "  orange (scade) \xb7  red (urgenza)")
+                return
+            except Exception:
+                pass
+        self._scrivi_risposta(
+            "Data non riconosciuta. Usa il formato AAAA-MM-GG (es. 2026-06-15):")
+
+    def _agenda_plugin_step_colore(self, testo: str):
+        COLORI = {"green":"green","verde":"green","blue":"blue","azzurro":"blue",
+                  "yellow":"yellow","giallo":"yellow","orange":"orange",
+                  "arancione":"orange","red":"red","rosso":"red"}
+        colore = COLORI.get(testo.strip().lower(), "green")
+        self.dati_temp["colore_agenda"] = colore
+        self.stato = "attesa_nota_agenda_plugin"
+        self._scrivi_risposta("Nota per questo giorno (o 'salta'):")
+
+    def _agenda_plugin_step_nota(self, testo: str):
+        salta = self._t("impara_salta")
+        nota  = "" if testo.strip().lower() == salta.lower() else testo.strip()
+        self.dati_temp["nota_agenda"] = nota
+        self.stato = "attesa_ricorrenza_agenda_plugin"
+        self._scrivi_risposta(
+            "Ricorrenza?\n  yearly (solo quest'anno)  \xb7  permanent (tutti gli anni)")
+
+
+    def _agenda_plugin_step_ricorrenza(self, testo: str):
+        self.stato = "idle"
+        t = testo.strip().lower()
+        ric = "permanent" if t in ("permanent", "tutti", "sempre", "ogni anno") else "yearly"
+        data   = self.dati_temp.get("data_agenda", "")
+        colore = self.dati_temp.get("colore_agenda", "green")
+        nota   = self.dati_temp.get("nota_agenda", "")
+        self._salva_agenda_plugin(data, colore, nota, ric)
+        self._scrivi_risposta(self._t("ricorda_ok", nome=f"evento {data}"))
+        self._mostra_avatar(avatar_random(self.cfg))
+        self.dati_temp = {}
 
     def _ricorda_step_nome(self, testo: str):
         # Se INVIO vuoto o "salta", usa il nome dal config
@@ -2617,7 +3022,7 @@ class Assistente:
             self._scrivi_risposta(self._t("apri_cosa"))
             self._mostra_avatar("dubbio")
             return
-        risultati = cerca_in_memoria(self.mem, q)
+        risultati = cerca_in_memoria(self._mem_totale, q)
         if not risultati:
             self._scrivi_risposta(self._t("apri_non_trovato", q=q))
             self._mostra_avatar("triste")
@@ -2662,11 +3067,11 @@ class Assistente:
             return
         risultati = []
         for chiave in chiavi:
-            for r in cerca_in_memoria(self.mem, chiave):
+            for r in cerca_in_memoria(self._mem_totale, chiave):
                 if r not in risultati:
                     risultati.append(r)
         for chiave in chiavi:
-            for r in cerca_per_tag(self.mem, chiave):
+            for r in cerca_per_tag(self._mem_totale, chiave):
                 if r not in risultati:
                     risultati.append(r)
         if sogg and sogg != self.cfg["nome_utente"]:
@@ -2774,8 +3179,8 @@ class Assistente:
             self._avvia_cerca_media(estensioni, tipo_label)
             return
 
-        # Ricerca normale in memoria
-        risultati = cerca_in_memoria(self.mem, q)
+        # Ricerca normale in memoria (memory.json + plugins)
+        risultati = cerca_in_memoria(self._mem_totale, q)
         if not risultati:
             self._scrivi_risposta(self._t("cerca_non_trovato", q=q))
             self._mostra_avatar("triste")
@@ -2914,12 +3319,13 @@ class Assistente:
 
     def _cmd_elenca(self, parsed=None):
         # pylint: disable=unused-argument
-        if not self.mem:
+        mem = self._mem_totale
+        if not mem:
             self._scrivi_risposta(self._t("elenca_vuota"))
             self._mostra_avatar("triste")
             return
-        msg = self._t("elenca_intestazione", n=len(self.mem)) + "\n"
-        for i, entry in enumerate(self.mem, 1):
+        msg = self._t("elenca_intestazione", n=len(mem)) + "\n"
+        for i, entry in enumerate(mem, 1):
             alias = f" [{entry['alias']}]" if entry.get("alias") else ""
             msg += f"\n  {i}. {entry.get('nome','')}{alias} — {entry.get('soggetto','')}"
         self._scrivi_risposta(msg)
@@ -2931,7 +3337,7 @@ class Assistente:
         if not q:
             self._scrivi_risposta(self._t("copia_cosa"))
             return
-        risultati = cerca_in_memoria(self.mem, q)
+        risultati = cerca_in_memoria(self._mem_totale, q)
         if not risultati:
             self._scrivi_risposta(self._t("copia_non_trovato", q=q))
             self._mostra_avatar("triste")
@@ -2943,9 +3349,120 @@ class Assistente:
         self._mostra_avatar(risultati[0].get("avatar") or avatar_random(self.cfg))
 
     def _cmd_aiuto(self, parsed=None):
-        # pylint: disable=unused-argument
-        self._scrivi_risposta(self._t("aiuto_testo"))
+        argomento = (parsed.get("nome", "") if parsed else "").strip().lower()
+        if argomento == "plugin":
+            self._scrivi_risposta(self._MANUALE_PLUGIN)
+        else:
+            self._scrivi_risposta(self._t("aiuto_testo"))
         self._mostra_avatar(self.cfg.get("avatar_iniziale", "benvenuto"))
+
+    _MANUALE_PLUGIN = """\
+══════════════════════════════════════
+  MANUALE PLUGIN — myNote · myTodo · myAgenda
+══════════════════════════════════════
+
+I plugin salvano i dati in _dati/plugins/ e sono
+cercabili con i normali comandi trova/cerca/elenca.
+
+──────────────────────────────────────
+  myNote — Foglietti e appunti
+──────────────────────────────────────
+Salva una nuova nota:
+  ricorda nota lista spesa
+  (chiede: testo della nota)
+
+Cerca una nota:
+  cerca nota
+  dammi lista spesa
+  elenca
+
+Aggiorna dopo modifiche in myNote.html:
+  aggiorna
+
+──────────────────────────────────────
+  myTodo — Lista cose da fare
+──────────────────────────────────────
+Salva un nuovo task:
+  ricorda todo pagare bolletta luce
+  (chiede: tipo · data · ricorrenza)
+
+Tipi disponibili:
+  svago · scadenza · tassa
+  ricorrenza · sanita · macchine
+
+Ricorrenze disponibili:
+  none · daily · weekly · monthly · yearly
+
+Cerca un task:
+  cerca todo
+  dammi pagare bolletta
+  cerca tassa
+
+──────────────────────────────────────
+  myAgenda — Calendario eventi
+──────────────────────────────────────
+Salva un nuovo evento:
+  ricorda agenda
+  (chiede: data · colore · nota · ricorrenza)
+
+Colori disponibili:
+  green (svago)   · blue (salute)
+  yellow (auto)   · orange (scade) · red (urgenza)
+
+Ricorrenza:
+  yearly (solo quest'anno)
+  permanent (ogni anno per sempre)
+
+Cerca un evento:
+  cerca agenda
+  dammi 15 giugno 2026
+
+──────────────────────────────────────
+  COMANDI COMUNI A TUTTI I PLUGIN
+──────────────────────────────────────
+  elenca          — mostra tutto (memoria + plugin)
+  aggiorna        — ricarica i file plugin da disco
+  cerca nota      — filtra per tag
+  cerca todo      — filtra per tag
+  cerca agenda    — filtra per tag
+
+══════════════════════════════════════
+  TEST RAPIDO — sequenza consigliata
+══════════════════════════════════════
+
+1)  ricorda nota lista spesa
+    → inserisci: pane, latte, uova
+
+2)  dammi lista spesa
+    → deve mostrare il testo appena salvato
+
+3)  ricorda todo dentista
+    → tipo: sanita
+    → data: 2026-06-15 10:00
+    → ricorrenza: none
+
+4)  cerca todo
+    → deve trovare "dentista"
+
+5)  ricorda agenda
+    → data: 2026-06-15
+    → colore: blue
+    → nota: visita dentista
+    → ricorrenza: yearly
+
+6)  dammi 15 giugno 2026
+    → deve mostrare l'evento agenda
+
+7)  elenca
+    → devono apparire tutte e tre le voci
+
+8)  aggiorna
+    → ricarica i plugin (utile dopo modifiche dall'HTML)
+
+══════════════════════════════════════
+Digita  aiuto  per i comandi generali.
+══════════════════════════════════════\
+"""
 
     def _cmd_autore(self, parsed=None):
         # pylint: disable=unused-argument

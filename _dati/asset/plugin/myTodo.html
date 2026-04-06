@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myTodo, Lista cose da fare</title>
+    <style>
+        /* 1. VARIABILI COLORE */
+        :root {
+            --bg-primary: #f4f4f9;
+            --bg-secondary: white;
+            --text-primary: #333;
+            --text-secondary: #888;
+            --border-color: #ddd;
+            --shadow: rgba(0,0,0,0.1);
+            --btn-primary: #4CAF50;
+            --btn-primary-hover: #45a049;
+            --btn-secondary: #008CBA;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #aaa;
+            --border-color: #444;
+            --shadow: rgba(0,0,0,0.5);
+        }
+
+        /* 2. LAYOUT GENERALE */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #828282, #FAEBD7); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+            transition: background 0.3s;
+        }
+
+        [data-theme="dark"] body {
+            background: #1a1a1a !important;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        [data-theme="dark"] h1 {
+            color: #e0e0e0 !important;
+            text-shadow: none !important;
+        }
+
+        .container {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 900px;
+            color: var(--text-primary);
+        }
+
+        /* 3. ELEMENTI INTERFACCIA */
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 8px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+        }
+
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: bold; color: var(--btn-primary); }
+        .stat-label { font-size: 0.85rem; color: var(--text-secondary); }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        input, select, button {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        #addBtn { background-color: var(--btn-primary) !important; color: white !important; font-weight: bold; cursor: pointer; border: none; }
+
+        /* 4. LISTE E CARDS */
+        .months-row { display: flex; gap: 20px; flex-wrap: wrap; }
+        .month-card { flex: 1 1 400px; }
+        .month-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: var(--bg-primary);
+            border-left: 4px solid var(--btn-primary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        ul { list-style: none; padding: 0; }
+        li {
+            background: var(--bg-secondary);
+            border-left: 10px solid #ccc;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        /* Colori bordi task */
+        li.type-scadenza { border-left-color: #FFA500; }
+        li.type-tassa { border-left-color: #FF6347; }
+        li.type-svago { border-left-color: #32CD32; }
+        li.type-ricorrenza { border-left-color: #90EE90; }
+        li.type-sanita { border-left-color: #87CEEB; }
+        li.type-macchine { border-left-color: #FF7F50; }
+
+        .completed .task-text { text-decoration: line-through; color: var(--text-secondary); }
+
+        /* 5. MODALE E BACKUP */
+        .backup-area { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .btn-backup { background-color: var(--btn-secondary); color: white; border: none; cursor: pointer; }
+        
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+        .modal-content { background: var(--bg-secondary); margin: 5% auto; padding: 20px; width: 90%; max-width: 500px; border-radius: 8px; }
+
+        @media print { .input-group, .stats, .theme-toggle, .backup-area { display: none; } body { background: white !important; } }
+    </style>
+</head>
+<body>
+
+    <h1>
+        <span>📋 myTodo Cose da fare <a href="#" onclick="window.close();" style="text-decoration:none; color:inherit;">❌</a></span>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    </h1>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat-item"><div class="stat-number" id="statTotal">0</div><div class="stat-label">Totali mese</div></div>
+            <div class="stat-item"><div class="stat-number" id="statCompleted">0</div><div class="stat-label">Completati</div></div>
+            <div class="stat-item"><div class="stat-number" id="statPending">0</div><div class="stat-label">Da fare</div></div>
+            <div class="stat-item"><div class="stat-number" id="statOverdue">0</div><div class="stat-label">Scaduti</div></div>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Nuova attività..." style="flex-grow:1">
+            <select id="typeSelect">
+                <option value="svago">Svago (verde)</option>
+                <option value="ricorrenza">Ricorrenza (verde chiaro)</option>
+                <option value="sanita">Sanità (azzurro)</option>
+                <option value="macchine">Auto (corallo)</option>
+                <option value="scadenza">Scade (arancione)</option>
+                <option value="tassa">Tassa (rosso)</option>
+            </select>
+            <input type="datetime-local" id="dateInput">
+            <select id="recurringSelect">
+                <option value="none">Non ripetere</option>
+                <option value="daily">Ogni giorno</option>
+                <option value="weekly">Ogni settimana</option>
+                <option value="monthly">Ogni mese</option>
+                <option value="yearly">Ogni anno</option>
+            </select>
+            <button id="addBtn" onclick="addTask()">Aggiungi task</button>
+        </div>
+
+        <div class="months-row">
+            <div class="month-card" id="pastMonthCard"></div>
+            <div class="month-card" id="futureMonthCard"></div>
+        </div>
+
+        <div class="backup-area">
+            <button class="btn-backup" onclick="saveToPlugin()" title="Salva in _dati/plugins/myTodo.json">🔗 Salva per Assistente</button>
+            <button class="btn-backup" onclick="downloadBackup()">💾 Backup</button>
+            <button class="btn-backup" onclick="document.getElementById('fileInput').click()">📂 Ripristina</button>
+            <input type="file" id="fileInput" style="display:none" onchange="uploadBackup(this)">
+            <button class="btn-backup" onclick="window.print()">🖨️ Stampa</button>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Modifica Task</h2>
+            <input type="text" id="editTaskInput">
+            <input type="datetime-local" id="editDateInput">
+            <select id="editTypeSelect">
+                <option value="svago">Svago</option>
+                <option value="scadenza">Scadenza</option>
+                <option value="tassa">Tassa</option>
+            </select>
+            <select id="editRecurringSelect">
+                <option value="none">No</option>
+                <option value="daily">Sì</option>
+            </select>
+            <div style="margin-top:15px; text-align:right">
+                <button onclick="saveEdit()">Salva</button>
+                <button onclick="closeEditModal()" style="background:#f44336; color:white">Chiudi</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- GESTIONE TEMA ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('todo-theme', theme);
+        }
+        const savedTheme = localStorage.getItem('todo-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // --- LOGICA TASK (ESTRATTA DAL TUO FILE ORIGINALE) ---
+        let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+        let currentEditId = null;
+
+        function addTask() {
+            const text = document.getElementById('taskInput').value;
+            const date = document.getElementById('dateInput').value;
+            const type = document.getElementById('typeSelect').value;
+            const recurring = document.getElementById('recurringSelect').value;
+
+            if(!text || !date) return alert("Inserisci testo e data!");
+
+            tasks.push({
+                id: Date.now(),
+                text: text,
+                date: date.replace('T', ' '),
+                type: type,
+                recurring: recurring,
+                completed: false
+            });
+
+            document.getElementById('taskInput').value = '';
+            saveAndRender();
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('myTasks', JSON.stringify(tasks));
+            renderTasks();
+            autoSavePlugin();
+        }
+
+        function renderTasks() {
+            const futureList = document.getElementById('futureMonthCard');
+            const pastList = document.getElementById('pastMonthCard');
+            
+            futureList.innerHTML = '<div class="month-header">Prossimi Task</div><ul>';
+            pastList.innerHTML = '<div class="month-header">Task Passati</div><ul>';
+
+            const now = new Date();
+
+            tasks.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
+                const isPast = new Date(t.date) < now;
+                const html = `
+                    <li class="type-${t.type} ${t.completed ? 'completed' : ''}">
+                        <div onclick="toggleComplete(${t.id})" style="cursor:pointer">
+                            <strong>${t.text}</strong><br>
+                            <small>${t.date}</small>
+                        </div>
+                        <div>
+                            <button onclick="openEditModal(${t.id})">✏️</button>
+                            <button onclick="deleteTask(${t.id})">🗑️</button>
+                        </div>
+                    </li>`;
+                
+                if(isPast) pastList.querySelector('ul').innerHTML += html;
+                else futureList.querySelector('ul').innerHTML += html;
+            });
+            updateStats();
+        }
+
+        function toggleComplete(id) {
+            const task = tasks.find(t => t.id === id);
+            if(task) task.completed = !task.completed;
+            saveAndRender();
+        }
+
+        function deleteTask(id) {
+            if(confirm("Eliminare questo task?")) {
+                tasks = tasks.filter(t => t.id !== id);
+                saveAndRender();
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('statTotal').innerText = tasks.length;
+            document.getElementById('statCompleted').innerText = tasks.filter(t => t.completed).length;
+            document.getElementById('statPending').innerText = tasks.filter(t => !t.completed).length;
+        }
+
+        // --- BACKUP ---
+        function downloadBackup() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "todo_backup.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function uploadBackup(input) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const loaded = JSON.parse(e.target.result);
+                    if (!Array.isArray(loaded)) { alert("File non valido."); return; }
+                    // Formato plugin (campo "nome") oppure interno (campo "text")
+                    const isPlugin = loaded.length > 0 && loaded[0].nome !== undefined && loaded[0].text === undefined;
+                    tasks = isPlugin ? loaded.map(pluginToTask) : loaded;
+                    saveAndRender();
+                } catch(e) { alert("Errore nella lettura del file."); }
+            };
+            reader.readAsText(input.files[0]);
+        }
+
+        // --- MODALE ---
+        function openEditModal(id) {
+            currentEditId = id;
+            const t = tasks.find(x => x.id === id);
+            document.getElementById('editTaskInput').value = t.text;
+            document.getElementById('editModal').style.display = 'block';
+        }
+        function closeEditModal() { document.getElementById('editModal').style.display = 'none'; }
+        function saveEdit() {
+            const t = tasks.find(x => x.id === currentEditId);
+            t.text = document.getElementById('editTaskInput').value;
+            saveAndRender();
+            closeEditModal();
+        }
+
+
+        // ── Conversione formato myAssistente ──────────────────────────────────
+
+        const MESI_TODO = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
+                           'luglio','agosto','settembre','ottobre','novembre','dicembre'];
+        const RECURRING_LABEL_TODO = {
+            daily:'giornaliero', weekly:'settimanale', monthly:'mensile', yearly:'annuale'
+        };
+
+        function taskToPlugin(task) {
+            const d = new Date(task.date.replace(' ','T'));
+            const dataHuman = isNaN(d) ? task.date
+                : `${d.getDate()} ${MESI_TODO[d.getMonth()]} ${d.getFullYear()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+            const parti = [dataHuman];
+            if (task.recurring && task.recurring !== 'none')
+                parti.push(RECURRING_LABEL_TODO[task.recurring] || task.recurring);
+            return {
+                nome:      task.text,
+                dati:      parti.join(' — '),
+                soggetto:  task.type,
+                tag:       ['todo', task.type],
+                _plugin:   'myTodo',
+                _id:       task.id,
+                _data:     task.date,
+                _type:     task.type,
+                _recurring: task.recurring || 'none',
+                _completed: task.completed || false
+            };
+        }
+
+        function pluginToTask(v) {
+            return {
+                id:        v._id       || Date.now(),
+                text:      v.nome,
+                type:      v._type     || v.soggetto || 'svago',
+                date:      v._data     || new Date().toISOString().slice(0,16).replace('T',' '),
+                completed: v._completed || false,
+                recurring: v._recurring || 'none'
+            };
+        }
+
+        // ── File System Access API ────────────────────────────────────────────
+
+        let pluginFileHandle = null;
+
+        function openHandleDB() {
+            return new Promise((res, rej) => {
+                const req = indexedDB.open('myTodo_db', 1);
+                req.onupgradeneeded = e => e.target.result.createObjectStore('handles');
+                req.onsuccess = e => res(e.target.result);
+                req.onerror   = e => rej(e.target.error);
+            });
+        }
+
+        async function savePluginHandle(handle) {
+            pluginFileHandle = handle;
+            try {
+                const db = await openHandleDB();
+                const tx = db.transaction('handles', 'readwrite');
+                tx.objectStore('handles').put(handle, 'pluginHandle');
+                await new Promise(r => { tx.oncomplete = r; });
+                db.close();
+            } catch(e) { console.warn('[myTodo] Handle non persistito:', e); }
+        }
+
+        async function loadPluginHandle() {
+            try {
+                const db = await openHandleDB();
+                const tx = db.transaction('handles', 'readonly');
+                const req = tx.objectStore('handles').get('pluginHandle');
+                req.onsuccess = async e => {
+                    if (e.target.result) {
+                        const perm = await e.target.result.queryPermission({ mode: 'readwrite' });
+                        if (perm === 'granted') pluginFileHandle = e.target.result;
+                    }
+                };
+                db.close();
+            } catch(e) { /* IndexedDB non disponibile */ }
+        }
+
+        async function saveToPlugin() {
+            if (!window.showSaveFilePicker) {
+                alert('Usa Chrome o Edge per questa funzione.\nAlternativa: usa Backup JSON.');
+                return;
+            }
+            try {
+                if (pluginFileHandle) {
+                    const perm = await pluginFileHandle.requestPermission({ mode: 'readwrite' });
+                    if (perm !== 'granted') pluginFileHandle = null;
+                }
+                if (!pluginFileHandle) {
+                    pluginFileHandle = await window.showSaveFilePicker({
+                        suggestedName: 'myTodo.json',
+                        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+                        startIn: 'documents'
+                    });
+                    await savePluginHandle(pluginFileHandle);
+                }
+                const writable = await pluginFileHandle.createWritable();
+                await writable.write(JSON.stringify(tasks.map(taskToPlugin), null, 2));
+                await writable.close();
+                const btn = document.querySelector('[onclick="saveToPlugin()"]');
+                if (btn) { const t = btn.textContent; btn.textContent = '\u2713 Salvato!'; setTimeout(() => btn.textContent = t, 1500); }
+            } catch(e) {
+                if (e.name !== 'AbortError') alert('Errore salvataggio: ' + e.message);
+            }
+        }
+
+        async function autoSavePlugin() {
+            if (!pluginFileHandle) return;
+            try {
+                const perm = await pluginFileHandle.queryPermission({ mode: 'readwrite' });
+                if (perm !== 'granted') return;
+                const writable = await pluginFileHandle.createWritable();
+                await writable.write(JSON.stringify(tasks.map(taskToPlugin), null, 2));
+                await writable.close();
+            } catch(e) { console.warn('[myTodo] Auto-save fallito:', e); }
+        }
+
+        window.onload = function() { loadPluginHandle(); renderTasks(); };
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "Fare",
+    "dati": "[  ] aria condizionata\n[x] TV muro >50\" + spostamento parabola\n\n[  ] router 5G\n[  ] sensore\nhttps://www.sensore.html\n",
+    "tag": ["nota"],
+    "soggetto": "utente",
+    "colore": "#b6d7a8",
+    "_plugin": "note",
+    "_id": 1766840677923,
+    "_data": "09/02/2026, 13:41:15",
+    "_html": "[  ] aria condizionata<br/>\n[x] TV muro >50\" + spostamento parabola<br/>\n[  ] router 5G<br/>\n[  ] sensore\n<span onclick=\"copiaNeglAppunti(this)\" style=\"cursor: pointer; text-decoration: underline;\">\nhttps://www.sensore.html\n</span>",
+    "_titolo": ""
+  }
+]
