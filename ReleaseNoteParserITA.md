@@ -2,9 +2,8 @@
 
 ## Versione 1.3.0
 
-normalizzazione pattern in MAIUSCOLO
-
-### Tag `<template>` supportati
+- normalizzazione pattern in MAIUSCOLO
+- Tag `<template>` supportati
 
 ---
 
@@ -79,24 +78,24 @@ Predefiniti disponibili: `name`, `version`, `master`, `dateformat`.
 |-----|----------|-------------|
 | `<uppercase>` | `<uppercase>...</uppercase>` | Converte il contenuto in MAIUSCOLO |
 | `<lowercase>` | `<lowercase>...</lowercase>` | Converte il contenuto in minuscolo |
-| `<formal>` | `<formal>...</formal>` | Prima Lettera Di Ogni Parola Maiuscola *(novità v1.2.0)* |
-| `<sentence>` | `<sentence>...</sentence>` | Prima lettera della frase maiuscola *(novità v1.2.0)* |
+| `<formal>` | `<formal>...</formal>` | Prima Lettera Di Ogni Parola Maiuscola *(da v1.2.0)* |
+| `<sentence>` | `<sentence>...</sentence>` | Prima lettera della frase maiuscola *(da v1.2.0)* |
 | `<explode>` | `<explode>...</explode>` | I n s e r i s c e   s p a z i   t r a   o g n i   c a r a t t e r e *(novità v1.2.0)* |
 
 ---
 
-#### Tag di sistema *(tutti novità v1.1)*
+#### Tag di sistema *(tutti da v1.1)*
 
 | Tag | Sintassi | Descrizione |
 |-----|----------|-------------|
 | `<date>` | `<date/>` oppure `<date format="%d/%m/%Y"/>` | Data/ora locale. Il formato segue `strftime`; se omesso usa il bot-predicato `dateformat` |
 | `<size>` | `<size/>` | Numero di categorie AIML attualmente caricate |
-| `<version>` | `<version/>` | Versione del parser (bot-predicato `version`, default `1.2.0`) |
+| `<version>` | `<version/>` | Versione del parser (bot-predicato `version`, default `1.3.0`) |
 | `<id>` | `<id/>` | Identificatore UUID della sessione corrente (o bot-predicato `id`) |
 
 ---
 
-#### Punteggiatura e spazio *(novità v1.1)*
+#### Punteggiatura e spazio *(da v1.1)*
 
 | Tag | Sintassi | Output |
 |-----|----------|--------|

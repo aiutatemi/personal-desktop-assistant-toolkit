@@ -2,6 +2,8 @@
 
 ## myAssistente5
 Full compatibility with the *AIML standard* files using new aiml_parser.py
+Integration with myAgenda, myTodo, myNote plugins
+GUI: Collapsable command lists
 *Windows* and *Linux* distributable package
 
 ## myAssistente4

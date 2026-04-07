@@ -1,0 +1,26 @@
+# ============================================================
+#  myAssistente v5 — dipendenze pip
+#  necessarie solo per utenti Python
+#  Installa con: pip install -r requirements.txt
+#  Genera con:  pip freeze > requirements.txt
+# ============================================================
+
+# --- TTS (Text-to-Speech) — OBBLIGATORIA ---
+pyttsx3
+
+# --- STT (Speech-to-Text) — opzionale, abilita il microfono ---
+SpeechRecognition
+sounddevice
+numpy
+
+# --- AI — opzionale, scegli UNO dei due provider ---
+# openai                  # Provider OpenAI (GPT)
+# google-generativeai     # Provider Google Gemini
+
+# --- NOTA ---
+# aiml_parser: scarica il file aiml_parser.py dal repositoy
+# inseriscilo nella stessa cartella di myAssistente5_3.py
+#
+# Librerie standard Python già incluse (non serve installarle):
+# tkinter, json, os, queue, re, shutil, subprocess,
+# sys, random, threading, platform, pathlib, datetime, webbrowser

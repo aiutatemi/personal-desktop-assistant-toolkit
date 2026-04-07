@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Emanuele Cassani">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Free calendar with agenda. All data saved locally, no registration required">
+    <meta name="description" content="Calendario gratuito con agendina. Tutti i dati salvati in locale, senza registrazione">
     <meta name="keywords" content="myAsssistente, agenda" />
 
     <title>myAgenda</title>
@@ -402,13 +402,14 @@ body[data-theme="dark"] {
     </style>
 </head>
 <body>
+
 <table id="myAgenda"><tr><td>
             <a href="myAgenda.html">🇬🇧 English</a><br>
             <a href="myAgendaITA.html">🇮🇹 Italiano</a>
 </td><td>
 <h1>
-    <span>🗓️ myAgenda <a href="#" onclick="window.close();" aria-label="close">❌</a></span>
-    <button class="theme-toggle" onclick="toggleTheme()" title="Change theme">🌓</button>
+    <span>🗓️ myAgenda <a href="#" onclick="window.close();" aria-label="chiudi">❌</a></span>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Cambia tema">🌓</button>
 </h1>
 </td></tr></table>
 
@@ -419,17 +420,17 @@ body[data-theme="dark"] {
             <button class="nav-button" onclick="changeMonth(1)">&gt;</button>
         </div>
         <div class="calendar-header">
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
-            <div>Sun</div>
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mer</div>
+            <div>Gio</div>
+            <div>Ven</div>
+            <div>Sab</div>
+            <div>Dom</div>
         </div>
         <div id="calendar"></div>
         <div class="input-group">
-            <button class="settings-button" onclick="openSettings()">Settings</button>
+            <button class="settings-button" onclick="openSettings()">Impostazioni</button>
 <br/>
 
 <p align="right">&copy; 2025 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a></p>
@@ -439,85 +440,85 @@ body[data-theme="dark"] {
     <div id="eventModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modalTitle">Add Event</h2>
+                <h2 id="modalTitle">Aggiungi Evento</h2>
                 <button class="close-modal" onclick="closeEventModal()">&times;</button>
             </div>
             
             <div class="date-input-container">
-                <label for="eventDateInput">Event date:</label>
+                <label for="eventDateInput">Data evento:</label>
                 <input type="date" id="eventDateInput">
             </div>
             
-            <label>Color:</label>
+            <label>Colore:</label>
             <div class="color-options">
-                <div class="color-option" style="background-color: #27ae60;" data-color="green">Green</div>
-                <div class="color-option" style="background-color: #2980b9;" data-color="blue">Blue</div>
-                <div class="color-option" style="background-color: #f39c12;" data-color="yellow">Yellow</div>
-                <div class="color-option" style="background-color: #e67e22;" data-color="orange">Orange</div>
-                <div class="color-option" style="background-color: #e74c3c;" data-color="red">Red</div>
+                <div class="color-option" style="background-color: #27ae60;" data-color="green">Verde</div>
+                <div class="color-option" style="background-color: #2980b9;" data-color="blue">Azzurro</div>
+                <div class="color-option" style="background-color: #f39c12;" data-color="yellow">Giallo</div>
+                <div class="color-option" style="background-color: #e67e22;" data-color="orange">Arancione</div>
+                <div class="color-option" style="background-color: #e74c3c;" data-color="red">Rosso</div>
             </div>
             
             <label>Note:</label>
-            <textarea id="eventNote" placeholder="Add a short note..."></textarea>
+            <textarea id="eventNote" placeholder="Aggiungi una breve nota..."></textarea>
             
             <div class="completion-option" onclick="toggleCompletionCheckbox()">
                 <input type="checkbox" id="eventCompleted">
-                <label for="eventCompleted">Mark as completed (X)</label>
+                <label for="eventCompleted">Segna come completato (X)</label>
             </div>
             
-            <label>Recurrence:</label>
+            <label>Ricorrenza:</label>
             <div class="recurrence-options">
-                <div class="recurrence-option" data-recurrence="yearly" id="yearlyOption">This year only</div>
-                <div class="recurrence-option" data-recurrence="permanent" id="permanentOption">Every year</div>
+                <div class="recurrence-option" data-recurrence="yearly" id="yearlyOption">Solo quest'anno</div>
+                <div class="recurrence-option" data-recurrence="permanent" id="permanentOption">Tutti gli anni</div>
             </div>
             
-            <button onclick="saveEvent()">Save event</button>
-            <button class="delete-event" onclick="deleteEvent()">Delete event</button>
+            <button onclick="saveEvent()">Salva evento</button>
+            <button class="delete-event" onclick="deleteEvent()">Cancella evento</button>
         </div>
     </div>
 
     <div id="settingsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Settings</h2>
+                <h2>Impostazioni</h2>
                 <button class="close-modal" onclick="closeSettingsModal()">&times;</button>
             </div>
             
-            <h3>Color labels</h3>
+            <h3>Etichette dei colori</h3>
             <div class="tag-input">
-                <label>Green:</label>
-                <input type="text" id="greenTag" placeholder="leisure/anniversary">
+                <label>Verde:</label>
+                <input type="text" id="greenTag" placeholder="svago/ricorrenza">
             </div>
             <div class="tag-input">
-                <label>Blue:</label>
-                <input type="text" id="blueTag" placeholder="health">
+                <label>Azzurro:</label>
+                <input type="text" id="blueTag" placeholder="salute">
             </div>
             <div class="tag-input">
-                <label>Yellow:</label>
-                <input type="text" id="yellowTag" placeholder="car">
+                <label>Giallo:</label>
+                <input type="text" id="yellowTag" placeholder="auto">
             </div>
             <div class="tag-input">
-                <label>Orange:</label>
-                <input type="text" id="orangeTag" placeholder="expires">
+                <label>Arancione:</label>
+                <input type="text" id="orangeTag" placeholder="scade">
             </div>
             <div class="tag-input">
-                <label>Red:</label>
-                <input type="text" id="redTag" placeholder="tax">
+                <label>Rosso:</label>
+                <input type="text" id="redTag" placeholder="tassa">
             </div>
             
             <div class="tag-display">
-                <p><strong>Note:</strong> Labels appear when hovering over colored days.</p>
+                <p><strong>Nota:</strong> Le etichette appaiono passando il mouse sui giorni colorati.</p>
             </div>
             
-            <button onclick="saveSettings()">Save settings</button>
+            <button onclick="saveSettings()">Salva impostazioni</button>
 
             <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-            <h3>Data management (backup)</h3>
-            <p style="font-size: 0.9em; color: #666;">Download your data to avoid losing it if you clear cache or to transfer to another browser.</p>
+            <h3>Gestione dati (backup)</h3>
+            <p style="font-size: 0.9em; color: #666;">Scarica i dati per non perderli se pulisci la cache o per trasferirli su altro browser.</p>
             <div class="backup-options">
-                <button onclick="saveToPlugin()" style="background-color: #8e44ad;" title="Save to _dati/plugins/agenda.json">🔗 Save for myAssistente</button>
-                <button onclick="downloadBackupJSON()" style="background-color: #2980b9;">💾 JSON Backup</button>
-                <button onclick="document.getElementById('restoreInput').click()" style="background-color: #e67e22;">📂 Restore</button>
+                <button onclick="saveToPlugin()" style="background-color: #8e44ad;" title="Salva in _dati/plugins/agenda.json">🔗 Salva per myAssistente</button>
+                <button onclick="downloadBackupJSON()" style="background-color: #2980b9;">💾 Backup JSON</button>
+                <button onclick="document.getElementById('restoreInput').click()" style="background-color: #e67e22;">📂 Ripristina</button>
                 <input type="file" id="restoreInput" style="display: none" accept=".json" onchange="restoreBackup(this)">
             </div>
 
@@ -530,25 +531,25 @@ body[data-theme="dark"] {
         let selectedDate = null;
         let events = JSON.parse(localStorage.getItem('calendarEvents')) || {};
         let colorTags = JSON.parse(localStorage.getItem('colorTags')) || {
-            green: 'leisure/anniversary',
-            blue: 'health',
-            yellow: 'car',
-            orange: 'expires',
-            red: 'urgency'
+            green: 'svago/ricorrenza',
+            blue: 'salute',
+            yellow: 'auto',
+            orange: 'scade',
+            red: 'urgenza'
         };
 
         const monthNames = [
-            "January", "February", "March", "April", 
-            "May", "June", "July", "August", 
-            "September", "October", "November", "December"
+            "Gennaio", "Febbraio", "Marzo", "Aprile", 
+            "Maggio", "Giugno", "Luglio", "Agosto", 
+            "Settembre", "Ottobre", "Novembre", "Dicembre"
         ];
-        const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        const dayNames = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
 
 
         // ── Conversione formato myAssistente ──────────────────────────────────
 
-        const MESI = ['january','february','march','april','may','june',
-                      'july','august','september','october','november','december'];
+        const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
+                      'luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
         /** Converte la chiave evento in stringa leggibile. */
         function keyToHuman(key) {
@@ -614,7 +615,7 @@ body[data-theme="dark"] {
                 tx.objectStore('handles').put(handle, 'pluginHandle');
                 await new Promise(r => { tx.oncomplete = r; });
                 db.close();
-            } catch(e) { console.warn('[agendina] Handle not persisted:', e); }
+            } catch(e) { console.warn('[agendina] Handle non persistito:', e); }
         }
 
         async function loadPluginHandle() {
@@ -629,12 +630,12 @@ body[data-theme="dark"] {
                     }
                 };
                 db.close();
-            } catch(e) { /* IndexedDB not available */ }
+            } catch(e) { /* IndexedDB non disponibile */ }
         }
 
         async function saveToPlugin() {
             if (!window.showSaveFilePicker) {
-                alert('Use Chrome or Edge for this feature.\nAlternative: use JSON Backup.');
+                alert('Usa Chrome o Edge per questa funzione.\nAlternativa: usa Backup JSON.');
                 return;
             }
             try {
@@ -655,9 +656,9 @@ body[data-theme="dark"] {
                 await writable.write(JSON.stringify(data, null, 2));
                 await writable.close();
                 const btn = document.querySelector('[onclick="saveToPlugin()"]');
-                if (btn) { const t = btn.textContent; btn.textContent = '✓ Saved!'; setTimeout(() => btn.textContent = t, 1500); }
+                if (btn) { const t = btn.textContent; btn.textContent = '✓ Salvato!'; setTimeout(() => btn.textContent = t, 1500); }
             } catch(e) {
-                if (e.name !== 'AbortError') alert('Save error: ' + e.message);
+                if (e.name !== 'AbortError') alert('Errore salvataggio: ' + e.message);
             }
         }
 
@@ -670,7 +671,7 @@ body[data-theme="dark"] {
                 const writable = await pluginFileHandle.createWritable();
                 await writable.write(JSON.stringify(data, null, 2));
                 await writable.close();
-            } catch(e) { console.warn('[agendina] Auto-save failed:', e); }
+            } catch(e) { console.warn('[agendina] Auto-save fallito:', e); }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -692,7 +693,7 @@ body[data-theme="dark"] {
                 });
             });
             
-            // Set "This year only" as default
+            // Imposta "Solo quest'anno" come default
             document.getElementById('yearlyOption').classList.add('selected');
         });
 
@@ -745,7 +746,7 @@ body[data-theme="dark"] {
                 if (activeEvent) {
                     dayElement.style.backgroundColor = getColorValue(activeEvent.color);
                     dayElement.classList.add('colored');
-                    dayElement.title = `${colorTags[activeEvent.color] || activeEvent.color}: ${activeEvent.note || 'No note'}`;
+                    dayElement.title = `${colorTags[activeEvent.color] || activeEvent.color}: ${activeEvent.note || 'Nessuna nota'}`;
                     
                     // Se è completato aggiungi la classe per la X
                     if (activeEvent.completed) {
@@ -787,14 +788,14 @@ body[data-theme="dark"] {
             const dateInput = document.getElementById('eventDateInput');
             dateInput.value = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
             
-            document.getElementById('modalTitle').textContent = 'Edit Event';
+            document.getElementById('modalTitle').textContent = 'Modifica Evento';
             
             document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
             document.querySelectorAll('.recurrence-option').forEach(opt => opt.classList.remove('selected'));
             document.getElementById('eventNote').value = '';
             document.getElementById('eventCompleted').checked = false;
             
-            // Set "This year only" as default
+            // Imposta "Solo quest'anno" come default
             document.getElementById('yearlyOption').classList.add('selected');
             
             const dateKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
@@ -804,7 +805,7 @@ body[data-theme="dark"] {
             let currentEvent = events[dateKey] || events[permanentKey];
 
             if (currentEvent) {
-                document.getElementById('modalTitle').textContent = 'Edit Event';
+                document.getElementById('modalTitle').textContent = 'Modifica Evento';
                 document.querySelector(`.color-option[data-color="${currentEvent.color}"]`).classList.add('selected');
                 document.getElementById('eventNote').value = currentEvent.note || '';
                 document.getElementById('eventCompleted').checked = currentEvent.completed || false;
@@ -818,7 +819,7 @@ body[data-theme="dark"] {
                 }
                 eventExists = true;
             } else {
-                document.getElementById('modalTitle').textContent = 'Add Event';
+                document.getElementById('modalTitle').textContent = 'Aggiungi Evento';
             }
 
             const deleteBtn = document.querySelector('.delete-event');
@@ -843,12 +844,12 @@ body[data-theme="dark"] {
             const newDateInput = document.getElementById('eventDateInput').value;
             
             if (!selectedColor || !selectedRecurrence) {
-                alert('Select a color and recurrence');
+                alert('Seleziona un colore e una ricorrenza');
                 return;
             }
             
             if (!newDateInput) {
-                alert('Enter a valid date');
+                alert('Inserisci una data valida');
                 return;
             }
             
@@ -919,11 +920,11 @@ body[data-theme="dark"] {
 
         function saveSettings() {
             colorTags = {
-                green: document.getElementById('greenTag').value || 'leisure/anniversary',
-                blue: document.getElementById('blueTag').value || 'health',
-                yellow: document.getElementById('yellowTag').value || 'car',
-                orange: document.getElementById('orangeTag').value || 'expires',
-                red: document.getElementById('redTag').value || 'urgency'
+                green: document.getElementById('greenTag').value || 'svago/ricorrenza',
+                blue: document.getElementById('blueTag').value || 'salute',
+                yellow: document.getElementById('yellowTag').value || 'auto',
+                orange: document.getElementById('orangeTag').value || 'scade',
+                red: document.getElementById('redTag').value || 'urgenza'
             };
             
             localStorage.setItem('colorTags', JSON.stringify(colorTags));
@@ -985,26 +986,26 @@ body[data-theme="dark"] {
                     // Formato plugin (array) → ricostruisce l'oggetto events
                     if (Array.isArray(data)) {
                         const restored = pluginToEvents(data);
-                        if (confirm("Overwrite current data with backup. Proceed?")) {
+                        if (confirm("Sovrascrive i dati attuali con il backup. Procedere?")) {
                             localStorage.setItem('calendarEvents', JSON.stringify(restored));
-                            alert("Restored! The page will reload.");
+                            alert("Ripristinato! La pagina verrà ricaricata.");
                             location.reload();
                         }
                         return;
                     }
                     // Formato backup nativo {calendarEvents, colorTags}
                     if (data.calendarEvents || data.colorTags) {
-                        if (confirm("Overwrite current data with backup. Proceed?")) {
+                        if (confirm("Sovrascrive i dati attuali con il backup. Procedere?")) {
                             if (data.calendarEvents) localStorage.setItem('calendarEvents', JSON.stringify(data.calendarEvents));
                             if (data.colorTags) localStorage.setItem('colorTags', JSON.stringify(data.colorTags));
-                            alert("Restored! The page will reload.");
+                            alert("Ripristinato! La pagina verrà ricaricata.");
                             location.reload();
                         }
                     } else {
-                        alert("File not recognized as a valid backup.");
+                        alert("File non riconosciuto come backup valido.");
                     }
                 } catch (err) {
-                    alert("Error reading file: " + err.message);
+                    alert("Errore nella lettura del file: " + err.message);
                 }
                 inputElement.value = '';
             };

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>myTodo List</title>
+    <title>myTodo, Lista cose da fare</title>
     <style>
         /* 1. VARIABILI COLORE */
         :root {
@@ -171,38 +171,39 @@
             <a href="myTodoITA.html">🇮🇹 Italiano</a>
 </td><td>
     <h1>
-        <span>📋 myTodo List <a href="#" onclick="window.close();" style="text-decoration:none; color:inherit;">❌</a></span>
+        <span>📋 myTodo Cose da fare <a href="#" onclick="window.close();" style="text-decoration:none; color:inherit;">❌</a></span>
         <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    </h1>
     </h1>
 </td></tr></table>
 
     <div class="container">
         <div class="stats">
-            <div class="stat-item"><div class="stat-number" id="statTotal">0</div><div class="stat-label">Total this month</div></div>
-            <div class="stat-item"><div class="stat-number" id="statCompleted">0</div><div class="stat-label">Completed</div></div>
-            <div class="stat-item"><div class="stat-number" id="statPending">0</div><div class="stat-label">To do</div></div>
-            <div class="stat-item"><div class="stat-number" id="statOverdue">0</div><div class="stat-label">Overdue</div></div>
+            <div class="stat-item"><div class="stat-number" id="statTotal">0</div><div class="stat-label">Totali mese</div></div>
+            <div class="stat-item"><div class="stat-number" id="statCompleted">0</div><div class="stat-label">Completati</div></div>
+            <div class="stat-item"><div class="stat-number" id="statPending">0</div><div class="stat-label">Da fare</div></div>
+            <div class="stat-item"><div class="stat-number" id="statOverdue">0</div><div class="stat-label">Scaduti</div></div>
         </div>
 
         <div class="input-group">
-            <input type="text" id="taskInput" placeholder="New task..." style="flex-grow:1">
+            <input type="text" id="taskInput" placeholder="Nuova attività..." style="flex-grow:1">
             <select id="typeSelect">
-                <option value="svago">Leisure (green)</option>
-                <option value="ricorrenza">Anniversary (light green)</option>
-                <option value="sanita">Health (light blue)</option>
-                <option value="macchine">Car (coral)</option>
-                <option value="scadenza">Expires (orange)</option>
-                <option value="tassa">Tax (red)</option>
+                <option value="svago">Svago (verde)</option>
+                <option value="ricorrenza">Ricorrenza (verde chiaro)</option>
+                <option value="sanita">Sanità (azzurro)</option>
+                <option value="macchine">Auto (corallo)</option>
+                <option value="scadenza">Scade (arancione)</option>
+                <option value="tassa">Tassa (rosso)</option>
             </select>
             <input type="datetime-local" id="dateInput">
             <select id="recurringSelect">
-                <option value="none">No repeat</option>
-                <option value="daily">Every day</option>
-                <option value="weekly">Every week</option>
-                <option value="monthly">Every month</option>
-                <option value="yearly">Every year</option>
+                <option value="none">Non ripetere</option>
+                <option value="daily">Ogni giorno</option>
+                <option value="weekly">Ogni settimana</option>
+                <option value="monthly">Ogni mese</option>
+                <option value="yearly">Ogni anno</option>
             </select>
-            <button id="addBtn" onclick="addTask()">Add task</button>
+            <button id="addBtn" onclick="addTask()">Aggiungi task</button>
         </div>
 
         <div class="months-row">
@@ -211,31 +212,31 @@
         </div>
 
         <div class="backup-area">
-            <button class="btn-backup" onclick="saveToPlugin()" title="Save to _dati/plugins/myTodo.json">🔗 Save for Assistant</button>
+            <button class="btn-backup" onclick="saveToPlugin()" title="Salva in _dati/plugins/myTodo.json">🔗 Salva per Assistente</button>
             <button class="btn-backup" onclick="downloadBackup()">💾 Backup</button>
-            <button class="btn-backup" onclick="document.getElementById('fileInput').click()">📂 Restore</button>
+            <button class="btn-backup" onclick="document.getElementById('fileInput').click()">📂 Ripristina</button>
             <input type="file" id="fileInput" style="display:none" onchange="uploadBackup(this)">
-            <button class="btn-backup" onclick="window.print()">🖨️ Print</button>
+            <button class="btn-backup" onclick="window.print()">🖨️ Stampa</button>
         </div>
     </div>
 
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h2>Edit Task</h2>
+            <h2>Modifica Task</h2>
             <input type="text" id="editTaskInput">
             <input type="datetime-local" id="editDateInput">
             <select id="editTypeSelect">
-                <option value="svago">Leisure</option>
-                <option value="scadenza">Expires</option>
-                <option value="tassa">Tax</option>
+                <option value="svago">Svago</option>
+                <option value="scadenza">Scadenza</option>
+                <option value="tassa">Tassa</option>
             </select>
             <select id="editRecurringSelect">
                 <option value="none">No</option>
-                <option value="daily">Yes</option>
+                <option value="daily">Sì</option>
             </select>
             <div style="margin-top:15px; text-align:right">
-                <button onclick="saveEdit()">Save</button>
-                <button onclick="closeEditModal()" style="background:#f44336; color:white">Close</button>
+                <button onclick="saveEdit()">Salva</button>
+                <button onclick="closeEditModal()" style="background:#f44336; color:white">Chiudi</button>
             </div>
         </div>
     </div>
@@ -261,7 +262,7 @@
             const type = document.getElementById('typeSelect').value;
             const recurring = document.getElementById('recurringSelect').value;
 
-            if(!text || !date) return alert("Enter text and date!");
+            if(!text || !date) return alert("Inserisci testo e data!");
 
             tasks.push({
                 id: Date.now(),
@@ -286,8 +287,8 @@
             const futureList = document.getElementById('futureMonthCard');
             const pastList = document.getElementById('pastMonthCard');
             
-            futureList.innerHTML = '<div class="month-header">Upcoming Tasks</div><ul>';
-            pastList.innerHTML = '<div class="month-header">Past Tasks</div><ul>';
+            futureList.innerHTML = '<div class="month-header">Prossimi Task</div><ul>';
+            pastList.innerHTML = '<div class="month-header">Task Passati</div><ul>';
 
             const now = new Date();
 
@@ -318,7 +319,7 @@
         }
 
         function deleteTask(id) {
-            if(confirm("Delete this task?")) {
+            if(confirm("Eliminare questo task?")) {
                 tasks = tasks.filter(t => t.id !== id);
                 saveAndRender();
             }
@@ -346,12 +347,12 @@
             reader.onload = function(e) {
                 try {
                     const loaded = JSON.parse(e.target.result);
-                    if (!Array.isArray(loaded)) { alert("Invalid file."); return; }
+                    if (!Array.isArray(loaded)) { alert("File non valido."); return; }
                     // Formato plugin (campo "nome") oppure interno (campo "text")
                     const isPlugin = loaded.length > 0 && loaded[0].nome !== undefined && loaded[0].text === undefined;
                     tasks = isPlugin ? loaded.map(pluginToTask) : loaded;
                     saveAndRender();
-                } catch(e) { alert("Error reading file."); }
+                } catch(e) { alert("Errore nella lettura del file."); }
             };
             reader.readAsText(input.files[0]);
         }
@@ -374,10 +375,10 @@
 
         // ── Conversione formato myAssistente ──────────────────────────────────
 
-        const MESI_TODO = ['january','february','march','april','may','june',
-                           'july','august','september','october','november','december'];
+        const MESI_TODO = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
+                           'luglio','agosto','settembre','ottobre','novembre','dicembre'];
         const RECURRING_LABEL_TODO = {
-            daily:'daily', weekly:'weekly', monthly:'monthly', yearly:'yearly'
+            daily:'giornaliero', weekly:'settimanale', monthly:'mensile', yearly:'annuale'
         };
 
         function taskToPlugin(task) {
@@ -433,7 +434,7 @@
                 tx.objectStore('handles').put(handle, 'pluginHandle');
                 await new Promise(r => { tx.oncomplete = r; });
                 db.close();
-            } catch(e) { console.warn('[myTodo] Handle not persisted:', e); }
+            } catch(e) { console.warn('[myTodo] Handle non persistito:', e); }
         }
 
         async function loadPluginHandle() {
@@ -448,12 +449,12 @@
                     }
                 };
                 db.close();
-            } catch(e) { /* IndexedDB not available */ }
+            } catch(e) { /* IndexedDB non disponibile */ }
         }
 
         async function saveToPlugin() {
             if (!window.showSaveFilePicker) {
-                alert('Use Chrome or Edge for this feature.\nAlternative: use JSON Backup.');
+                alert('Usa Chrome o Edge per questa funzione.\nAlternativa: usa Backup JSON.');
                 return;
             }
             try {
@@ -473,9 +474,9 @@
                 await writable.write(JSON.stringify(tasks.map(taskToPlugin), null, 2));
                 await writable.close();
                 const btn = document.querySelector('[onclick="saveToPlugin()"]');
-                if (btn) { const t = btn.textContent; btn.textContent = '\u2713 Saved!'; setTimeout(() => btn.textContent = t, 1500); }
+                if (btn) { const t = btn.textContent; btn.textContent = '\u2713 Salvato!'; setTimeout(() => btn.textContent = t, 1500); }
             } catch(e) {
-                if (e.name !== 'AbortError') alert('Save error: ' + e.message);
+                if (e.name !== 'AbortError') alert('Errore salvataggio: ' + e.message);
             }
         }
 
@@ -487,7 +488,7 @@
                 const writable = await pluginFileHandle.createWritable();
                 await writable.write(JSON.stringify(tasks.map(taskToPlugin), null, 2));
                 await writable.close();
-            } catch(e) { console.warn('[myTodo] Auto-save failed:', e); }
+            } catch(e) { console.warn('[myTodo] Auto-save fallito:', e); }
         }
 
         window.onload = function() { loadPluginHandle(); renderTasks(); };

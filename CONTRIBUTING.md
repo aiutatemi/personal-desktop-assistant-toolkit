@@ -2,7 +2,8 @@
 
 Thank you for your interest in contributing to the project.
 
-Every bit of support is truly appreciated. Below you’ll find the areas where your help can make a real impact.
+Every bit of support is truly appreciated. 
+Below you’ll find the areas where your help can make a real impact.
 
 ---
 
@@ -29,7 +30,7 @@ Once your translation is ready, please share the file with the project.
 
 ---
 
-## 🧪 Test the Available Languages
+## 🧪 Test the program and the Available Languages
 
 All current languages have been tested, but real‑world usage is always the best way to spot issues and improve quality.
 
