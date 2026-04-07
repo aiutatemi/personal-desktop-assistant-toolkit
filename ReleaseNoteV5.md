@@ -256,9 +256,10 @@ _dati/
 No new external dependencies.  
 `aiml_parser.py` uses only standard Python libraries (`re`, `random`, `xml.etree.ElementTree`, `pathlib`).
 
+Read: requirements.txt from repository
 ---
 
-## Migration from v4.x
+## Migration from v4
 
 1. Replace `myAssistente4_x.py` with `myAssistente5_0.py`
 2. Add `aiml_parser.py` to the same folder as the `.py` file
@@ -272,7 +273,7 @@ No new external dependencies.
 
 ---
 
-## Known Issues (unchanged from v4.x)
+## Known Issues (unchanged from v4)
 
 - Linux TTS: eSpeak quality varies; MBROLA voices recommended
 - AI fallback: requires Internet connection and valid API key

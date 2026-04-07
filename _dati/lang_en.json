@@ -34,7 +34,7 @@
   "panel_configura":      "configure",
   "panel_aiuto":          "help",
   "panel_esci":           "exit",
-  "panel_sep_memoria":    "── MANAGE MEMORY ──",
+  "panel_sep_memoria":    "MEMORY",
   "panel_impara":         "learn",
   "panel_ricorda":        "remember ...",
   "panel_ricorda_img":    "remember image",
