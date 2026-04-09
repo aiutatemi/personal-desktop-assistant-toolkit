@@ -79,6 +79,20 @@
             Per tutelare la privacy al 100%, i dati di myAgenda sono salvati esclusivamente nella memoria del browser locale. Se cancellate la memoria o usate un altro browser, l'unico modo per recuperarli è tramite <code>Ripristina</code> del backup.<br/>
             Con <code>Salva per myAssistente</code> assicurati di salvare la memoria nella cartella <code>_dati/plugins/myAgenda.json</code>, l'unica letta da myAssistente all'avvio.
         </div>
+
+<p>Per gestire myAgenda da myAssistente, nel file <code>memory.json</code>, lasciare questa categoria:
+<pre>
+    {
+    "nome": "agenda",
+    "alias": "myAgenda",
+    "soggetto": "miniApp apribile",
+    "dati": "./_dati/asset/plugin/myAgenda.html",
+    "tag": "miniApp",
+    "avatar": "agenda"
+  },
+</pre>
+</p>
+
     </section>
 
     <section id="todo">
@@ -100,6 +114,19 @@
         <img src="images/plugins/todo2.jpg" alt="impostazioni" width="50%"></p>
 
         <p>Dalla finestra che appare si possono modificare i vari dati. Usando <code>Ricorrenza</code>, il task può essere singolo o ripetuto nel tempo.</p>
+
+<p>Per gestire la lista delle cosa da fare myTodo da myAssistente, nel file <code>memory.json</code>, lasciare questa categoria:
+<pre>
+    {
+    "nome": "Todo",
+    "alias": "mytodo",
+    "soggetto": "miniApp apribile",
+    "dati": "./_dati/asset/plugin/myTodo.html",
+    "tag": "miniApp",
+    "avatar": "todo"
+  },
+</pre>
+</p>
     </section>
 
     <section id="note">
@@ -123,6 +150,19 @@
             Per tutelare la privacy al 100%, anche per myNote i dati sono salvati esclusivamente nella memoria del browser locale. Se cancellate la memoria o usate un altro browser, l'unico modo per recuperarli è tramite <code>Ripristina</code> del backup.<br/>
             Con <code>Salva per myAssistente</code> assicurati di salvare la memoria nella cartella <code>_dati/plugins/myNote.json</code>, l'unica letta da myAssistente all'avvio.
         </div>
+
+<p>Per gestire le note myNote da myAssistente, nel file <code>memory.json</code>, lasciare questa categoria:
+<pre>
+    {
+    "nome": "Note",
+    "alias": "mynote",
+    "soggetto": "miniApp apribile",
+    "dati": "./_dati/asset/plugin/myNote.html",
+    "tag": "miniApp",
+    "avatar": "postit"
+  },
+</pre>
+</p>
     </section>
 
     <section id="documentation">

@@ -2,8 +2,8 @@
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
 v5.3  AIML 1.3 engine (aiml_parser.py)
-      # integration with myNote, myTodo and myAgenda
-      # Avatar, comands and GUI menu open/close from AIML attribute
+      # Integration with myNote, myTodo and myAgenda
+      # Avatar, commands and GUI menu open/close from AIML attribute
        <template avatar="positivo" comando="apri posta"  menu="0010">
       # Optional AI Integration
        Answer mode: aiml_only / ai_only / aiml_then_ai
@@ -153,8 +153,8 @@ def _base_dir() -> Path:
 BASE_DIR     = _base_dir()
 INTERNAL_DIR = BASE_DIR / "_dati"
 ASSET_DIR    = INTERNAL_DIR / "asset" / "avatar"
-MEM_FILE     = INTERNAL_DIR / "memory.json"      # Rinominato in inglese
-CFG_FILE     = INTERNAL_DIR / "config.json"      # Rinominato in inglese
+MEM_FILE     = INTERNAL_DIR / "memory.json"      # File memoria
+CFG_FILE     = INTERNAL_DIR / "config.json"      # File configurazione
 AIML_DIR     = INTERNAL_DIR / "aiml"             # Cartella file .aiml
 PLUGINS_DIR  = INTERNAL_DIR / "plugins"          # Cartella file plugin (note, agenda…)
 

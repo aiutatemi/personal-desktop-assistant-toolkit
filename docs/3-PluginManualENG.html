@@ -79,6 +79,20 @@
             To ensure 100% privacy, myAgenda data is stored exclusively in the browser’s local memory. If you clear the browser data or use a different browser, the only way to recover your information is through the <code>Restore</code> backup function.<br/>
             When using <code>Save for myAssistente</code>, make sure to save the memory file to <code>_dati/plugins/myAgenda.json</code>, the only folder read by myAssistente at startup.
         </div>
+
+<p>To manage myAgenda from myAssistente, inside <code>memory.json</code>, leave this category:
+<pre>
+    {
+    "nome": "agenda",
+    "alias": "myAgenda",
+    "soggetto": "miniApp",
+    "dati": "./_dati/asset/plugin/myAgenda.html",
+    "tag": "miniApp",
+    "avatar": "agenda"
+  },
+</pre>
+</p>
+
     </section>
 
     <section id="todo">
@@ -100,6 +114,20 @@
         <img src="images/plugins/todo2.jpg" alt="settings" width="50%"></p>
 
         <p>From the window that appears, you can edit all task details. Using <code>Recurrence</code>, a task can be set as one-time or repeating.</p>
+
+<p>To manage myTodo from myAssistente, inside <code>memory.json</code>, leave this category:
+<pre>
+    {
+    "nome": "Todo",
+    "alias": "mytodo",
+    "soggetto": "miniApp",
+    "dati": "./_dati/asset/plugin/myTodo.html",
+    "tag": "miniApp",
+    "avatar": "todo"
+  },
+</pre>
+</p>
+
     </section>
 
     <section id="note">
@@ -123,6 +151,19 @@
             To ensure 100% privacy, myNote data is also stored exclusively in the browser’s local memory. If you clear the browser data or use another browser, the only way to recover your notes is through the <code>Restore</code> backup function.<br/>
             When using <code>Save for myAssistente</code>, make sure to save the memory file to <code>_dati/plugins/myNote.json</code>, the only folder read by myAssistente at startup.
         </div>
+
+<p>To manage myNote from myAssistente, inside <code>memory.json</code>, leave this category:
+<pre>
+    {
+    "nome": "Note",
+    "alias": "mynote",
+    "soggetto": "miniApp",
+    "dati": "./_dati/asset/plugin/myNote.html",
+    "tag": "miniApp",
+    "avatar": "postit"
+  },
+</pre>
+</p>
     </section>
 
     <section id="documentation">

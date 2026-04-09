@@ -5,13 +5,18 @@
 #  Generate with:  pip freeze > requirements.txt
 # ============================================================
 
-# --- TTS (Text-to-Speech) — REQUIRED ---
-pyttsx3
+# --- Core — REQUIRED ---
+pyttsx3                 # TTS (Text-to-Speech)
+Pillow                  # avatar images (.jpg, .png, .gif)
+opencv-python           # avatar video (.mp4)
 
 # --- STT (Speech-to-Text) — optional, enables microphone input ---
 SpeechRecognition
 sounddevice
 numpy
+
+# --- drag-and-drop — optional, enables drag and drop of links ---
+tkinterdnd2
 
 # --- AI — optional, choose ONE provider ---
 # openai                  # OpenAI provider (GPT)
