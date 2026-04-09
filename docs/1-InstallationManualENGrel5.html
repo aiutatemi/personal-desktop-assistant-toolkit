@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente (1) Installation Manual</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Desktop Personal Assistant – Documentation Toolkit</strong><br>
+        (1) Installation Manual · Release 5 · English</p>
+    </div>
+
+    <nav style="display: flex; flex-wrap: wrap; align-items: center;">
+        <div class="nav-group">
+            <a href="index.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+        </div>
+
+        <div class="nav-group" style="margin-left: auto;">
+            <a href="1-InstallationManualENGrel5.html">🇬🇧 English</a>
+            <a href="1-ManualeInstallazioneITArel5.html">🇮🇹 Italian</a>
+        </div>
+
+        <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+            <strong>Contents:</strong> 
+            <a href="#installation-overview">Installation</a>
+            <a href="#installation-steps">Procedure</a>
+            <a href="#first-steps">First steps</a>
+            <a href="#screenshots">Screenshots</a>
+            <a href="#documentation">Documentation</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <!-- SECTION 1 — INSTALLATION OVERVIEW -->
+    <section id="installation-overview">
+        <h1>(1) Installation Manual</h1>
+        <ul>
+            <li><strong>Purpose:</strong> This manual guides you through the first installation of your myAssistente.</li>
+            <li><strong>Prerequisites:</strong> The ZIP package containing the myAssistente executable for your operating system,<br>
+            or alternatively: the Python files myAssistente.py and (optional, for AIML support) aiml_parser.py with Python installed on your machine (cross‑platform).</li>
+            <li><strong>Sections:</strong> Installation, First program launch, Try it</li>
+        </ul>
+
+        <div class="callout">
+            <strong>Download</strong> 
+            all required files from the <a href="https://gitlab.com/EmanueleCAS/assistente">Assistente project GitLab repository</a>.<br>
+            Italian and English languages are included in the Windows and Linux packages. If you need additional languages (15 ready‑to‑use languages), download the <code>lang_XX.json</code> file from the 
+            <a href="https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file">localization-file folder</a> in the same repository.<br>
+            Some example AIML files are also included; additional Italian AIML files can be found in the aiml-file folder of the same repository, or you may use any standard AIML files available online.
+        </div>
+    </section>
+
+    <!-- SECTION 2 — INSTALLATION PROCEDURE -->
+    <section id="installation-steps">
+        <h2>Installation Procedure</h2>
+        <p>The myAssistente application is portable and can be launched from any location, including the desktop or a USB drive.</p>
+
+        <h3>Windows</h3>
+        <p>Download and extract <code>myAssistente[last release]windows.zip</code><br/>
+        Run <code>myAssistente.exe</code></p>
+
+        <h3>Linux</h3>
+        <p>Download and extract <code>myAssistente[last release]linux.zip</code><br>
+        Run <code>myAssistente</code></p>
+
+        <h3>Python</h3>
+        <p>Download <code>myAssistente_[last release].py</code><br/>
+        Download the optional AIML engine <code>aiml_parser.py</code><br/>
+        Download the full <code>_dati/</code> folder<br/>
+        Ensure your Python installation includes all required dependencies (see requirements.txt and README)<br/>
+        Place <code>myAssistente_[last release].py</code>, <code>aiml_parser.py</code>, and the <code>_dati/</code> folder in the same directory<br/>
+        Run <code>myAssistente_[last release].py</code></p>
+
+        <h3>All Operating Systems</h3>
+        <p>Optional: download and place any additional language files <code>lang_XX.json</code> inside the <code>_dati</code> folder (the same location where <code>lang_it.json</code> and <code>lang_en.json</code> are stored), and any AIML files inside <code>_dati/aiml/[language]/</code>.</p>
+        <p>To customize the default language and other parameters, refer to the <em>(2) User Manual</em>. Many AIML tutorials are available online; the few optional parameters supported by myAssistente are described in the <em>(6) AIML Manual</em>.</p>
+
+        <h3>File structure:</h3>
+
+        <pre>
+myAssistente   <- .py, .exe or no extension for Linux
+aiml_parser.py <- required only for Python users
+    _dati/
+        config.json
+        memory.json
+        memory.json.bak
+        langIT.json <- default language
+        langEN.json <- default language
+        langXX.json <- additional languages
+        asset/      <- your personal files will be saved here
+            avatar/ <- avatar images and videos
+            manuals/ <- HTML myAssistente manuals
+        aiml/       <- optional AIML files
+            IT/     <- AIML files for Italian
+                saluti.aiml
+            EN/     <- AIML files for English
+                greetings.aiml
+            XX/     <- create a folder for AIML in your language
+        </pre>
+    </section>
+
+    <!-- SECTION 3 — FIRST STEPS -->
+    <section id="first-steps">
+        <h2>First steps</h2>
+
+        <div class="callout">
+            In the <em>(2) User Manual</em> you will find step‑by‑step configuration instructions.
+        </div>
+
+        <ul>
+            <li>1) <strong>Language</strong> — after following the previous instructions, the language should already be correct.</li>
+            <li>2) <strong>User name and assistant name</strong> — how to display your user name and assign a name to your assistant.</li>
+            <li>3) <strong>Training the assistant — DATA:</strong> instructions to store a piece of data and then ask the assistant to open it.</li>
+            <li>4) <strong>Training the assistant — LINKS:</strong> instructions to store a link and then ask the assistant to open it.</li>
+            <li>5) <strong>Shortcut buttons</strong> — instructions to customize the quick‑access buttons at the bottom right.</li>
+        </ul>
+
+        <div class="callout">
+            In the <em>(7) AIML Manual</em> you will find step‑by‑step instructions for the AIML language.
+        </div>
+
+        <ul>
+            <li>6) <strong>Improving question understanding:</strong><br>
+                After training step 3, to retrieve the stored data you must write <code>:&gt; give me [data name]</code>.<br>
+                After training step 4, to open the stored link you must write <code>:&gt; open [link name]</code>.<br>
+                But we can do better: for this purpose, myAssistente is compatible with the AIML language.
+            </li>
+        </ul>
+    </section>
+
+    <!-- SECTION 4 — SCREENSHOTS -->
+    <section id="screenshots">
+        <h2>Screenshots</h2>
+
+        <h3>Welcome screen</h3>
+        <p><img src="images/main.png" alt="main screen" width="50%"><br/>
+
+        1) Area to <strong>change language</strong>.<br/>
+        If the language is not correct at startup, change it using the buttons at the bottom right.<br>
+        NOTE: the languages present in the <code>_dati</code> folder are detected automatically. The program starts with the last selected language.</p>
+
+        <p>2) Area to <strong>enter commands</strong>. By pressing the microphone you can use voice commands.<br/>
+        Note: STT (Speech to Text) uses <strong>Google APIs</strong>, and audio will be sent to Google. For maximum privacy, do not press the microphone: use text commands only.</p>
+
+        <p>3) <strong>Command buttons</strong> area. If you already know the commands, close this sidebar using the arrow at the bottom right, next to the speaker icon.</p>
+
+        <p>4) <strong>Assistant response area</strong>. Responses will be shown here and read aloud when audio is enabled. To stop the reading, enter the command <code>ok</code> or press the button in the SHORTCUT panel (“Quiet please”).</p>
+
+        <p>5) <strong>Privacy control area</strong><br>
+        At the top left you will find the response source indicator, so you are always in control of your privacy.</p>
+
+        <div class="callout">
+            In addition to when the 🔴 red warning dot appears, your voice commands are always sent externally (Google Speech API) without warning, in order to be converted into text. For 100% privacy <strong>do not use the microphone function and do not enable AI APIs</strong>.
+        </div>
+
+        <p>
+        🟢 green — memory: response obtained internally from <code>memory.json</code><br>
+        🔵 blue — AIML: response obtained internally from <code>aiml/langXX/[file].aiml</code><br>
+        🔴 red — AI: response obtained from an external AI provider<br>
+        ⚫ grey — system messages
+        </p>
+
+        <p>Response search priority:<br>
+        1) ⚫ grey: TTS stop words (<code>ok, stop, silence...</code>)<br>
+        2) ⚫ grey: Active dialogue states (<code>remember, learn, delete, modify, configure...</code>)<br>
+        3) 🟢 green: Fixed responses — from <code>config.json</code><br>
+        4) 🟢 green: Commands — from <code>memory.json</code><br>
+        5) 🔵 blue: AIML — from <code>.aiml</code> files<br>
+        6) 🔴 red: External AI — OpenAI or Gemini (if enabled)<br>
+        7) ⚫ grey: _not_understood() — final fallback system message</p>
+
+        <h3>Shortcut</h3>
+        <p><img src="images/shortcut.png" alt="voice buttons" width="50%"><br/>
+        By clicking the arrow at the bottom left of SHORTCUT you can open/close the customizable quick‑command panel.<br>
+        All buttons in this area are customizable. For details, see the <i>(2) User Manual</i>.</p>
+
+        <h2 id="commands">Default commands</h2>
+
+        <table>
+            <thead>
+                <tr><th>Command</th><th>Description (lang_en.json)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>find... &lt;name&gt;</code></td><td>Find data in memory</td></tr>
+                <tr><td><code>open... &lt;name&gt;</code></td><td>Open files, folders or programs</td></tr>
+                <tr><td><code>search... &lt;query&gt;</code></td><td>Search in memory</td></tr>
+                <tr><td><code>search media &lt;query&gt;</code></td><td>Search images, music and videos in the <code>_dati/asset</code> folder</td></tr>
+
+                <tr><td><code>list memory</code></td><td>Show all memory entries</td></tr>
+                <tr><td><code>configure</code></td><td>Configure the config.json file</td></tr>
+                <tr><td><code>help</code></td><td>List available commands</td></tr>
+                <tr><td><code>exit</code></td><td>Close the myAssistente program</td></tr>
+
+                <tr><td><code>--- MEMORY MANAGEMENT ---</code></td><td></td></tr>
+                <tr><td><code>learn</code></td><td>Guided input</td></tr>
+                <tr><td><code>remember... &lt;name&gt; &lt;data&gt;</code></td><td>Save information in memory</td></tr>
+                <tr><td><code>remember image &lt;name&gt; &lt;data&gt;</code></td><td>Save images in memory</td></tr>
+
+                <tr><td><code>modify... &lt;name&gt;</code></td><td>Edit an entry</td></tr>
+                <tr><td><code>delete... &lt;name&gt;</code></td><td>Delete an entry</td></tr>
+                <tr><td><code>copy... &lt;name&gt;</code></td><td>Copy an entry to the clipboard</td></tr>
+
+                <tr><td><code>SHORTCUT</code></td><td></td></tr>
+                <tr><td><em>list quick commands</em></td><td></td></tr>
+
+                <tr><td><code>LANGUAGE</code></td><td></td></tr>
+                <tr><td><code>language name or code &lt;code&gt;</code></td><td>Change language</td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <strong>Note</strong> 
+            All command names and button labels in the assistant window can be customized in the <code>config.json</code> file. For each command you may define multiple alternative words. For more information read the <em>(4) Configuration Manual</em>.
+        </div>
+    </section>
+
+    <!-- SECTION 5 — DOCUMENTATION -->
+    <section id="documentation">
+        <h2>Documentation</h2>
+        <p>The documentation available for <strong>myAssistente5</strong>.<br>
+        The documents can also be found in the <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> folder of the repository. For any missing documentation, refer to the English or Italian documentation of previous releases.</p>
+
+        <ul>
+        <li><strong>(1) Installation Manual</strong> — installing the program for Windows, Linux, or multiplatform</li>
+        <li><strong>(2) User Manual</strong> — myAssistente user interface</li>
+        <li><strong>(3) Plugin Manual</strong> — myAgenda, myNote, myTodo</li>
+        <li><strong>(4) Configuration Manual</strong> — <code>config.json</code> file, advanced settings</li>
+        <li><strong>(5) Memory Manual</strong> — <code>memory.json</code> file, advanced settings</li>
+        <li><strong>(6) Language Manual</strong> — <code>lang[].json</code> files, advanced customization</li>
+        <li><strong>(7) AIML Manual</strong> — <code>aiml/[LANG]/[filename].aiml</code> files</li>
+        <li><strong>(8) Advanced AIML Manual</strong> — <code>aiml/IT/testConiglio.aiml</code> file</li>
+        </ul>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>Toolkit <strong>myAssistente5</strong> – Desktop personal assistant</div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Author’s website</a> ·
+            &copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

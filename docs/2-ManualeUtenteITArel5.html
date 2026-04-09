@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente (2) Manuale utente</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Assistente Personale Desktop – Toolkit Documentazione</strong><br>
+        (2) Manuale utente · Release 5 · italiano</p>
+    </div>
+<nav style="display: flex; flex-wrap: wrap; align-items: center;">
+
+    <div class="nav-group">
+        <a href="indice.html">🏠 Home</a>
+        <a href="https://www.steppa.net/cassani/business_card.htm">🧑‍💻 Autore</a>
+    </div>
+
+    <div class="nav-group" style="margin-left: auto;">
+        <a href="2-UserManualENGrel5.html">🇬🇧 English</a>
+        <a href="2-ManualeUtenteITArel5.html">🇮🇹 Italiano</a>
+    </div>
+
+    <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+        <strong>Contenuto:</strong> 
+        <a href="#nomi">Configura nomi</a>
+        <a href="#ricorda">Ricorda e impara</a>
+        <a href="#fisse">Ricorda frasi fisse</a>
+        <a href="#dammi">Dammi e apri</a>
+        <a href="#documentazione">Documentazione</a>
+    </div>
+</nav>
+
+</header>
+
+<main>
+    <section id="intro">
+        <h1>(2) Manuale utente</h1>
+        <ul>
+            <li><strong>Scopo:</strong> Questo manuale ti guida nella configurazione personale di myAssistente.</li>
+            <li><strong>Prerequisiti:</strong> myAssistente5 installato.</li>
+            <li><strong>Riferimenti:</strong> <em>(1) Manuale installazione</em>.</li>
+        </ul>
+
+        <div class="callout">
+            <strong>Installazione</strong> 
+            Devi ancora installare myAssistente? Ci sono dei pacchetti pronti per utenti Windows e Linux: basta scaricare, decomprimere un archivio ZIP e cliccare sull'eseguibile. 
+per sorgente Python e per creare paccherro macOS Leggi il <em>(1) Manuale installazione</em>.
+</div>
+
+<p>Sono alla ricera continua di nuove idee utili da implementare, qualsiasi suggerimento &egrave; benvenuto.</p></section>
+
+        <div class="callout">
+📚 Per leggere i manuali, usa il comando <code>manuali</code> e myAssistente aprir&agrave; la pagina con l'indice della documentazione disponibile.
+</div>
+<section>
+        <h2 id="nomi">Configura nomi utente e assistente</h2>
+
+        <p>All'inzio l'assistente si chiama <i>Assistant</i> e l'utente <i>user</i>, per cambiarli scrivi oppure premi il microfono e pronuncia:</p>
+
+<pre>
+[23:09] user:> configura breve
+[23:09] Assistant:> Cambia il mio nome: nome_avatar valore attuale = 'Assistant'
+Inserisci un nome o lascia vuoto per annullare
+[23:09] user:> Alice
+[23:09] Alice:> Parametro 'nome_avatar' aggiornato a 'Alice'
+[23:09] Alice:> Cambia il tuo nome: nome_utente valore attuale = 'user'
+Inserisci un nome o lascia vuoto per annullare
+[23:09] user:> Emanuele
+[23:09] Alice:> Parametro 'nome_utente' aggiornato a 'Emanuele'
+[23:09] Alice:> Configurazione completata.
+[23:09] Emanuele:> 
+</pre>
+
+    <section id="ricorda">
+        <h2 id="memorizza">Ricorda e impara</h2>
+<p>Per far ricordare un dato all'assistente, usa i comandi <code>ricorda</code> (per una voce) o <code>impara</code> (per più voci), scrivi oppure premi il microfono e pronuncia:</p>
+
+<pre>
+[20:53] Emanuele:> ricorda
+[20:53] Alice:> Dimmi il nome che devo registrare:
+[20:53] Emanuele:> IMPORTANTE
+[20:54] Alice:> Bene, dimmi i dati da ricordare per 'IMPORTANTE':
+[20:55] Emanuele:> devo ricordare 348 966 111
+[20:53] Alice:> Fatto! 'IMPORTANTE' salvato in memoria.
+
+[20:55] Emanuele:> dimmi IMPORTANTE
+[20:55] Alice:> I dati di 'IMPORTANTE' (Emanuele):
+  devo ricordare 348 966 111
+</pre>
+
+<p>Per recuperare il dato baster&agrave; chiedere <code>:>trova importante</code> (o <code>dimmi</code>)</p>
+
+<p>Comando veloce per memorizzare sino a due perole dopo il nome:</p>
+<pre>
+[20:53] Emanuele:> ricorda telefono marta 345
+[20:52] Alice:> Fatto! 'telefono' salvato in memoria.
+</pre>
+<p>La prima parola sar&agrave; il nome, le altre due il dato.</p>
+
+<p id="apprendi">Si usa <code>impara</code> o <code>apprendi</code> per memorizzare molti dati di seguito</p>
+
+<pre>
+[21:04] Emanuele:> impara
+[21:04] Alice:> Inserimento guidato — ti chiedo un campo alla volta.
+Scrivi 'salta' per i campi opzionali, 'fine' per annullare.
+
+Nome (obbligatorio):
+[21:04] Emanuele:> Codice fiscale
+[21:04] Alice:> Alias / abbreviazione (opzionale — scrivi 'salta' per saltare):
+[21:04] Emanuele:> salta
+[21:04] Alice:> Intestatario (opzionale — scrivi 'salta' per usare il tuo nome):
+[21:05] Emanuele:> salta
+[21:05] Alice:> Dati da memorizzare (obbligatorio):
+[21:05] Emanuele:> CDCFSC65T30...
+[21:05] Alice:> Tag (opzionale — es: famiglia, lavoro — scrivi 'salta' per saltare):
+[21:05] Emanuele:> agenzia entrate
+[21:05] Alice:> Avatar (opzionale — scrivi 'salta' per 'sorridente'):
+  sorridente · soddisfatto · triste · bibliotecaria · magazziniere · benvenuto
+[21:05] Emanuele:> triste
+[21:05] Alice:> Salvato! 'Codice fiscale' in memoria.
+Desideri inserire un altro elemento? (sì / no)
+[21:05] Emanuele:> s
+
+[21:05] Alice:> Inserimento guidato — ti chiedo un campo alla volta.
+Scrivi 'salta' per i campi opzionali, 'fine' per annullare.
+Nome (obbligatorio):
+[21:06] Emanuele:> Codice fiscale
+[21:06] Alice:> Alias / abbreviazione (opzionale — scrivi 'salta' per saltare):
+[21:06] Emanuele:> salta
+[21:06] Alice:> Intestatario (opzionale — scrivi 'salta' per usare il tuo nome):
+[21:06] Emanuele:> Andrea
+[21:06] Alice:> Dati da memorizzare (obbligatorio):
+[21:06] Emanuele:> NDRFCL89T30...
+[21:06] Alice:> Tag (opzionale — es: famiglia, lavoro — scrivi 'salta' per saltare):
+[21:06] Emanuele:> Agenzia entrate
+[21:06] Alice:> Avatar (opzionale — scrivi 'salta' per 'sorridente'):
+  sorridente · soddisfatto · triste · bibliotecaria · magazziniere · benvenuto
+[21:06] Emanuele:> triste
+[21:06] Alice:> Salvato! 'Codice fiscale' in memoria.
+
+Desideri inserire un altro elemento? (sì / no)
+[21:06] Emanuele:> no
+[21:06] Alice:> Inserimento completato.
+</pre>
+
+<p>In questo esempio, ho inserito due dati dallo stesso nome <code>codice fiscale</code> uno di Emanuele e uno di Andrea.</p>
+
+<p>Per far aprire un link a un sito web dall'assistente, scrivi oppure premi il microfono e pronuncia:</p>
+
+<pre>
+[21:12] Emanuele:> ricorda
+[21:12] Alice:> Dimmi il nome che devo registrare:
+[21:12] Emanuele:> Sito web
+[21:12] Alice:> Bene, dimmi i dati da ricordare per 'Sito web':
+[21:12] Emanuele:> https://www.steppa.net/cassani/
+[21:12] Alice:> Fatto! 'Sito web' salvato in memoria.
+
+[21:30] Emanuele:> apri il Sito web
+Alice:> Apro subito: https://www.steppa.net/cassani/
+</pre>
+
+<p>Per far aprire un link a un file, una cartella:</p>
+<pre>
+[21:12] Emanuele:> ricorda
+[21:12] Alice:> Dimmi il nome che devo registrare:
+[21:12] Emanuele:> Link a file
+[21:12] Alice:> Bene, dimmi i dati da ricordare per 'Link a file':
+[21:12] Emanuele:> C:\Users\emanuele\Desktop\documento.rtf
+[21:12] Alice:> Fatto! 'Link a file' salvato in memoria.
+
+[21:30] Emanuele:> apri il link a file
+Alice:> Apro subito: C:\\Users\\emanuele\\Desktop\\documento.rtf
+</pre>
+
+<p>Il file sar&agrave; aperto col programma associato dal tuo sistema operativo, nota che i backslash \ sono in memoria raddoppati per una necessit&agrave; del linguaggio JSON, ma l'assistente lo gestir&agrave; per te.</p>
+
+<p>Si pu&ograve; addestrare anche per aprire un qualsiasi programma:<br>
+Esempio dato da inserire: <code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code><br>
+Qualsiasi cartella:<br>
+Esempio: <code>C:\Users\emanuele\Desktop\</code> apre il desktop<br>
+Oppure anche funzioni di sistema. Esempio per gli utenti Windows: inserire <code>control</code> per aprire il pannello di controllo, oppure <code>cmd.exe</code> per lanciare il prompt dei comandi.<br>
+Prova con qualsiasi cosa ti venga in mente, probabilmente funzionar&agrave;</p>
+
+        <div class="callout">
+            <strong>Nota</strong> 
+            Si possono effettuare le stesse configurazioni modificando il file <code>_memory.json</code> con un semplice editor di testo come Notepad, vedi <em>(4) Manuale configurazione</em>.
+        </div>
+
+</section>
+
+<p id="imagine">I comandi <code>ricorda immagine</code> oppure <code>memorizza immagine</code> servono a salvare nei dati di myAssistente, un'immagine.</p>
+<pre>
+[11:21] Emanuele:> ricorda questa immagine
+ --- si apre una finestra per selezionare un'immagine---
+[11:22] Alice:> Dimmi quale nome associare all'immagine
+[11:22] Emanuele:> icona
+[11:22] Alice:> Quale descrizione (tag) vuoi aggiungere?
+[11:22] Emanuele:> usata per myAssistente
+[11:22] Alice:> Fatto! Immagine 'icona' salvata in memoria.
+</pre>
+<p>Il file sar&agrave; memorizzato nella cartella <code>_dati/asset/</code> e potrai recuperala col comando <code>apri [nome]</code><br>
+Nell'esempio sopra <code>apri icona</code> lancer&agrave; il programma associato a quel tipo di file.</p>
+
+ <h2 id="modifica">Modifica</h2>
+
+<p>Usa il comando <code>modifica</code> o <code>cambia</code> per modificare un dato in memoria.</p>
+<pre>
+[17:13] Emanuele:> cambia TEST
+[17:13] Alice:> Voce trovata:
+  nome: TEST
+  soggetto: Emanuele
+  contenuto da modificare
+  [avatar: coniglio]
+Quale campo vuoi modificare?
+Puoi scrivere solo il campo (es: 'dati') oppure campo e valore (es: 'dati CSSMNL...')
+[17:14] Emanuele:> dati diverso
+[17:14] Alice:> Modificato! 'dati' aggiornato a: diverso
+</pre>
+
+ <h2 id="copia">Copia</h2>
+
+<p>Usa il comando <code>copia</code> o <code>duplica</code> per copiare il dato negli appunti per poi incollarlo dove ti serve.</p>
+<pre>
+[01:19] Emanuele:> duplica codice fiscale
+[01:19] Alice:> Copiato negli appunti:
+  CDCFSC65T30...
+</pre>
+
+ <h2 id="answers">Ricorda: risposte fisse</h2>
+
+<p>Inoltre, modificando i parametri che seguono, dentro al file <code>_dati/config.json</code> con un semplice editor di testo come Notepad), si possono preconfigurare anche delle risposte fisse opzionali, per specifici input dell'utente. Vedi <em>(4) Manuale configurazione</em>.</p>
+
+    <section id="dimmi">
+        <h2>Richiamare i dati</h2>
+<p>Come richiedere i dati memorizzati e come far aprire link a cartelle, file e siti web.</p>
+
+<h3>Cerca</h3>
+<p>Abbiamo gi&agrave: accennato i comandi <code>trova</code> e <code>apri</code>. Con <code>cerca</code> si troveranno tutti i nomi, alias e dati che contengono la parola richiesta.</p>
+
+<pre>
+[15:19] Emanuele:> cerca codice fiscale
+[15:19] Alice:> Ho trovato 2 risultato/i per 'codice fiscale':
+[1]   nome: Codice fiscale
+  alias: 
+  soggetto: Emanuele
+  CDCFSC65T30...
+  tag: agenzia entrate
+  [avatar: triste]
+[2]   nome: Codice fiscale
+  alias: 
+  soggetto: Andrea
+  NDRFCL89T30...
+  tag: agenzia entrate
+  [avatar: triste]
+</pre>
+
+<h3>Elenca</h3>
+
+<p>Per visualizzare tutto il contenuto della memoria, basta usare il comando <code>elenca</code> oppure <code>lista</code>. Quando la lista &egrave; troppo lunga, potere mettere a tacere l'assistente col comando <code>ok</code> (pulsante nei shortcut <code>Ho capito</code> se configurato.</p>
+
+<pre>
+[15:26] Emanuele:> elenca
+[15:26] Alice:> Ho 4 voce/i in memoria:
+  1. Codice fiscale [] — Emanuele
+  2. Codice fiscale [] — Andrea
+  3. Posta [mail] — Emanuele
+  4. estratto conto [ec] — foglio calcolo apribile
+...
+</pre>
+
+<h3>Cancella</h3>
+
+<p>Per cancellare un dato in memoria, basta usare il comando <code>cancella</code> e il nome del dato da cancellare (se non ricordi il nome esatto, puoi usare prima il comando <code>elenca</code></p>
+
+<pre>
+[16:38] Emanuele:> cancella TEST
+[16:38] Alice:> Vuoi davvero eliminare:
+  nome: TEST
+  soggetto: Emanuele
+  123 e altro
+  [avatar: sorridente]
+Digita 'sì' per confermare o 'no' per annullare.
+[16:38] Emanuele:> s
+[16:38] Alice:> 'TEST' eliminato dalla memoria.
+</pre>
+
+        <div class="callout">
+            <strong>Nota</strong> 
+            L'assitente lavora con comandi fissi. Supponendo di avere in memoria un ricordo dal titolo <code>posta</code> che come dati ha il link all'eseguibile al programma di posta Outlook, chiedere <code>:>Apri il link della posta</code> non funioner&agrave:, perch&eacute: l'assistente si aspetta <code>apri posta</code>.
+Per potenziare la sua capacit&agrave; di comprensione, ho integrato la compatibilit&agrave; con il linguaggio AIML. Vedi <em>(7) Manuale AIML</em>.
+        </div>
+</section>
+
+<section>
+        <h2 id="miniApp">MyAgenda, myNote, MyTodo</h2>
+
+<p>L'assistente scambia informazioni con le miniApp integrate MyAgenda, myNote, MyTodo.<br>
+
+<img src="images/myTOOL.png" alt="myTool" width="50%"><br>
+Cliccando sui pulsanti a destra nella sezione <code>SHORTCUT</code> si apre la finestra del tool.<br>
+Le mini app tutelano la privacy a 100% e le informazoni rimangono nella memoria del browser locale, per condividerle con myAssistente, cliccare il pulsante <code>Salva per myAssitente</code>. La prima volta si aprira' una finestra per selezionare dove salvare le informaizoni.</p> 
+
+        <div class="callout">
+            <strong>Importante</strong> 
+L'assistente le trova solo se inserite nela cartella: <code>./myAssistente/_dati/plugins/</code>
+</div>
+
+</section>
+<section>
+        <h2 id="documentation">Documentazione</h2>
+        <p>La documentazione disponibile per <strong>myAssistente5</strong>.<br>
+        I documenti si trovano anche  nella cartella <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> del repository. Per eventuale documentazione mancante, fare riferimento alla documentazione in inglese o in italiano delle release precedenti.</p>
+
+        <ul>
+            <li><strong>(1) Manuale installazione</strong> — installazione del programma per Windows, Linux o multipiattaforma</li>
+            <li><strong>(2) Manuale utente</strong> — interfaccia utente di myAssistente</li>
+            <li><strong>(3) Manuale plugin</strong> — myAgenda, myNote e myTodo</li>
+            <li><strong>(4) Manuale configurazione</strong> — file <code>config.json</code> configurazioni avanzate</li>
+            <li><strong>(5) Manuale memoria</strong> — file <code>memory.json</code> configurazioni avanzate</li>
+            <li><strong>(6) Manuale lingue</strong> — file <code>lang[].json</code> customizzazioni avanzate</li>
+            <li><strong>(7) Manuale AIML</strong> — file <code>aiml/[LANG]/[filename].aiml</code></li>
+            <li><strong>(8) Manuale AIML avanzato</strong> — file <code>aiml/IT/testConiglio.aiml</code></li>
+        </ul>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>Toolkit <strong>myAssistente5</strong> – Assistente desktop personale</div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Sito dell’autore</a> ·
+            &copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
+

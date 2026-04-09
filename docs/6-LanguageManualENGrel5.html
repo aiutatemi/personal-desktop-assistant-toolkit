@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAssistente (6) Language Configuration Manual</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Personal Desktop Assistant – Documentation Toolkit</strong><br>
+        (6) Language Configuration Manual · Release 5 · English</p>
+    </div>
+    <nav style="display: flex; flex-wrap: wrap; align-items: center;">
+        <div class="nav-group">
+            <a href="index.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+        </div>
+
+        <div class="nav-group" style="margin-left: auto;">
+            <a href="6-LanguageManualENGrel5.html">🇬🇧 English</a>
+            <a href="6-ManualeLingueITArel5.html">🇮🇹 Italiano</a>
+        </div>
+
+        <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+            <strong>Contents:</strong> 
+	<a href="#lang">lang.json file</a>
+        <a href="#stt">Speech recognition</a>
+        <a href="#comandi">Command names</a>
+        <a href="#nomi">User interface labels</a>
+        <a href="#articoli">Exclusions</a>
+        <a href="#localizza">Localize program messages</a>
+        <a href="#documentation">Documentazione</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+<section id="intro">
+    <h1>(6) Language Configuration Manual</h1>
+
+    <p>This manual explains how to configure the language settings of myAssistente to make the most of its features.  
+        The distribution packages always include Italian and English, but additional languages can be added by downloading the ready‑made files from the project repository.</p>
+
+    <ul>
+        <li><strong>Purpose:</strong> This manual shows how to add a new language or modify an existing one.</li>
+
+        <li><strong>Prerequisites:</strong> The myAssistente executable for your operating system,<br>
+        or alternatively the Python files <code>myAssistente.py</code> and (optional, for AIML support) <code>aiml_parser.py</code>, with Python installed on your machine (multiplatform).</li>
+
+        <li><strong>References:</strong> 
+            <em>(1) Installation Manual,  
+            (2) User Manual,  
+            (4) Configuration Manual,  
+            (5) Memory Configuration Manual</em>.
+        </li>
+    </ul>
+
+    <div class="callout">
+        The distribution packages always include the <strong>Italian</strong> and <strong>English</strong> languages.  
+        You can add more by translating the files or downloading them from the project repository.
+    </div>
+
+    <p>All command names can be customized in the <code>lang_XX.json</code> file and may therefore differ from those shown in this manual.  
+        For details, refer to the <em>(4) Configuration Manual</em>.</p>
+</section>
+
+<section id="structure">
+    <h2>📁 File locations</h2>
+
+    <p>The files described in this manual are located inside the <code>_dati/</code> folder.</p>
+
+    <ul>
+        <li><strong>_dati/lang_*.json:</strong> Localization files.</li>
+    </ul>
+</section>
+
+<section>
+    <h2 id="lang">The lang.json file</h2>
+
+    <div class="callout">
+        <strong>Note:</strong> If the system cannot find any <code>lang_XX.json</code> file, it will fall back to the default language: Italian.
+    </div>
+
+    <p>When the language is changed, the system stores the information in <code>config.json</code> and saves a backup of the previous configuration in <code>config.json.bak</code>.</p>
+
+    <p>The language can be selected directly from the myAssistente user interface using the buttons under <code>Language</code>.  
+        The system automatically detects the languages available inside the <strong>_dati/</strong> folder and makes them selectable.</p>
+
+    <p>File names follow the pattern <strong>lang[CODE].json</strong>, where <strong>[CODE]</strong> is the standard language code.  
+        Examples: <strong>langIT.json</strong>, <strong>langEN.json</strong>, <strong>langDE.json</strong>.  
+        All terms can be customized inside these files. Open them with a text editor.</p>
+</section>
+
+<h3 id="stt">First section: Speech recognition language</h3>
+
+<pre>
+  "lingua_stt": "en-US",
+</pre>
+
+<p>This is the language used by the assistant for pronunciation and speech recognition through Google Speech.  
+    It is important to specify the region as well (e.g., <code>en-GB</code> or <code>en-US</code>).  
+    The same information is also present in the <code>config.json</code> file, used by the system if no language file is found.</p>
+
+<h3 id="comandi">Second section: Command names</h3>
+
+<pre>
+  "alias_comandi": {
+    "dammi":    ["give", "show", "get"],
+    "apri":     ["open", "launch", "start"],
+    "cerca":    ["search", "find", "look"],
+    "elenca":   ["list", "all"],
+    "configura":["configure", "settings", "config"],
+    "aiuto":    ["help"],
+    "esci":     ["exit", "quit", "close", "bye"],
+    "impara":   ["learn", "teach"],
+    "ricorda":  ["remember", "save", "store"],
+    "modifica": ["modify", "edit", "update", "change"],
+    "elimina":  ["delete", "remove", "erase"],
+    "copia":    ["copy"]
+  },
+</pre>
+
+<p>On the left is the system command name; on the right are the names that will appear when clicking the corresponding button in the interface.  
+    The system name in Italian will always work: the names you add are additional alternatives.</p>
+
+<p>You may specify multiple names for the same command or none at all (e.g., <code>"esci": []</code>).  
+    If a name is duplicated by mistake, only the first one will be used.</p>
+
+<h3 id="nomi">Third section: User interface labels</h3>
+
+<pre>
+  "titolo_finestra":  "EN Assistant – {nome_avatar}",
+
+  "label_comandi":        "COMMANDS",
+  "panel_dammi":          "give ...",
+  "panel_apri":           "open ...",
+  "panel_cerca":          "search ...",
+  "panel_media":            "search media",
+  "panel_elenca":         "list memory",
+  "panel_configura":      "configure",
+  "panel_aiuto":          "help",
+  "panel_esci":           "exit",
+  "panel_sep_memoria":    "── MANAGE MEMORY ──",
+  "panel_impara":         "learn",
+  "panel_ricorda":        "remember ...",
+  "panel_ricorda_img":    "remember image",
+  "panel_modifica":       "modify ...",
+  "panel_elimina":        "delete ...",
+  "panel_copia":          "copy ...",
+  "label_shortcut":       "SHORTCUTS",
+  "label_lingua":         "LANGUAGE",
+  "btn_invia":            "Send",
+</pre>
+
+<p>These are all the labels and button names used in the myAssistente interface.  
+    Important: if you change the button label, clicking it will still insert the first command configured in <code>alias_comandi</code>.  
+    To keep them consistent, use the same term.</p>
+
+<p>Example command:</p>
+
+<pre>
+  "alias_comandi": {
+    "dammi":    ["give", "show", "get"],
+  }
+</pre>
+
+<p>Example corresponding button:</p>
+
+<pre>
+  "panel_dammi": "show..."
+</pre>
+
+<p>In this example, the button will display <code>show...</code>, but the dialog will show <code>give</code>.</p>
+
+<h3 id="articoli">Fourth section: Exclusions</h3>
+
+<p>These articles are removed from the user’s sentence so the system can correctly interpret commands.</p>
+
+<pre>
+  "articoli": [ "the", "a", "an", "of", "in", "on", "at", "to", "for", "with", "by", "from", "into" ],
+
+</pre>
+
+<p>Example: <code>Apri la posta</code> (“Open the mail”).  
+    If not configured otherwise (see <em>(7) AIML Manual</em>), the command would not be recognized.  
+    With this list, the article <code>la</code> is ignored, and the command becomes simply <code>apri posta</code>.</p>
+
+<h3 id="localizza">Final section: Localize program messages</h3>
+
+<p>Here you can configure all the messages used by the program.  
+    Important: modify only the values on the right — the keys on the left must never be changed.</p>
+
+<pre>
+  "aiuto_testo":          "Type 'manuals' to open the manuals\nCommands: give...
+</pre>
+
+<p>If you need a line break, use <code>\n</code> rather than inserting a manual newline.</p>
+</section>
+
+<section>
+    <p>A single misplaced comma can break the entire <code>.json</code> file.  
+        If you have Python installed, you can validate it with:</p>
+
+<pre>
+python -m json.tool lang_it.json
+</pre>
+
+    <p>Alternatively, you can ask an AI to check it by writing:</p>
+
+<pre>
+Check this JSON file, fix any errors and return it to me
+</pre>
+</section>
+
+<section>
+    <h2 id="documentation">Documentation</h2>
+
+    <p>Available documentation for <strong>myAssistente5</strong>.<br>
+        The documents are also available in the 
+        <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> folder of the repository.  
+        For missing documentation, refer to previous English or Italian releases.</p>
+
+    <ul>
+        <li><strong>(1) Installation Manual</strong> — installing the program for Windows, Linux, or multiplatform</li>
+        <li><strong>(2) User Manual</strong> — myAssistente user interface</li>
+        <li><strong>(3) Plugin Manual</strong> — myAgenda, myNote, myTodo</li>
+        <li><strong>(4) Configuration Manual</strong> — <code>config.json</code> file, advanced settings</li>
+        <li><strong>(5) Memory Manual</strong> — <code>memory.json</code> file, advanced settings</li>
+        <li><strong>(6) Language Manual</strong> — <code>lang[].json</code> files, advanced customization</li>
+        <li><strong>(7) AIML Manual</strong> — <code>aiml/[LANG]/[filename].aiml</code> files</li>
+        <li><strong>(8) Advanced AIML Manual</strong> — <code>aiml/IT/testConiglio.aiml</code> file</li>
+    </ul>
+</section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            Toolkit <strong>myAssistente5</strong> – Personal desktop assistant
+        </div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Author’s website</a> ·
+            &copy; 2026 
+            <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

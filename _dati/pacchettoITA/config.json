@@ -1,0 +1,38 @@
+{
+  "nome_avatar": "Assistente",
+  "nome_utente": "utente",
+  "avatar_iniziale": "benvenuto",
+  "avatar_random": ["sorridente","coniglio","soddisfatto"],
+  "avatar_finale": "ciao.mp4",
+  "frase_finale": "Ciao!",
+  "lingua": "it",
+  "tts_config": {
+    "engine": "auto",
+    "rate": 150,
+    "volume": 0.9,
+    "pitch": 50,
+    "voice_gender": "auto"
+  },
+  "stt_config": {
+    "soglia_rumore": 200,
+    "sample_rate": 16000,
+    "max_secondi": 10,
+    "silenzio_secondi": 0.5,
+    "lingua": "it-IT"
+  },
+  "ai_config": {
+    "enabled": false,
+    "provider": "openai",
+    "api_key": "",
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.7,
+    "max_tokens": 500,
+    "fallback_to_ai": true
+  },
+  "shortcut": [
+ { "etichetta": "Silenzio", "comando": "ok" },
+    { "etichetta": "myAgenda", "comando": "apri myAgenda" },
+        { "etichetta": "myTodo", "comando": "apri myTodo" },
+            { "etichetta": "myNote", "comando": "apri myNote" }
+  ]
+}

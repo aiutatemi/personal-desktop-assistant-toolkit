@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente (3) Plugin Manual</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Desktop Personal Assistant – Toolkit Documentation</strong><br>
+        (3) Plugin Manual · Release 5 · English</p>
+    </div>
+
+    <nav style="display: flex; flex-wrap: wrap; align-items: center;">
+        <div class="nav-group">
+            <a href="indice.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_card.htm">🧑‍💻 Author</a>
+        </div>
+
+        <div class="nav-group" style="margin-left: auto;">
+            <a href="3-PluginManualENGrel5.html">🇬🇧 English</a>
+            <a href="3-ManualePluginITArel5.html">🇮🇹 Italian</a>
+        </div>
+
+        <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+            <strong>Contents:</strong>
+            <a href="#intro">Mini Apps</a>
+            <a href="#agenda">myAgenda</a>
+            <a href="#todo">myTodo</a>
+            <a href="#note">myNote</a>
+            <a href="#documentation">Documentation</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <section id="intro">
+        <h1>(3) Plugin Manual</h1>
+        <ul>
+            <li><strong>Purpose:</strong> This manual guides you through the use of the mini Apps included as plugins in myAssistente.</li>
+            <li><strong>Requirements:</strong> A working installation of myAssistente.</li>
+            <li><strong>Sections:</strong> myAgenda, myTodo, myNote</li>
+        </ul>
+
+        <p>The plugins originate from standalone mini Apps designed to provide basic services with full privacy protection, running locally with no registration required. You can find more on the website <a href="https://www.steppa.net/cassani/articoli/tool/tool.htm">www.steppa.net/cassani</a>.</p>
+
+        <div class="callout">
+            The files required for execution are HTML files located in <code>_dati/asset/plugin/</code>, while the data shared with myAssistente is stored in <code>.json</code> format inside <code>_dati/plugins/</code>.
+        </div>
+
+        <p>myAssistente loads all <code>.json</code> files saved by the plugins from the <code>_dati/plugins/</code> folder at startup. They can be accessed from memory using the commands <code>find</code> or <code>list memory</code>.</p>
+    </section>
+
+    <section id="agenda">
+        <h2>myAgenda</h2>
+        <p>The myAgenda application is included in myAssistente and can be launched with the command <code>open myAgenda</code> or by clicking the corresponding button under <code>SHORTCUT</code>.</p>
+
+        <p><img src="images/plugins/agenda.jpg" alt="myAgenda" width="50%"><br/></p>
+
+        <p>Navigate between months using the arrows at the top. A dot marks the current day; colored days indicate that a note is present; a day crossed with an X means the event has been completed.<br/>
+        Hover over a day to preview the event, and click it to add/edit data or to delete/complete it:</p>
+
+        <p><img src="images/plugins/agenda3.jpg" alt="event" width="50%"></p>
+
+        <p>Under <code>Recurrence</code> you can choose whether the event repeats <code>This year only</code> or <code>Every year</code>. <strong>NOTE:</strong> when marking an event as completed (V), it is important to specify whether it is completed <code>This year only</code> or <code>Every year</code> from now on.</p>
+
+        <p>Click <code>Settings</code> to open the configuration screen.</p>
+
+        <p><img src="images/plugins/agenda2.jpg" alt="settings" width="50%"></p>
+
+        <p>In <code>Color labels</code> you can customize the colored headers assigned to different events. In <code>Data management (backup)</code> you can save data for myAssistente or perform a local backup/restore.</p>
+
+        <div class="callout"><b>Important</b><br/>
+            To ensure 100% privacy, myAgenda data is stored exclusively in the browser’s local memory. If you clear the browser data or use a different browser, the only way to recover your information is through the <code>Restore</code> backup function.<br/>
+            When using <code>Save for myAssistente</code>, make sure to save the memory file to <code>_dati/plugins/myAgenda.json</code>, the only folder read by myAssistente at startup.
+        </div>
+    </section>
+
+    <section id="todo">
+        <h2>myTodo</h2>
+        <p>The myTodo application is included in myAssistente and can be launched with the command <code>open myTodo</code> or by clicking the corresponding button under <code>SHORTCUT</code>.</p>
+
+        <p><img src="images/plugins/todo.jpg" alt="myTodo" width="50%"><br/></p>
+
+        <p>The list of tasks will appear.<br/>
+        On the left are past/overdue tasks; on the right, upcoming tasks that are still pending.<br/>
+        The buttons work similarly to those in the other mini Apps.</p>
+
+        <div class="callout"><b>Important</b><br/>
+            To ensure 100% privacy, myTodo data is also stored exclusively in the browser’s local memory. If you clear the browser data or use another browser, the only way to recover your tasks is through the <code>Restore</code> backup function.<br/>
+            When using <code>Save for myAssistente</code>, make sure to save the memory file to <code>_dati/plugins/myTodo.json</code>, the only folder read by myAssistente at startup.
+        </div>
+
+        <p>Click the pencil icon to edit a task or the trash icon to delete it.<br/>
+        <img src="images/plugins/todo2.jpg" alt="settings" width="50%"></p>
+
+        <p>From the window that appears, you can edit all task details. Using <code>Recurrence</code>, a task can be set as one-time or repeating.</p>
+    </section>
+
+    <section id="note">
+        <h2>myNote</h2>
+        <p>The myNote application is included in myAssistente and can be launched with the command <code>open myNote</code> or by clicking the corresponding button under <code>SHORTCUT</code>.<br/>
+        <img src="images/plugins/note2.jpg" alt="myNote" width="50%"><br/></p>
+
+        <p>Your notes will appear (they can be moved by clicking and dragging them).<br/>
+        To add a new note, click <code>+</code>.<br/>
+        <img src="images/plugins/note.jpg" alt="settings" width="50%"></p>
+
+        <p>The note text supports optional HTML formatting. You can use the toolbar above the input area to apply formatting.<br/>
+        Useful options:</p>
+
+        <ul>
+            <li><b>Link</b>: Write text in the note, select it, and click the link icon. A window will appear where you can enter a URL, and the selected text will become clickable.</li>
+            <li><b>Copy to clipboard</b>: Write text in the note, select it, and click the notepad icon. The selected word/phrase becomes clickable, and clicking it will copy the text to the clipboard (useful for copying addresses or complex passwords).</li>
+        </ul>
+
+        <div class="callout"><b>Important</b><br/>
+            To ensure 100% privacy, myNote data is also stored exclusively in the browser’s local memory. If you clear the browser data or use another browser, the only way to recover your notes is through the <code>Restore</code> backup function.<br/>
+            When using <code>Save for myAssistente</code>, make sure to save the memory file to <code>_dati/plugins/myNote.json</code>, the only folder read by myAssistente at startup.
+        </div>
+    </section>
+
+    <section id="documentation">
+        <h2>Documentation</h2>
+        <p>Available documentation for <strong>myAssistente5</strong>.<br>
+        The documents are also available in the <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> folder of the repository. For any missing documentation, refer to the English or Italian manuals from previous releases.</p>
+
+        <ul>
+            <li><strong>(1) Installation Manual</strong> — installing the program on Windows, Linux, or cross‑platform</li>
+            <li><strong>(2) User Manual</strong> — myAssistente user interface</li>
+            <li><strong>(3) Plugin Manual</strong> — myAgenda, myNote, and myTodo</li>
+            <li><strong>(4) Configuration Manual</strong> — <code>config.json</code> advanced settings</li>
+            <li><strong>(5) Memory Manual</strong> — <code>memory.json</code> advanced settings</li>
+            <li><strong>(6) Language Manual</strong> — <code>lang[].json</code> advanced customization</li>
+            <li><strong>(7) AIML Manual</strong> — <code>aiml/[LANG]/[filename].aiml</code></li>
+            <li><strong>(8) Advanced AIML Manual</strong> — <code>aiml/IT/testConiglio.aiml</code></li>
+        </ul>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>Toolkit <strong>myAssistente5</strong> – Desktop Personal Assistant</div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Author’s website</a> ·
+            &copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAssistente (5) Manuale configurazione memoria</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+<main>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Assistente Personale Desktop – Toolkit Documentazione</strong><br>
+        (5) Manuale configurazione memoria · Release 5 · italiano</p>
+    </div>
+    <nav style="display: flex; flex-wrap: wrap; align-items: center;">
+        <div class="nav-group">
+            <a href="indice.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_card.htm">🧑‍💻 Autore</a>
+        </div>
+
+        <div class="nav-group" style="margin-left: auto;">
+            <a href="5-MemoryManualENGrel5.html">🇬🇧 English</a>
+            <a href="5-ManualeMemoriaITArel5.html">🇮🇹 Italiano</a>
+        </div>
+
+        <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+            <strong>Contenuti:</strong> 
+	<a href="#config">File memory.json</a>
+	Memorizzare: <a href="#dato">un dato</a>
+	<a href="#link">un link</a>
+	<a href="#web">un sito web</a>
+	<a href="#programma">un programma</a>
+	<a href="#tutto">...qualsiasi cosa</a>
+        <a href="#documentation">Documentazione</a>
+        </div>
+    </nav>
+</header>
+
+<section id="intro">
+    <h1>(5) Manuale della memoria</h1>
+    <ul>
+        <li><strong>Scopo:</strong> In questo manuale trovi come configurare la memoria di myAssistente per sfruttare al meglio le sue potenzialità.</li>
+        <li><strong>Prerequisiti:</strong> L’eseguibile di myAssistente per il tuo sistema operativo,<br>
+        oppure, in alternativa, i file Python <code>myAssistente.py</code> e (opzionale, per usare il linguaggio AIML) <code>aiml_parser.py</code>, con Python installato sulla tua macchina (multipiattaforma).</li>
+        <li><strong>Riferimenti:</strong> <em>(1) Manuale installazione, (2) Manuale utente, (4) Manuale configurazione</em>.</li>
+    </ul>
+
+    <p>
+        I nomi di tutti i comandi possono essere modificati nel file <code>lang_XX.json</code>; potrebbero quindi essere diversi da quelli indicati in questo manuale.  
+        Per i dettagli, consulta il <em>(4) Manuale configurazione</em>.
+    </p>
+</section>
+
+<section id="structure">
+    <h2>📁 Dove sono collocati i file</h2>
+    <p>
+        Il file trattato in questo manuale si trova all’interno della cartella <code>_dati/</code>.
+    </p>
+    <ul>
+        <li><strong>_dati/memory.json:</strong> Dati memorizzati.</li>
+    </ul>
+</section>
+
+<section>
+    <h2 id="config">File memory.json</h2>
+
+    <div class="callout">
+        <strong>Nota:</strong> Se il file <code>memory.json</code> è mancante, il sistema avviserà l’utente e genererà un nuovo file vuoto al primo inserimento di dati tramite interfaccia.  
+        Se il file è presente ma corrotto, verrà rinominato in <code>memory.json.bak</code> per non perdere gli eventuali dati validi, e ne verrà creato uno nuovo.
+    </div>
+
+    <p>L’inserimento dei dati in memoria può essere effettuato direttamente dall’interfaccia utente di myAssistente usando i comandi <code>ricorda</code> e <code>impara</code>.  
+        Consulta il <em>(2) Manuale utente</em> per le istruzioni.</p>
+
+    <p>Puoi modificare o aggiungere dati anche manualmente. Apri il file con un editor di testo:</p>
+
+    <h3 id="dato">Memorizzare un dato</h3>
+
+    <pre>
+{
+    "nome": "Codice",
+    "alias": "tasse",
+    "soggetto": "Emanuele",
+    "dati": "CDFTSS99T30L424X",
+    "tag": "codici",
+    "avatar": "magazziniere"
+},
+    </pre>
+
+    <p>
+        <code>nome</code> — campo obbligatorio, contiene il termine da usare per richiedere il dato all’assistente.<br>
+        <code>alias</code> — campo opzionale, contiene termini alternativi al <code>nome</code> per richiedere lo stesso dato.<br>
+        <code>soggetto</code> — campo opzionale, indica il proprietario del dato, utile per memorizzare dati di persone diverse.<br>
+        <code>dati</code> — campo obbligatorio, contiene il valore del dato.<br>
+        <code>tag</code> — campo opzionale, utile per la ricerca, chiedendo all’assistente <code>cerca codici</code> troverà tutti i dati con quel tag.<br>
+        <code>avatar</code> — campo opzionale, indica quale immagine l’assistente deve mostrare quando visualizza il dato.  
+        Se non indicato, il sistema sceglie un’immagine casuale secondo la configurazione nel file <code>config.json</code> (vedi <em>(4) Manuale configurazione</em>).
+    </p>
+
+    <p>Comando per recuperare l’informazione: <code>trova [nome]</code> oppure <code>dimmi [nome]</code>.</p>
+</section>
+
+<h3 id="link">Memorizzare un link</h3>
+
+<p>Scrivendo un link nel campo <code>"dati"</code>, il sistema lo riconoscerà automaticamente.</p>
+
+<pre>
+{
+    "nome": "Python",
+    "alias": "progetti",
+    "soggetto": "aprire una cartella",
+    "dati": "C:\\Python\\Progetti\\",
+    "tag": "cartelle",
+    "avatar": "informatica"
+},
+</pre>
+
+<p>Il file JSON necessita di backslash doppi per l’esempio <code>C:\\Python\\Progetti\\</code>,  
+    ma l’assistente lo mostrerà correttamente e lo aprirà senza problemi.</p>
+
+<p>Per aprire la cartella: <code>apri [nome]</code>.</p>
+
+<h3 id="web">Memorizzare un sito web</h3>
+
+<p>Allo stesso modo, si può memorizzare un sito web.</p>
+
+<pre>
+{
+    "nome": "Autore",
+    "alias": "Cassani",
+    "soggetto": "Emanuele",
+    "dati": "https://www.steppa.net/cassani/index.htm",
+    "tag": "web",
+    "avatar": "agenda"
+},
+</pre>
+
+<p>Gli slash normali <code>/</code> non richiedono escape.  
+    Scrivi semplicemente l’indirizzo web e l’assistente lo aprirà nel browser.</p>
+
+<p>Per aprire il sito: <code>apri [nome]</code>.</p>
+
+<h3 id="programma">Memorizzare un programma</h3>
+
+<p>Puoi memorizzare anche un programma da eseguire.</p>
+
+<pre>
+{
+    "nome": "browser",
+    "alias": "web",
+    "soggetto": "brave",
+    "dati": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    "tag": "programmi",
+    "avatar": "bibliotecaria"
+},
+</pre>
+
+<p>Inserisci nel campo <code>dati</code> il percorso dell’eseguibile.  
+    Lo stesso procedimento vale per programmi, cartelle e file.</p>
+
+<p>Comando per lanciare il programma: <code>apri [nome]</code>.</p>
+
+<h3 id="tutto">Memorizzare qualsiasi cosa</h3>
+
+<p>Fai delle prove con tutto ciò che ti viene in mente: l’assistente funziona in modo estremamente flessibile.</p>
+
+<pre>
+{
+    "nome": "shell",
+    "alias": "prompt",
+    "soggetto": "Windows11",
+    "dati": "cmd.exe",
+    "tag": "comandi",
+    "avatar": "informatica"
+},
+</pre>
+
+<p>Esempio con un comando Windows che apre il prompt dei comandi.</p>
+
+<p>Comando per lanciare il comando: <code>apri shell</code>.</p>
+</section>
+
+<section>
+    <h2 id="documentazione">Documentazione</h2>
+
+    <p>
+        La documentazione disponibile per <strong>myAssistente5</strong>.<br>
+        I documenti si trovano anche nella cartella 
+        <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> del repository.  
+        Per eventuale documentazione mancante, fare riferimento alle versioni precedenti in italiano o inglese.
+    </p>
+
+    <ul>
+            <li><strong>(1) Manuale installazione</strong> — installazione del programma per Windows, Linux o multipiattaforma</li>
+            <li><strong>(2) Manuale utente</strong> — interfaccia utente di myAssistente</li>
+            <li><strong>(3) Manuale plugin</strong> — myAgenda, myNote e myTodo</li>
+            <li><strong>(4) Manuale configurazione</strong> — file <code>config.json</code> configurazioni avanzate</li>
+            <li><strong>(5) Manuale memoria</strong> — file <code>memory.json</code> configurazioni avanzate</li>
+            <li><strong>(6) Manuale lingue</strong> — file <code>lang[].json</code> customizzazioni avanzate</li>
+            <li><strong>(7) Manuale AIML</strong> — file <code>aiml/[LANG]/[filename].aiml</code></li>
+            <li><strong>(8) Manuale AIML avanzato</strong> — file <code>aiml/IT/testConiglio.aiml</code></li>
+    </ul>
+</section>
+</main>
+<footer>
+    <div class="footer-inner">
+        <div>
+            Toolkit <strong>myAssistente5</strong> — Assistente desktop personale
+        </div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Sito dell’autore</a> ·
+            &copy; 2026 
+            <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+
+
+</body>
+</html>

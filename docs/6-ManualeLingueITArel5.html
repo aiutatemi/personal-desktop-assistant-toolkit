@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAssistente (6) Manuale configurazione lingue</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Assistente Personale Desktop – Toolkit Documentazione</strong><br>
+        (6) Manuale configurazione lingue · Release 5 · italiano</p>
+    </div>
+    <nav style="display: flex; flex-wrap: wrap; align-items: center;">
+        <div class="nav-group">
+            <a href="indice.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_card.htm">🧑‍💻 Autore</a>
+        </div>
+
+        <div class="nav-group" style="margin-left: auto;">
+            <a href="6-LanguageManualENGrel5.html">🇬🇧 English</a>
+            <a href="6-ManualeLingueITArel5.html">🇮🇹 Italiano</a>
+        </div>
+
+        <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+            <strong>Contenuti:</strong> 
+	<a href="#lang">File lang.json</a>
+        <a href="#stt">Riconoscimento vocale</a>
+        <a href="#comandi">Nomi dei comandi</a>
+        <a href="#nomi">Nomi interfacia utente</a>
+        <a href="#articoli">Esclusioni</a>
+        <a href="#localizza">Localizza le frasi</a>
+        <a href="#documentation">Documentazione</a>
+        </div>
+    </nav>
+</header>
+<main>
+<section id="intro">
+    <h1>(6) Manuale configurazione lingue</h1>
+
+    <p>
+        In questo manuale trovi come configurare la lingua di myAssistente per sfruttarne al meglio le potenzialità.  
+        Nei pacchetti di distribuzione sono sempre presenti le lingue italiano e inglese, ma è possibile aggiungerne altre scaricando i file già pronti dal repository del progetto.
+    </p>
+
+    <ul>
+        <li><strong>Scopo:</strong> In questo manuale scoprirai come aggiungere una nuova lingua o modificarne una esistente.</li>
+
+        <li><strong>Prerequisiti:</strong> L’eseguibile di myAssistente per il tuo sistema operativo,<br>
+        oppure, in alternativa, i file Python <code>myAssistente.py</code> e (opzionale, per usare il linguaggio AIML) <code>aiml_parser.py</code>, con Python installato sulla tua macchina (multipiattaforma).</li>
+
+        <li><strong>Riferimenti:</strong> 
+            <em>(1) Manuale installazione,  
+            (2) Manuale utente,  
+            (4) Manuale configurazione,  
+            (5) Manuale configurazione memoria</em>.
+        </li>
+    </ul>
+
+    <div class="callout">
+        Nei pacchetti di distribuzione sono sempre incluse le lingue <strong>italiano</strong> e <strong>inglese</strong>.  
+        Puoi aggiungerne altre traducendo i file o scaricandoli dal repository del progetto.
+    </div>
+
+    <p>
+        I nomi di tutti i comandi possono essere modificati nel file <code>lang_XX.json</code> e potrebbero quindi differire da quelli indicati in questo manuale.  
+        Per i dettagli, fai riferimento al <em>(4) Manuale configurazione</em>.
+    </p>
+</section>
+
+<section id="structure">
+    <h2>📁 Dove sono collocati i file</h2>
+
+    <p>
+        I file trattati in questo manuale si trovano all’interno della cartella <code>_dati/</code>.
+    </p>
+
+    <ul>
+        <li><strong>_dati/lang_*.json:</strong> File di localizzazione.</li>
+    </ul>
+</section>
+
+<section>
+    <h2 id="lang">File lang.json</h2>
+
+    <div class="callout">
+        <strong>Nota:</strong> Se il sistema non trova alcun file <code>lang_XX.json</code>, verrà utilizzata la lingua predefinita: italiano.
+    </div>
+
+    <p>
+        In caso di cambio lingua, il sistema memorizza l’informazione in <code>config.json</code> e salva un backup della configurazione precedente in <code>config.json.bak</code>.
+    </p>
+
+    <p>
+        La scelta della lingua può essere effettuata direttamente dall’interfaccia utente di myAssistente tramite i pulsanti sotto la voce <code>Lingua</code>.  
+        Il sistema rileva automaticamente le lingue presenti nella cartella <strong>_dati/</strong> e le rende selezionabili.
+    </p>
+
+    <p>
+        Nome dei file: <strong>lang[CODE].json</strong>, dove <strong>[CODE]</strong> è il codice standard della lingua.  
+        Esempi: <strong>langIT.json</strong>, <strong>langEN.json</strong>, <strong>langDE.json</strong>.  
+        All’interno di questi file puoi configurare tutti i termini. Aprili con un editor di testo.
+    </p>
+</section>
+
+<h3 id="stt">Prima parte: Lingua per il riconoscimento vocale</h3>
+
+<pre>
+  "lingua_stt": "it-IT",
+</pre>
+
+<p>
+    Si tratta della lingua usata dall’assistente per la pronuncia e il riconoscimento vocale tramite Google Speech.  
+    È importante specificare anche la regione (esempio: <code>en-GB</code> o <code>en-US</code>).  
+    La stessa informazione è presente anche nel file <code>config.json</code>, utilizzata dal sistema nel caso non venga trovato alcun file di lingua.
+</p>
+
+<h3 id="comandi">Seconda parte: I nomi dei comandi</h3>
+
+<pre>
+  "alias_comandi": {
+    "dammi":    ["trova", "dimmi", "mostrami", "visualizza"],
+    "apri":     ["apri", "lancia", "avvia", "esegui", "metti"],
+    "cerca":    ["cerca", "ricerca"],
+    "elenca":   ["elenca", "lista", "mostra tutto"],
+    "configura":["configura", "impostazioni", "settings", "preferenze"],
+    "aiuto":    ["aiuto", "help", "comandi"],
+    "esci":     ["esci", "chiudi", "arrivederci", "quit", "exit"],
+    "impara":   ["impara", "apprendi", "inserisci"],
+    "ricorda":  ["ricorda", "memorizza", "salva"],
+    "modifica": ["modifica", "cambia", "aggiorna"],
+    "elimina":  ["cancella", "rimuovi"],
+    "copia":    ["copia", "duplica", "copy"]
+  },
+</pre>
+
+<p>
+    A sinistra trovi il nome di sistema, mentre a destra i nomi che vuoi far apparire cliccando il pulsante nell’interfaccia utente.  
+    Il nome di sistema in italiano continuerà sempre a funzionare: i nomi che inserisci sono alternative aggiuntive.
+</p>
+
+<p>
+    Puoi indicare più nomi per lo stesso comando oppure lasciarne nessuno (esempio: <code>"esci": []</code>).  
+    Se per errore duplichi un nome, verrà considerato solo il primo.
+</p>
+
+<h3 id="nomi">Terza parte: I nomi nell’interfaccia utente</h3>
+
+<pre>
+  "titolo_finestra":  "Assistente – {nome_avatar}",
+
+  "label_comandi":        "COMANDI",
+  "panel_dammi":          "trova...",
+  "panel_apri":           "apri...",
+  "panel_cerca":          "cerca...",
+  "panel_media":          "cerca media",
+  "panel_elenca":         "elenca memoria",
+  "panel_configura":      "configura",
+  "panel_aiuto":          "aiuto",
+  "panel_esci":           "esci",
+
+  "panel_sep_memoria":    "── GESTISCI MEMORIA ──",
+  "panel_impara":         "impara",
+  "panel_ricorda":        "ricorda...",
+  "panel_ricorda_img":    "ricorda immagine",
+  "panel_modifica":       "modifica...",
+  "panel_elimina":        "cancella...",
+  "panel_copia":          "copia...",
+
+  "label_shortcut":       "SHORTCUT",
+  "label_lingua":         "LINGUA",
+  "btn_invia":            "Invia",
+</pre>
+
+<p>
+    Qui trovi tutti i testi e le etichette presenti nell’interfaccia di myAssistente.  
+    Importante: se cambi il nome di un pulsante, cliccandolo apparirà comunque il primo comando configurato nella sezione <code>alias_comandi</code>.  
+    Se vuoi che corrispondano, usa lo stesso termine.
+</p>
+
+<p>Esempio comando:</p>
+
+<pre>
+  "alias_comandi": {
+    "dammi": ["dimmi", "mostrami", "visualizza"]
+  },
+</pre>
+
+<p>Esempio pulsante corrispondente:</p>
+
+<pre>
+  "panel_dammi": "dammi..."
+</pre>
+
+<p>
+    In questo caso, il pulsante mostrerà <code>dammi...</code>, ma nella finestra di dialogo apparirà <code>dimmi</code>.
+</p>
+
+<h3 id="articoli">Quarta parte: Le esclusioni</h3>
+
+<p>
+    Questi articoli servono per essere esclusi dalla frase dell’utente, così da permettere al sistema di riconoscere correttamente i comandi.
+</p>
+
+<pre>
+  "articoli": [
+    "il", "lo", "la", "i", "gli", "le", "un", "una", "uno",
+    "del", "della", "dei", "degli", "delle", "al", "allo",
+    "alla", "ai", "agli", "alle", "dal", "dallo", "dalla",
+    "dai", "dagli", "dalle", "col", "coi", "su", "per", "con"
+  ],
+</pre>
+
+<p>
+    Esempio: <code>Apri la posta</code>.  
+    Se non configurato diversamente in altri file (vedi <em>(7) Manuale AIML</em>), il comando non sarebbe riconosciuto.  
+    Con questa lista, l’articolo <code>la</code> viene ignorato e il comando diventa semplicemente <code>apri posta</code>.
+</p>
+
+<h3 id="localizza">Ultima parte: Localizza le frasi</h3>
+
+<p>
+    Qui puoi configurare tutte le frasi usate dal programma.  
+    Ricorda: devi modificare solo i valori a destra, mentre le chiavi a sinistra non vanno mai cambiate.
+</p>
+
+<pre>
+  "aiuto_testo": "Ecco quello che posso fare per te:\n\ntrova\n..."
+</pre>
+
+<p>
+    Se devi andare a capo, usa <code>\n</code> e non andare a capo manualmente.
+</p>
+</section>
+
+<section>
+    <p>
+        Basta una virgola errata e il file <code>.json</code> smette di funzionare.  
+        Se hai Python installato, puoi verificarlo con:
+    </p>
+
+<pre>
+python -m json.tool lang_it.json
+</pre>
+
+    <p>
+        In alternativa, puoi farlo controllare a un’IA chiedendo semplicemente:
+    </p>
+
+<pre>
+Controlla questo file JSON, sistema eventuali errori e ridammelo
+</pre>
+</section>
+<section>
+    <h2 id="documentation">Documentazione</h2>
+
+    <p>
+        La documentazione disponibile per <strong>myAssistente5</strong>.<br>
+        I documenti si trovano anche nella cartella 
+        <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> del repository.  
+        Per eventuale documentazione mancante, fare riferimento alle versioni precedenti in italiano o inglese.
+    </p>
+
+    <ul>
+            <li><strong>(1) Manuale installazione</strong> — installazione del programma per Windows, Linux o multipiattaforma</li>
+            <li><strong>(2) Manuale utente</strong> — interfaccia utente di myAssistente</li>
+            <li><strong>(3) Manuale plugin</strong> — myAgenda, myNote e myTodo</li>
+            <li><strong>(4) Manuale configurazione</strong> — file <code>config.json</code> configurazioni avanzate</li>
+            <li><strong>(5) Manuale memoria</strong> — file <code>memory.json</code> configurazioni avanzate</li>
+            <li><strong>(6) Manuale lingue</strong> — file <code>lang[].json</code> customizzazioni avanzate</li>
+            <li><strong>(7) Manuale AIML</strong> — file <code>aiml/[LANG]/[filename].aiml</code></li>
+            <li><strong>(8) Manuale AIML avanzato</strong> — file <code>aiml/IT/testConiglio.aiml</code></li>
+    </ul>
+</section>
+</main>
+<footer>
+    <div class="footer-inner">
+        <div>
+            Toolkit <strong>myAssistente5</strong> – Assistente desktop personale
+        </div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Sito dell’autore</a> ·
+            &copy; 2026 
+            <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+</html>

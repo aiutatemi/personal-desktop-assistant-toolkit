@@ -68,7 +68,7 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             color: var(--text-primary);
         }
 
@@ -152,6 +152,10 @@
         li.type-sanita { border-left-color: #87CEEB; }
         li.type-macchine { border-left-color: #FF7F50; }
 
+        .task-content { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+        .task-top { display: flex; align-items: center; gap: 8px; }
+        .task-date { font-size: 0.85rem; color: var(--text-secondary); }
+        .task-text { padding-left: 4px; }
         .completed .task-text { text-decoration: line-through; color: var(--text-secondary); }
 
         /* 5. MODALE E BACKUP */
@@ -211,7 +215,7 @@
         </div>
 
         <div class="backup-area">
-            <button class="btn-backup" onclick="saveToPlugin()" title="Save to _dati/plugins/myTodo.json">🔗 Save for Assistant</button>
+            <button class="btn-backup" onclick="saveToPlugin()" title="Save to _dati/plugins/myTodo.json">🔗 Save for myAssistente</button>
             <button class="btn-backup" onclick="downloadBackup()">💾 Backup</button>
             <button class="btn-backup" onclick="document.getElementById('fileInput').click()">📂 Restore</button>
             <input type="file" id="fileInput" style="display:none" onchange="uploadBackup(this)">
@@ -222,23 +226,40 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <h2>Edit Task</h2>
-            <input type="text" id="editTaskInput">
-            <input type="datetime-local" id="editDateInput">
-            <select id="editTypeSelect">
-                <option value="svago">Leisure</option>
-                <option value="scadenza">Expires</option>
-                <option value="tassa">Tax</option>
+            <label for="editTaskInput">Text:</label>
+            <input type="text" id="editTaskInput" style="width:100%;box-sizing:border-box;margin-bottom:10px">
+            <label for="editDateInput">Date and time:</label>
+            <input type="datetime-local" id="editDateInput" style="width:100%;box-sizing:border-box;margin-bottom:10px">
+            <label for="editTypeSelect">Type:</label>
+            <select id="editTypeSelect" style="width:100%;box-sizing:border-box;margin-bottom:10px">
+                <option value="scadenza">Expires (orange)</option>
+                <option value="tassa">Tax (red)</option>
+                <option value="svago">Leisure (green)</option>
+                <option value="ricorrenza">Anniversary (light green)</option>
+                <option value="sanita">Health (light blue)</option>
+                <option value="macchine">Car (coral)</option>
             </select>
-            <select id="editRecurringSelect">
-                <option value="none">No</option>
-                <option value="daily">Yes</option>
+            <label for="editRecurringSelect">Recurrence:</label>
+            <select id="editRecurringSelect" style="width:100%;box-sizing:border-box;margin-bottom:15px">
+                <option value="none">No repeat</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
             </select>
             <div style="margin-top:15px; text-align:right">
-                <button onclick="saveEdit()">Save</button>
-                <button onclick="closeEditModal()" style="background:#f44336; color:white">Close</button>
+                <button onclick="closeEditModal()" style="background:#f44336; color:white; margin-right:8px">Cancel</button>
+                <button onclick="saveEdit()" style="background:#4CAF50; color:white">Save</button>
             </div>
         </div>
     </div>
+
+<footer style="width: 100%; max-width: 900px; align-self: stretch; margin: 20px auto 0 auto;">
+    <div style="text-align: right; width: 100%;">
+        &copy; 2025 <a href="https://www.steppa.net/cassani/business_cardENG.htm">Emanuele Cassani</a>
+    </div>
+
+</footer>
 
     <script>
         // --- GESTIONE TEMA ---
@@ -282,31 +303,35 @@
             autoSavePlugin();
         }
 
+        function escapeHtml(s) {
+            return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+        }
+        function formatDate(d) {
+            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const dt = new Date(d.replace(' ','T'));
+            return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+        }
+        const TYPE_LABELS = {scadenza:'⏰ Expires', tassa:'💰 Tax', svago:'🎉 Leisure', ricorrenza:'🎂 Anniversary', sanita:'🏥 Health', macchine:'🚗 Car'};
+        const RECUR_BADGE  = {daily:'📅', weekly:'📆', monthly:'🗓️', yearly:'🎂'};
+
         function renderTasks() {
             const futureList = document.getElementById('futureMonthCard');
-            const pastList = document.getElementById('pastMonthCard');
-            
-            futureList.innerHTML = '<div class="month-header">Upcoming Tasks</div><ul>';
-            pastList.innerHTML = '<div class="month-header">Past Tasks</div><ul>';
-
+            const pastList   = document.getElementById('pastMonthCard');
+            futureList.innerHTML = '<div class="month-header">Upcoming Tasks</div><ul></ul>';
+            pastList.innerHTML   = '<div class="month-header">Past / Overdue Tasks</div><ul></ul>';
             const now = new Date();
-
-            tasks.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
-                const isPast = new Date(t.date) < now;
-                const html = `
-                    <li class="type-${t.type} ${t.completed ? 'completed' : ''}">
-                        <div onclick="toggleComplete(${t.id})" style="cursor:pointer">
-                            <strong>${t.text}</strong><br>
-                            <small>${t.date}</small>
-                        </div>
-                        <div>
-                            <button onclick="openEditModal(${t.id})">✏️</button>
-                            <button onclick="deleteTask(${t.id})">🗑️</button>
-                        </div>
-                    </li>`;
-                
-                if(isPast) pastList.querySelector('ul').innerHTML += html;
-                else futureList.querySelector('ul').innerHTML += html;
+            tasks.sort((a,b) => new Date(a.date.replace(' ','T')) - new Date(b.date.replace(' ','T'))).forEach(t => {
+                const taskDate   = new Date(t.date.replace(' ','T'));
+                const isPast     = taskDate < now;
+                const isOverdue  = !t.completed && isPast;
+                const checkbox   = t.completed ? '[x]' : '[ ]';
+                const badge      = `<span class="type-badge badge-${t.type}">${TYPE_LABELS[t.type]||t.type}</span>`;
+                const recurBadge = (t.recurring && t.recurring !== 'none') ? ` <span class="recurring-badge">${RECUR_BADGE[t.recurring]||''}</span>` : '';
+                const li = document.createElement('li');
+                li.className = `type-${t.type}${t.completed?' completed':''}${isOverdue?' overdue':''}`;
+                li.innerHTML = `<div class="task-content"><div class="task-top"><span class="checkbox" onclick="toggleComplete(${t.id})" style="cursor:pointer;font-family:monospace;user-select:none">${checkbox}</span><span class="task-date">${formatDate(t.date)}</span></div><div class="task-text"> ${badge} ${escapeHtml(t.text)}${recurBadge}</div></div><div class="actions"><button onclick="openEditModal(${t.id})" title="Edit">✏️</button><button onclick="deleteTask(${t.id})" title="Delete">🗑️</button></div>`;
+                if(isPast) pastList.querySelector('ul').appendChild(li);
+                else       futureList.querySelector('ul').appendChild(li);
             });
             updateStats();
         }
@@ -360,16 +385,27 @@
         function openEditModal(id) {
             currentEditId = id;
             const t = tasks.find(x => x.id === id);
-            document.getElementById('editTaskInput').value = t.text;
-            document.getElementById('editModal').style.display = 'block';
+            if (!t) return;
+            document.getElementById('editTaskInput').value       = t.text;
+            document.getElementById('editDateInput').value       = t.date.replace(' ','T');
+            document.getElementById('editTypeSelect').value      = t.type      || 'svago';
+            document.getElementById('editRecurringSelect').value = t.recurring || 'none';
+            document.getElementById('editModal').style.display   = 'block';
         }
-        function closeEditModal() { document.getElementById('editModal').style.display = 'none'; }
+        function closeEditModal() { document.getElementById('editModal').style.display = 'none'; currentEditId = null; }
         function saveEdit() {
+            const text      = document.getElementById('editTaskInput').value.trim();
+            const date      = document.getElementById('editDateInput').value;
+            const type      = document.getElementById('editTypeSelect').value;
+            const recurring = document.getElementById('editRecurringSelect').value;
+            if (!text) return alert("Task text cannot be empty!");
+            if (!date) return alert("Date cannot be empty!");
             const t = tasks.find(x => x.id === currentEditId);
-            t.text = document.getElementById('editTaskInput').value;
+            if (t) { t.text = text; t.date = date.replace('T',' '); t.type = type; t.recurring = recurring; }
             saveAndRender();
             closeEditModal();
         }
+        window.onclick = function(e) { if (e.target === document.getElementById('editModal')) closeEditModal(); };
 
 
         // ── Conversione formato myAssistente ──────────────────────────────────

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente (7) AIML Manual</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Personal Desktop Assistant – Documentation Toolkit</strong><br>
+        (7) AIML Manual · Release 5 · English Manual</p>
+    </div>
+<nav style="display: flex; flex-wrap: wrap; align-items: center;">
+    <div class="nav-group">
+            <a href="index.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+    </div>
+
+    <div class="nav-group" style="margin-left: auto;">
+        <a href="7-AIMLmanualENGrel5.html">🇬🇧 English</a>
+        <a href="7-ManualeAIMLITArel5.html">🇮🇹 Italiano</a>
+    </div>
+
+    <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+        <strong>Contents:</strong> 
+        <a href="#aiml">AIML in two lines</a>
+        <a href="#potenzia">Enhance understanding</a>
+        <a href="#documentation">Documentation</a>
+
+
+    </div>
+</nav>
+
+</header>
+
+<main>
+<section id="intro">
+    <h1>(7) AIML Manual</h1>
+
+    <ul>
+        <li><strong>Purpose:</strong> This manual explains how to configure the standard AIML files used by myAssistente.</li>
+
+        <li><strong>Prerequisites:</strong> The myAssistente executable for your operating system,<br>
+        or alternatively the Python files <code>myAssistente.py</code> (optional for AIML support) and <code>aiml_parser.py</code>, with Python installed on your machine (multiplatform).</li>
+
+        <li><strong>References:</strong> 
+            <em>(1) Installation Manual,  
+            (2) User Manual,  
+            (4) Configuration Manual,  
+            (5) Memory Configuration Manual,  
+            (6) Language Configuration Manual</em>.
+        </li>
+    </ul>
+
+    <div class="callout">
+        Some AIML files may already be included in the distribution packages.  
+        Make sure they are placed in the folder corresponding to your language.  
+        Example: for Italian, files must be inside <code>_dati/aiml/IT/</code>.  
+        You can also download additional AIML files from the web: the system is compatible with the standard AIML format.
+    </div>
+
+    <p>All command names can be customized in the <code>lang_XX.json</code> file and may therefore differ from those shown in this manual.  
+        For details, refer to the <em>(4) Configuration Manual</em>.</p>
+</section>
+
+<section id="structure">
+    <h2>📁 File locations</h2>
+
+    <p>The files described in this manual are located inside the <code>_dati/aiml/</code> folder.</p>
+
+    <ul>
+        <li>
+            One subfolder per language: <code>_dati/aiml/[LANG]/</code>.  
+            Example: the Italian version loads all AIML files found in <code>_dati/aiml/IT/</code>.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2 id="aiml">What AIML is, in two lines</h2>
+
+    <p>AIML is a <strong>rule‑based</strong> language.  
+        Each rule states:</p>
+
+    <ul>
+        <li><strong>When the user writes X</strong> → <strong>reply Y</strong>.</li>
+    </ul>
+
+    <p>Each rule is a <strong>category</strong> composed of two parts:</p>
+
+    <ul>
+        <li><span class="tag">&lt;pattern&gt;</span>: what the user must write</li>
+        <li><span class="tag">&lt;template&gt;</span>: what the bot replies</li>
+    </ul>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;CIAO&lt;/pattern&gt;
+    &lt;template&gt;Hello!&lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+    <p>AIML is a well‑established standard, originally used by early chatbots.  
+        You can find ready‑made AIML files online, and some are also available in the myAssistente project repository.</p>
+</section>
+
+<section id="potenzia">
+    <h2>Enhance understanding</h2>
+
+    <p>How to configure AIML files for myAssistente.<br>
+        AIML files for the Italian language are located in <code>_dati/aiml/IT/</code>.  
+        Create a new file (e.g., <code>myassistente.aiml</code>) with a structure like the following.</p>
+
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?>
+
+&lt;aiml>
+
+&lt;category>
+    &lt;pattern>* OPEN * MAIL *&lt;/pattern>
+    &lt;template avatar="positivo" comando="open mail">Opening your mail!&lt;/template>
+&lt;/category>
+
+&lt;category>
+    &lt;pattern>CAN YOU OPEN THE MAIL PROGRAM&lt;/pattern>
+    &lt;template><srai>OPEN MAIL&lt;/srai>&lt;/template>
+&lt;/category>
+
+&lt;/aiml>
+</pre>
+
+    <p>Asterisks <code>*</code> are wildcards: they match any sequence of words.  
+        In this example, any words before and after <strong>OPEN</strong> and any words after <strong>MAIL</strong> will be accepted.  
+        Note: the AIML standard automatically converts all user input to uppercase.</p>
+
+    <p>Inside the <code>&lt;template&gt;</code> tag you will find two attributes specific to myAssistente:</p>
+
+    <ul>
+        <li><code>avatar="positivo"</code> — optional, selects the avatar image to display</li>
+        <li><code>comando="open mail"</code> — essential, this is the command executed by the assistant</li>
+    </ul>
+
+    <p>The <code>&lt;srai&gt;</code> tag is extremely useful to avoid repeating rules:  
+        it converts a user sentence into another one already handled.  
+        In the example, writing <code>can you open the mail program?</code> becomes <code>OPEN MAIL</code>, triggering the previous category.</p>
+
+    <div class="callout">
+        NOTE: The <code>avatar</code> and <code>comando</code> attributes are recognized only by myAssistente.<br>
+        If you use these AIML files with other engines, the categories will still work, but these attributes will be ignored.
+    </div>
+
+    <p>You can also randomize the response:</p>
+
+<pre>
+&lt;category>
+    &lt;pattern>* OPEN * MAIL *&lt;/pattern>
+    &lt;template avatar="positivo" comando="open mail">
+        &lt;random>
+            &lt;li>Opening your mail!&lt;/li>
+            &lt;li>Here is today’s mail.&lt;/li>
+            &lt;li>Done! Waiting for new messages?&lt;/li>
+        &lt;/random>
+    &lt;/template>
+&lt;/category>
+</pre>
+
+    <div class="callout">
+        There is extensive AIML documentation available online.
+    </div>
+
+    <p>Generic example for a command associated with a name:</p>
+
+<pre>
+&lt;category>
+    &lt;pattern>* OPEN * MAIL *&lt;/pattern>
+    &lt;template><srai>OPEN MAIL&lt;/srai>&lt;/template>
+&lt;/category>
+</pre>
+
+    <p>With this configuration, the assistant will open the mail for almost any phrasing.  
+        For better coverage, adapt the patterns to your own speaking style.</p>
+
+    <p>Want to do much more with AIML?  
+        Read the <em>(8) Advanced AIML Manual</em> and follow the rabbit (Test in Italian language).</p>
+</section>
+<section>
+    <h2 id="documentation">Documentation</h2>
+
+    <p>
+        Available documentation for <strong>myAssistente5</strong>.<br>
+        The documents are also available in the 
+        <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> folder of the repository.  
+        For missing documentation, refer to previous English or Italian releases.
+    </p>
+
+    <ul>
+        <li><strong>(1) Installation Manual</strong> — installing the program for Windows, Linux, or multiplatform</li>
+        <li><strong>(2) User Manual</strong> — myAssistente user interface</li>
+        <li><strong>(3) Plugin Manual</strong> — myAgenda, myNote, myTodo</li>
+        <li><strong>(4) Configuration Manual</strong> — <code>config.json</code> file, advanced settings</li>
+        <li><strong>(5) Memory Manual</strong> — <code>memory.json</code> file, advanced settings</li>
+        <li><strong>(6) Language Manual</strong> — <code>lang[].json</code> files, advanced customization</li>
+        <li><strong>(7) AIML Manual</strong> — <code>aiml/[LANG]/[filename].aiml</code> files</li>
+        <li><strong>(8) Advanced AIML Manual</strong> — <code>aiml/IT/testConiglio.aiml</code> file</li>
+    </ul>
+</section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            Toolkit <strong>myAssistente5</strong> – Personal desktop assistant
+        </div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Author’s website</a> ·
+            &copy; 2026 
+            <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
+

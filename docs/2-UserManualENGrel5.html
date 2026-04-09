@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente (2) User Manual</title>
+
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Personal Desktop Assistant – Documentation Toolkit</strong><br>
+        (2) User Manual · Release 5 · English Manual</p>
+    </div>
+
+<nav style="display: flex; flex-wrap: wrap; align-items: center;">
+    <div class="nav-group">
+            <a href="index.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+    </div>
+
+    <div class="nav-group" style="margin-left: auto;">
+        <a href="2-UserManualENGrel5.html">🇬🇧 English</a>
+        <a href="2-ManualeUtenteITArel5.html">🇮🇹 Italiano</a>
+    </div>
+
+    <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+        <strong>Content:</strong>
+        <strong>Contenuto:</strong> 
+        <a href="#nomi">Configure user name and assistant name</a>
+        <a href="#ricorda">Remember and learn</a>
+        <a href="#fisse">Fixed responses</a>
+        <a href="#dammi">Retrieve data</a>
+        <a href="#documentazione">Documentation</a>
+    </div>
+</nav>
+</header>
+
+<main>
+<section id="intro">
+    <h1>(2) User Manual</h1>
+    <ul>
+        <li><strong>Purpose:</strong> This manual guides you through the personal configuration of myAssistente.</li>
+        <li><strong>Prerequisites:</strong> myAssistente5 installed.</li>
+        <li><strong>References:</strong> <em>(1) Installation Manual</em>.</li>
+    </ul>
+
+    <div class="callout">
+        <strong>Installation</strong><br>
+        Do you still need to install myAssistente?  
+        The ready‑to‑use packages for Windows and Linux are available: just download, extract the ZIP file, and click the executable.<br>
+        For the Python version and for creating macOS packages, refer to the <em>(1) Installation Manual</em>.
+    </div>
+
+    <p>
+        I am constantly looking for new useful ideas to implement — any suggestion is welcome.
+    </p>
+</section>
+
+<div class="callout">
+    💡 To read the manuals, use the command <code>manuals</code> and myAssistente will open the page with the documentation index.
+</div>
+
+<section id="nomi">
+    <h2>Configure user name and assistant name</h2>
+
+    <p>
+        At the beginning, the assistant is named <i>Assistant</i> and the user is named <i>User</i>.<br>
+        To change these values, type or press the microphone and say:
+    </p>
+
+<pre>
+[03:19] user:> configure short
+[03:19] Assistant:> Assistant name setup: nome_avatar current value = 'Assistant'
+Enter new value or leave empty to cancel
+[03:19] user:> Alice
+[03:19] Alice:> Parameter 'nome_avatar' updated to 'Alice'
+[03:19] Alice:> User name setup: nome_utente current value = 'user'
+Enter new value or leave empty to cancel
+[03:19] user:> Emanuele
+[03:19] Alice:> Parameter 'nome_utente' updated to 'Emanuele'
+[03:19] Alice:> Configuration completed.
+[03:20] Emanuele:>
+</pre>
+
+</section>
+
+<section id="ricorda">
+    <h2 id="memorizza">Remember and learn</h2>
+
+    <p>To make the assistant remember a piece of data, use the commands <code>remember</code> (for a single entry) or <code>learn</code> (for multiple entries). Type or say:</p>
+
+<pre>
+03:29] Emanuele:> remember
+[03:29] Alice:> What should I remember? Tell me the name:
+[03:29] Emanuele:> IMPORTANT
+[03:29] Alice:> Tell me the data for 'IMPORTANT':
+[03:30] Emanuele:> must remember 348 966 111
+[03:30] Alice:> Done! 'IMPORTANT' saved.
+</pre>
+
+    <p>To retrieve the data later, simply ask: <code>:> give important</code> (or <code>find important</code>).</p>
+
+    <p>Quick command to store data without repeating the name:</p>
+
+<pre>
+[20:53] Emanuele:> remember phone Marta 348 966 111
+[20:52] Alice:> Done! 'phone' saved.
+</pre>
+
+    <p>The first word (in the example <code>phone</code>) will be the name to remember, the next the data.</p>
+
+    <p>If you use <code>learn</code> or <code>acquire</code> to store multiple pieces of data in sequence:</p>
+
+<pre>
+[03:33] Emanuele:> learn
+[03:33] Alice:> Guided input.
+Type 'skip' for optional fields, 'end' to cancel.
+Name (mandatory):
+[03:33] Emanuele:> Tax code
+[03:33] Alice:> Alias (optional — 'skip' to skip):
+[03:34] Emanuele:> skip
+[03:34] Alice:> Subject (optional — 'skip' to use your name):
+[03:34] Emanuele:> Emanuele
+[03:34] Alice:> Data to memorize (mandatory):
+[03:34] Emanuele:> CDCFSC65T30...
+[03:34] Alice:> Tags (optional — 'skip' to skip):
+[03:34] Emanuele:> tax agency
+[03:34] Alice:> Avatar (optional — 'skip' for 'smiling'):
+[03:34] Emanuele:> triste
+[03:34] Alice:> Saved! 'Tax code'.
+Another item? (yes / no)
+[03:34] Emanuele:> yes
+
+[03:33] Alice:> Guided input.
+Type 'skip' for optional fields, 'end' to cancel.
+Name (mandatory):
+[03:33] Emanuele:> Tax code
+[03:33] Alice:> Alias (optional — 'skip' to skip):
+[03:34] Emanuele:> skip
+[03:34] Alice:> Subject (optional — 'skip' to use your name):
+[03:34] Emanuele:> Andrea
+[03:34] Alice:> Data to memorize (mandatory):
+[03:34] Emanuele:> CDFSC65T30...
+[03:34] Alice:> Tags (optional — 'skip' to skip):
+[03:34] Emanuele:> tax agency
+[03:34] Alice:> Avatar (optional — 'skip' for 'smiling'):
+[03:34] Emanuele:> triste
+[03:34] Alice:> Saved! 'Tax code'.
+Another item? (yes / no)
+[03:34] Emanuele:> no
+[03:34] Alice:> Input completed.
+</pre>
+
+    <p>In this example, I stored two items: one for Emanuele and one for Andrea.</p>
+
+    <p>To make the assistant open a website link, type or say:</p>
+
+<pre>
+[03:40] Emanuele:> remember
+[03:40] Alice:> What should I remember? Tell me the name:
+[03:40] Emanuele:> Website
+[03:40] Alice:> Tell me the data for 'Website':
+[03:40] Emanuele:> https://www.steppa.net/cassani/
+[03:40] Alice:> Done! 'Website' saved.
+[21:30] Emanuele:> open the Website
+Alice:> Opening now: https://www.steppa.net/cassani/
+</pre>
+
+    <p>To make the assistant open a file, a folder:</p>
+
+<pre>
+[03:41] Emanuele:> remember
+[03:41] Alice:> What should I remember? Tell me the name:
+[03:41] Emanuele:> File link
+[03:41] Alice:> Tell me the data for 'File link':
+[03:41] Emanuele:> C:\Users\emanuele\Desktop\documento.rtf
+[03:41] Alice:> Done! 'File link' saved.
+
+[21:30] Emanuele:> open the file link
+Alice:> Opening: C:\Users\emanuele\Desktop\documento.rtf
+</pre>
+
+    <p>The file will be opened with the program associated by your operating system.<br>
+        Note: backslashes \ are doubled in memory due to JSON syntax requirements, but the assistant will handle them automatically. </p>
+
+    <p>You can also train the assistant to open any program:<br>
+        Example to store: <code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code><br>
+        Any folder:<br>
+        Example: <code>C:\Users\emanuele\Desktop\</code><br>
+        Or system functions.<br>
+        Example for Windows users: store <code>control</code> to open the Control Panel, or <code>cmd.exe</code> to open the command prompt.<br>
+        Try anything that comes to mind — it will probably work.</p>
+
+    <div class="callout">
+        <strong>Note</strong><br>
+        You can perform the same configurations by editing the <code>_memory.json</code> file with a simple text editor such as Notepad.<br>
+        See <em>(4) Configuration Manual</em>.
+    </div>
+</section>
+
+<section id="immagine">
+    <h2>Remember images</h2>
+
+    <p>The commands <code>remember image</code> or <code>store image</code> are used to save an image inside myAssistente’s data.</p>
+
+<pre>
+[03:44] Emanuele:> remember questa immagine
+ --- a window will be open, to select an image---
+[03:44] Alice:> Name for the image?
+[03:44] Emanuele:> icon
+[03:44] Alice:> Description (tag)?
+[03:44] Emanuele:> used for myAssistente
+[03:44] Alice:> Image 'icon' saved.
+</pre>
+
+    <p>The file will be stored inside the <code>_dati/asset/</code> folder, and you can retrieve it with the command <code>open [name]</code>.<br>
+        In the example above, <code>open icon</code> will launch the program associated with that file type.</p>
+
+    <h2 id="modifica">Modify</h2>
+
+    <p>Use the command <code>modify</code> or <code>change</code> to edit a piece of data stored in memory.</p>
+
+<pre>
+[03:54] Emanuele:> change phone
+[03:54] Alice:> Item found:
+  nome: phone
+  soggetto: Emanuele
+  Marta 348 966 111
+  [avatar: sorridente]
+Which field?
+[03:55] Emanuele:> dati
+[03:55] Alice:> Enter new value for 'dati':
+[03:55] Emanuele:> New 378 314 432
+[03:55] Alice:> Modified! 'dati' = New 378 314 432
+</pre>
+
+    <h2 id="copia">Copy</h2>
+
+    <p>Use the command <code>copy</code> to copy the data to the clipboard so you can paste it wherever you need.</p>
+
+<pre>
+[03:57] Emanuele:> copy tax code
+[03:57] Alice:> Copied:
+  CDFSC65T30...
+</pre>
+
+    <h2 id="answers">Fixed responses</h2>
+
+    <p>By editing the parameters below inside the <code>_dati/config.json</code> file with a simple text editor (such as Notepad), you can also preconfigure optional fixed responses for specific user inputs.<br>
+        See <em>(4) Configuration Manual</em>./p>
+
+    <section id="dimmi">
+        <h2>Retrieve data</h2>
+
+        <p>How to retrieve stored data and how to open links to folders, files, and websites.</p>
+
+        <h3>Search</h3>
+
+        <p>We have already mentioned the commands <code>give</code> and <code>open</code>.  
+            With <code>search</code>, you will find all names, aliases, and data containing the requested word.</p>
+
+<pre>
+[15:19] Emanuele:> search tax code
+
+[15:19] Alice:> Found 2 results for 'tax code':
+[1]  nome: Tax code
+     alias:
+     soggetto: Emanuele
+     CDFSC65T30...
+     tag: revenue agency
+     [avatar: sad]
+[2]  nome: Tax code
+     alias:
+     soggetto: Andrea
+     NDRFCL89T30...
+     tag: revenue agency
+     [avatar: sad]
+</pre>
+
+        <h3 id="list">List</h3>
+
+        <p>To display the entire memory content, use the command <code>list</code> or <code>show</code>.<br>
+            When the list is too long, you can silence the assistant with the command <code>ok</code> (shortcut button “Got it” if configured).</p>
+
+<pre>
+[15:26] Emanuele:> list
+[15:26] Alice:> I have 3 item(s) in memory:
+
+  1. Tax code — Emanuele
+  2. Tax code — Andrea
+  3. Website — Emanuele
+...
+</pre>
+
+        <h3 id="delete">Delete</h3>
+
+        <p>To delete a piece of data from memory, use the command <code>delete</code> followed by the name of the entry to remove.  
+            If you don’t remember the exact name, you can use <code>list</code> first.</p>
+
+<pre>
+[04:02] Emanuele:> delete icon
+[04:02] Alice:> Do you want to delete:
+  nome: icon
+  alias: 1
+  soggetto: Emanuele
+  D:\ProgettiPython\progetto-assistente\sorgente\distWIN\myAssistente\_dati\asset\icon.png
+  tag: used for myAssistente
+  [avatar: magazziniere]
+Type 'yes' to confirm.
+[04:02] Emanuele:> yes
+[04:02] Alice:> 'icon' deleted.
+</pre>
+
+        <div class="callout">
+            <strong>Note</strong><br>
+            The assistant works with fixed commands.<br>
+            If you have a memory entry named <code>mail</code> whose data contains the executable link to Outlook, asking <code>:> Open the mail link</code> will not work, because the assistant expects <code>open mail</code>.<br>
+            To enhance its understanding capabilities, I integrated compatibility with the AIML language.<br>
+            See <em>(7) AIML Manual</em>.
+        </div>
+    </section>
+</section>
+
+<section>
+        <h2 id="miniApp">MyAgenda, myNote, MyTodo</h2>
+
+<p>The assistant exchanges information with the integrated miniApps MyAgenda, myNote, MyTodo.<br>
+
+<img src="images/myTOOL.png" alt="myTool" width="50%"><br>
+By clicking the buttons on the right in the <code>SHORTCUT</code> section, the tool window opens.<br>
+The mini apps guarantee 100% privacy and the information remains in the local browser memory. To share it with myAssistant, click the <code>Save for myAssistant</code> button. The first time, a window will open to select where to save the information.</p> 
+
+        <div class="callout">
+            <strong>Important</strong> 
+The assistant can find them only if placed in the folder: <code>./myAssistente/_dati/plugins/</code>
+</div>
+
+</section>
+
+
+<section id="documentazione">
+    <h2>Documentation</h2>
+
+    <p>The available documentation for <strong>myAssistente5</strong>.<br>
+        The documents are also available in the 
+        <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> folder of the repository.  
+        For any missing documentation, refer to the English or Italian documentation from previous releases.</p>
+
+    <ul>
+        <li><strong>(1) Installation Manual</strong> — installing the program for Windows, Linux, or multiplatform</li>
+        <li><strong>(2) User Manual</strong> — myAssistente user interface</li>
+        <li><strong>(3) Plugin Manual</strong> — myAgenda, myNote, myTodo</li>
+        <li><strong>(4) Configuration Manual</strong> — <code>config.json</code> file, advanced settings</li>
+        <li><strong>(5) Memory Manual</strong> — <code>memory.json</code> file, advanced settings</li>
+        <li><strong>(6) Language Manual</strong> — <code>lang[].json</code> files, advanced customization</li>
+        <li><strong>(7) AIML Manual</strong> — <code>aiml/[LANG]/[filename].aiml</code> files</li>
+        <li><strong>(8) Advanced AIML Manual</strong> — <code>aiml/IT/testConiglio.aiml</code> file</li>
+    </ul>
+</section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            Toolkit <strong>myAssistente5</strong> — Personal desktop assistant
+        </div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Author’s website</a> ·  
+            &copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

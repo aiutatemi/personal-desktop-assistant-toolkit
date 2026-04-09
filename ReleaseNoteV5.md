@@ -15,6 +15,10 @@ Two additional features have been added: a **response source indicator** visible
 in the UI, and support for **AIML-triggered special functions** that the engine can  
 forward directly to the assistant for execution.
 
+Integration with the data provided by the free mini App: myAgenda, myNote and myTodo plugns.
+
+Collapsble GUI lateral panels
+
 ---
 
 ## New Features

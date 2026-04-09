@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente (8) Manuale AIML avanzato</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Assistente Personale Desktop – Toolkit Documentazione</strong><br>
+        (8) Manuale AIML avanzato · Release 5 · italiano</p>
+    </div>
+<nav style="display: flex; flex-wrap: wrap; align-items: center;">
+    <div class="nav-group">
+        <a href="indice.html">🏠 Home</a>
+        <a href="https://www.steppa.net/cassani/business_card.htm">🧑‍💻 Autore</a>
+    </div>
+
+    <div class="nav-group" style="margin-left: auto;">
+        <a href="#">🇬🇧 English</a>
+        <a href="8-Manuale-AIMLavanzatoITArel5.htm">🇮🇹 Italiano</a>
+    </div>
+
+    <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+        <strong>Contenuto:</strong> 
+        <a href="#coniglio">Test coniglio</a>
+        <a href="#personality">Personalit&agrave; avatar</a>
+        <a href="#documentation">Documentazione</a>
+    </div>
+</nav>
+
+</header>
+
+<h1>(8) Manuale AIML avanzato</h1>
+        <ul>
+            <li><strong>Scopo:</strong> Questo documento spiega come funziona il test del “coniglio”
+  usando il linguaggio <strong>AIML</strong> (Artificial Intelligence Markup Language).</li>
+            <li><strong>Prerequisiti:</strong> myAssistente5 installato (vedi <em>(1) Manuale installazione</em>) e File AIML testConiglio.aiml.</li>
+            <li><strong>Riferimenti:</strong> <em>(7) Manuale AIML</em>.</li>
+        </ul>
+
+<div class="callout">
+  <strong>In breve:</strong> myAssistente5 riconosce quando scrivi una frase con la parola
+  <strong>“coniglio”</strong> e risponde in modo sempre più “coinvolto”, come se
+  stesse seguendo una storia che si sviluppa passo dopo passo.
+</div>
+
+<hr>
+
+<h2>1. Il trigger: quando myAssistnte “sente” la parola CONIGLIO</h2>
+
+<p>La prima cosa che fa il file AIML è dire:</p>
+
+<ul>
+  <li>“Quando l’utente scrive una frase che contiene la parola <strong>CONIGLIO</strong>,
+      manda tutto a un <strong>gestore centrale</strong>”.</li>
+</ul>
+
+<pre><code>&lt;category&gt;
+    &lt;!-- Cattura qualsiasi frase con la parola CONIGLIO --&gt;
+    &lt;pattern&gt;* CONIGLIO *&lt;/pattern&gt;
+    &lt;template&gt;
+        &lt;!-- Reindirizza al gestore principale --&gt;
+        &lt;srai&gt;CONIGLIO.GESTORE&lt;/srai&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>Tradotto in linguaggio umano:</p>
+<ul>
+  <li><strong>Pattern</strong> <span class="tag">* CONIGLIO *</span> significa:
+      “qualsiasi frase che contenga la parola CONIGLIO”.</li>
+  <li><strong>SRAI</strong> è un modo per dire: “non rispondere subito, ma passa
+      il controllo a un’altra regola chiamata <span class="tag">CONIGLIO.GESTORE</span>”.</li>
+</ul>
+
+<hr>
+
+<h2>2. Il gestore centrale: decide “a che punto della storia” siamo arrivati</h2>
+
+<p>Il gestore centrale fa due cose:</p>
+<ol>
+  <li>Controlla a che <strong>step</strong> della storia del coniglio sei.</li>
+  <li>Ti manda alla risposta giusta per quello step.</li>
+</ol>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO.GESTORE&lt;/pattern&gt;
+    &lt;template&gt;
+        &lt;!-- Se la memoria è vuota, inizializza a 1 --&gt;
+        &lt;think&gt;
+            &lt;set name="coniglio_step"&gt;
+                &lt;condition name="coniglio_step"&gt;
+                    &lt;li value=""&gt;1&lt;/li&gt;
+                    &lt;li&gt; &lt;get name="coniglio_step"/&gt; &lt;/li&gt;
+                &lt;/condition&gt;
+            &lt;/set&gt;
+        &lt;/think&gt;
+
+        &lt;!-- Ora reindirizza allo step corretto --&gt;
+        &lt;srai&gt;CONIGLIO.STEP.&lt;get name="coniglio_step"/&gt;&lt;/srai&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>
+  Qui compaiono due concetti importanti:
+</p>
+<ul>
+  <li><span class="tag">&lt;set&gt;</span> e <span class="tag">&lt;get&gt;</span>:
+      sono usati per <strong>memorizzare</strong> e <strong>recuperare</strong> un valore,
+      come una variabile. In questo caso, la variabile si chiama
+      <strong>coniglio_step</strong>.</li>
+  <li><span class="tag">&lt;condition&gt;</span>: serve per dire “se la variabile è vuota,
+      mettila a 1, altrimenti lascia il valore che ha già”.</li>
+</ul>
+
+<p>In pratica:</p>
+<ul>
+  <li>Se è la <strong>prima volta</strong> che parli di conigli, lo step diventa <strong>1</strong>.</li>
+  <li>Se ne hai già parlato, lo step rimane quello che era.</li>
+  <li>Alla fine ti manda alla regola <span class="tag">CONIGLIO.STEP.X</span>,
+      dove X è il numero dello step.</li>
+</ul>
+
+<hr>
+
+<h2>3. Gli step: una storia che si sviluppa</h2>
+<p>
+  Ogni <strong>step</strong> è un “pezzo di storia” che myAssistente ti racconta sul coniglio.
+  Ogni volta che nomini di nuovo “coniglio”, my Assistente:
+</p>
+<ol>
+  <li>Guarda a che step sei.</li>
+  <li>Ti dà la risposta corrispondente.</li>
+  <li>Aumenta lo step di 1, così la prossima volta la storia va avanti.</li>
+</ol>
+
+<h3>3.1 Esempio: Step 1</h3>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO.STEP.1&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;
+        Quale coniglio?
+        &lt;think&gt;&lt;set name="coniglio_step"&gt;2&lt;/set&gt;&lt;/think&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>Che cosa succede qui?</p>
+<ul>
+  <li>myAssistente ti risponde: <strong>“Quale coniglio?”</strong></li>
+  <li>In background (con <span class="tag">&lt;think&gt;</span>) aggiorna la memoria:
+      <strong>coniglio_step = 2</strong>.</li>
+</ul>
+
+<p>
+  La prossima volta che scriverai una frase con “coniglio”, il gestore centrale ti
+  manderà allo <strong>STEP 2</strong>.
+</p>
+
+<h3>3.2 Esempio: Step 2</h3>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO.STEP.2&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;
+        Sei sicuro di aver visto un coniglio?
+        &lt;think&gt;&lt;set name="coniglio_step"&gt;3&lt;/set&gt;&lt;/think&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>Qui myAssistente diventa un po’ più sospettoso:</p>
+<ul>
+  <li>Risponde: <strong>“Sei sicuro di aver visto un coniglio?”</strong></li>
+  <li>Porta lo step a <strong>3</strong>.</li>
+</ul>
+
+<p>
+  E così via, fino allo <strong>STEP 25</strong>, dove il tono diventa quasi
+  “meta-narrativo”:
+</p>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO.STEP.25&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;
+        Se continui a parlarne, potrei iniziare a sospettare che il coniglio stia cercando proprio te.
+        &lt;think&gt;&lt;set name="coniglio_step"&gt;26&lt;/set&gt;&lt;/think&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<hr>
+
+<h2>4. Ramificazioni: quando l'assistente reagisce alle tue risposte</h2>
+<p>Oltre alla “linea principale” della storia, myAssistente può reagire in modo diverso a seconda di come rispondi in certi punti chiave.</p>
+
+<p>Per esempio, dopo una domanda come:</p>
+<pre><code>Dimmi la verità: ti piacciono i conigli?
+</code></pre>
+
+<p>myAssistente può distinguere tra “SI” e “NO” usando un altro elemento di AIML:
+  <strong>&lt;that&gt;</strong>.</p>
+
+<h3>4.1 Esempio: risposta “SI”</h3>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;SI&lt;/pattern&gt;
+    &lt;that&gt;Dimmi la verità: ti piacciono i conigli?&lt;/that&gt;
+    &lt;template avatar="default"&gt;
+        Lo immaginavo. Allora la tua percezione potrebbe essere influenzata.
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>Qui l'assistente controlla due cose:</p>
+<ul>
+  <li>Hai scritto <strong>“SI”</strong>.</li>
+  <li>La sua frase precedente era esattamente:
+      <strong>“Dimmi la verità: ti piacciono i conigli?”</strong>.</li>
+</ul>
+
+<p>Solo se entrambe le condizioni sono vere, myAssistente risponde in quel modo.</p>
+
+<h3>4.2 Esempio: risposta “NO”</h3>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;NO&lt;/pattern&gt;
+    &lt;that&gt;Dimmi la verità: ti piacciono i conigli?&lt;/that&gt;
+    &lt;template avatar="default"&gt;
+        Interessante. Allora perché ti ha colpito così tanto?
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>In questo modo, l'assistente non solo segue una storia lineare, ma può anche
+  <strong>ramificare</strong> la conversazione in base alle tue risposte.</p>
+
+<hr>
+
+<h2>5. Reset: ricominciare la storia da capo</h2>
+<p>Se vuoi azzerare tutto e ripartire da zero, il file AIML prevede un comando
+  speciale:</p>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;RESET CONIGLIO&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;
+        Memoria del coniglio azzerata.
+        &lt;think&gt;&lt;set name="coniglio_step"&gt;1&lt;/set&gt;&lt;/think&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>Quando scrivi <strong>RESET CONIGLIO</strong>:</p>
+<ul>
+  <li>myAssistente conferma che ha azzerato la memoria.</li>
+  <li>Lo step torna a <strong>1</strong>, come se fosse la prima volta che parli
+      di conigli.</li>
+</ul>
+
+<hr>
+
+<h2>Che cosa ti porti a casa dal test del coniglio</h2>
+<p>Anche senza conoscere AIML in dettaglio, puoi intuire che myAssistente:</p>
+<ul>
+  <li>Riconosce quando parli di <strong>conigli</strong>.</li>
+  <li>Ricorda <strong>a che punto</strong> della storia siete arrivati.</li>
+  <li>Fa evolvere la conversazione passo dopo passo, fino a 25 livelli.</li>
+  <li>Può reagire in modo diverso a seconda delle tue risposte (“SI”, “NO”, ecc.).</li>
+  <li>Può essere <strong>resettato</strong> per ricominciare da capo.</li>
+</ul>
+
+<p>Tutto questo è ottenuto con:</p>
+<ul>
+  <li><strong>Pattern</strong> per riconoscere cosa scrivi.</li>
+  <li><strong>Template</strong> per decidere cosa risponde l'assistente.</li>
+  <li><strong>Memoria</strong> (<span class="tag">&lt;set&gt;</span> / <span class="tag">&lt;get&gt;</span>)
+      per ricordare lo step.</li>
+  <li><strong>Reindirizzamenti</strong> (<span class="tag">&lt;srai&gt;</span>) per tenere il codice ordinato.</li>
+  <li><strong>Contesto</strong> (<span class="tag">&lt;that&gt;</span>) per capire a quale domanda stai rispondendo.</li>
+</ul>
+
+<hr>
+
+<h2>Come sviluppare la storia</h2>
+<p>
+  A partire da questa struttura, si possono aggiungere:
+</p>
+<ul>
+  <li>altri temi oltre al coniglio (altri “filoni narrativi”);</li>
+  <li>più memoria (colore del coniglio, luogo, orario, ecc.);</li>
+  <li>personalità diverse di myAssistente (più ironico, più scientifico, più drammatico);</li>
+  <li>scelte multiple che portano a finali diversi.</li>
+</ul>
+
+<p>Già così, questo file AIML è un buon esempio di:</p>
+<ul>
+  <li>conversazione a più step,</li>
+  <li>memoria simulata,</li>
+  <li>ramificazioni semplici.</li>
+</ul>
+
+<p>Consideralo un buon punto di partenza per capire come un “semplice” linguaggio
+  a regole possa creare esperienze conversazionali sorprendentemente ricche.</p>
+
+<!-- ========================================================= -->
+<!--  PERSONALITÀ myAssistente CONFIGURABILI   -->
+<!-- ========================================================= -->
+
+<hr>
+
+<h1 id="personality">Personalità configurabili</h2>
+
+        <div class="callout">
+Vedi esempio nel File AIML aggiuntivo testConiglioAVANZATO.aiml</div>
+
+<p>Oltre alla “storia del coniglio”, myAssistente può anche cambiare
+  <strong>personalità</strong>, cioè il suo stile di risposta. Questo è gestito
+  da un altro file AIML che introduce 6 personalità diverse:</p>
+<ul>
+  <li><strong>NEUTRA</strong> – tono standard, equilibrato</li>
+  <li><strong>IRONICA</strong> – tono sarcastico, pungente</li>
+  <li><strong>DRAMMATICA</strong> – tono teatrale, esagerato</li>
+  <li><strong>SCIENTIFICA</strong> – tono analitico, “freddo”</li>
+  <li><strong>PARANOICA</strong> – tono sospettoso, inquieto</li>
+  <li><strong>ZEN</strong> – tono calmo, filosofico</li>
+</ul>
+
+<p>L’utente può scegliere la personalità scrivendo frasi come:</p>
+<ul>
+  <li><code>PERSONALITA NEUTRA</code></li>
+  <li><code>PERSONALITA IRONICA</code></li>
+  <li><code>PERSONALITA DRAMMATICA</code></li>
+  <li><code>PERSONALITA SCIENTIFICA</code></li>
+  <li><code>PERSONALITA PARANOICA</code></li>
+  <li><code>PERSONALITA ZEN</code></li>
+</ul>
+
+<p>Quando lo fa, l'assistente memorizza la scelta in una variabile interna chiamata
+  <code>persona</code> usando i tag AIML <code>&lt;set&gt;</code> e
+  <code>&lt;get&gt;</code>.</p>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;PERSONALITA IRONICA&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;
+        Personalità impostata su IRONICA.
+        &lt;think&gt;&lt;set name="persona"&gt;IRONICA&lt;/set&gt;&lt;/think&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<hr>
+
+<h2>Il “dispatcher”: come myAssistente sceglie la versione giusta della risposta</h2>
+<p>Per far sì che ogni risposta di myAssistente rispetti la personalità scelta, il file AIML
+  usa un <strong>dispatcher</strong>, cioè una regola centrale che decide
+  <em>quale variante</em> della risposta usare.</p>
+
+<p>L’idea è questa:</p>
+<ol>
+  <li>La logica dell'assistente chiede una certa risposta, per esempio
+      <code>CONIGLIO_STEP_1</code>.</li>
+  <li>Invece di rispondere subito, passa dal dispatcher:
+      <code>PERSONA.DISPATCH CONIGLIO_STEP_1</code>.</li>
+  <li>Il dispatcher guarda la variabile <code>persona</code> e reindirizza alla
+      versione corretta:
+      <ul>
+        <li><code>CONIGLIO_STEP_1.NEUTRA</code></li>
+        <li><code>CONIGLIO_STEP_1.IRONICA</code></li>
+        <li><code>CONIGLIO_STEP_1.DRAMMATICA</code></li>
+        <li><code>CONIGLIO_STEP_1.SCIENTIFICA</code></li>
+        <li><code>CONIGLIO_STEP_1.PARANOICA</code></li>
+        <li><code>CONIGLIO_STEP_1.ZEN</code></li>
+      </ul>
+  </li>
+</ol>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;PERSONA.DISPATCH *&lt;/pattern&gt;
+    &lt;template&gt;
+        &lt;condition name="persona"&gt;
+            &lt;li value="IRONICA"&gt;&lt;srai&gt;&lt;star/&gt;.IRONICA&lt;/srai&gt;&lt;/li&gt;
+            &lt;li value="DRAMMATICA"&gt;&lt;srai&gt;&lt;star/&gt;.DRAMMATICA&lt;/srai&gt;&lt;/li&gt;
+            &lt;li value="SCIENTIFICA"&gt;&lt;srai&gt;&lt;star/&gt;.SCIENTIFICA&lt;/srai&gt;&lt;/li&gt;
+            &lt;li value="PARANOICA"&gt;&lt;srai&gt;&lt;star/&gt;.PARANOICA&lt;/srai&gt;&lt;/li&gt;
+            &lt;li value="ZEN"&gt;&lt;srai&gt;&lt;star/&gt;.ZEN&lt;/srai&gt;&lt;/li&gt;
+            &lt;!-- Default: NEUTRA --&gt;
+            &lt;li&gt;&lt;srai&gt;&lt;star/&gt;.NEUTRA&lt;/srai&gt;&lt;/li&gt;
+        &lt;/condition&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>In pratica:</p>
+<ul>
+  <li><code>&lt;star/&gt;</code> rappresenta il nome della risposta richiesta
+      (es. <code>CONIGLIO_STEP_1</code>).</li>
+  <li>Il dispatcher aggiunge il suffisso della personalità
+      (es. <code>.IRONICA</code>) e chiama la categoria corrispondente.</li>
+</ul>
+
+<hr>
+
+<h2>La stessa risposta, 6 stili diversi</h2>
+<p>Ogni “pezzo di storia” sul coniglio può avere 6 varianti, una per personalità.
+  Per esempio, lo <strong>STEP 1</strong> (la prima reazione al coniglio) può essere:</p>
+
+<pre><code>&lt;!-- NEUTRA --&gt;
+&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO_STEP_1.NEUTRA&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;Quale coniglio?&lt;/template&gt;
+&lt;/category&gt;
+
+&lt;!-- IRONICA --&gt;
+&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO_STEP_1.IRONICA&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;Un coniglio? Certo, e io sono Babbo Natale.&lt;/template&gt;
+&lt;/category&gt;
+
+&lt;!-- DRAMMATICA --&gt;
+&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO_STEP_1.DRAMMATICA&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;Un coniglio... il destino ha parlato.&lt;/template&gt;
+&lt;/category&gt;
+
+&lt;!-- SCIENTIFICA --&gt;
+&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO_STEP_1.SCIENTIFICA&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;Definisci “coniglio”: Leporidae, ordine Lagomorpha?&lt;/template&gt;
+&lt;/category&gt;
+
+&lt;!-- PARANOICA --&gt;
+&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO_STEP_1.PARANOICA&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;Un coniglio? Sei sicuro che non ti stia seguendo?&lt;/template&gt;
+&lt;/category&gt;
+
+&lt;!-- ZEN --&gt;
+&lt;category&gt;
+    &lt;pattern&gt;CONIGLIO_STEP_1.ZEN&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;Il coniglio è solo un pensiero che attraversa la mente.&lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>La “logica” della storia (step 1, step 2, step 3, ecc.) può rimanere la stessa,
+  ma il <strong>tono</strong> cambia completamente in base alla personalità.</p>
+
+<hr>
+
+<h2>Reset della personalità</h2>
+<p>Per riportare myAssistente alla personalità predefinita (NEUTRA), il file AIML prevede un comando:</p>
+
+<pre><code>&lt;category&gt;
+    &lt;pattern&gt;RESET PERSONALITA&lt;/pattern&gt;
+    &lt;template avatar="default"&gt;
+        Personalità riportata allo stato predefinito (NEUTRA).
+        &lt;think&gt;&lt;set name="persona"&gt;NEUTRA&lt;/set&gt;&lt;/think&gt;
+    &lt;/template&gt;
+&lt;/category&gt;
+</code></pre>
+
+<p>Dopo questo comando, le risposte torneranno a usare le varianti
+  <strong>.NEUTRA</strong>.
+</p>
+
+<hr>
+
+<h2>Che cosa cambia per l’utente finale</h2>
+<p>Dal punto di vista di chi usa l'assistente:</p>
+<ul>
+  <li>La storia del coniglio continua a funzionare come prima (step, memoria, ecc.).</li>
+  <li>In più, l’utente può “colorare” la storia scegliendo lo stile di myAssistente.</li>
+  <li>Lo stesso contenuto può risultare:
+    <ul>
+      <li>più serio,</li>
+      <li>più ironico,</li>
+      <li>più inquietante,</li>
+      <li>più filosofico,</li>
+      <li>più “scientifico”.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Tecnicamente, tutto questo è ottenuto combinando:</p>
+<ul>
+  <li><strong>Memoria</strong> (<code>&lt;set&gt;</code> / <code>&lt;get&gt;</code>) per ricordare la personalità scelta.</li>
+  <li><strong>Dispatcher</strong> (<code>PERSONA.DISPATCH</code>) per scegliere la variante giusta.</li>
+  <li><strong>Pattern dedicati</strong> per ogni combinazione “step + personalità”.</li>
+</ul>
+
+<p>In questo modo, AIML non è solo un elenco di domande e risposte, ma diventa una piccola “macchina narrativa” configurabile.</p>
+
+<section>
+        <h2 id="documentation">Documentazione</h2>
+        <p>La documentazione disponibile per <strong>myAssistente5</strong>.<br>
+        I documenti si trovano anche  nella cartella <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> del repository. Per eventuale documentazione mancante, fare riferimento alla documentazione in inglese o in italiano delle release precedenti.</p>
+
+        <ul>
+            <li><strong>(1) Manuale installazione</strong> — installazione del programma per Windows, Linux o multipiattaforma</li>
+            <li><strong>(2) Manuale utente</strong> — interfaccia utente di myAssistente</li>
+            <li><strong>(3) Manuale plugin</strong> — myAgenda, myNote e myTodo</li>
+            <li><strong>(4) Manuale configurazione</strong> — file <code>config.json</code> configurazioni avanzate</li>
+            <li><strong>(5) Manuale memoria</strong> — file <code>memory.json</code> configurazioni avanzate</li>
+            <li><strong>(6) Manuale lingue</strong> — file <code>lang[].json</code> customizzazioni avanzate</li>
+            <li><strong>(7) Manuale AIML</strong> — file <code>aiml/[LANG]/[filename].aiml</code></li>
+            <li><strong>(8) Manuale AIML avanzato</strong> — file <code>aiml/IT/testConiglio.aiml</code></li>
+        </ul>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>Toolkit <strong>myAssistente5</strong> – Assistente desktop personale</div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Sito dell’autore</a> ·
+            &copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

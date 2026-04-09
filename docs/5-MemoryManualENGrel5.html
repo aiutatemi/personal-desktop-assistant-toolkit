@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAssistente (5) Memory Configuration Manual</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Personal Desktop Assistant – Documentation Toolkit</strong><br>
+        (5) Memory Configuration Manual · Release 5 · English</p>
+    </div>
+    <nav style="display: flex; flex-wrap: wrap; align-items: center;">
+        <div class="nav-group">
+            <a href="index.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_cardENG.htm">🧑‍💻 Author</a>
+        </div>
+
+        <div class="nav-group" style="margin-left: auto;">
+            <a href="5-MemoryManualENGrel5.html">🇬🇧 English</a>
+            <a href="5-ManualeMemoriaITArel5.html">🇮🇹 Italiano</a>
+        </div>
+
+        <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+            <strong>Contents:</strong> 
+<a href="config">The memory.json file</a>
+Store a: 
+<a href="dato">data entry</a>
+<a href="link">folder link</a>
+<a href="web">website</a>
+<a href="programma">program</a>
+<a href="web">website</a>
+<a href="tutto">anything</a>
+        <a href="#documentation">Documentation</a>
+
+        </div>
+    </nav>
+</header>
+<main>
+<section id="intro">
+    <h1>(5) Memory Manual</h1>
+    <ul>
+        <li><strong>Purpose:</strong> This manual explains how to configure the myAssistente memory system to make the most of its capabilities.</li>
+        <li><strong>Prerequisites:</strong> The myAssistente executable for your operating system,<br>
+        or alternatively the Python files <code>myAssistente.py</code> and (optional, for AIML support) <code>aiml_parser.py</code>, with Python installed on your machine (multiplatform).</li>
+        <li><strong>References:</strong> <em>(1) Installation Manual, (2) User Manual, (4) Configuration Manual</em>.</li>
+    </ul>
+
+    <p>All command names can be customized in the <code>lang_XX.json</code> file, and may therefore differ from those shown in this manual.  
+        For details, refer to the <em>(4) Configuration Manual</em>.</p>
+</section>
+
+<section id="structure">
+    <h2>📁 File locations</h2>
+    <p>The file described in this manual is located inside the <code>_dati/</code> folder.</p>
+    <ul>
+        <li><strong>_dati/memory.json:</strong> Stored data.</li>
+    </ul>
+</section>
+
+<section>
+    <h2 id="config">The memory.json file</h2>
+
+    <div class="callout">
+        <strong>Note:</strong> If the <code>memory.json</code> file is missing, the system will notify the user and create a new empty file when the first data entry is added through the interface.  
+        If the file exists but is corrupted, it will be renamed to <code>memory.json.bak</code> to preserve any valid data, and a new file will be created.
+    </div>
+
+    <p>Data can be added directly from the myAssistente interface using the commands <code>remember</code> and <code>learn</code>. See the <em>(2) User Manual</em> for instructions.</p>
+
+    <p>You may also modify or add data manually. Open the file with a text editor:</p>
+
+<h3 id="dato">Store a data entry</h3>
+
+<p>When you write a value inside the <code>"dati"</code> field, the system will automatically recognize it.  
+    If the JSON file is invalid, the assistant will notify you; otherwise, you can insert data directly through the interface.</p>
+
+<pre>
+{
+    "nome": "Codice",
+    "alias": "tasse",
+    "soggetto": "Emanuele",
+    "dati": "CDFTSS99T30L424X",
+    "tag": "codici",
+    "avatar": "magazziniere"
+},
+</pre>
+
+<p>
+    <code>nome</code> — required field, the term used to request the data.<br>
+    <code>alias</code> — optional, alternative terms to request the same data.<br>
+    <code>soggetto</code> — optional, indicates the owner of the data, useful when storing information for multiple people.<br>
+    <code>dati</code> — required, contains the actual value.<br>
+    <code>tag</code> — optional, useful for searching: asking <code>search codici</code> will return all entries with that tag.<br>
+    <code>avatar</code> — optional, specifies which image the assistant should display when showing the data.  
+    If omitted, the system selects a random image based on the configuration in <code>config.json</code>.
+</p>
+
+<p>Command to retrieve the information: <code>find [name]</code> or <code>tell me [name]</code>.</p>
+
+<h3 id="link">Store a folder link</h3>
+
+<p>When you write a link inside the <code>"dati"</code> field, the system will automatically recognize it.</p>
+
+<pre>
+{
+    "nome": "Python",
+    "alias": "progetti",
+    "soggetto": "open a folder",
+    "dati": "C:\\Python\\Progetti\\",
+    "tag": "folders",
+    "avatar": "informatica"
+},
+</pre>
+
+<p>JSON requires double backslashes, as in <code>C:\\Python\\Progetti\\</code>,  
+    but the assistant will display and open the path correctly.</p>
+
+<p>To open the folder: <code>open [name]</code>.</p>
+
+<h3 id="web">Store a website</h3>
+
+<p>You can also store a website link in the same way.</p>
+
+<pre>
+{
+    "nome": "Autore",
+    "alias": "Cassani",
+    "soggetto": "Emanuele",
+    "dati": "https://www.steppa.net/cassani/index.htm",
+    "tag": "web",
+    "avatar": "agenda"
+},
+</pre>
+
+<p>Standard slashes <code>/</code> do not require escaping.  
+    Simply write the URL and the assistant will open it in the browser.</p>
+
+<p>To open the website: <code>open [name]</code>.</p>
+
+<h3 id="programma">Store a program</h3>
+
+<p>You can also store a program to be executed.</p>
+
+<pre>
+{
+    "nome": "browser",
+    "alias": "web",
+    "soggetto": "brave",
+    "dati": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    "tag": "programmi",
+    "avatar": "bibliotecaria"
+},
+</pre>
+
+<p>Enter the executable path inside the <code>dati</code> field.  
+    The same method applies to programs, folders, and files.</p>
+
+<p>Command to launch the program: <code>open [name]</code>.</p>
+
+<h3 id="tutto">Store anything</h3>
+
+<p>Feel free to experiment with anything that comes to mind: the assistant is extremely flexible.</p>
+
+<pre>
+{
+    "nome": "shell",
+    "alias": "prompt",
+    "soggetto": "Windows11",
+    "dati": "cmd.exe",
+    "tag": "comandi",
+    "avatar": "informatica"
+},
+</pre>
+
+<p>Example of a Windows command that opens the command prompt.</p>
+
+<p>Command to run it: <code>open shell</code>.</p>
+</section>
+
+<section>
+    <h2 id="documentazione">Documentation</h2>
+
+    <p>Available documentation for <strong>myAssistente5</strong>.<br>
+        The documents are also available in the 
+        <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> folder of the repository.  
+        For missing documentation, refer to previous English or Italian releases.</p>
+
+    <ul>
+        <li><strong>(1) Installation Manual</strong> — installing the program for Windows, Linux, or multiplatform</li>
+        <li><strong>(2) User Manual</strong> — myAssistente user interface</li>
+        <li><strong>(3) Plugin Manual</strong> — myAgenda, myNote, myTodo</li>
+        <li><strong>(4) Configuration Manual</strong> — <code>config.json</code> file, advanced settings</li>
+        <li><strong>(5) Memory Manual</strong> — <code>memory.json</code> file, advanced settings</li>
+        <li><strong>(6) Language Manual</strong> — <code>lang[].json</code> files, advanced customization</li>
+        <li><strong>(7) AIML Manual</strong> — <code>aiml/[LANG]/[filename].aiml</code> files</li>
+        <li><strong>(8) Advanced AIML Manual</strong> — <code>aiml/IT/testConiglio.aiml</code> file</li>
+    </ul>
+</section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            Toolkit <strong>myAssistente5</strong> — Personal desktop assistant
+        </div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Author’s website</a> ·
+            &copy; 2026 
+            <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

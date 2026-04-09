@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAssistente (4) Manuale configurazione</title>
+    <link rel="stylesheet" href="css/docs-style.css">
+</head>
+<body>
+
+<header>
+    <div class="title">
+        <h1>myAssistente5</h1>
+        <p><strong>Assistente Personale Desktop – Toolkit Documentazione</strong><br>
+        (4) Manuale configurazione · Release 5 · italiano</p>
+    </div>
+    <nav style="display: flex; flex-wrap: wrap; align-items: center;">
+        <div class="nav-group">
+            <a href="indice.html">🏠 Home</a>
+            <a href="https://www.steppa.net/cassani/business_card.htm">🧑‍💻 Autore</a>
+        </div>
+
+        <div class="nav-group" style="margin-left: auto;">
+            <a href="4-ConfigManualENGrel5.html">🇬🇧 English</a>
+            <a href="4-Manuale-ConfigurazioneITArel5.html">🇮🇹 Italiano</a>
+        </div>
+
+        <div class="nav-group" style="flex-basis: 100%; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px;">
+            <strong>Contenuti:</strong> 
+        <a href="#config">File Config.json</a>
+        <a href="#avatar">Avatar</a>
+        <a href="#audio">Audio/microfono</a>
+        <a href="#ai">Intelligenze Artificiale</a>
+        <a href="#fisse">Risposte fisse</a>
+        <a href="#alias">Alias</a>
+       <a href="#shortcut">Shortcut</a>
+            <a href="#documentazione">Documentazione</a>
+        </div>
+    </nav>
+</header>
+<main>
+
+<section id="introduction">
+    <h1>Manuale di configurazione</h1>
+    <ul>
+        <li><strong>Scopo:</strong> In questo manuale trovi tutte le informazioni necessarie per configurare myAssistente5 e sfruttarne al meglio le potenzialità.</li>
+        <li><strong>Prerequisiti:</strong> L’eseguibile di myAssistente5 per il tuo sistema operativo,<br>
+        oppure, in alternativa, i file Python <code>myAssistente.py</code> e (opzionale, per usare il linguaggio AIML) <code>aiml_parser.py</code>, con Python installato sulla tua macchina (multipiattaforma).</li>
+        <li><strong>Riferimenti:</strong> <em>(1) Manuale installazione, (2) Manuale utente</em>.</li>
+    </ul>
+
+    <div class="callout">
+        Che cosa stai cercando?<br>
+        <a href="#shortcut">Configurare i pulsanti Shortcut</a><br>
+        <a href="#alias">Modificare gli alias dei comandi</a><br>
+        <a href="#fisse">Modificare le risposte fisse</a><br>
+        <a href="#ai">Abilitare l’Intelligenza Artificiale</a> (chiave API e dati del provider)<br>
+        <a href="#audio">Configurare audio/microfono</a><br>
+        <a href="#avatar">Configurare gli avatar</a><br>
+        <a href="#config">Configurare il file config.json</a><br>
+        Altro… consulta gli altri manuali.
+    </div>
+
+    <p>I nomi di tutti i comandi possono essere modificati nel file <code>lang_XX.json</code> e potrebbero quindi differire da quelli indicati in questo manuale. Leggi di seguito per maggiori dettagli.</p>
+</section>
+
+<section id="structure">
+    <h2>📁 Dove sono collocati i file</h2>
+    <p>
+        Il file trattato in questo manuale si trova all’interno della cartella <code>_dati/</code>.
+    </p>
+    <ul>
+        <li><strong>_dati/config.json:</strong> Impostazioni principali.</li>
+    </ul>
+</section>
+
+<section>
+<h2 id="config">File config.json</h2>
+
+<div class="callout">
+    <strong>Nota:</strong> Se il file <code>config.json</code> è assente, il sistema ti avvertirà e ne genererà uno predefinito all’avvio.  
+    Se è presente ma corrotto, verrà rinominato in <code>config.json.bak</code> e ne verrà creato uno nuovo.
+</div>
+
+<p>In caso di cambio lingua, il sistema memorizzerà l’informazione in <code>config.json</code> e salverà un backup della configurazione precedente in <code>config.json.bak</code>.</p>
+
+<p>La configurazione completa può essere effettuata direttamente dall’interfaccia utente di myAssistente usando il comando <code>configura</code>.  
+    Consulta il <em>(2) Manuale utente</em> per le istruzioni.</p>
+
+<p>All’interno di questo file puoi configurare diversi parametri. Aprilo con un editor di testo:</p>
+
+<h3 id="avatar">Prima parte: Configurazioni avatar</h3>
+
+<pre>{
+  "nome_avatar": "Alice",
+  "nome_utente": "Emanuele",
+  "lingua": "it",
+  "avatar_gruppi": { 
+    "positivo": [ "sorridente", "soddisfatto", "coniglio" ],
+    "negativo": [ "triste", "dispiaciuta", "piangente" ],
+    "generico": [ "sorridente", "soddisfatto", "coniglio", "agenda" ]
+  },
+  "avatar_random": "generico",
+  "avatar_iniziale": "benvenuto",
+  "avatar_finale": "ciao.mp4",
+  "frase_finale": "Ci vediamo presto!",
+  "avatar_colori": {
+    "default": "#6c7086",
+    "benvenuto": "#89b4fa",
+    "sorridente": "#a6e3a1",
+    "soddisfatto": "#fab387",
+    "triste": "#f38ba8",
+    "magazziniere": "#cba6f7",
+    "ciao": "#94e2d5"
+  },
+</pre>
+
+<p>Nel <em>(1) Manuale installazione</em> abbiamo già visto come modificare i nomi dell’assistente e dell’utente tramite interfaccia grafica.<br>
+    Qui puoi anche configurare le immagini dell’avatar.  
+    I nomi devono corrispondere ai file presenti in <code>_dati/asset/avatar/</code>.  
+    Se non specifichi l’estensione, verrà cercato automaticamente un file <code>.jpg</code>; in caso contrario, indica l’estensione come nell’esempio <code>ciao.mp4</code>.</p>
+
+<p>Apri la cartella <code>_dati/asset/avatar/</code>, inserisci nuovi file o rinomina quelli esistenti per farli corrispondere alle impostazioni.  
+    Nei tag “avatar” puoi inserire direttamente il nome dell’immagine oppure il nome di un gruppo di immagini.</p>
+
+<p>Nell’esempio, come immagine iniziale viene usato <code>benvenuto.jpg</code>.  
+    Per l’immagine casuale viene usato il gruppo <code>generico</code>, che sceglie a caso tra <code>sorridente.jpg</code>, <code>soddisfatto.jpg</code>, <code>coniglio.jpg</code> e <code>agenda.jpg</code>.  
+    Puoi creare quanti gruppi desideri e assegnare a ciascuno le immagini che preferisci.</p>
+
+<p>Come immagine finale, nell’esempio è impostato il video <code>ciao.mp4</code>.<br>
+    Quando <u>l’immagine non è presente nella cartella</u>, l’assistente mostra un quadrato.  
+    In <code>avatar_colori</code> puoi definire il colore da usare per ogni avatar mancante.</p>
+
+<p>In <code>frase_finale</code> puoi impostare la frase pronunciata dall’avatar alla chiusura di myAssistente.<br>
+    Il parametro <code>lingua</code> (gestito automaticamente dal programma) indica la lingua iniziale all’avvio.</p>
+
+<h3 id="audio">Seconda parte: Configurazioni audio/microfono</h3>
+
+<p>Impostazioni audio per la sintesi vocale (Text‑to‑Speech) e il riconoscimento vocale (Speech‑to‑Text).  
+    Solitamente i parametri predefiniti sono adeguati, ma puoi migliorare la qualità audio modificandoli.</p>
+
+<p>Nota importante: qui si imposta la lingua usata da Google Speech per la pronuncia dell’assistente.  
+    Il valore viene configurato automaticamente, ma puoi modificarlo per esigenze regionali (es. <code>en-GB</code> invece di <code>en-US</code>).</p>
+
+<div class="callout">
+    <strong>Attenzione:</strong> I dati vocali vengono elaborati tramite le API di Google Speech.  
+    Non utilizzare il microfono se desideri una privacy totale.
+</div>
+
+<pre>
+  "tts_config": {
+    "engine": "auto",
+    "rate": 150,
+    "volume": 0.9,
+    "pitch": 50,
+    "voice_gender": "auto"
+  },
+  "stt_config": {
+    "soglia_rumore": 200,
+    "sample_rate": 16000,
+    "max_secondi": 10,
+    "silenzio_secondi": 0.5,
+    "lingua": "it-IT"
+  },
+</pre>
+
+<p>L’impostazione <code>"lingua": "it-IT"</code> è fondamentale per la corretta pronuncia tramite le API di Google. Se altoparlanti e microfono funzionano correttamente, non è necessario modificare gli altri parametri.</p>
+
+<p>Se utilizzi un avatar femminile e il sistema seleziona una voce maschile, puoi modificare <code>"voice_gender": "auto"</code>.</p>
+</section>
+
+<h3 id="ai">Terza parte: Parametri AI (API e provider)</h3>
+
+<p>Questa sezione è opzionale: puoi collegare myAssistente a un’Intelligenza Artificiale esterna.  
+    Se il sistema non trova una risposta internamente (memoria, risposte fisse, AIML), invece di rispondere <code>non ho capito</code> inoltrerà la domanda all’IA.</p>
+
+<p>Imposta <code>"enabled": true</code> e inserisci i parametri e la chiave API forniti dal tuo provider IA.</p>
+
+<pre>
+  "ai_config": {
+    "enabled": false,
+    "provider": "openai",
+    "api_key": "",
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.7,
+    "max_tokens": 500,
+    "fallback_to_ai": true
+  },
+</pre>
+
+<div class="callout">
+    <strong>Attenzione:</strong> L’integrazione AI richiede una connessione Internet, a meno che tu non utilizzi un modello IA installato localmente.  
+    Per la massima privacy, lascia <code>"enabled": false</code>.
+</div>
+
+<p>In fondo al file, trovi anche l'impostazione delle priorità da dare all'assistente per cercare le risposte quando non le trova internamente:</p>
+<pre>
+  "risposta_config": { "modalita": "aiml_then_ai" },
+</pre>
+
+<p><code>`aiml_then_ai`</code> per cercare prima negli AIML; quando l'assistente non trova riscontri, passa all'IA (default).<br>
+<code>`aiml_only`</code> per usare solo AIML; quando non trova riscontri, dichiara: <code>"non ho capito..."</code><br>
+<code>`ai_only`</code> usa solo IA esterna; ignora i file AIML.</p>
+
+<h3 id="fisse">Quarta parte: Risposte fisse</h3>
+
+<p>Le risposte fisse sono risposte immediate e preconfigurate a domande specifiche.  
+    Di solito si preferisce usare i file AIML, ma puoi usare questa sezione se vuoi dare priorità assoluta a determinate risposte rispetto alla memoria, agli AIML e all’IA.</p>
+
+<pre>
+  "risposte_fisse": {
+    "grazie": "Prego, {nome_utente}!",
+    "ciao": "Ciao, {nome_utente}!",
+    "come stai": "Sto benissimo, grazie!",
+    "autore": "Il mio autore è Emanuele Cassani",
+    "author": "My author is Emanuele Cassani",
+    "credit": "©2026, Emanuele Cassani www.steppa.net/cassani"
+  },
+
+  "risposta_config": { "modalita": "aiml_then_ai" },
+</pre>
+
+<p>Qui puoi anche configurare la priorità tra AIML interni e IA esterna.  
+    L’impostazione predefinita <code>aiml_then_ai</code> indica che il sistema consulta prima gli AIML e, se non trova risposte, passa all’IA.</p>
+
+<h3 id="alias">Quinta parte: Alias dei comandi</h3>
+
+<p>Puoi aggiungere o modificare qualsiasi alias dei comandi utilizzati da myAssistente.  
+    Per ogni comando puoi definire più parole alternative: la prima apparirà nell’interfaccia grafica, le altre saranno accettate come sinonimi.</p>
+
+<p>Esempio:  
+    <code>"cerca": ["cerca", "ricerca", "prendi"]</code>  
+    Nel file <code>lang_it.json</code> puoi impostare la dicitura del pulsante (es. “cerca…”).</p>
+
+<p>Il sistema utilizza normalmente le impostazioni del file <code>lang_XX.json</code>, ma gli alias definiti qui rimangono attivi anche se l’utente cambia lingua.</p>
+
+<p>Non &egrave; necessario tradurre/modifcare questi comandi se il fle della lingua selezionata (esempio: lang_it.json) &egrave; presente.</p>
+
+<pre>
+  "alias_comandi": {
+    "dammi":    ["trova", "dimmi", "mostrami", "visualizza"],
+    "apri":     ["apri", "lancia", "avvia", "esegui", "metti"],
+    "cerca":    ["cerca", "ricerca"],
+    "elenca":   ["elenca", "lista", "mostra tutto"],
+    "configura":["configura", "impostazioni", "settings", "preferenze"],
+    "aiuto":    ["aiuto", "help", "comandi"],
+    "esci":     ["esci", "chiudi", "arrivederci", "quit", "exit"],
+    "impara":   ["impara", "apprendi", "inserisci"],
+    "ricorda":  ["ricorda", "memorizza", "salva"],
+    "modifica": ["modifica", "cambia", "aggiorna"],
+    "elimina":  ["elimina", "cancella", "rimuovi"],
+    "copia":    ["copia", "duplica", "copy"]
+  },
+</pre>
+
+<h3 id="shortcut">Ultima parte: Shortcut</h3>
+
+<p>Gli shortcut sono i pulsanti di scelta rapida presenti nell’interfaccia utente.  
+    Puoi modificare sia il nome del pulsante sia il comando associato.</p>
+
+<figure>
+    <img src="images/shortcut.png" alt="comandi scorciatoia" style="width: 50%; height: auto;">
+    <figcaption>I pulsanti SHORTCUT appaiono in basso a destra nell’interfaccia di myAssistente.</figcaption>
+</figure>
+
+<p>È sufficiente indicare l’etichetta del pulsante e il comando da eseguire.  
+    Se il comando termina con uno spazio (es.: <code>"comando": "ok "</code>), verrà inserito nel campo di input in attesa di ulteriori parametri;  
+    se non termina con uno spazio, verrà eseguito immediatamente.</p>
+
+<p>Puoi aggiungere quanti pulsanti desideri, ma ne verranno mostrati al massimo quattro contemporaneamente.</p>
+
+<pre>
+  "shortcut": [
+    { "etichetta": "Ho capito", "comando": "ok" },
+    { "etichetta": "Estratto conto", "comando": "apri estratto conto" },
+    { "etichetta": "Mail", "comando": "apri posta" },
+    { "etichetta": "Browser", "comando": "apri web" }
+  ],
+</pre>
+
+<p><strong>Esempi:</strong><br>
+    Il pulsante “Ho capito” interrompe l’assistente durante la lettura di testi lunghi.  
+    Puoi anche creare shortcut per comandi specifici del sistema operativo Windows (vedi <b>DocENGrel5.x‑WindowsUsefulCommands.md</b>).</p>
+
+<section>
+    <h2 id="documentation">Documentazione</h2>
+
+    <p>La documentazione disponibile per <strong>myAssistente5</strong>.<br>
+        I documenti si trovano anche nella cartella <a href="https://gitlab.com/EmanueleCAS/assistente">/DOCS</a> del repository.  
+        Per eventuale documentazione mancante, fare riferimento alle versioni precedenti in italiano o inglese.</p>
+
+    <ul>
+            <li><strong>(1) Manuale installazione</strong> — installazione del programma per Windows, Linux o multipiattaforma</li>
+            <li><strong>(2) Manuale utente</strong> — interfaccia utente di myAssistente</li>
+            <li><strong>(3) Manuale plugin</strong> — myAgenda, myNote e myTodo</li>
+            <li><strong>(4) Manuale configurazione</strong> — file <code>config.json</code> configurazioni avanzate</li>
+            <li><strong>(5) Manuale memoria</strong> — file <code>memory.json</code> configurazioni avanzate</li>
+            <li><strong>(6) Manuale lingue</strong> — file <code>lang[].json</code> customizzazioni avanzate</li>
+            <li><strong>(7) Manuale AIML</strong> — file <code>aiml/[LANG]/[filename].aiml</code></li>
+            <li><strong>(8) Manuale AIML avanzato</strong> — file <code>aiml/IT/testConiglio.aiml</code></li>
+    </ul>
+</section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>Toolkit <strong>myAssistente5</strong> — Assistente desktop personale</div>
+        <div>
+            <a href="https://www.steppa.net/cassani">Sito dell’autore</a> ·
+            &copy; 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

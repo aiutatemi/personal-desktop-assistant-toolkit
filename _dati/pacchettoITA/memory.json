@@ -1,0 +1,138 @@
+[
+  {
+    "nome": "memory.json",
+    "alias": "file di esempio",
+    "soggetto": "",
+    "dati": "modifica con le tue informazioni o cancella",
+    "tag": "esempio, informazioni",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "Codice fiscale",
+    "alias": "cf",
+    "soggetto": "nome",
+    "dati": "modifica con le tue informazioni o cancella",
+    "tag": "esempio, informazioni",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "bank account",
+    "alias": "",
+    "soggetto": "esempio per aprire un foglio di calcolo",
+    "dati": "C:\\Documents\\excel\\Bank.xls",
+    "tag": "esempio, excel",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "Python",
+    "alias": "progetti",
+    "soggetto": "esempio per aprire una cartella",
+    "dati": "C:\\Python\\Progetti\\",
+    "tag": "esempio, cartella",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "racconti",
+    "alias": "tutti",
+    "soggetto": "esempio per aprire un eBook",
+    "dati": "D:\\Writing\\Publish\\Racconti.epub",
+    "tag": "esempio, epub",
+    "avatar": "magazziniere"
+  },
+  {
+    "nome": "Calibre",
+    "alias": "biblioteca",
+    "soggetto": "esempio per aprire un programma",
+    "dati": "C:\\Program Files\\Calibre2\\calibre.exe",
+    "tag": "esempio, programma",
+    "avatar": "bibliotecaria"
+  },
+  {
+    "nome": "Mail",
+    "alias": "posta",
+    "soggetto": "esempio per aprire la posta",
+    "dati": "C:\\ProgramFile\\mail\\ThunderbirdPortable.exe",
+    "tag": "esempio, posta",
+    "avatar": "bibliotecaria"
+  },
+  {
+    "nome": "browser",
+    "alias": "web",
+    "soggetto": "esempioper aprire il browser",
+    "dati": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    "tag": "esempio, programma",
+    "avatar": "bibliotecaria"
+  },
+ {
+    "nome": "Note",
+    "alias": "mynote",
+    "soggetto": "plugin",
+    "dati": "./_dati/asset/plugin/myNote.html",
+    "tag": "miniApp",
+    "avatar": "postit"
+  },
+  {
+    "nome": "Agenda",
+    "alias": "myagenda",
+    "soggetto": "plugin",
+    "dati": "./_dati/asset/plugin/myAgenda.html",
+    "tag": "miniApp",
+    "avatar": "agenda"
+  },
+    {
+    "nome": "Todo",
+    "alias": "mytodo",
+    "soggetto": plugin",
+    "dati": "./_dati/asset/plugin/myTodo.html",
+    "tag": "miniApp",
+    "avatar": "todo"
+  },
+  {
+    "nome": "Moleskine",
+    "alias": "taccuino",
+    "soggetto": "plugin",
+    "dati": "D:/web/sito/cassani/articoli/tool/taccuino/taccuinoVOCALE.html",
+    "tag": "miniApp",
+    "avatar": "scrittrice"
+  },
+  {
+    "nome": "cmd",
+    "alias": "prompt",
+    "soggetto": "Comand",
+    "dati": "cmd.exe",
+    "tag": "windows comand",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "panel",
+    "alias": "control",
+    "soggetto": "Comand",
+    "dati": "control",
+    "tag": "windows comand",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "display",
+    "alias": "video",
+    "soggetto": "Comand",
+    "dati": "ms-settings:display",
+    "tag": "windows comand",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "task manager",
+    "alias": "task",
+    "soggetto": "Comand",
+    "dati": "taskmgr.exe",
+    "tag": "windows comand",
+    "avatar": "informatica"
+  },
+  {
+    "nome": "Manuali",
+    "alias": "help",
+    "soggetto": "myAssistente",
+    "dati": "_dati\\asset\\manuals\\indice.html",
+    "tag": "informazioni",
+    "avatar": "insegnante"
+  }
+]
