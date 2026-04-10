@@ -15,10 +15,6 @@ Two additional features have been added: a **response source indicator** visible
 in the UI, and support for **AIML-triggered special functions** that the engine can  
 forward directly to the assistant for execution.
 
-Integration with the data provided by the free mini App: myAgenda, myNote and myTodo plugns.
-
-Collapsble GUI lateral panels
-
 ---
 
 ## New Features
@@ -189,7 +185,23 @@ showing where the last response came from:
 
 ---
 
-### 6. Manuals documentation inside distribution packet
+### 6. Drag-and-drop
+- **Drag-and-drop support in `impara` (learn) command**: 
+users can now drag links directly from the browser or files from Explorer into the input field; 
+the URL is captured and confirmed automatically (requires `tkinterdnd2`).
+
+---
+
+### 7. AIML-guided dialogs from memory
+
+- **AIML-guided dialogs from memory**: a memory entry with `"dati": "filename.aiml"` 
+now launches a multi-step conversational flow managed entirely by the AIML file, 
+with automatic topic isolation, fallback on unrecognized input, 
+and a `AIML ▶` indicator in the UI during the dialog.
+
+---
+
+### Manuals documentation inside distribution packet
 
 Introducing *manuals* command to open HTML manuals, now located in _dati/asset/manuals/index.html
 
@@ -244,6 +256,9 @@ _dati/
   lang_EN.json         — unchanged
   asset/               — unchanged
     avatar/
+    manuals/           - List of manuals available
+    plugin/            - plugin HTML script files
+  plugins/             — plugin data myAgenda, myTodo, myNote
 ```
 
 ### New key in `config.json`
@@ -257,13 +272,15 @@ _dati/
 
 ## Dependencies
 
-No new external dependencies.  
-`aiml_parser.py` uses only standard Python libraries (`re`, `random`, `xml.etree.ElementTree`, `pathlib`).
+No new external dependencies for parser.  
+`aiml_parser.py` uses only standard Python libraries 
+(`re`, `random`, `xml.etree.ElementTree`, `pathlib`).
 
-Read: requirements.txt from repository
+Drag-and-drop *learn* optional function, requires tkinterdnd2
+
 ---
 
-## Migration from v4
+## Migration from v4.x
 
 1. Replace `myAssistente4_x.py` with `myAssistente5_0.py`
 2. Add `aiml_parser.py` to the same folder as the `.py` file
@@ -277,7 +294,7 @@ Read: requirements.txt from repository
 
 ---
 
-## Known Issues (unchanged from v4)
+## Known Issues (unchanged from v4.x)
 
 - Linux TTS: eSpeak quality varies; MBROLA voices recommended
 - AI fallback: requires Internet connection and valid API key

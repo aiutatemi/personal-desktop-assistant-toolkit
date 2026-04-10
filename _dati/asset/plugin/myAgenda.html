@@ -548,8 +548,8 @@ body[data-theme="dark"] {
 
         // ── Conversione formato myAssistente ──────────────────────────────────
 
-        const MESI = ['january','february','march','april','may','june',
-                      'july','august','september','october','november','december'];
+        const MESI = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
 
         /** Converte la chiave evento in stringa leggibile. */
         function keyToHuman(key) {
@@ -570,7 +570,7 @@ body[data-theme="dark"] {
                     dati:       ev.note || '',
                     soggetto:   tags[ev.color] || ev.color,
                     tag:        ['agenda', ev.color],
-                    _plugin:    'agenda',
+                    _plugin:    'myAgenda',
                     _key:       key,
                     _color:     ev.color,
                     _completed: ev.completed || false,

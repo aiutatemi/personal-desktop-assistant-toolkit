@@ -1,7 +1,10 @@
 """
 myAssistente — Desktop Personal Assistant / Assistente desktop personale 
 
-v5.3  AIML 1.3 engine (aiml_parser.py)
+v5.4  AIML 1.31 engine (aiml_parser.py)
+
+      # AIML-guided dialogs from memory
+      # Drag-and-drop support in `impara` command
       # Integration with myNote, myTodo and myAgenda
       # Avatar, commands and GUI menu open/close from AIML attribute
        <template avatar="positivo" comando="apri posta"  menu="0010">
@@ -90,6 +93,15 @@ except ImportError:
     except ImportError:
         print("[AI] Nessuna libreria AI trovata")
 
+# Drag-and-drop (opzionale — richiede: pip install tkinterdnd2)
+DND_DISPONIBILE = False
+try:
+    from tkinterdnd2 import TkinterDnD, DND_FILES, DND_TEXT
+    DND_DISPONIBILE = True
+    print("[DND] tkinterdnd2 caricato — drag-and-drop abilitato")
+except ImportError:
+    print("[DND] tkinterdnd2 non trovato — drag-and-drop disabilitato")
+
 # ---------------------------------------------------------------------------
 # SELEZIONE VOCE TTS — funzione globale multilingua
 # ---------------------------------------------------------------------------
@@ -153,8 +165,8 @@ def _base_dir() -> Path:
 BASE_DIR     = _base_dir()
 INTERNAL_DIR = BASE_DIR / "_dati"
 ASSET_DIR    = INTERNAL_DIR / "asset" / "avatar"
-MEM_FILE     = INTERNAL_DIR / "memory.json"      # File memoria
-CFG_FILE     = INTERNAL_DIR / "config.json"      # File configurazione
+MEM_FILE     = INTERNAL_DIR / "memory.json"      # Rinominato in inglese
+CFG_FILE     = INTERNAL_DIR / "config.json"      # Rinominato in inglese
 AIML_DIR     = INTERNAL_DIR / "aiml"             # Cartella file .aiml
 PLUGINS_DIR  = INTERNAL_DIR / "plugins"          # Cartella file plugin (note, agenda…)
 
@@ -398,6 +410,7 @@ _LANG_IT_FALLBACK = {
     "elimina_conferma": "Vuoi eliminare:\n{entry}\nScrivi 'sì' per confermare.",
     "elimina_ok": "'{nome}' eliminato.", 
     "elimina_annullato": "Eliminazione annullata.",
+    "apri_plugin_annullato": "Apertura annullata.",
     "elimina_si": ["sì", "si", "s", "ok", "yes", "y"],
     "modifica_cosa": "Quale voce devo modificare?", 
     "modifica_non_trovato": "Purtroppo non ho trovato '{q}'.",
@@ -430,7 +443,7 @@ _LANG_IT_FALLBACK = {
     "impara_prompt_nome": "Nome (obbligatorio):",
     "impara_prompt_alias": "Alias (opzionale — 'salta' per saltare):",
     "impara_prompt_soggetto": "Soggetto (opzionale — 'salta' per usare il tuo nome):",
-    "impara_prompt_dati": "Dati da memorizzare (obbligatorio):",
+    "impara_prompt_dati": "Dati da memorizzare (obbligatorio):\n💡 Puoi trascinare un link dal browser o un file direttamente qui, oppure incollare con Ctrl+V:",
     "impara_prompt_tag": "Tag (opzionale — 'salta' per saltare):",
     "impara_prompt_avatar": "Avatar (opzionale — 'salta' per default):",
     
@@ -584,10 +597,12 @@ def estrai_soggetto(testo: str, nome_utente: str) -> tuple:
     m = re.search(r'\b([A-Z][a-z]{2,})\s*$', testo)
     if m:
         nome_proprio = m.group(1)
-        parole_comuni = {"Fatto", "Link", "Cose", "Note", "Dati", "File",
-                         "Cartella", "Salute", "Casa", "Lavoro", nome_utente}
-        if nome_proprio not in parole_comuni:
-            return nome_proprio, testo[:m.start()].strip()
+        # Solo se ci sono altre parole prima: "Test" da solo non è un soggetto
+        if testo[:m.start()].strip():
+            parole_comuni = {"Fatto", "Link", "Cose", "Note", "Dati", "File",
+                             "Cartella", "Salute", "Casa", "Lavoro", nome_utente}
+            if nome_proprio not in parole_comuni:
+                return nome_proprio, testo[:m.start()].strip()
 
     return nome_utente, testo
 
@@ -740,6 +755,8 @@ class Assistente:
 
         # AIML 1.x parser
         self._aiml: object = None   # istanza AIMLParser o None
+        self._aiml_topic_dialogo:  str  = None  # topic attivo durante dialogo AIML
+        self._aiml_ultima_domanda: str  = None  # ultima risposta bot (per fallback)
         self._inizializza_aiml()
         self._carica_plugin_tutti()
 
@@ -1185,6 +1202,11 @@ class Assistente:
         self.entry.bind("<Up>",      lambda e: self._history_su())
         self.entry.bind("<Down>",    lambda e: self._history_giu())
         self.entry.focus_set()
+
+        # ── Drag-and-drop sull'entry (opzionale) ─────────────────────────
+        if DND_DISPONIBILE:
+            self.entry.drop_target_register(DND_FILES, DND_TEXT)
+            self.entry.dnd_bind("<<Drop>>", self._on_drop)
 
         # Pulsante Invia localizzato
         tk.Button(frame_in, text=self._t("btn_invia"),
@@ -1695,10 +1717,11 @@ class Assistente:
         if not hasattr(self, "_lbl_sorgente_pallino"):
             return
         mappa = {
-            "memoria":  ("●", "#a6e3a1", "memory"),    # verde
-            "aiml":     ("●", "#89b4fa", "AIML"),      # blu
-            "ai":       ("●", "#f38ba8", "AI"),        # rosso
-            "sistema":  ("●", "#6c7086", "—"),         # grigio
+            "memoria":      ("●", "#a6e3a1", "memory"),    # verde
+            "aiml":         ("●", "#89b4fa", "AIML"),      # blu
+            "dialogo_aiml": ("●", "#cba6f7", "AIML ▶"),    # viola — dialogo attivo
+            "ai":           ("●", "#f38ba8", "AI"),        # rosso
+            "sistema":      ("●", "#6c7086", "—"),         # grigio
         }
         pallino, colore, etichetta = mappa.get(sorgente, mappa["sistema"])
         self._lbl_sorgente_pallino.configure(fg=colore, text=pallino)
@@ -1863,6 +1886,31 @@ class Assistente:
     # ------------------------------------------------------------------
     # INPUT (con integrazione AI)
     # ------------------------------------------------------------------
+    def _on_drop(self, event):
+        """
+        Gestisce il drop di file, URL o testo sull'entry.
+        - In stato impara_dati: inserisce e conferma automaticamente.
+        - Negli altri stati: inserisce nel campo senza confermare.
+        """
+        dati = (event.data or "").strip()
+
+        # tkinterdnd2 su Windows racchiude i percorsi con spazi tra { }
+        if dati.startswith("{") and dati.endswith("}"):
+            dati = dati[1:-1]
+
+        if not dati:
+            return
+
+        if self.stato == "impara_dati":
+            # Inserisci e auto-conferma — come se l'utente avesse scritto e premuto Enter
+            self.input_var.set(dati)
+            self.root.after(80, self._on_invia)
+        else:
+            # In tutti gli altri stati: popola solo il campo, non inviare
+            self.input_var.set(dati)
+            self.entry.icursor(tk.END)
+            self.entry.focus_set()
+
     def _on_invia(self):
         testo = self.input_var.get().strip()
         # Permetti INVIO vuoto durante configurazione, impara e ricorda (per saltare campi opzionali)
@@ -1995,6 +2043,8 @@ class Assistente:
 
     def _gestisci_stati_dialogo(self, testo: str):
         """Gestisce i vari stati di dialogo (ricorda, impara, elimina, modifica, configura)."""
+        if self.stato == "dialogo_aiml":
+            self._step_dialogo_aiml(testo); return
         if self.stato == "attesa_nome_nota_plugin":
             self._nota_plugin_step_nome(testo); return
         if self.stato == "attesa_dati_nota_plugin":
@@ -2035,6 +2085,8 @@ class Assistente:
             self._conferma_dammi(testo); return
         if self.stato == "attesa_conferma_media":
             self._conferma_media(testo); return
+        if self.stato == "attesa_apri_plugin":
+            self._conferma_apri_plugin(testo); return
         if self.stato == "impara_nome":
             self._impara_campo("nome", testo); return
         if self.stato == "impara_alias":
@@ -2979,8 +3031,22 @@ class Assistente:
     # HELPER: rileva se una stringa è un link/percorso apribile
     # ------------------------------------------------------------------
     @staticmethod
+    def _e_aiml_dialogo(testo: str) -> bool:
+        """Restituisce True se il testo è un riferimento a un file .aiml (dialogo guidato)."""
+        return (testo or "").strip().lower().endswith(".aiml")
+
+    @staticmethod
+    def _e_plugin(entry: dict) -> bool:
+        """Restituisce True se la voce proviene da un plugin (myNote, myTodo, myAgenda)."""
+        return "_source" in entry or "_plugin" in entry
+
+    @staticmethod
+    def _plugin_nome(entry: dict) -> str:
+        """Restituisce il nome del plugin di origine (es. 'myNote')."""
+        return entry.get("_plugin") or entry.get("_source") or "plugin"
+
+    @staticmethod
     def _e_link(testo: str) -> bool:
-        """Restituisce True se il testo sembra un URL o un percorso di file."""
         t = (testo or "").strip()
         if re.match(r'^https?://', t, re.IGNORECASE):
             return True
@@ -3089,7 +3155,25 @@ class Assistente:
             dati  = entry.get("dati", "")
             primo_dato = dati.split("\n")[0].strip()
 
-            if self._e_link(primo_dato):
+            if self._e_aiml_dialogo(primo_dato):
+                # È un dialogo AIML guidato: avvia il flusso
+                self._avvia_dialogo_aiml(primo_dato, entry)
+            elif self._e_plugin(entry):
+                # Voce da plugin: mostra i dati ma avvisa che non è modificabile qui
+                plugin = self._plugin_nome(entry)
+                dati_fmt = dati.replace(chr(10), chr(10) + "  ")
+                msg = (self._t("dammi_risultato_1",
+                               nome=entry.get("nome", ""),
+                               soggetto=entry.get("soggetto", "")) +
+                       f"\n  {dati_fmt}" +
+                       f"\n\n⚠ Voce gestita da {plugin}. "
+                       f"Per modificarla o cancellarla usa {plugin}.html.\n"
+                       f"Vuoi aprire {plugin}?")
+                self.stato = "attesa_apri_plugin"
+                self.dati_temp = {"plugin": plugin}
+                self._scrivi_risposta(msg)
+                self._mostra_avatar(entry.get("avatar") or avatar_random(self.cfg))
+            elif self._e_link(primo_dato):
                 # È un link: suggerisci di aprirlo invece di mostrarlo
                 self.stato = "attesa_conferma_dammi"
                 self.dati_temp = {"entry": entry, "link": primo_dato}
@@ -3132,6 +3216,76 @@ class Assistente:
                 f"\n  {dati.replace(chr(10), chr(10)+'  ')}"
             )
             self._mostra_avatar(entry.get("avatar") or avatar_random(self.cfg))
+
+    # ------------------------------------------------------------------
+    # DIALOGO AIML GUIDATO
+    # ------------------------------------------------------------------
+    def _avvia_dialogo_aiml(self, file_aiml: str, entry: dict):
+        """Avvia un dialogo guidato da un file .aiml referenziato in memory.json."""
+        if not AIML_DISPONIBILE or self._aiml is None:
+            self._scrivi_risposta("Il motore AIML non è disponibile.")
+            return
+        percorso = AIML_DIR / file_aiml
+        if not percorso.exists():
+            self._scrivi_risposta(f"File dialogo non trovato: {file_aiml}")
+            return
+        # Carica il file solo se non già presente tra le categorie caricate
+        file_str = str(percorso)
+        già_caricato = any(c.file == file_str for c in self._aiml.categorie)
+        if not già_caricato:
+            self._aiml.carica_file(percorso)
+        # Imposta topic dal nome del file: "visita.aiml" → "VISITA"
+        topic = Path(file_aiml).stem.upper()
+        self._aiml.set_topic(topic)
+        self._aiml_topic_dialogo  = topic
+        self._aiml_ultima_domanda = None
+        self.stato = "dialogo_aiml"
+        self._aggiorna_sorgente("dialogo_aiml")
+        # Trigger iniziale invisibile all'utente
+        trigger = f"AVVIA {topic}"
+        risposta = self._aiml.rispondi(trigger)
+        if risposta and risposta.get("testo"):
+            self._aiml_ultima_domanda = risposta["testo"]
+            self._scrivi_risposta(risposta["testo"])
+            avatar = risposta.get("avatar") or entry.get("avatar") or avatar_random(self.cfg)
+            self._mostra_avatar(avatar)
+        else:
+            self._scrivi_risposta(
+                f"Dialogo '{file_aiml}' avviato ma nessun pattern "
+                f"'AVVIA {topic}' trovato nel file.")
+            self._reset_dialogo_aiml()
+
+    def _step_dialogo_aiml(self, testo: str):
+        """Gestisce ogni turno dell'utente durante un dialogo AIML attivo."""
+        # Uscita di emergenza
+        if testo.strip().lower() in {"fine", "annulla", "esci", "stop", "cancel"}:
+            self._reset_dialogo_aiml()
+            self._scrivi_risposta(self._t("impara_annullato"))
+            return
+        risposta = self._aiml.rispondi(testo)
+        if not risposta or not risposta.get("testo"):
+            # Nessun match: ripete l'ultima domanda come contesto
+            msg = "Non ho capito."
+            if self._aiml_ultima_domanda:
+                msg += f"\n{self._aiml_ultima_domanda}"
+            self._scrivi_risposta(msg)
+            return
+        self._aiml_ultima_domanda = risposta["testo"]
+        self._scrivi_risposta(risposta["testo"])
+        if risposta.get("avatar"):
+            self._mostra_avatar(risposta["avatar"])
+        # Controlla se l'AIML ha resettato il topic → fine dialogo
+        if self._aiml.topic in ("*", ""):
+            self._reset_dialogo_aiml()
+
+    def _reset_dialogo_aiml(self):
+        """Resetta lo stato dopo la fine (o interruzione) di un dialogo AIML."""
+        if self._aiml is not None:
+            self._aiml.set_topic("*")
+        self._aiml_topic_dialogo  = None
+        self._aiml_ultima_domanda = None
+        self.stato = "idle"
+        self._aggiorna_sorgente("sistema")
 
     # ------------------------------------------------------------------
     # MEDIA KEYWORDS — mappa parole utente → (estensioni, label_lang_key)
@@ -3235,7 +3389,16 @@ class Assistente:
         else:
             self._scrivi_risposta(self._t("elimina_annullato"))
 
-    def _cmd_elimina(self, parsed: dict):
+    def _conferma_apri_plugin(self, testo: str):
+        """Risposta alla domanda 'vuoi aprire il plugin?'"""
+        self.stato = "idle"
+        plugin = self.dati_temp.get("plugin", "")
+        self.dati_temp = {}
+        if testo.strip().lower() in self._t("conferma_si"):
+            html = risolvi_percorso(f"{plugin}.html")
+            self._apri_link_diretto(html, plugin, {})
+        else:
+            self._scrivi_risposta(self._t("apri_plugin_annullato"))
         q = parsed.get("nome", "").strip()
         # Fallback: se il parser ha svuotato il nome (es. solo articoli), usa
         # la parte del testo originale dopo la keyword "elimina"
@@ -3246,17 +3409,32 @@ class Assistente:
         if not q:
             self._scrivi_risposta(self._t("elimina_cosa"))
             return
+        # Cerca prima in memory.json, poi nei plugin
         risultati = cerca_in_memoria(self.mem, q)
-        if not risultati:
-            self._scrivi_risposta(self._t("elimina_non_trovato", q=q))
+        if risultati:
+            entry = risultati[0]
+            self.dati_temp = {"entry_da_eliminare": entry}
+            self.stato = "attesa_elimina_conferma"
+            self._scrivi_risposta(
+                self._t("elimina_conferma", entry=formatta_entry(entry))
+            )
+            return
+        # Non trovato in memory.json: controlla i plugin
+        risultati_plugin = cerca_in_memoria(self._mem_plugin, q)
+        if risultati_plugin:
+            entry = risultati_plugin[0]
+            plugin = self._plugin_nome(entry)
+            msg = (f"'{entry.get('nome', q)}' è una voce di {plugin} "
+                   f"e non può essere cancellata da qui.\n"
+                   f"Per cancellarla apri {plugin}.html.\n"
+                   f"Vuoi aprire {plugin}?")
+            self.stato = "attesa_apri_plugin"
+            self.dati_temp = {"plugin": plugin}
+            self._scrivi_risposta(msg)
             self._mostra_avatar("triste")
             return
-        entry = risultati[0]
-        self.dati_temp = {"entry_da_eliminare": entry}
-        self.stato = "attesa_elimina_conferma"
-        self._scrivi_risposta(
-            self._t("elimina_conferma", entry=formatta_entry(entry))
-        )
+        self._scrivi_risposta(self._t("elimina_non_trovato", q=q))
+        self._mostra_avatar("triste")
 
     def _elimina_conferma(self, testo: str):
         self.stato = "idle"
@@ -3545,7 +3723,10 @@ Digita  aiuto  per i comandi generali.
 # AVVIO
 # ---------------------------------------------------------------------------
 def main():
-    root = tk.Tk()
+    if DND_DISPONIBILE:
+        root = TkinterDnD.Tk()   # root DnD-aware
+    else:
+        root = tk.Tk()
     root.geometry("560x700")
     root.minsize(420, 500)
     app = Assistente(root)

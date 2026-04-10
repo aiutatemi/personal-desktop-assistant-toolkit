@@ -4,11 +4,25 @@
 Full compatibility with the *AIML standard* files using new aiml_parser.py
 Integration with myAgenda, myTodo, myNote plugins
 GUI: Collapsable command lists
+AIML-guided dialogs from memory
+Drag-and-drop support in `learn` command
+Avatar, commands and GUI menu open/close from AIML attribute
 *Windows* and *Linux* distributable package
 
+### Features from previous releases:
+Optional connection with *external AI* (API key)
+Release with multiplatform *STT /TTS VOICE functions* enabled
+Remember data, Open web sites, files, folders
+English and Italian languages ready, 13 languages to update with new values
+distributed from GitLab, repository mirror only on GitHub
+
+---
+
 ## myAssistente4
-AIML-like engine based on JSON files
+AIML-like engine based on *JSON* files
 Windows and Linux distributable package
+
+---
 
 ## Assistente3
 Optional connection with *external AI* (API key)
@@ -16,11 +30,15 @@ Release with multiplatform *STT /TTS VOICE functions* enabled
 Windows and Linux distributable package
 15 languages available
 
+---
+
 ## Assistente2
 Release with VOICE functions enabled (STT multiplatform, TTS only for windows)
 Italian and English Language
 Windows and Linux distributable package
 distributed from GitLab, repository mirror only on GitHub
+
+---
 
 ## Assistente1
 First stable release
@@ -28,7 +46,10 @@ Italian Language only
 Windows distributable package
 distributed from GitHub
 
+---
+
 ## Assistente0
 test release
+Remember data, Open web sites, file, folders
 Italian Language only
-Windows distributable package
+Windows package for test purposes only

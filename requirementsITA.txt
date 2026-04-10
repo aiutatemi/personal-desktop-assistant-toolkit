@@ -15,12 +15,16 @@ SpeechRecognition
 sounddevice
 numpy
 
+# --- TTS (Text-to-Speech) — SOLO PER LINUX opzionale, abilita la voce ---
+espeak
+
 # --- drag-and-drop — opzionale, abilita drag and drop dei link ---
 tkinterdnd2
 
 # --- AI — opzionale, scegli UNO dei due provider ---
 # openai                  # Provider OpenAI (GPT)
 # google-generativeai     # Provider Google Gemini
+
 
 # --- NOTA ---
 # aiml_parser: scarica il file aiml_parser.py dal repositoy

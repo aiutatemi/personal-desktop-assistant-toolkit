@@ -1,5 +1,5 @@
 """
-aiml_parser.py -- Parser AIML 1.3 per myAssistente
+aiml_parser.py -- Parser AIML 1.31 per myAssistente
 2026 - Licenza: stessa del progetto myAssistente
 
 normalizzazione pattern in MAIUSCOLO
@@ -135,6 +135,16 @@ class AIMLParser:
 
     def set_topic(self, topic):
         self._topic = self._normalizza(topic)
+
+    @property
+    def topic(self) -> str:
+        """Topic corrente (sola lettura)."""
+        return self._topic
+
+    @property
+    def categorie(self) -> list:
+        """Lista delle categorie caricate (sola lettura)."""
+        return self._categorie
 
     # ── Caricamento file ──────────────────────────────────────────────────
 

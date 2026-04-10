@@ -513,7 +513,7 @@ body[data-theme="dark"] {
             <p style="font-size: 0.9em; color: #666;">Scarica i dati per non perderli se pulisci la cache o per trasferirli su altro browser.</p>
             <div class="backup-options">
                 <button onclick="saveToPlugin()" style="background-color: #8e44ad;" title="Salva in _dati/plugins/agenda.json">🔗 Salva per myAssistente</button>
-                <button onclick="downloadBackupJSON()" style="background-color: #2980b9;">💾 Backup JSON</button>
+                <button onclick="downloadBackupJSON()" style="background-color: #2980b9;">💾 Backup</button>
                 <button onclick="document.getElementById('restoreInput').click()" style="background-color: #e67e22;">📂 Ripristina</button>
                 <input type="file" id="restoreInput" style="display: none" accept=".json" onchange="restoreBackup(this)">
             </div>
@@ -544,17 +544,17 @@ body[data-theme="dark"] {
 
         // ── Conversione formato myAssistente ──────────────────────────────────
 
-        const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
-                      'luglio','agosto','settembre','ottobre','novembre','dicembre'];
+        const MESI = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+                      'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
         /** Converte la chiave evento in stringa leggibile. */
         function keyToHuman(key) {
             if (key.startsWith('permanent-')) {
                 const [, m, d] = key.split('-');
-                return `${parseInt(d)} ${MESI[parseInt(m)]}`;
+                return `${parseInt(d)} ${monthNames[parseInt(m) - 1]}`;
             }
             const [y, m, d] = key.split('-');
-            return `${parseInt(d)} ${MESI[parseInt(m)]} ${y}`;
+            return `${parseInt(d)} ${monthNames[parseInt(m) - 1]} ${y}`;
         }
 
         /** Converte events{} + colorTags{} → array plugin. */
@@ -566,7 +566,7 @@ body[data-theme="dark"] {
                     dati:       ev.note || '',
                     soggetto:   tags[ev.color] || ev.color,
                     tag:        ['agenda', ev.color],
-                    _plugin:    'agenda',
+                    _plugin:    'myAgenda',
                     _key:       key,
                     _color:     ev.color,
                     _completed: ev.completed || false,
