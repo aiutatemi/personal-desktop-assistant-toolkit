@@ -10,7 +10,7 @@ Built with Python and Tkinter, it runs on **Windows** and **Linux** (**macOS** w
 
 ---
 ## ✨ myAssistente in brief
-Get started in 30 seconds — no account, no cloud, no installation procedure required (download, unzip, run).
+Get started in 2 minutess — no account, no cloud, no installation procedure required (download, unzip, run).
 
 Fully configurable desktop assistant — remember information, store media, open files, folders, programs and websites
 Optional connection with an external AI (API key required)
@@ -30,9 +30,18 @@ Access the full documentation folder (ENG/ITA) here:
 
 - Full compatibility with the AIML standard using new aiml_parser.py
 - Intergation with HTML javascript mini App: *myAgenda* *myTodo* *myNote*
-- Distribuibile 🪟 **Windows** and 🐧 **Linux** ready ZIP archives
-All features of previous releases except:
-- Removed: optional external engine similar to AIML used in release 4
+- GUI: Collapsable command lists
+- AIML-guided dialogs from memory
+- Drag-and-drop support in `learn` command
+- Avatar, commands and GUI menu open/close from AIML attribute
+- Distributable: ZIP archives ready for Windows 🪟 and Linux 🐧
+
+### Features from previous releases:
+- Optional connection with *external AI* (API key)
+- Release with multiplatform *STT /TTS VOICE functions* enabled
+- Remember data, Open web sites, files, folders
+- English and Italian languages ready, 13 languages to update with new values
+- Distributed from GitLab, repository mirror only on GitHub
 
 ---
 ## ✨ Release 4 Features
@@ -44,7 +53,7 @@ All features of previous releases except:
 - New **search media** command (search music, video, picture inside -dati/asset/)
 - Flexibility in understandin commands
 - Bug fixig
-- Distribuibile 🪟 **Windows** and 🐧 **Linux** ready ZIP archives
+- Distributable: ZIP archives ready for Windows 🪟 and Linux 🐧
 All features of previous releases
 
 ---
@@ -57,7 +66,7 @@ All features of previous releases
 - **Internationalization** improvements (config.json memory.json and localization files)
 - New command with **interactive wizard**, to configure config.json
 - Localized in **12 languages** [Open localization folder](https://gitlab.com/EmanueleCAS/assistente/-/tree/master/localization-file)
-- Distribuibile 🪟 **Windows** ready ZIP archive
+- Distributable: ZIP archives ready for Windows 🪟
 All features of previous releases
 
 ---
@@ -82,13 +91,24 @@ All features of previous releases
   fully configurable
 - **Avatar support** — display images or MP4 animations as the assistant's face
 - **Automatic backup** — memory file is backed up before every save
-- Distribuibile 🪟 **Windows** and 🐧**Linux** ready ZIP archives
+- Distributable: ZIP archives ready for Windows 🪟
 
 ---
 
 ## 🖥️ Requirements
 
-### Quick installation per platform
+### Quick installation for all dependencies
+
+Download requirements.txt from this repository, 
+edit to choose dependencies needes, 
+run the following command:
+
+```bash
+pip install -r requirements.txt
+```
+### Minimum installation per platform
+
+NOTE: not all features will work.
 
 Windows (minimum working dependencies):
 ```bash
@@ -119,8 +139,8 @@ pip install pillow pyttsx3 SpeechRecognition sounddevice numpy
 ```bash
 python assistente.py
 ```
-
-On first run, a `_dati/` folder is created next to the script containing:
+Download from this repository and insert in the same folder `_dati/ folder`, otherwise
+on first run, a default `_dati/` folder is created next to the script containing:
 
 ```
 _dati/
@@ -264,6 +284,7 @@ folder next to the executable before running.
 | `SpeechRecognition` | Input STT voice | ⚠️ optional | Uses Google Speech API (online) |
 | `sounddevice` | Microphone | ⚠️ opzional | Needs PortAudio |
 | `numpy` | audio STT | ⚠️ optional | Reqiured by `sounddevice` |
+| `tkinterdnd2` | drag and drop | ⚠️ optional | Enables drag and drop of links |
 | `portaudio` | Driver audio for sounddevice | ⚠️ Linux/macOS only | `sudo apt install portaudio19-dev` / `brew install portaudio` |
 | `openai` | AI integration (ChatGPT) | ⚠️ optional | Only if `ai_config.provider = "openai"` |
 | `google-generativeai` | AI integration (Gemini) | ⚠️ optional | Only if `ai_config.provider = "gemini"` |
@@ -274,17 +295,22 @@ folder next to the executable before running.
 ## 📁 Project structure
 
 ```
-assistenteX.X.py      ← main script (Release X.X)
-assistente.ico        ← Windows icon
-assistente.png        ← Linux icon
-_dati/
-  config.json
-  memory.json
-  memory.json.bak      ← automatic backup
-  lang_it.json
-  lang_en.json
-  asset/
-    avatar/             ← .jpg .png .gif .mp4 avatar files
+myAssistente        ← main folder
+    assistente.exe  ← (Windows package only) executable, click to launch
+    assistente      ← (Linux package only) executable, click to launch
+    _dati/          ← configurable data folder
+        config.json ← configuration file, also managed via interface
+        memory.json ← memory file, also managed via interface
+        lang_it.json    ← default, Italian language
+        lang_en.json    ← default, English language (other languages downloadable)
+        aiml/EN/    ← optional English AIML programming files
+        asset/      ← where the assistant saves media to remember
+                avatar/ ← avatar files .jpg .png .gif .mp4
+            manuals/ ← manuals
+            plugin/  ← myAgenda, myNote, myTodo
+        plugins/     ← shared data between myAssistente and myAgenda, myNote, myTodo
+
+    _internal/     ← program folder. Do not modify
 ```
 
 ---

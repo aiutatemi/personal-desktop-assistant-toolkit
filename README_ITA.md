@@ -10,7 +10,7 @@ premi il pulsante del microfono.
 Scritto in Python con Tkinter, funziona su **Windows** e **Linux** (**macOS** con Python)
 
 ✨ myAssistente in breve
-Inizia in 30 secondi — nessun account, nessun cloud, nessuna procedura di installazione richiesta (scarica, decomprimi, avvia).
+Inizia in 2 minuti — nessun account, nessun cloud, nessuna procedura di installazione richiesta (scarica, decomprimi, avvia).
 
 Assistente desktop completamente configurabile — memorizza informazioni, archivia contenuti multimediali, apre file, cartelle, programmi e siti web.
 Connessione opzionale con un’AI esterna (richiesta API key).

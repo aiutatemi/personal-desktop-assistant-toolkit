@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente - Dashboard Progetto</title>
+    <meta name="author" content="Emanuele Cassani">
+    <meta name="description" content="myAssistente: Assistente desktop personale in Python. Tutti i dati salvati localmente per la massima protezione della privacy. Compatibile con AIML">
+    
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">MyAssistente</div>
+        <nav>
+            <a href="#intro">Panoramica Progetto</a>
+            <a href="#features">Caratteristiche</a>
+            <a href="#avvio">Avvia myAssistente</a>
+            <a href="#contribute">Supporta il progetto</a>
+            <a href="https://gitlab.com/EmanueleCAS/assistente/-/blob/master/README_ITA.md?ref_type=heads">GitLab README</button>
+            <a href="https://www.steppa.net/myAssistente" target="_blank">Sito Web</a>
+            <a href="https://www.steppa.net/cassani/business_cardITA.htm" target="_blank">Autore</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        
+        <header class="header-top">
+            <h1>Dashboard Progetto</h1>
+            <button class="btn-primary" onclick="window.open('https://gitlab.com/EmanueleCAS/assistente')">Repo GitLab</button>
+        </header>
+
+        <div class="card">
+            <div style="display: flex; gap: 30px; flex-wrap: wrap;" id="intro">
+                <div style="flex: 0 0 250px;">
+                    <img src="img/default.jpg" alt="myAssistente image" width="250px" style="border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="text-align: center; margin-top: 15px;">
+                        <a href="index.html">🇬🇧 English</a> | <a href="indice.html">🇮🇹 Italiano</a>
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h1 id="assistente-personale">🤖 myAssistente</h1>
+                    <p style="margin-top: 10px;"><strong>Inizia in 2 minuti</strong> — nessun account, nessun cloud, nessuna installazione richiesta.</p>
+                    <ul style="font-size: 0.95rem; padding-left: 20px;">
+                        <li><strong>Privacy prima di tutto</strong> Archiviazione dati locale</li>
+                        <li>Assistente desktop interamente configurabile</li>
+                        <li><strong>IA esterna</strong> connessione opzionale</li>
+                        <li>Compatibilità <strong>AIML 1.x</strong></li>
+                        <li>Comandi <strong>vocali o testuali</strong></li>
+                        <li><strong>Gratuito</strong> <a href="#contribute">Donazioni</a> benvenute, ma facoltative</li>
+                    </ul>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                        <a href="https://gitlab.com/EmanueleCAS/assistente" target="_blank" id="pulsante" style="background-color:#6A2C2C">Progetto Attivo su GitLab</a>
+                        <a href="https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs" id="pulsante" style="background-color:#4a4a4a">Documentazione Progetto GitLAB</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="features">
+            <section id="intro">
+                <p><strong>myAssistente</strong> è un progetto pensato per restituire agli utenti il controllo sui propri dati. A differenza degli assistenti cloud commerciali, viene eseguito interamente sul tuo computer, garantendo che le tue informazioni non lascino mai il tuo disco rigido.</p>
+
+<p>Inizia in 2 minuti — nessun account, nessun cloud, nessuna procedura di installazione richiesta (scarica, decomprimi, avvia).</p>
+
+            </section>
+
+            <h2>✨ Perché scegliere myAssistente?</h2>
+            <ul>
+                <li><strong>Privacy Totale:</strong> Gestione dati locale tramite file JSON trasparenti (eccetto Google Speech-to-Text e integrazione IA opzionale).🔒</li>
+                <li><strong>Personalizzazione:</strong> Assistente desktop completamente configurabile.</li>
+                <li><strong>Automazione:</strong> Ricorda informazioni, archivia media, apre file, cartelle, programmi e siti web.</li>
+                <li><strong>Integrazione:</strong> Funziona con miniApp gratuite: <b>myAgenda, myNote</b> e <b>myTodo</b>.</li>
+                <li><strong>Integrazione:</strong> Connessione opzionale con IA esterne (richiesta chiave API).</li>
+                <li><strong>Parser AIML:</strong> Piena compatibilità con i file AIML 1.x per personalizzare il comportamento e la comprensione dell'assistente.</li>
+                <li><strong>Comandi vocali o testuali</strong>, con supporto multilingua.</li>
+                <li><strong>Multi-lingua:</strong> Supporto nativo per oltre 15 lingue. 🌍</li>
+            </ul>
+        </div>
+
+        <div class="card" id="avvio">
+            <h2>📦 Avvia myAssistente</h2>
+            <p>Scarica l'ultima versione ed estrai il file ZIP (supporta anche chiavette USB).</p>
+            <pre>
+myAssistente        ← cartella principale
+    myAssistente.exe  ← (Windows) avvia qui
+    myAssistente      ← (Linux) avvia qui
+    _dati/          ← cartella dati configurabili
+        config.json ← configurazione
+        memory.json ← file memoria
+        plugins/    ← plugin myAgenda, myNote, myTodo
+        aiml/       ← file linguaggio AIML opzionali
+        asset/      ← archiviazione media
+	     /avatar  ← immagini e video avatar
+	     /manual  ← documentazione myAssistente
+	     /plugin  ← plugin miniApp Javascript
+            </pre>
+
+<p>macOS, Windows e Linux (con Python installato): scarica myAssistente.py e la cartella <code>_dati</code>, quindi avvia myAssistente.py.</p>
+        </div>
+
+        <div class="card" id="contribute">
+            <section id="contribute">
+                <h2>🤝 Supporta il Progetto</h2>
+                <p>myAssistente è un progetto open-source sviluppato nel mio tempo libero. Se lo trovi utile, ci sono diversi modi per aiutarlo a crescere:</p>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <p>🎁 <strong>Offrimi un caffè:</strong> Un piccolo gesto per sostenere i costi di sviluppo.</p>
+                        <a href="https://www.paypal.com/pool/9nyLoeBeq8?sr=wccr">
+                            <img src="https://img.shields.io/badge/Donazione-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal">
+                        </a>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <p>📚 <strong>Scopri i miei libri:</strong> Un altro modo per supportarmi è dare un'occhiata ai miei lavori su Amazon.<br/>
+
+<button class="btn-primary" onclick="window.open('https://www.amazon.it/stores/Emanuele-Cassani/author/B08PPSZPG7')">Libri: Emanuele Cassani</button></p>
+                    </div>
+                </div>
+            </section>
+        <footer>
+            <p align="right">
+                © 2026 <a href="https://www.steppa.net/cassani/business_card.htm">Emanuele Cassani</a><br>
+                Progetto open-source creato con Python.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function ritorna() {
+            const ritorno = localStorage.getItem('ritorno') || '../list.html';
+            window.location.href = ritorno;
+        }
+    </script>
+</body>
+</html>

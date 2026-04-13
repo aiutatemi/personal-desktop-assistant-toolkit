@@ -1,0 +1,9 @@
+pages:
+  stage: deploy
+  script:
+    - echo "Niente da compilare"
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

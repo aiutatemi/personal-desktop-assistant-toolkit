@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myAssistente - Project Dashboard</title>
+    <meta name="author" content="Emanuele Cassani">
+    <meta name="description" content="myAssistente: Personal desktop assistant in Python. All data saved locally for maximum privacy protection. AIML compatible">
+    
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">MyAssistente</div>
+        <nav>
+            <a href="#intro">Project Overview</a>
+            <a href="#features">Features</a>
+            <a href="#avvio">Start myAssistente</a>
+            <a href="#contribute">Support the project</a>
+            <a href="https://gitlab.com/EmanueleCAS/assistente/-/blob/master/README.md?ref_type=heads">GitLab README</button>
+            <a href="https://www.steppa.net/cassani/articoli/myAssistente/myAssistenteENG.htm" target="_blank">Website</a>
+            <a href="https://www.steppa.net/cassani/business_cardENG.htm" target="_blank">Author</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        
+        <header class="header-top">
+            <h1>Project Dashboard</h1>
+            <button class="btn-primary" onclick="window.open('https://gitlab.com/EmanueleCAS/assistente')">GitLab Repo</button>
+        </header>
+
+        <div class="card">
+            <div style="display: flex; gap: 30px; flex-wrap: wrap;" id="intro">
+                <div style="flex: 0 0 250px;">
+                    <img src="img/default.jpg" alt="myAssistente image" width="250px" style="border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="text-align: center; margin-top: 15px;">
+                        <a href="index.html">🇬🇧 English</a> | <a href="indice.html">🇮🇹 Italiano</a>
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h1 id="assistente-personale">🤖 myAssistente</h1>
+                    <p style="margin-top: 10px;"><strong>Get started in 2 minutes</strong> — no account, no cloud, no installation required.</p>
+                    <ul style="font-size: 0.95rem; padding-left: 20px;">
+                        <li><strong>Privacy first</strong> Local data storage</li>
+                        <li>Fully configurable desktop assistant</li>
+                        <li><strong>External AI</strong> optional connection</li>
+                        <li><strong>AIML 1.x</strong> compatibility</li>
+                        <li><strong>Voice or text</strong> commands</li>
+                        <li><strong>Free to use</strong> <a href="#contribute">Donations</a> are welcome, but optional</li>
+                    </ul>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                        <a href="https://gitlab.com/EmanueleCAS/assistente" target="_blank" id="pulsante" style="background-color:#6A2C2C">Active Project on GitLab</a>
+                        <a href="https://gitlab.com/EmanueleCAS/assistente/-/tree/master/docs" id="pulsante" style="background-color:#4a4a4a">GitLAB Project Documentation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="features">
+            <section id="intro">
+                <p><strong>myAssistente</strong> is a project designed to give users back control over their data. Unlike commercial cloud assistants, it runs entirely on your computer, ensuring that your information never leaves your hard drive.</p>
+
+<p>Get started in 2 minutes — no account, no cloud, no installation procedure required (download, unzip, run).</p>
+
+            </section>
+
+            <h2>✨ Why Choose myAssistente?</h2>
+            <ul>
+                <li><strong>Total Privacy:</strong> Local data management through transparent JSON files (except Google Speech-to-Text and optional AI integration).🔒</li>
+                <li><strong>Customization:</strong> Fully configurable desktop assistant.</li>
+                <li><strong>Automation:</strong> Remember information, store media, open files, folders, programs and websites.</li>
+                <li><strong>Integration:</strong> Works with free miniApps: <b>myAgenda, myNote</b> and <b>myTodo</b>.</li>
+                <li><strong>Integration:</strong> Optional connection with external AI (API key required).</li>
+                <li><strong>AIML Parser:</strong> Full compatibility with AIML 1.x files to personalize the assistant's behaviour and comprehension.</li>
+                <li><strong>Voice or text commands</strong>, with multilingual support.</li>
+                <li><strong>Multi-language:</strong> Native support for over 15 languages. 🌍</li>
+            </ul>
+        </div>
+
+        <div class="card" id="avvio">
+            <h2>📦 Start myAssistente</h2>
+            <p>Download the latest release and extract the ZIP file (USB drives supported).</p>
+            <pre>
+myAssistente        ← main folder
+    myAssistente.exe  ← (Windows) launch here
+    myAssistente      ← (Linux) launch here
+    _dati/          ← configurable data folder
+        config.json ← configuration
+        memory.json ← memory file
+        plugins/    ← myAgenda, myNote, myTodo plugins
+        aiml/       ← optinal AIML language files
+        asset/      ← media storage
+	     /avatar  ← avatar images and video
+	     /manual  ← myAssistente documentation
+	     /plugin  ← plugin Javascript miniApp
+            </pre>
+
+<p>macOS, Windows, and Linux (with Python installed): download myAssistente.py and the <code>_dati</code> folder, then run myAssistente.py.</p>
+        </div>
+
+        <div class="card" id="contribute">
+            <section id="contribute">
+                <h2>🤝 Support the Project</h2>
+                <p>myAssistente is an open-source project developed in my spare time. If you find it useful, there are several ways to help it grow:</p>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <p>🎁 <strong>Buy me a coffee:</strong> A small gesture to support development costs.</p>
+                        <a href="https://www.paypal.com/pool/9nyLoeBeq8?sr=wccr">
+                            <img src="https://img.shields.io/badge/Donate-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal">
+                        </a>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <p>📚 <strong>Discover my books:</strong> Another way to support me is by checking out my work on Amazon.<br/>
+
+<button class="btn-primary" onclick="window.open('https://www.amazon.com/stores/Emanuele-Cassani/author/B08PPSZPG7')">Books: Emanuele Cassani</button></p>
+                    </div>
+                </div>
+            </section>
+        <footer>
+            <p align="right">
+                © 2026 <a href="https://www.steppa.net/cassani/business_cardENG.htm">Emanuele Cassani</a><br>
+                Open-source project created with Python.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function ritorna() {
+            const ritorno = localStorage.getItem('ritorno') || '../list.html';
+            window.location.href = ritorno;
+        }
+    </script>
+</body>
+</html>
