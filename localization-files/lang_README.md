@@ -1,6 +1,8 @@
 # 🌍 Available Languages
 
-## Release 5.2
+## Release 5.3
+
+Default languages included in the Windows 🪟 and Linux 🐧 packages:
 
 | ISO Code | Language (EN)            | File name          | Native name | Flag |
 |---------|---------------------------|--------------------|-------------|------|
@@ -10,7 +12,9 @@
 ---
 
 ## Release 5.1
-misses the following keys (add them manually to upgrade for myAssistente 5.2)
+
+The languages inserted in this folder misses the following keys
+(add them manually to upgrade for myAssistente 5.3):
 
   "avvio_aiml_trovati":     "Ho trovato {n} file AIML."
 

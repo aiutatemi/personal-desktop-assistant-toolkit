@@ -11,9 +11,18 @@ When English is selected, the assistant will automatically use these files.
 
 ## Notes
 
-The attribute `avatar="..."` inside the `template` tag is a proprietary extension of **myAssistente**. Add it to the standard file to specify which assistant avatar should be displayed.  
-If the attribute is omitted, one of the avatars defined in the `config.json` file will be selected at random.
+The attributes inside the `template` tag are proprietary extensions of **myAssistente**.
+Add them to the standard file to specify:
+- wich assistant avatar will be displayed
+- wich command myAssistente shuould run
+- wich lateral panel should be open (1) /closed (0)
+If the attribute avatar is omitted, one of the avatars defined in the `config.json` file will be selected at random.
 
 Other AIML parsers will simply ignore this attribute.
 
+---
+
+### Example
+
+       <template avatar="positivo" comando="apri posta"  menu="0010">
 ---

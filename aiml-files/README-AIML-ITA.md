@@ -9,10 +9,18 @@ Quando viene selezionata la lingua itliana, l’assistente utilizzerà automatic
 
 ## Note
 
-L’attributo `avatar="..."` all’interno del tag `template` è un’estensione proprietaria di **myAssistente**.  
-Aggiungilo ai file standard per specificare quale avatar dell’assistente deve essere visualizzato.  
-Se l’attributo non è presente, verrà scelto casualmente uno degli avatar definiti nel file `config.json`.
+Gli attributi all’interno del tag `template` sono estensioni proprietarie di **myAssistente**.  
+Aggiungile ai file standard per specificare:
+- quale avatar dell’assistente deve essere visualizzato
+- quale comando far eseruire a myAssistente
+- quale pannello laterale aprire (1)/chiudere (0)
+Quando l'attributo avatar manca, sarà scelto casualmente uno degli avatar definiti nel file `config.json`.
 
 Gli altri parser AIML ignoreranno semplicemente questo attributo.
 
+---
+
+### Esempio
+
+       <template avatar="positivo" comando="apri posta"  menu="0010">
 ---
