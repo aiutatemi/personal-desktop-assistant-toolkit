@@ -12,13 +12,15 @@
 ## Release 5.1
 misses the following keys (add them manually to upgrade for myAssistente 5.2)
 
-"avvio_aiml_trovati":     "Ho trovato {n} file AIML."
+  "avvio_aiml_trovati":     "Ho trovato {n} file AIML."
 
   "avvio_memoria_corrotta": "My memory is empty; the file was corrupted.",
   "avvio_config_creata": "I didn't find the configuration file, creating a new one.",
   "avvio_lingua_mancante": "I didn't find the language file, using the system language.",
   "avvio_aiml_trovati": "Found {n} AIML files.",
   
+  "plugin_avviso_dammi":   "\n\n⚠ Voce gestita da {plugin}. Per modificarla o cancellarla usa {plugin}.html.\nVuoi aprire {plugin}?",
+  "plugin_avviso_elimina": "'{nome}' è una voce di {plugin} e non può essere cancellata da qui.\nPer cancellarla apri {plugin}.html.\nVuoi aprire {plugin}?"
 
 | ISO Code | Language (EN)            | File name          | Native name | Flag |
 |---------|---------------------------|--------------------|-------------|------|

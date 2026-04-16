@@ -1,12 +1,9 @@
 [
   {
-    "nome": "TEst",
+    "nome": "Test",
     "dati": "5 aprile 2026 20:44",
     "soggetto": "svago",
-    "tag": [
-      "todo",
-      "svago"
-    ],
+    "tag": [ "todo", "svago" ],
     "_plugin": "todo",
     "_id": 1775414685142,
     "_data": "2026-04-05 20:44",

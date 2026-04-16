@@ -131,6 +131,9 @@
   "impara_prompt_tag":      "Tag (opzionale — es: famiglia, lavoro — scrivi 'salta' per saltare):",
   "impara_prompt_avatar":   "Avatar (opzionale — scrivi 'salta' per 'sorridente'):\n  sorridente · soddisfatto · triste · bibliotecaria · magazziniere · benvenuto",
 
+  "plugin_avviso_dammi":   "\n\n⚠ Voce gestita da {plugin}. Per modificarla o cancellarla usa {plugin}.html.\nVuoi aprire {plugin}?",
+  "plugin_avviso_elimina": "'{nome}' è una voce di {plugin} e non può essere cancellata da qui.\nPer cancellarla apri {plugin}.html.\nVuoi aprire {plugin}?",
+
   "aiuto_testo":          "Ecco quello che posso fare per te:\n\nmanuali    — apro i manuali\n\ntrova    — restituisco le informazioni salvate\napri     — apro un link salvato\ncerca    — cerco nella mia memoria\nelenca   — mostro tutto quello che ricordo\nconfigura — ti guido nella configurazione config.json\naiuto    — ti mostro questo messaggio\nesci     — chiudo il programma\n\nimpara — ti guido a inserire campo per campo\nricorda — salvo informazione in memoria\nricorda immagine — salvo immagine in memoria\nmodifica   — modifico una voce salvata\ncancella — rimuovo una voce dalla mia memoria\ncopia    — copio un dato negli appunti\n\nlingua   — cambio la lingua\n\nPuoi usare il pannello ▶ a destra, anche per i tuoi pulsanti personalizzati.",
 
   "non_capito":           "Purtroppo non ho capito che cosa devo fare. Mi aiuti?\nParole chiave: memorizza · apprendi · apri · trova · cerca\n               elenca · cambia · cancella · copia · esci · aiuto",

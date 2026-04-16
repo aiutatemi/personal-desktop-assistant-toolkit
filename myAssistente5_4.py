@@ -411,6 +411,8 @@ _LANG_IT_FALLBACK = {
     "elimina_ok": "'{nome}' eliminato.", 
     "elimina_annullato": "Eliminazione annullata.",
     "apri_plugin_annullato": "Apertura annullata.",
+    "plugin_avviso_dammi":   "⚠ Voce gestita da {plugin}. Per modificarla o cancellarla usa {plugin}.html.\nVuoi aprire {plugin}?",
+    "plugin_avviso_elimina": "'{nome}' è una voce di {plugin} e non può essere cancellata da qui.\nPer cancellarla apri {plugin}.html.\nVuoi aprire {plugin}?",
     "elimina_si": ["sì", "si", "s", "ok", "yes", "y"],
     "modifica_cosa": "Quale voce devo modificare?", 
     "modifica_non_trovato": "Purtroppo non ho trovato '{q}'.",
@@ -3166,9 +3168,7 @@ class Assistente:
                                nome=entry.get("nome", ""),
                                soggetto=entry.get("soggetto", "")) +
                        f"\n  {dati_fmt}" +
-                       f"\n\n⚠ Voce gestita da {plugin}. "
-                       f"Per modificarla o cancellarla usa {plugin}.html.\n"
-                       f"Vuoi aprire {plugin}?")
+                       "\n\n" + self._t("plugin_avviso_dammi", plugin=plugin))
                 self.stato = "attesa_apri_plugin"
                 self.dati_temp = {"plugin": plugin}
                 self._scrivi_risposta(msg)
@@ -3395,10 +3395,12 @@ class Assistente:
         plugin = self.dati_temp.get("plugin", "")
         self.dati_temp = {}
         if testo.strip().lower() in self._t("conferma_si"):
-            html = risolvi_percorso(f"{plugin}.html")
+            html = risolvi_percorso(f"_dati/asset/plugin/{plugin}.html")
             self._apri_link_diretto(html, plugin, {})
         else:
             self._scrivi_risposta(self._t("apri_plugin_annullato"))
+
+    def _cmd_elimina(self, parsed: dict):
         q = parsed.get("nome", "").strip()
         # Fallback: se il parser ha svuotato il nome (es. solo articoli), usa
         # la parte del testo originale dopo la keyword "elimina"
@@ -3424,10 +3426,8 @@ class Assistente:
         if risultati_plugin:
             entry = risultati_plugin[0]
             plugin = self._plugin_nome(entry)
-            msg = (f"'{entry.get('nome', q)}' è una voce di {plugin} "
-                   f"e non può essere cancellata da qui.\n"
-                   f"Per cancellarla apri {plugin}.html.\n"
-                   f"Vuoi aprire {plugin}?")
+            msg = self._t("plugin_avviso_elimina",
+                          nome=entry.get('nome', q), plugin=plugin)
             self.stato = "attesa_apri_plugin"
             self.dati_temp = {"plugin": plugin}
             self._scrivi_risposta(msg)

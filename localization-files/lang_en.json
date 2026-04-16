@@ -34,7 +34,7 @@
   "panel_configura":      "configure",
   "panel_aiuto":          "help",
   "panel_esci":           "exit",
-  "panel_sep_memoria":    "── MANAGE MEMORY ──",
+  "panel_sep_memoria":    "MEMORY",
   "panel_impara":         "learn",
   "panel_ricorda":        "remember ...",
   "panel_ricorda_img":    "remember image",
@@ -127,6 +127,9 @@
   "impara_prompt_dati":     "Data to memorize (mandatory):",
   "impara_prompt_tag":      "Tags (optional — 'skip' to skip):",
   "impara_prompt_avatar":   "Avatar (optional — 'skip' for 'smiling'):",
+
+"plugin_avviso_dammi":   "\n\n⚠ Managed by {plugin}. To edit or delete it, use {plugin}.html.\nDo you want to open {plugin}?",
+"plugin_avviso_elimina": "'{nome}' belongs to {plugin} and cannot be deleted from here.\nTo delete it, open {plugin}.html.\nDo you want to open {plugin}?",
 
   "configura_intro":      "Guided configuration. Available parameters:",
   "configura_chiedi_valore": "Enter new value for '{param}':",
